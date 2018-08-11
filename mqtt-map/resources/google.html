@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Google Map</title>
+    <style>
+         /* Always set the map height explicitly to define the size of the div
+        * element that contains the map. */
+         #map {
+             height: 100%;
+         }
+         /* Optional: Makes the sample page fill the window. */
+         html, body {
+             height: 100%;
+             margin: 0;
+             padding: 0;
+         }
+    </style>
+</head>
+<body>
+    <h1>Google Map</h1>
+    <div id="map"></div>
+    <script>
+        var map;
+        function initMap() {
+            var myLatLng = { lat: 50.784077, lng: 7.228756 };
+
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 15,
+                center: myLatLng
+            });
+        }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key={%YOUR_API_KEY%}&callback=initMap">
+    </script>
+    <script type="text/javascript">
+        var devices = {};
+        function get_elm() {
+            var colors = new Array(
+                "http://maps.google.com/mapfiles/ms/icons/green-dot.png",
+                "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+                "http://maps.google.com/mapfiles/ms/icons/purple-dot.png",
+                "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png",
+            );
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var obj = JSON.parse(this.responseText);
+                    var i = 0;
+                    for (var names in obj) {
+                        if (obj.hasOwnProperty(names)) {
+                            if (!devices.hasOwnProperty(names)) {
+                                devices[names] = 0;
+                            }
+                            var list = obj[names];
+                            var j = devices[names];
+                            for (var pos in list) {
+                                if (list.hasOwnProperty(pos)) {
+                                    var m = new google.maps.Marker({
+                                        icon: colors[i % colors.length],
+                                        position: new google.maps.LatLng(list[pos]["Latitude"], list[pos]["Longitude"]),
+                                        animation: google.maps.Animation.DROP
+                                    });
+                                    var infowindow = new google.maps.InfoWindow({
+                                        content: "<div>" +
+                                            "PacketRssi: " + list[pos]["PacketRssi"] + "<br>" +
+                                            "Rssi: " + list[pos]["Rssi"] + "<br>" +
+                                            "Snr: " + list[pos]["Snr"] + "<br>" +
+                                            "Upatedtime: " + list[pos]["Upatedtime"] + "<br>" +
+                                            "Hdop: " + list[pos]["Hdop"] + "<br>" +
+                                            "Satelites: " + list[pos]["Satelites"] + "<br>" +
+                                            "Fix: " + list[pos]["Fix"] + 
+                                            "</div>"
+                                    });
+                                    m.addListener('click', function () {
+                                        infowindow.open(map, m);
+                                    });
+                                    m.setMap(map);
+                                    j++;
+                                }
+                            }
+                            devices[names] = j;
+                            i++;
+                        }
+                    }
+                }
+            };
+            var qstring = "";
+            for (var item in devices) {
+                if (devices.hasOwnProperty(item)) {
+                    qstring += item + ":" + devices[item];
+                }
+            }
+            xhttp.open("GET", "http://{%REQUEST-PAGE%}:8080/loc?i="+qstring, true);
+            xhttp.send();
+        }
+        setInterval(get_elm, 5000);
+        
+    </script>
+</body>
+</html>
