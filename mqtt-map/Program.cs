@@ -7,7 +7,8 @@ using Fraunhofer.Fit.IoT.Bots.LoraBot.Moduls_broken;
 namespace mqtt_map {
   class Program {
     static void Main(String[] args) {
-      if(!InIReader.ConfigExist("settings")) {
+      InIReader.SetSearchPath(new List<String>() { "/etc/mqttmap", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\mqttmap" });
+      if (!InIReader.ConfigExist("settings")) {
         Console.WriteLine("settings.ini not found!");
         Console.ReadLine();
         return;

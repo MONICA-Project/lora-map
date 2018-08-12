@@ -69,7 +69,7 @@ namespace Fraunhofer.Fit.IoT.Bots.LoraBot.Moduls_broken {
     public Googlelocation(ADataBackend backend, Dictionary<String, String> settings) {
       this.config = settings;
       backend.MessageIncomming += this.Backend_MessageIncomming;
-      this._listener.Prefixes.Add("http://"+ this.config["prefix"] + ":8080/");
+      this._listener.Prefixes.Add(this.config["prefix"]);
       this._listener.Start();
       this.Run();
     }

@@ -16,19 +16,25 @@
              margin: 0;
              padding: 0;
          }
+        #title {
+            position: absolute;
+            z-index: 10000;
+            margin-left: 110px;
+            margin-top: 7px;
+            color: #e23232;
+        }
     </style>
 </head>
 <body>
-    <h1>Google Map</h1>
+    <h1 id="title">Mqtt-Map Monica</h1>
     <div id="map"></div>
     <script>
         var map;
+        var center_set = false;
         function initMap() {
-            var myLatLng = { lat: 50.784077, lng: 7.228756 };
-
             map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 15,
-                center: myLatLng
+                zoom: 3,
+                center: new google.maps.LatLng(0, 0)
             });
         }
     </script>
@@ -77,6 +83,11 @@
                                         infowindow.open(map, m);
                                     });
                                     m.setMap(map);
+                                    if (!center_set) {
+                                        map.setCenter(new google.maps.LatLng(list[pos]["Latitude"], list[pos]["Longitude"]));
+                                        smoothZoom(15, map.getZoom());
+                                        center_set = true;
+                                    }
                                     j++;
                                 }
                             }
@@ -96,6 +107,17 @@
             xhttp.send();
         }
         setInterval(get_elm, 5000);
+        function smoothZoom(max, current) {
+            if (current >= max) {
+                return;
+            } else {
+                var z = google.maps.event.addListener(map, 'zoom_changed', function (event) {
+                    google.maps.event.removeListener(z);
+                    smoothZoom(max, current + 1);
+                });
+                setTimeout(function () { map.setZoom(current) }, 150);
+            }
+        }
         
     </script>
 </body>

@@ -50,7 +50,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="app.manifest" />
     <None Include="settings.conf.example">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
