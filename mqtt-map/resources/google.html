@@ -70,12 +70,13 @@
                                     });
                                     var infowindow = new google.maps.InfoWindow({
                                         content: "<div>" +
+											"Name: " + names + "<br>" +
                                             "PacketRssi: " + list[pos]["PacketRssi"] + "<br>" +
                                             "Rssi: " + list[pos]["Rssi"] + "<br>" +
                                             "Snr: " + list[pos]["Snr"] + "<br>" +
                                             "Upatedtime: " + list[pos]["Upatedtime"] + "<br>" +
                                             "Hdop: " + list[pos]["Hdop"] + "<br>" +
-                                            "Satelites: " + list[pos]["Satelites"] + "<br>" +
+                                            "Battery: " + list[pos]["Battery"] + "<br>" +
                                             "Fix: " + list[pos]["Fix"] + 
                                             "</div>"
                                     });
@@ -102,8 +103,9 @@
                 if (devices.hasOwnProperty(item)) {
                     qstring += item + ":" + devices[item];
                 }
+				qstring += ";";
             }
-            xhttp.open("GET", "http://{%REQUEST-PAGE%}:8080/loc?i="+qstring, true);
+            xhttp.open("GET", "http://{%REQUEST-PAGE%}:8080/loc?i="+qstring.substr(0,qstring.length-1), true);
             xhttp.send();
         }
         setInterval(get_elm, 5000);

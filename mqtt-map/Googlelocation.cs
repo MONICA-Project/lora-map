@@ -14,7 +14,7 @@ using LitJson;
 namespace Fraunhofer.Fit.IoT.Bots.LoraBot.Moduls_broken {
   class Botclient {
 
-    public Botclient(Int32 paketrssi, Int32 rssi, Double snr, String updatetime, Double lat, Double lon, Double hdop, Int32 sat, Boolean fix) {
+    public Botclient(Int32 paketrssi, Int32 rssi, Double snr, String updatetime, Double lat, Double lon, Double hdop, Int32 battery, Boolean fix) {
       this.PacketRssi = paketrssi;
       this.Rssi = rssi;
       this.Snr = snr;
@@ -22,7 +22,7 @@ namespace Fraunhofer.Fit.IoT.Bots.LoraBot.Moduls_broken {
       this.Latitude = lat;
       this.Longitude = lon;
       this.Hdop = hdop;
-      this.Satelites = sat;
+      this.Battery = battery;
       this.Fix = fix;
     }
 
@@ -33,7 +33,7 @@ namespace Fraunhofer.Fit.IoT.Bots.LoraBot.Moduls_broken {
     public Double Latitude { get; private set; }
     public Double Longitude { get; private set; }
     public Double Hdop { get; private set; }
-    public Int32 Satelites { get; private set; }
+    public Int32 Battery { get; private set; }
     public Boolean Fix { get; private set; }
 
     public virtual Dictionary<String, Object> ToDictionary() {
@@ -80,16 +80,16 @@ namespace Fraunhofer.Fit.IoT.Bots.LoraBot.Moduls_broken {
         if (d.ContainsKey("PacketRssi") && d["PacketRssi"].IsInt
           && d.ContainsKey("Rssi") && d["Rssi"].IsInt
           && d.ContainsKey("Snr") && d["Snr"].IsDouble
-          && d.ContainsKey("Upatedtime") && d["Upatedtime"].IsString
+          && d.ContainsKey("Receivedtime") && d["Receivedtime"].IsString
+          && d.ContainsKey("BatteryLevel") && d["BatteryLevel"].IsInt
           && d.ContainsKey("Gps") && d["Gps"].IsObject
-          && d["Gps"].ContainsKey("Breitengrad") && d["Gps"]["Breitengrad"].IsDouble
-          && d["Gps"].ContainsKey("Laengengrad") && d["Gps"]["Laengengrad"].IsDouble
+          && d["Gps"].ContainsKey("Latitude") && d["Gps"]["Latitude"].IsDouble
+          && d["Gps"].ContainsKey("Longitude") && d["Gps"]["Longitude"].IsDouble
           && d["Gps"].ContainsKey("Hdop") && d["Gps"]["Hdop"].IsDouble
-          && d["Gps"].ContainsKey("Satelites") && d["Gps"]["Satelites"].IsInt
           && d["Gps"].ContainsKey("Fix") && d["Gps"]["Fix"].IsBoolean
           && d.ContainsKey("Name") && d["Name"].IsString) {
           String name = (String)d["Name"];
-          Botclient b = new Botclient((Int32)d["PacketRssi"], (Int32)d["Rssi"], (Double)d["Snr"], (String)d["Upatedtime"], (Double)d["Gps"]["Breitengrad"], (Double)d["Gps"]["Laengengrad"], (Double)d["Gps"]["Hdop"], (Int32)d["Gps"]["Satelites"], (Boolean)d["Gps"]["Fix"]);
+          Botclient b = new Botclient((Int32)d["PacketRssi"], (Int32)d["Rssi"], (Double)d["Snr"], (String)d["Receivedtime"], (Double)d["Gps"]["Latitude"], (Double)d["Gps"]["Longitude"], (Double)d["Gps"]["Hdop"], (Int32)d["BatteryLevel"], (Boolean)d["Gps"]["Fix"]);
           if (b.Fix) {
             if (this.locations.ContainsKey(name)) {
               this.locations[name].Add(b);
