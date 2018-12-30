@@ -6,6 +6,7 @@ using System.Net;
 using System.Reflection;
 using System.Text;
 using System.Threading;
+using BlubbFish.Utils;
 using BlubbFish.Utils.IoT.Bots;
 using BlubbFish.Utils.IoT.Connector;
 using BlubbFish.Utils.IoT.Events;
@@ -61,20 +62,13 @@ namespace Fraunhofer.Fit.IoT.Bots.LoraBot.Moduls_broken {
     }
   }
 
-  class Googlelocation {
-    private readonly HttpListener _listener = new HttpListener();
+  class Googlelocation : Webserver
+  {
     private readonly Dictionary<String, List<Botclient>> locations = new Dictionary<String, List<Botclient>>();
-    private readonly Dictionary<String, String> config;
+    
+    public Googlelocation(ADataBackend backend, Dictionary<String, String> settings, InIReader requests) : base(backend, settings, requests) { }
 
-    public Googlelocation(ADataBackend backend, Dictionary<String, String> settings) {
-      this.config = settings;
-      backend.MessageIncomming += this.Backend_MessageIncomming;
-      this._listener.Prefixes.Add(this.config["prefix"]);
-      this._listener.Start();
-      this.Run();
-    }
-
-    private void Backend_MessageIncomming(Object sender, BackendEvent e) {
+    protected override void Backend_MessageIncomming(Object sender, BackendEvent e) {
       try {
         JsonData d = JsonMapper.ToObject(e.Message);
         if (d.ContainsKey("PacketRssi") && d["PacketRssi"].IsInt
@@ -104,80 +98,22 @@ namespace Fraunhofer.Fit.IoT.Bots.LoraBot.Moduls_broken {
       } catch { }
     }
 
-    private void Run() {
-      ThreadPool.QueueUserWorkItem((o) => {
-        Console.WriteLine("Webserver is Running...");
+    protected override void SendResponse(HttpListenerContext cont) {
+      if (cont.Request.Url.PathAndQuery.StartsWith("/loc")) {
         try {
-          while(this._listener.IsListening) {
-            ThreadPool.QueueUserWorkItem((c) => {
-              HttpListenerContext ctx = c as HttpListenerContext;
-              try {
-                String rstr = this.SendResponse(ctx.Request);
-                Byte[] buf = Encoding.UTF8.GetBytes(rstr);
-                ctx.Response.ContentLength64 = buf.Length;
-                ctx.Response.OutputStream.Write(buf, 0, buf.Length);
-              }
-              catch { }
-              finally {
-                ctx.Response.OutputStream.Close();
-              }
-            }, this._listener.GetContext());
-          }
-        } 
-        catch { };
-      });
-    }
-
-    private String SendResponse(HttpListenerRequest request) {
-      if(request.Url.PathAndQuery == "/") {
-        if(File.Exists("resources/google.html")) {
-          try {
-            String file = File.ReadAllText("resources/google.html");
-            file = file.Replace("{%YOUR_API_KEY%}", this.config["api_key"]);
-            file = file.Replace("{%REQUEST-PAGE%}", request.Url.Host);
-            return file;
-          }
-          catch { return "500";  }
-        }
-        return "404";
-      }
-      if (request.Url.PathAndQuery.StartsWith("/loc?i=")) {
-        try {
-          String requeststrings = request.Url.PathAndQuery.Substring(7);
-          Dictionary<String, Int32> requestquerys = new Dictionary<String, Int32>();
-          if (requeststrings.Length != 0) {
-            foreach (String requeststring in requeststrings.Split(';')) {
-              String[] item = requeststring.Split(':');
-              requestquerys.Add(item[0], Int32.Parse(item[1]));
-
-            }
-          }
           Dictionary<String, Object> ret = new Dictionary<String, Object>();
-          foreach (KeyValuePair<String, List<Botclient>> devices in this.locations) {
-            if(!requestquerys.ContainsKey(devices.Key) || (requestquerys.ContainsKey(devices.Key) && devices.Value.Count > requestquerys[devices.Key])) {
-              Int32 qindex = requestquerys.ContainsKey(devices.Key)?requestquerys[devices.Key]:0;
-              Dictionary<String, Object> subret = new Dictionary<String, Object>();
-              Int32 i = 0;
-              List<Botclient> sub = devices.Value.GetRange(qindex, devices.Value.Count - qindex);
-              foreach (Botclient item in sub) {
-                subret.Add(i++.ToString(), item);
-              }
-              ret.Add(devices.Key, subret);
-            }
-          }
-          Console.WriteLine("Koordiante abgefragt!");
-          return JsonMapper.ToJson(ret);
-        } catch {
-          return "{}";
-        }  
+          Byte[] buf = Encoding.UTF8.GetBytes(JsonMapper.ToJson(this.locations));
+          cont.Response.ContentLength64 = buf.Length;
+          cont.Response.OutputStream.Write(buf, 0, buf.Length);
+          Console.WriteLine("200 - " + cont.Request.Url.PathAndQuery);
+          return;
+        } catch (Exception e) {
+          Helper.WriteError("500 - " + e.Message);
+          cont.Response.StatusCode = 500;
+          return;
+        }
       }
-      return "<h1>Works</h1>"+ request.Url.PathAndQuery;
+      base.SendResponse(cont);
     }
-
-    public void Dispose() {
-      this._listener.Stop();
-      this._listener.Close();
-    }
-    
   }
 }

@@ -51,12 +51,42 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />
-    <None Include="settings.conf.example">
+    <None Include="config-example\settings.conf.example">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="resources\js\leaflet\leaflet-src.esm.js.map" />
+    <None Include="resources\js\leaflet\leaflet-src.js.map" />
+    <None Include="resources\js\leaflet\leaflet.js.map" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="resources\google.html">
+    <Content Include="resources\css\global.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="resources\js\leaflet\images\layers-2x.png" />
+    <Content Include="resources\js\leaflet\images\layers.png" />
+    <Content Include="resources\js\leaflet\images\marker-icon-2x.png" />
+    <Content Include="resources\js\leaflet\images\marker-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="resources\js\leaflet\images\marker-shadow.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="resources\js\leaflet\leaflet-src.esm.js" />
+    <Content Include="resources\js\leaflet\leaflet-src.js" />
+    <Content Include="resources\js\leaflet\leaflet.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="resources\js\leaflet\leaflet.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="resources\js\nav.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="config-example\requests.conf.example" />
+    <Content Include="resources\favicon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="resources\index.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

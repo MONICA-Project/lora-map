@@ -1,0 +1,20 @@
+﻿/* Always set the map height explicitly to define the size of the div
+        * element that contains the map. */
+#bigmap {
+    height: 100%;
+}
+
+/* Optional: Makes the sample page fill the window. */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#title {
+    position: absolute;
+    z-index: 10000;
+    margin-left: 110px;
+    margin-top: 7px;
+    color: #e23232;
+}

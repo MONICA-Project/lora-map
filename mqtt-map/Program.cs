@@ -13,9 +13,14 @@ namespace mqtt_map {
         Console.ReadLine();
         return;
       }
+      if(!InIReader.ConfigExist("requests")) {
+        Console.WriteLine("requests.ini not found!");
+        Console.ReadLine();
+        return;
+      }
       InIReader ini = InIReader.GetInstance("settings");
       ADataBackend b = (ADataBackend)ABackend.GetInstance(ini.GetSection("mqtt"), ABackend.BackendType.Data);
-      new Googlelocation(b, ini.GetSection("google"));
+      new Googlelocation(b, ini.GetSection("google"), InIReader.GetInstance("requests"));
       while(true) {
         System.Threading.Thread.Sleep(1000);
       }
