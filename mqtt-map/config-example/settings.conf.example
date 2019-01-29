@@ -2,6 +2,5 @@
 type=mqtt
 server=127.0.0.1
 
-[google]
-api_key=abc
+[webserver]
 prefix=http://+:8080/

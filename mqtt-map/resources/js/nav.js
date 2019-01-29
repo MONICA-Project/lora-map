@@ -1,4 +1,4 @@
-﻿var mymap = L.map('bigmap').setView([51.396851, 12.401617], 15);
+﻿var mymap = L.map('bigmap').setView([{%START_LOCATION%}], 14);
 
 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
   attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -16,16 +16,17 @@ function datarunner() {
   xhttp.open("GET", "http://{%REQUEST_URL_HOST%}:8080/loc", true);
   xhttp.send();
 }
-
+//https://leafletjs.com/reference-1.4.0.html#marker
 function parsedata() {
   if (this.readyState == 4 && this.status == 200) {
-    var obj = JSON.parse(this.responseText);
-    for (var names in obj) {
-      if (obj.hasOwnProperty(names)) {
-        var markeritem = obj[names];
-
-        if (!markers.hasOwnProperty(names)) {
-          markers[names] = L.marker([51.396851, 12.401617]).addTo(mymap);
+    var items = JSON.parse(this.responseText);
+    for (var key in items) {
+      if (items.hasOwnProperty(key)) {
+        var markeritem = items[key];
+        if (!markers.hasOwnProperty(key)) {
+          markers[key] = L.marker([markeritem['Latitude'], markeritem['Longitude']]).addTo(mymap);
+        } else {
+          markers[key].setLatLng([markeritem['Latitude'], markeritem['Longitude']]);
         }
       }
     }
