@@ -100,19 +100,19 @@
       <Project>{a11aef5a-b246-4fe8-8330-06db73cc8074}</Project>
       <Name>M2Mqtt_4.7.1</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Utils\Bot-Utils\Bot-Utils.csproj">
+    <ProjectReference Include="..\..\Utils\Bot-Utils\Bot-Utils\Bot-Utils.csproj">
       <Project>{bb7bfcb5-3db0-49e1-802a-3ce3eecc59f9}</Project>
       <Name>Bot-Utils</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Utils\IoT\Connector\Data\Mqtt\ConnectorDataMqtt.csproj">
+    <ProjectReference Include="..\..\Utils\ConnectorDataMqtt\ConnectorDataMqtt\ConnectorDataMqtt.csproj">
       <Project>{ee6c8f68-ed46-4c1c-abdd-cfcdf75104f2}</Project>
       <Name>ConnectorDataMqtt</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Utils\IoT\Utils-IoT.csproj">
+    <ProjectReference Include="..\..\Utils\Utils-IoT\Utils-IoT\Utils-IoT.csproj">
       <Project>{b870e4d5-6806-4a0b-b233-8907eedc5afc}</Project>
       <Name>Utils-IoT</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Utils\Utils\Utils.csproj">
+    <ProjectReference Include="..\..\Utils\Utils\Utils\Utils.csproj">
       <Project>{fac8ce64-bf13-4ece-8097-aeb5dd060098}</Project>
       <Name>Utils</Name>
     </ProjectReference>
