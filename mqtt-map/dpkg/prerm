@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [[ $(systemctl is-active loramap || true) == "active" ]]
+then
+    touch /tmp/loramap_service_runner
+    service loramap stop
+fi

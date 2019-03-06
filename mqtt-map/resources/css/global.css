@@ -11,10 +11,17 @@ html, body {
     padding: 0;
 }
 
-#title {
+#menucollumn {
+    width: 32px;
+    background-color: white;
     position: absolute;
-    z-index: 10000;
-    margin-left: 110px;
-    margin-top: 7px;
-    color: #e23232;
+    top: 10px;
+    bottom: 10px;
+    left: 10px;
+}
+
+#menucollumn .pos {
+    display: block;
+    height: 32px;
+    width: 32px;
 }

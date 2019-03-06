@@ -1,0 +1,20 @@
+# If you modify this, please also make sure to edit init.sh
+
+[Unit]
+Description=Lora-Map
+After=network-online.target
+
+[Service]
+User=root
+Group=root
+WorkingDirectory=/usr/local/bin/loramap
+ExecStart=/usr/bin/mono /usr/local/bin/loramap/Lora-Map.exe
+KillMode=control-group
+TimeoutStopSec=5
+Restart=on-failure
+StandardOutput=null
+StandardError=syslog
+
+[Install]
+WantedBy=multi-user.target
+Alias=lorabot.service
