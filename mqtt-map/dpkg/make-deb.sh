@@ -39,6 +39,8 @@ find $OUTPUT -name \*.dll -exec cp {} $EXEC/ \;
 chmod 644 $EXEC/*
 chmod 755 $EXEC
 
+cp $OUTPUT/resources $EXEC -r
+
 cp $OUTPUT/config-example/* $CONFIG
 chmod 644 $CONFIG/*
 chmod 755 $CONFIG

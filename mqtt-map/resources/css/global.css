@@ -12,12 +12,15 @@ html, body {
 }
 
 #menucollumn {
-    width: 32px;
+    width: 30px;
     background-color: white;
     position: absolute;
-    top: 10px;
+    top: 85px;
     bottom: 10px;
     left: 10px;
+    z-index: 5000;
+    border: rgba(0,0,0,0.5) 2px solid;
+    border-radius: 4px
 }
 
 #menucollumn .pos {

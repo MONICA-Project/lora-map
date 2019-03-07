@@ -17,4 +17,4 @@ StandardError=syslog
 
 [Install]
 WantedBy=multi-user.target
-Alias=lorabot.service
+Alias=loramap.service
