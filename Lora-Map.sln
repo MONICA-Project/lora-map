@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bot-Utils", "..\Utils\Bot-U
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utils", "..\Utils\Utils\Utils\Utils.csproj", "{FAC8CE64-BF13-4ECE-8097-AEB5DD060098}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mono.Posix", "..\Librarys\Mono.Posix\Mono.Posix\Mono.Posix.csproj", "{E2CA132E-E85C-40AD-BE94-B138AA68772B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{FAC8CE64-BF13-4ECE-8097-AEB5DD060098}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FAC8CE64-BF13-4ECE-8097-AEB5DD060098}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FAC8CE64-BF13-4ECE-8097-AEB5DD060098}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2CA132E-E85C-40AD-BE94-B138AA68772B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2CA132E-E85C-40AD-BE94-B138AA68772B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2CA132E-E85C-40AD-BE94-B138AA68772B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2CA132E-E85C-40AD-BE94-B138AA68772B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

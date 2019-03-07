@@ -7,7 +7,7 @@
     <ProjectGuid>{95D6F48A-9488-42A6-A973-941B45B26DB8}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>Fraunhofer.Fit.IoT.MqttMap</RootNamespace>
-    <AssemblyName>mqttmap</AssemblyName>
+    <AssemblyName>Lora-Map</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -55,6 +55,14 @@
     <None Include="config-example\settings.conf.example">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="dpkg\control" />
+    <None Include="dpkg\create-Builds.bat" />
+    <None Include="dpkg\loramap-logrotate" />
+    <None Include="dpkg\loramap.service" />
+    <None Include="dpkg\make-deb.sh" />
+    <None Include="dpkg\postinst" />
+    <None Include="dpkg\preinst" />
+    <None Include="dpkg\prerm" />
     <None Include="resources\js\leaflet\leaflet-src.esm.js.map" />
     <None Include="resources\js\leaflet\leaflet-src.js.map" />
     <None Include="resources\js\leaflet\leaflet.js.map" />
@@ -83,7 +91,9 @@
     <Content Include="resources\js\nav.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="config-example\requests.conf.example" />
+    <None Include="config-example\requests.conf.example">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="resources\favicon.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

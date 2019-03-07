@@ -1,33 +1,63 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Reflection;
 using BlubbFish.Utils;
+using LitJson;
 
 namespace Fraunhofer.Fit.IoT.MqttMap.Model {
   class Botclient {
 
-    public Botclient(Int32 paketrssi, Int32 rssi, Double snr, String updatetime, Double lat, Double lon, Double hdop, Double battery, Boolean fix) {
-      this.PacketRssi = paketrssi;
-      this.Rssi = rssi;
-      this.Snr = snr;
-      this.Upatedtime = updatetime;
-      this.Latitude = lat;
-      this.Longitude = lon;
-      this.Hdop = hdop;
-      this.Battery = battery;
-      this.Fix = fix;
+    public Botclient(JsonData json) {
+      if (json.ContainsKey("Rssi") && json["Rssi"].IsDouble) {
+        this.Rssi = (Double)json["Rssi"];
+      }
+      if(json.ContainsKey("Snr") && json["Snr"].IsDouble) {
+        this.Snr = (Double)json["Snr"];
+      }
+      if (json.ContainsKey("Receivedtime") && json["Receivedtime"].IsString) {
+        if (DateTime.TryParse((String)json["Receivedtime"], DateTimeFormatInfo.InvariantInfo, DateTimeStyles.AssumeLocal, out DateTime updatetime)) {
+          this.Upatedtime = updatetime;
+        }
+      }
+      if(json.ContainsKey("BatteryLevel") && json["BatteryLevel"].IsDouble) {
+        this.Battery = Math.Round((Double)json["BatteryLevel"],2);
+      }
+      if(json.ContainsKey("Gps") && json["Gps"].IsObject) {
+        if(json["Gps"].ContainsKey("Latitude") && json["Gps"]["Latitude"].IsDouble) {
+          this.Latitude = (Double)json["Gps"]["Latitude"];
+        }
+        if(json["Gps"].ContainsKey("Longitude") && json["Gps"]["Longitude"].IsDouble) {
+          this.Longitude = (Double)json["Gps"]["Longitude"];
+        }
+        if(json["Gps"].ContainsKey("Fix") && json["Gps"]["Fix"].IsBoolean) {
+          this.Fix = (Boolean)json["Gps"]["Fix"];
+        }
+        if(json["Gps"].ContainsKey("LastLatitude") && json["Gps"]["LastLatitude"].IsDouble && !this.Fix) {
+          this.Latitude = (Double)json["Gps"]["LastLatitude"];
+        }
+        if(json["Gps"].ContainsKey("LastLongitude") && json["Gps"]["LastLongitude"].IsDouble && !this.Fix) {
+          this.Longitude = (Double)json["Gps"]["LastLongitude"];
+        }
+        if(json["Gps"].ContainsKey("Hdop") && json["Gps"]["Hdop"].IsDouble) {
+          this.Hdop = (Double)json["Gps"]["Hdop"];
+        }
+        if(json["Gps"].ContainsKey("Height") && json["Gps"]["Height"].IsDouble) {
+          this.Height = (Double)json["Gps"]["Height"];
+        }
+      }
     }
 
-    public Int32 PacketRssi { get; private set; }
-    public Int32 Rssi { get; private set; }
+    public Double Rssi { get; private set; }
     public Double Snr { get; private set; }
-    public String Upatedtime { get; private set; }
+    public DateTime Upatedtime { get; private set; }
     public Double Latitude { get; private set; }
     public Double Longitude { get; private set; }
     public Double Hdop { get; private set; }
     public Double Battery { get; private set; }
     public Boolean Fix { get; private set; }
+    public Double Height { get; private set; }
 
     public virtual Dictionary<String, Object> ToDictionary() {
       Dictionary<String, Object> dictionary = new Dictionary<String, Object>();

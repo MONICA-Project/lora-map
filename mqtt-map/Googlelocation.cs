@@ -21,20 +21,22 @@ namespace Fraunhofer.Fit.IoT.MqttMap {
     protected override void Backend_MessageIncomming(Object sender, BackendEvent e) {
       try {
         JsonData d = JsonMapper.ToObject(e.Message);
-        if (d.ContainsKey("PacketRssi") && d["PacketRssi"].IsInt
-          && d.ContainsKey("Rssi") && d["Rssi"].IsInt
+        if (d.ContainsKey("Rssi") && d["Rssi"].IsDouble
           && d.ContainsKey("Snr") && d["Snr"].IsDouble
           && d.ContainsKey("Receivedtime") && d["Receivedtime"].IsString
           && d.ContainsKey("BatteryLevel") && d["BatteryLevel"].IsDouble
           && d.ContainsKey("Gps") && d["Gps"].IsObject
           && d["Gps"].ContainsKey("Latitude") && d["Gps"]["Latitude"].IsDouble
           && d["Gps"].ContainsKey("Longitude") && d["Gps"]["Longitude"].IsDouble
+          && d["Gps"].ContainsKey("LastLatitude") && d["Gps"]["LastLatitude"].IsDouble
+          && d["Gps"].ContainsKey("LastLongitude") && d["Gps"]["LastLongitude"].IsDouble
           && d["Gps"].ContainsKey("Hdop") && d["Gps"]["Hdop"].IsDouble
           && d["Gps"].ContainsKey("Fix") && d["Gps"]["Fix"].IsBoolean
+          && d["Gps"].ContainsKey("Height") && d["Gps"]["Height"].IsDouble
           && d.ContainsKey("Name") && d["Name"].IsString) {
           String name = (String)d["Name"];
-          Botclient b = new Botclient((Int32)d["PacketRssi"], (Int32)d["Rssi"], (Double)d["Snr"], (String)d["Receivedtime"], (Double)d["Gps"]["Latitude"], (Double)d["Gps"]["Longitude"], (Double)d["Gps"]["Hdop"], (Double)d["BatteryLevel"], (Boolean)d["Gps"]["Fix"]);
-          if (b.Fix) {
+          Botclient b = new Botclient(d);
+          if (b.Fix || b.Longitude != 0 || b.Latitude != 0) {
             if (this.locations.ContainsKey(name)) {
               this.locations[name] = b;
             } else {
@@ -45,7 +47,9 @@ namespace Fraunhofer.Fit.IoT.MqttMap {
             Console.WriteLine("Daten erhalten! (Kein Fix)");
           }
         }
-      } catch { }
+      } catch(Exception ex) {
+        Helper.WriteError(ex.Message);
+      }
     }
 
     protected override void SendResponse(HttpListenerContext cont) {

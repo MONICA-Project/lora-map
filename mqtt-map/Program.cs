@@ -6,14 +6,14 @@ using BlubbFish.Utils.IoT.Connector;
 namespace Fraunhofer.Fit.IoT.MqttMap {
   class Program {
     static void Main(String[] args) {
-      InIReader.SetSearchPath(new List<String>() { "/etc/mqttmap", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\mqttmap" });
+      InIReader.SetSearchPath(new List<String>() { "/etc/loramap", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\loramap" });
       if (!InIReader.ConfigExist("settings")) {
-        Console.WriteLine("settings.ini not found!");
+        Helper.WriteError("settings.ini not found!");
         Console.ReadLine();
         return;
       }
       if(!InIReader.ConfigExist("requests")) {
-        Console.WriteLine("requests.ini not found!");
+        Helper.WriteError("requests.ini not found!");
         Console.ReadLine();
         return;
       }

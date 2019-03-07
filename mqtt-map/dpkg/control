@@ -1,0 +1,9 @@
+Package: loramap
+Version: x.x-x
+Section: base
+Priority: optional
+Architecture: any
+Depends: mono-runtime (>= 5.18), libmono-posix4.0-cil (>= 5.18)
+Maintainer: BlubbFish <dev@blubbfish.net>
+Description: Lora-Map
+ Lora-Map shows a Map to control the Lora Tracker

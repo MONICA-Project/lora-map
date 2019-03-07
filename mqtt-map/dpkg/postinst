@@ -1,0 +1,9 @@
+#!/bin/bash
+
+systemctl enable loramap
+systemctl daemon-reload
+
+if [ -f /tmp/loramap_service_runner ]; then
+    service loramap start
+    rm /tmp/loramap_service_runner
+fi

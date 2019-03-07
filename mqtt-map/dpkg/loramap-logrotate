@@ -1,0 +1,10 @@
+/var/log/loramap.log {
+	compress
+	copytruncate
+	daily
+	delaycompress
+	missingok
+	notifempty
+	rotate 4
+	size=10M
+}

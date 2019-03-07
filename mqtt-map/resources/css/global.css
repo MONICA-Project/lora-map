@@ -11,10 +11,20 @@ html, body {
     padding: 0;
 }
 
-#title {
+#menucollumn {
+    width: 30px;
+    background-color: white;
     position: absolute;
-    z-index: 10000;
-    margin-left: 110px;
-    margin-top: 7px;
-    color: #e23232;
+    top: 85px;
+    bottom: 10px;
+    left: 10px;
+    z-index: 5000;
+    border: rgba(0,0,0,0.5) 2px solid;
+    border-radius: 4px
+}
+
+#menucollumn .pos {
+    display: block;
+    height: 32px;
+    width: 32px;
 }
