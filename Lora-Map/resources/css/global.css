@@ -26,8 +26,9 @@ html, body {
 
 #menucollumn .pos {
     display: block;
-    height: 32px;
-    width: 32px;
+    height: 30px;
+    width: 30px;
+    background-image: url("icons/marker.png");
 }
 
 #version {
@@ -41,4 +42,40 @@ html, body {
     width: 40px;
     border: #707070 2px solid;
     border: rgba(0,0,0,0.4) 2px solid;
+}
+
+#pannels {
+    position: absolute;
+    top: 85px;
+    left: 45px;
+    bottom: 35px;
+    width: 250px;
+    z-index: 50000;
+    background-color: white;
+    border: #707070 2px solid;
+    border: rgba(0,0,0,0.4) 2px solid;
+    border-radius: 4px;
+    display: none;
+}
+#pannels #pannels_pos {
+    display: none;
+}
+#pannels #pannels_pos .item {
+    margin: 4px;
+    font-size: 11px;
+    font-family: Verdana;
+}
+#pannels #pannels_pos .item .color {
+    float: left;
+    width: 2px;
+    height: 38px;
+}
+#pannels #pannels_pos .item .icon {
+    float: left;
+    height: 38px;
+    width: 40px;
+    margin-right: 5px;
+}
+#pannels #pannels_pos .item .line1 .name {
+    font-weight: bold;
 }
