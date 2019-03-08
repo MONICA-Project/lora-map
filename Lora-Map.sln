@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2026
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mora-Map", "mqtt-map\Lora-Map.csproj", "{95D6F48A-9488-42A6-A973-941B45B26DB8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mora-Map", "Lora-Map\Lora-Map.csproj", "{95D6F48A-9488-42A6-A973-941B45B26DB8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utils-IoT", "..\Utils\Utils-IoT\Utils-IoT\Utils-IoT.csproj", "{B870E4D5-6806-4A0B-B233-8907EEDC5AFC}"
 EndProject
