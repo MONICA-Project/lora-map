@@ -19,7 +19,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
       }
       InIReader ini = InIReader.GetInstance("settings");
       ADataBackend b = (ADataBackend)ABackend.GetInstance(ini.GetSection("mqtt"), ABackend.BackendType.Data);
-      new Googlelocation(b, ini.GetSection("webserver"), InIReader.GetInstance("requests"));
+      new Server(b, ini.GetSection("webserver"), InIReader.GetInstance("requests"));
       while(true) {
         System.Threading.Thread.Sleep(1000);
       }

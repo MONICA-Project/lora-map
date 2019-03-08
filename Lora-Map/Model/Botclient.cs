@@ -25,10 +25,14 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
         this.Battery = Math.Round((Double)json["BatteryLevel"], 2);
         if(this.Battery < 3) {
           this.Batterysimple = 0;
-        } else if(this.Battery < 3.5) {
+        } else if(this.Battery < 3.2) {
           this.Batterysimple = 1;
-        } else {
+        } else if(this.Battery < 3.5) {
           this.Batterysimple = 2;
+        } else if(this.Battery < 3.8) {
+          this.Batterysimple = 3;
+        } else {
+          this.Batterysimple = 4;
         }
       }
       if (json.ContainsKey("Gps") && json["Gps"].IsObject) {

@@ -10,13 +10,11 @@ using Fraunhofer.Fit.IoT.LoraMap.Model;
 using LitJson;
 
 namespace Fraunhofer.Fit.IoT.LoraMap {
-
-
-  class Googlelocation : Webserver
+  class Server : Webserver
   {
-    private readonly Dictionary<String, Botclient> locations = new Dictionary<String, Botclient>();
+    private readonly SortedDictionary<String, Botclient> locations = new SortedDictionary<String, Botclient>();
     
-    public Googlelocation(ADataBackend backend, Dictionary<String, String> settings, InIReader requests) : base(backend, settings, requests) { }
+    public Server(ADataBackend backend, Dictionary<String, String> settings, InIReader requests) : base(backend, settings, requests) { }
 
     protected override void Backend_MessageIncomming(Object sender, BackendEvent e) {
       try {

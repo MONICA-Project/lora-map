@@ -6,76 +6,88 @@
 
 /* Optional: Makes the sample page fill the window. */
 html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 #menucollumn {
-    width: 30px;
-    background-color: white;
-    position: absolute;
-    top: 85px;
-    bottom: 35px;
-    left: 10px;
-    z-index: 5000;
-    border: #707070 2px solid;
-    border: rgba(0,0,0,0.4) 2px solid;
-    border-radius: 4px
+  width: 30px;
+  background-color: white;
+  position: absolute;
+  top: 85px;
+  bottom: 35px;
+  left: 10px;
+  z-index: 5000;
+  border: #707070 2px solid;
+  border: rgba(0,0,0,0.4) 2px solid;
+  border-radius: 4px
 }
-
 #menucollumn .pos {
-    display: block;
-    height: 30px;
-    width: 30px;
-    background-image: url("icons/marker.png");
+  display: block;
+  height: 30px;
+  width: 30px;
+  background-image: url("icons/marker.png");
 }
 
 #version {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    z-index: 50000;
-    background-color: white;
-    border-radius: 5px;
-    height: 20px;
-    width: 40px;
-    border: #707070 2px solid;
-    border: rgba(0,0,0,0.4) 2px solid;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 50000;
+  background-color: white;
+  border-radius: 5px;
+  height: 20px;
+  width: 40px;
+  border: #707070 2px solid;
+  border: rgba(0,0,0,0.4) 2px solid;
 }
 
 #pannels {
-    position: absolute;
-    top: 85px;
-    left: 45px;
-    bottom: 35px;
-    width: 250px;
-    z-index: 50000;
-    background-color: white;
-    border: #707070 2px solid;
-    border: rgba(0,0,0,0.4) 2px solid;
-    border-radius: 4px;
-    display: none;
+  position: absolute;
+  top: 85px;
+  left: 45px;
+  bottom: 35px;
+  width: 250px;
+  z-index: 50000;
+  background-color: white;
+  border: #707070 2px solid;
+  border: rgba(0,0,0,0.4) 2px solid;
+  border-radius: 4px;
+  display: none;
 }
 #pannels #pannels_pos {
-    display: none;
+  display: none;
 }
 #pannels #pannels_pos .item {
-    margin: 4px;
-    font-size: 11px;
-    font-family: Verdana;
+  margin: 4px;
+  font-size: 11px;
+  font-family: Verdana;
 }
 #pannels #pannels_pos .item .color {
-    float: left;
-    width: 2px;
-    height: 38px;
+  float: left;
+  width: 2px;
+  height: 38px;
 }
 #pannels #pannels_pos .item .icon {
-    float: left;
-    height: 38px;
-    width: 40px;
-    margin-right: 5px;
+  float: left;
+  height: 38px;
+  width: 40px;
+  margin-right: 5px;
+}
+#pannels #pannels_pos .item .icon img {
+  height: 40px;
+  width: 40px;
+  margin-left: 3px;
 }
 #pannels #pannels_pos .item .line1 .name {
-    font-weight: bold;
+  font-weight: bold;
+}
+#pannels #pannels_pos .item .line1 .akku img {
+  vertical-align: middle;
+  margin-left: 5px;
+}
+
+#pannels #pannel_info {
+  display: none;
 }
