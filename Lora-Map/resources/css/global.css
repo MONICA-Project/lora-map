@@ -55,14 +55,14 @@ html, body {
   border: rgba(0,0,0,0.4) 2px solid;
   border-radius: 4px;
   display: none;
+  font-size: 11px;
+  font-family: Verdana;
 }
 #pannels #pannels_pos {
   display: none;
 }
 #pannels #pannels_pos .item {
   margin: 4px;
-  font-size: 11px;
-  font-family: Verdana;
 }
 #pannels #pannels_pos .item .color {
   float: left;
@@ -88,6 +88,32 @@ html, body {
   margin-left: 5px;
 }
 
-#pannels #pannel_info {
+#pannels #pannels_info {
   display: none;
+  padding: 5px;
+}
+#pannels #pannels_info .bold {
+  font-weight: bold;
+}
+#pannels #pannels_info .name {
+  font-size: 16px;
+}
+#pannels #pannels_info .batt {
+  margin-bottom: 10px;
+}
+#pannels #pannels_info .batt img {
+  vertical-align: middle;
+}
+#pannels #pannels_info .gps {
+  font-size: 20px;
+}
+#pannels #pannels_info .coord {
+  font-family: monospace;
+  font-size: 14px;
+}
+#pannels #pannels_info .hdop {
+  margin-bottom: 10px;
+}
+#pannels #pannels_info .update {
+  margin-bottom: 10px;
 }
