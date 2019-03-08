@@ -24,14 +24,81 @@ function parsedata() {
     for (var key in items) {
       if (items.hasOwnProperty(key)) {
         var markeritem = items[key];
-        if (!markers.hasOwnProperty(key)) {
-          markers[key] = L.marker([markeritem['Latitude'], markeritem['Longitude']]).addTo(mymap);
-        } else {
-          markers[key].setLatLng([markeritem['Latitude'], markeritem['Longitude']]);
+        if (markeritem['Latitude'] != 0 || markeritem['Longitude'] != 0) {
+          if (!markers.hasOwnProperty(key)) {
+            markers[key] = L.marker([markeritem['Latitude'], markeritem['Longitude']]).addTo(mymap);
+          } else {
+            markers[key].setLatLng([markeritem['Latitude'], markeritem['Longitude']]);
+          }
         }
       }
     }
+    parseStatus(items);
   }
+}
+
+function parseStatus(items) {
+  document.getElementById("pannels_pos").innerHTML = "";
+  for (var name in items) {
+    if (items.hasOwnProperty(name)) {
+      var markeritem = items[name];
+      var divItem = document.createElement("div");
+      divItem.className = "item";
+      var spanColor = document.createElement("span");
+      spanColor.className = "color";
+      if (markeritem["Batterysimple"] == 0) {
+        spanColor.style.backgroundColor = "red";
+      } else if (markeritem["Batterysimple"] == 1) {
+        spanColor.style.backgroundColor = "yellow";
+      } else if (markeritem["Batterysimple"] == 2) {
+        spanColor.style.backgroundColor = "green";
+      }
+      divItem.appendChild(spanColor);
+      var spanIcon = document.createElement("span");
+      spanIcon.className = "icon";
+      divItem.appendChild(spanIcon);
+      var divLine1 = document.createElement("div");
+      divLine1.className = "line1";
+      var spanName = document.createElement("span");
+      spanName.className = "name";
+      spanName.innerText = name;
+      divLine1.appendChild(spanName);
+      var spanAkku = document.createElement("span");
+      spanAkku.className = "akku";
+      divLine1.appendChild(spanAkku);
+      divItem.appendChild(divLine1);
+      var divLine2 = document.createElement("div");
+      divLine2.className = "line2";
+      if (markeritem["Fix"]) {
+        divLine2.style.color = "green";
+        divLine2.innerText = "GPS-Empfang";
+      } else {
+        divLine2.style.color = "red";
+        divLine2.innerText = "kein GPS-Empfang";
+      }
+      divItem.appendChild(divLine2);
+      var divLine3 = document.createElement("div");
+      divLine3.className = "line3";
+      divLine3.innerText = "Letzter Datenempfang: vor " + timeDiffToText(markeritem["Upatedtime"]);
+      divItem.appendChild(divLine3);
+      document.getElementById("pannels_pos").appendChild(divItem);
+    }
+  }
+}
+
+function timeDiffToText(time) {
+  var diff = Date.now() - Date.parse(time);
+  diff = Math.round(diff / 1000);
+  if (diff < 60) {
+    return diff + " s";
+  }
+  if (diff < (60 * 60)) {
+    return Math.floor(diff / 60) + " m";
+  }
+  if (diff < (60 * 60 * 24)) {
+    return Math.floor(diff / (60 * 60)) + " h";
+  }
+  return Math.floor(diff / (60 * 60 * 24)) + " d";
 }
 
 var visiblePanel = null;

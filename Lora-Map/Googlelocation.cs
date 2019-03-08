@@ -36,18 +36,14 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
           && d.ContainsKey("Name") && d["Name"].IsString) {
           String name = (String)d["Name"];
           Botclient b = new Botclient(d);
-          if (b.Fix || b.Longitude != 0 || b.Latitude != 0) {
-            if (this.locations.ContainsKey(name)) {
-              this.locations[name] = b;
-            } else {
-              this.locations.Add(name,b);
-            }
-            Console.WriteLine("Koodinate erhalten!");
+          if (this.locations.ContainsKey(name)) {
+            this.locations[name] = b;
           } else {
-            Console.WriteLine("Daten erhalten! (Kein Fix)");
+            this.locations.Add(name, b);
           }
+          Console.WriteLine("Koordinate erhalten!");
         }
-      } catch(Exception ex) {
+      } catch (Exception ex) {
         Helper.WriteError(ex.Message);
       }
     }
