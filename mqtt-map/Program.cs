@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using BlubbFish.Utils;
 using BlubbFish.Utils.IoT.Connector;
 
-namespace Fraunhofer.Fit.IoT.MqttMap {
+namespace Fraunhofer.Fit.IoT.LoraMap {
   class Program {
     static void Main(String[] args) {
       InIReader.SetSearchPath(new List<String>() { "/etc/loramap", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\loramap" });

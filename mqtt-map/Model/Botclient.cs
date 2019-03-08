@@ -6,7 +6,7 @@ using System.Reflection;
 using BlubbFish.Utils;
 using LitJson;
 
-namespace Fraunhofer.Fit.IoT.MqttMap.Model {
+namespace Fraunhofer.Fit.IoT.LoraMap.Model {
   class Botclient {
 
     public Botclient(JsonData json) {

@@ -6,10 +6,10 @@ using BlubbFish.Utils;
 using BlubbFish.Utils.IoT.Bots;
 using BlubbFish.Utils.IoT.Connector;
 using BlubbFish.Utils.IoT.Events;
-using Fraunhofer.Fit.IoT.MqttMap.Model;
+using Fraunhofer.Fit.IoT.LoraMap.Model;
 using LitJson;
 
-namespace Fraunhofer.Fit.IoT.MqttMap {
+namespace Fraunhofer.Fit.IoT.LoraMap {
 
 
   class Googlelocation : Webserver

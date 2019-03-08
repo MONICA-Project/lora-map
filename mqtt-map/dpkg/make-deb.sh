@@ -40,6 +40,7 @@ chmod 644 $EXEC/*
 chmod 755 $EXEC
 
 cp $OUTPUT/resources $EXEC -r
+sed -i s/"<div id=\"version\">vx.x.x"/"<div id=\"version\">$VMAJOR.$VMINOR.$VBUILD"/ $EXEC/resources/index.html
 
 cp $OUTPUT/config-example/* $CONFIG
 chmod 644 $CONFIG/*
