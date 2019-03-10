@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Text;
 using BlubbFish.Utils;
@@ -13,8 +14,9 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
   class Server : Webserver
   {
     private readonly SortedDictionary<String, Botclient> locations = new SortedDictionary<String, Botclient>();
-    
-    public Server(ADataBackend backend, Dictionary<String, String> settings, InIReader requests) : base(backend, settings, requests) { }
+    private readonly JsonData marker;
+
+    public Server(ADataBackend backend, Dictionary<String, String> settings, InIReader requests) : base(backend, settings, requests) => this.marker = JsonMapper.ToObject(File.ReadAllText("names.json"));
 
     protected override void Backend_MessageIncomming(Object sender, BackendEvent e) {
       try {
@@ -33,7 +35,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
           && d["Gps"].ContainsKey("Height") && d["Gps"]["Height"].IsDouble
           && d.ContainsKey("Name") && d["Name"].IsString) {
           String name = (String)d["Name"];
-          Botclient b = new Botclient(d);
+          Botclient b = new Botclient(name, d, this.marker);
           if (this.locations.ContainsKey(name)) {
             this.locations[name] = b;
           } else {

@@ -63,6 +63,9 @@
     <None Include="dpkg\postinst" />
     <None Include="dpkg\preinst" />
     <None Include="dpkg\prerm" />
+    <None Include="names.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="resources\js\leaflet\leaflet-src.esm.js.map" />
     <None Include="resources\js\leaflet\leaflet-src.js.map" />
     <None Include="resources\js\leaflet\leaflet.js.map" />
@@ -90,6 +93,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="resources\icons\marker\map-marker.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="resources\icons\marker\thw\einheiten\26-91.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="resources\icons\marker\thw\einheiten\27-92.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="resources\js\leaflet\images\layers-2x.png" />

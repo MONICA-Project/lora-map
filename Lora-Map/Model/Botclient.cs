@@ -9,7 +9,7 @@ using LitJson;
 namespace Fraunhofer.Fit.IoT.LoraMap.Model {
   class Botclient {
 
-    public Botclient(JsonData json) {
+    public Botclient(String id, JsonData json, JsonData marker) {
       if (json.ContainsKey("Rssi") && json["Rssi"].IsDouble) {
         this.Rssi = (Double)json["Rssi"];
       }
@@ -58,6 +58,17 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
           this.Height = (Double)json["Gps"]["Height"];
         }
       }
+      if(marker.ContainsKey(id)) {
+        if(marker[id].ContainsKey("name") && marker[id]["name"].IsString) {
+          this.Name = (String)marker[id]["name"];
+        }
+        if(marker[id].ContainsKey("icon") && marker[id]["icon"].IsString) {
+          this.Icon = (String)marker[id]["icon"];
+        }
+      } else {
+        this.Name = id;
+        this.Icon = null;
+      }
     }
 
     public Double Rssi { get; private set; }
@@ -70,6 +81,8 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
     public Int32 Batterysimple { get; private set; }
     public Boolean Fix { get; private set; }
     public Double Height { get; private set; }
+    public String Name { get; private set; }
+    public String Icon { get; private set; }
 
     public virtual Dictionary<String, Object> ToDictionary() {
       Dictionary<String, Object> dictionary = new Dictionary<String, Object>();

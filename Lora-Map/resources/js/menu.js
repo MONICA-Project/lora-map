@@ -4,8 +4,9 @@ function showHidePanel(name) {
     document.getElementById("pannels").style.display = "block";
     document.getElementById(name).style.display = "block";
     visiblePanel = name;
-  } else if (visiblePanel === name && name !== "pannels_info") {
+  } else if (visiblePanel === name && name !== "pannels_info" || name === null) {
     document.getElementById("pannels").style.display = "none";
+    document.getElementById(visiblePanel).style.display = "none";
     visiblePanel = null;
   } else {
     document.getElementById(visiblePanel).style.display = "none";
@@ -31,7 +32,7 @@ function updateDeviceStatus() {
   document.getElementById("pannels_info").innerHTML = "";
   if (serverLocation.hasOwnProperty(statusToDevice)) {
     var markeritem = serverLocation[statusToDevice];
-    var html = "<div class=\"name\">Name: <span class=\"bold\">" + statusToDevice + "</span></div>";
+    var html = "<div class=\"name\">Name: <span class=\"bold\">" + markeritem["Name"] + "</span></div>";
     html += "<div class=\"batt\"><span class=\"bold\">Batterie:</span> " + markeritem["Battery"] + "V <img src=\"icons/akku/" + markeritem["Batterysimple"] + "-4.png\"></div>";
     if (markeritem["Fix"]) {
       html += "<div class=\"gps\" style=\"color: green;\">GPS-Empfang</div>";
@@ -58,11 +59,11 @@ function updateStatus() {
       divItem.setAttribute("rel", name);
       var spanColor = document.createElement("span");
       spanColor.className = "color";
-      if (markeritem["Batterysimple"] == 0) {
+      if (markeritem["Batterysimple"] === 0) {
         spanColor.style.backgroundColor = "red";
-      } else if (markeritem["Batterysimple"] == 1 || markeritem["Batterysimple"] == 2) {
+      } else if (markeritem["Batterysimple"] === 1 || markeritem["Batterysimple"] === 2) {
         spanColor.style.backgroundColor = "yellow";
-      } else if (markeritem["Batterysimple"] == 3 || markeritem["Batterysimple"] == 4) {
+      } else if (markeritem["Batterysimple"] === 3 || markeritem["Batterysimple"] === 4) {
         spanColor.style.backgroundColor = "green";
       }
       divItem.appendChild(spanColor);
@@ -76,7 +77,7 @@ function updateStatus() {
       divLine1.className = "line1";
       var spanName = document.createElement("span");
       spanName.className = "name";
-      spanName.innerText = name;
+      spanName.innerText = markeritem["Name"];
       divLine1.appendChild(spanName);
       var spanAkku = document.createElement("span");
       spanAkku.className = "akku";
@@ -110,10 +111,10 @@ function timeDiffToText(time) {
   if (diff < 60) {
     return diff + " s";
   }
-  if (diff < (60 * 60)) {
+  if (diff < 60 * 60) {
     return Math.floor(diff / 60) + " m";
   }
-  if (diff < (60 * 60 * 24)) {
+  if (diff < 60 * 60 * 24) {
     return Math.floor(diff / (60 * 60)) + " h";
   }
   return Math.floor(diff / (60 * 60 * 24)) + " d";

@@ -11,14 +11,25 @@ function datarunner() {
 
 //https://leafletjs.com/reference-1.4.0.html#marker
 function parsedata() {
-  if (this.readyState == 4 && this.status == 200) {
+  if (this.readyState === 4 && this.status === 200) {
     serverLocation = JSON.parse(this.responseText);
     for (var key in serverLocation) {
       if (serverLocation.hasOwnProperty(key)) {
         var markeritem = serverLocation[key];
-        if (markeritem['Latitude'] != 0 || markeritem['Longitude'] != 0) {
+        if (markeritem['Latitude'] !== 0 || markeritem['Longitude'] !== 0) {
           if (!markers.hasOwnProperty(key)) {
-            markers[key] = L.marker([markeritem['Latitude'], markeritem['Longitude']], { 'title': key }).addTo(mymap).on("click", showMarkerInfo, key);
+            var marker = null;
+            if (markeritem['Icon'] === null) {
+              marker = L.marker([markeritem['Latitude'], markeritem['Longitude']], { 'title': markeritem['Name'] });
+            } else {
+              var myIcon = L.icon({
+                'iconUrl': markeritem['Icon'],
+                'iconSize': [56, 80],
+                'iconAnchor': [0, 80]
+              });
+              marker = L.marker([markeritem['Latitude'], markeritem['Longitude']], { 'title': markeritem['Name'], 'icon': myIcon });
+            }
+            markers[key] = marker.addTo(mymap).on("click", showMarkerInfo, key);
           } else {
             markers[key].setLatLng([markeritem['Latitude'], markeritem['Longitude']]);
           }
