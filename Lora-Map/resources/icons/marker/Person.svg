@@ -9,355 +9,141 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   
    width="74.953316mm"
    height="84.703323mm"
-   viewBox="0 0 74.953316 84.703324"
-   version="1.1"
-   id="svg8"
-   inkscape:version="0.92.3 (2405546, 2018-03-11)"
-   sodipodi:docname="Person.svg"
-   inkscape:export-filename="E:\Eigene Dateien\Dokumente\Visual Studio 2017\Projects\mqtt-map\Lora-Map\resources\icons\marker\thw\zug\Fuehrer-TZ-2.png"
-   inkscape:export-xdpi="50"
-   inkscape:export-ydpi="50">
-  <defs
-     id="defs2" />
-  <sodipodi:namedview
-     id="base"
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageopacity="0.0"
-     inkscape:pageshadow="2"
-     inkscape:zoom="1.4"
-     inkscape:cx="-66.411843"
-     inkscape:cy="181.57164"
-     inkscape:document-units="mm"
-     inkscape:current-layer="g4614"
-     showgrid="false"
-     fit-margin-top="0"
-     fit-margin-left="0"
-     fit-margin-right="0"
-     fit-margin-bottom="0"
-     inkscape:window-width="1920"
-     inkscape:window-height="1017"
-     inkscape:window-x="1912"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1" />
-  <metadata
-     id="metadata5">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <g
-     inkscape:label="Organisation"
-     inkscape:groupmode="layer"
-     id="layer1"
-     transform="translate(-58.582862,-112.24358)">
-    <g
-       inkscape:groupmode="layer"
-       id="layer2"
-       inkscape:label="THW"
-       style="display:inline">
-      <rect
-         style="opacity:1;fill:#0d468b;fill-opacity:1;stroke:#000000;stroke-width:3;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
-         id="rect817"
-         width="50"
-         height="50"
-         x="-69.83815"
-         y="155.68683"
-         rx="0"
-         ry="0"
-         transform="rotate(-45)" />
-    </g>
-    <g
-       inkscape:groupmode="layer"
-       id="layer3"
-       inkscape:label="Feuerwehr"
-       style="display:none">
-      <rect
-         transform="rotate(-45)"
-         ry="0"
-         rx="0"
-         y="155.68683"
-         x="-69.83815"
-         height="50"
-         width="50"
-         id="rect4525"
-         style="opacity:1;fill:#b41302;fill-opacity:1;stroke:#000000;stroke-width:3;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers" />
-    </g>
-    <g
-       inkscape:groupmode="layer"
-       id="layer4"
-       inkscape:label="Hilo"
-       style="display:none">
-      <rect
-         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:3;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
-         id="rect4529"
-         width="50"
-         height="50"
-         x="-69.83815"
-         y="155.68683"
-         rx="0"
-         ry="0"
-         transform="rotate(-45)" />
-    </g>
-    <g
-       inkscape:groupmode="layer"
-       id="layer5"
-       inkscape:label="Polizei"
-       style="display:none">
-      <rect
-         transform="rotate(-45)"
-         ry="0"
-         rx="0"
-         y="155.68683"
-         x="-69.83815"
-         height="50"
-         width="50"
-         id="rect4533"
-         style="opacity:1;fill:#2a8626;fill-opacity:1;stroke:#000000;stroke-width:3;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers" />
-    </g>
-    <g
-       inkscape:groupmode="layer"
-       id="layer6"
-       inkscape:label="Führung"
-       style="display:none">
-      <rect
-         style="opacity:1;fill:#ffdf00;fill-opacity:1;stroke:#000000;stroke-width:3;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
-         id="rect4537"
-         width="50"
-         height="50"
-         x="-69.83815"
-         y="155.68683"
-         rx="0"
-         ry="0"
-         transform="rotate(-45)" />
-    </g>
-    <g
-       inkscape:groupmode="layer"
-       id="layer7"
-       inkscape:label="Sonstig"
-       style="display:none">
-      <rect
-         transform="rotate(-45)"
-         ry="0"
-         rx="0"
-         y="155.68683"
-         x="-69.83815"
-         height="50"
-         width="50"
-         id="rect4541"
-         style="opacity:1;fill:#ffa13e;fill-opacity:1;stroke:#000000;stroke-width:3;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers" />
-    </g>
-  </g>
-  <g
-     inkscape:groupmode="layer"
-     id="layer8"
-     inkscape:label="Funktion"
-     transform="translate(-4.4253269e-7,9.75)"
-     style="display:inline">
-    <g
-       inkscape:groupmode="layer"
-       id="layer9"
-       inkscape:label="Sonder"
-       style="display:none">
-      <path
-         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         d="M 22.717909,15.753114 H 52.251191"
-         id="path4546"
-         inkscape:connector-curvature="0" />
-    </g>
-    <g
-       inkscape:groupmode="layer"
-       id="layer10"
-       inkscape:label="Führungskraft"
-       style="display:inline">
-      <path
-         inkscape:connector-curvature="0"
-         id="path4549"
-         d="M 22.765156,15.753114 H 51.778721 L 37.510343,1.0079274 Z"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         sodipodi:nodetypes="cccc" />
-    </g>
-  </g>
-  <g
-     inkscape:groupmode="layer"
-     id="layer11"
-     inkscape:label="Rang"
-     transform="translate(-4.4253269e-7,9.75)">
-    <g
-       inkscape:groupmode="layer"
-       id="layer12"
-       inkscape:label="Truppführer"
-       style="display:inline">
-      <circle
-         style="opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.5;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
-         id="path4554"
-         cx="37.476501"
-         cy="-6"
-         r="3" />
-    </g>
-    <g
-       inkscape:groupmode="layer"
-       id="layer13"
-       inkscape:label="Gruppenführer"
-       style="display:none">
-      <g
-         id="g4572">
-        <circle
-           style="opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.5;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
-           id="circle4557"
-           cx="32.976501"
-           cy="-6"
-           r="3" />
-        <circle
-           r="3"
-           cy="-6"
-           cx="41.976501"
-           id="circle4560"
-           style="opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.5;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers" />
+   viewBox="-37.5 -12 74.953316 84.703323">
+  <g id="person">
+    <defs id="defs2">
+      <style type="text/css">
+        <![CDATA[
+        #person-layer-org g {
+          display: none;
+        }
+        #person-layer-funct g {
+          display: none;
+        }
+        #person-layer-rang g {
+          display: none;
+        }
+        #person-layer-typ g {
+          display: none;
+        }
+        
+        #person-layer-org rect {
+          width: 50px;
+          height: 50px;
+          y: 0px;
+          x: 0px;
+          stroke: black;
+          stroke-width: 3px;
+          transform: rotate(45);
+        }
+        
+        #person-layer-funct path {
+          stroke: #000000;
+          stroke-width: 3px;
+          fill: #000000;
+        }
+        
+        #person-layer-rang circle {
+          r: 3px;
+          fill: #000000;
+        }
+        
+        #person-layer-typ tspan {
+          x: 0px;
+          y: 42px;
+          font-size:20px;
+          font-family:'DIN 1451 Mittelschrift';
+          text-align:center;
+          text-anchor:middle;
+          fill:#ffffff;
+        }
+      ]]>
+      </style>
+      <style>
+        <![CDATA[
+        #person-layer-org #person-layer-org-thw {
+          display: inline;
+        }
+        #person-layer-funct #person-layer-funct-fueh {
+          display: inline;
+        }
+        #person-layer-rang #person-layer-rang-trupp {
+          display: inline;
+        }
+        #person-layer-typ #person-layer-typ-b1 {
+          display: inline;
+        }
+      ]]>
+      </style>
+    </defs>
+    <g inkscape:groupmode="layer" id="person-layer-org" inkscape:label="Organisation">
+      <g inkscape:groupmode="layer" id="person-layer-org-thw" inkscape:label="THW">
+        <rect style="fill: #0d468b;" />
+      </g>
+      <g inkscape:groupmode="layer" id="person-layer-org-fw" inkscape:label="Feuerwehr">
+        <rect style="fill: #b41302;" />
+      </g>
+      <g inkscape:groupmode="layer" id="person-layer-org-hilo" inkscape:label="Hilo">
+        <rect style="fill: #ffffff;" />
+      </g>
+      <g inkscape:groupmode="layer" id="person-layer-org-pol" inkscape:label="Polizei">
+        <rect style="fill: #2a8626;" />
+      </g>
+      <g inkscape:groupmode="layer" id="person-layer-org-fueh" inkscape:label="Führung">
+        <rect style="fill: #ffdf00;" />
+      </g>
+      <g inkscape:groupmode="layer" id="person-layer-org-sonst" inkscape:label="Sonstig">
+        <rect style="fill: #ffa13e;" />
       </g>
     </g>
-    <g
-       inkscape:groupmode="layer"
-       id="layer14"
-       inkscape:label="Zugführer"
-       style="display:none">
-      <g
-         id="g4577">
-        <circle
-           style="display:inline;opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.5;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
-           id="circle4563"
-           cx="37.476501"
-           cy="-6"
-           r="3" />
-        <circle
-           r="3"
-           cy="-6"
-           cx="28.4765"
-           id="circle4566"
-           style="display:inline;opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.5;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers" />
-        <circle
-           r="3"
-           cy="-6"
-           cx="46.476501"
-           id="circle4568"
-           style="display:inline;opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.5;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers" />
+    <g inkscape:groupmode="layer" id="person-layer-funct" inkscape:label="Funktion">
+      <g inkscape:groupmode="layer" id="person-layer-funct-sonder" inkscape:label="Sonder">
+        <path d="M -10,10 H 10" />
+      </g>
+      <g inkscape:groupmode="layer" id="person-layer-funct-fueh" inkscape:label="Führungskraft">
+        <path d="M -10,10 H 10 L 0,0 Z" />
       </g>
     </g>
+    <g inkscape:groupmode="layer" id="person-layer-rang" inkscape:label="Rang">
+      <g inkscape:groupmode="layer" id="person-layer-rang-trupp" inkscape:label="Truppführer">
+        <circle cx="0" cy="-8" />
+      </g>
+      <g inkscape:groupmode="layer" id="person-layer-rang-grupp" inkscape:label="Gruppenführer">
+        <g style="display: inline;">
+          <circle cx="-4.5" cy="-8" />
+          <circle cx="4.5" cy="-8" />
+        </g>
+      </g>
+      <g inkscape:groupmode="layer" id="person-layer-rang-zug" inkscape:label="Zugführer">
+        <g style="display: inline;">
+          <circle cx="-9" cy="-8" />
+          <circle cx="0" cy="-8" />
+          <circle cx="9" cy="-8" />
+        </g>
+      </g>
+    </g>
+    <g inkscape:groupmode="layer" id="person-layer-typ" inkscape:label="Typ">
+    <g inkscape:groupmode="layer" id="person-layer-typ-b1" inkscape:label="B1">
+      <text><tspan>B1</tspan></text>
+    </g>
+    <g inkscape:groupmode="layer" id="person-layer-typ-b2" inkscape:label="B2">
+      <text><tspan>B2</tspan></text>
+    </g>
+    <g inkscape:groupmode="layer" id="person-layer-typ-b" inkscape:label="B">
+      <text><tspan>B</tspan></text>
+    </g>
+    <g inkscape:groupmode="layer" id="person-layer-typ-tz-1" inkscape:label="TZ-1">
+      <text><tspan>TZ-1</tspan></text>
+    </g>
+    <g inkscape:groupmode="layer" id="person-layer-typ-tz-2" inkscape:label="TZ-2">
+      <text><tspan>TZ-2</tspan></text>
+    </g>
+    <g inkscape:groupmode="layer" id="person-layer-typ-tz" inkscape:label="TZ">
+      <text><tspan>TZ</tspan></text>
+    </g>
   </g>
-  <g
-     inkscape:groupmode="layer"
-     id="layer15"
-     inkscape:label="Typ">
-    <g
-       inkscape:groupmode="layer"
-       id="layer16"
-       inkscape:label="B1"
-       style="display:inline">
-      <text
-         xml:space="preserve"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.58834457px;line-height:125%;font-family:Consolas;-inkscape-font-specification:Consolas;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.3647086px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         x="37.476501"
-         y="54.946476"
-         id="text4583"><tspan
-           sodipodi:role="line"
-           id="tspan4581"
-           x="37.476501"
-           y="54.946476"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:19.75555611px;font-family:'DIN 1451 Mittelschrift';-inkscape-font-specification:'DIN 1451 Mittelschrift';text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.3647086px">B1</tspan></text>
-    </g>
-    <g
-       style="display:none"
-       inkscape:label="B2"
-       id="g4608"
-       inkscape:groupmode="layer">
-      <text
-         id="text4606"
-         y="54.946476"
-         x="37.476501"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.58834457px;line-height:125%;font-family:Consolas;-inkscape-font-specification:Consolas;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.3647086px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         xml:space="preserve"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:19.75555611px;font-family:'DIN 1451 Mittelschrift';-inkscape-font-specification:'DIN 1451 Mittelschrift';text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.3647086px"
-           y="54.946476"
-           x="37.476501"
-           id="tspan4604"
-           sodipodi:role="line">B2</tspan></text>
-    </g>
-    <g
-       inkscape:groupmode="layer"
-       id="g4614"
-       inkscape:label="B"
-       style="display:none">
-      <text
-         xml:space="preserve"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.58834457px;line-height:125%;font-family:Consolas;-inkscape-font-specification:Consolas;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.3647086px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         x="37.476501"
-         y="54.946476"
-         id="text4612"><tspan
-           sodipodi:role="line"
-           id="tspan4610"
-           x="37.476501"
-           y="54.946476"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:19.75555611px;font-family:'DIN 1451 Mittelschrift';-inkscape-font-specification:'DIN 1451 Mittelschrift';text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.3647086px">B</tspan></text>
-    </g>
-    <g
-       inkscape:groupmode="layer"
-       id="layer17"
-       inkscape:label="TZ-1"
-       style="display:none">
-      <text
-         id="text4588"
-         y="54.946476"
-         x="37.476501"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.58834457px;line-height:125%;font-family:Consolas;-inkscape-font-specification:Consolas;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.3647086px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         xml:space="preserve"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:19.75555611px;font-family:'DIN 1451 Mittelschrift';-inkscape-font-specification:'DIN 1451 Mittelschrift';text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.3647086px"
-           y="54.946476"
-           x="37.476501"
-           id="tspan4586"
-           sodipodi:role="line">TZ-1</tspan></text>
-    </g>
-    <g
-       inkscape:label="TZ-2"
-       id="g4596"
-       inkscape:groupmode="layer"
-       style="display:none">
-      <text
-         xml:space="preserve"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.58834457px;line-height:125%;font-family:Consolas;-inkscape-font-specification:Consolas;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.3647086px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         x="37.476501"
-         y="54.946476"
-         id="text4594"><tspan
-           sodipodi:role="line"
-           id="tspan4592"
-           x="37.476501"
-           y="54.946476"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:19.75555611px;font-family:'DIN 1451 Mittelschrift';-inkscape-font-specification:'DIN 1451 Mittelschrift';text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.3647086px">TZ-2</tspan></text>
-    </g>
-    <g
-       inkscape:groupmode="layer"
-       id="g4602"
-       inkscape:label="TZ"
-       style="display:none">
-      <text
-         id="text4600"
-         y="54.946476"
-         x="37.476501"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.58834457px;line-height:125%;font-family:Consolas;-inkscape-font-specification:Consolas;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.3647086px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         xml:space="preserve"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:19.75555611px;font-family:'DIN 1451 Mittelschrift';-inkscape-font-specification:'DIN 1451 Mittelschrift';text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.3647086px"
-           y="54.946476"
-           x="37.476501"
-           id="tspan4598"
-           sodipodi:role="line">TZ</tspan></text>
-    </g>
   </g>
 </svg>
