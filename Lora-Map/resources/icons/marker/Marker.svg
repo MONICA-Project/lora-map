@@ -1,50 +1,171 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
 
-<svg xmlns:dc="http://purl.org/dc/elements/1.1/"
-     xmlns:cc="http://creativecommons.org/ns#"
-     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-     xmlns:svg="http://www.w3.org/2000/svg"
-     xmlns:xlink="http://www.w3.org/1999/xlink"
-     xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-     xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-     width="86mm"
-     height="121.25mm"
-     viewBox="0 0 86 121.25"
-     version="1.1"
-     id="svg4622"
-     inkscape:version="0.92.3 (2405546, 2018-03-11)"
-     sodipodi:docname="Marker.svg"
-     inkscape:export-filename="E:\Eigene Dateien\Dokumente\Visual Studio 2017\Projects\mqtt-map\Lora-Map\resources\icons\marker\thw\Einheiten\27-92.png"
-     inkscape:export-xdpi="50"
-     inkscape:export-ydpi="50">
-    <defs />
-    <g inkscape:groupmode="layer" id="marker-bg" inkscape:label="Marker">
-        <rect style="fill:#ffffff;stroke:#000000;stroke-width:1.5px;" width="82.5" height="110" x="2" y="0.75" />
-        <path style="stroke:#000000;stroke-width:1.5px;" d="m 2,110.75 0,8.5" />
-        <circle style="fill:#000000;" cx="2" cy="119.25" r="2" />
+<svg width="86mm" height="121.25mm" viewBox="0 0 86 121.25" xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
+  <defs>
+    <style type="text/css">
+      <![CDATA[
+      @font-face {
+      font-family: 'DIN145_14H_08.87';
+      src: url('DIN1451_4H_08.87.woff') format('woff');
+      }
+      #marker-icon > g {
+      display: none;
+      }
+      #marker-name tspan {
+      font-size: 20px;
+      font-family:'DIN145_14H_08.87';
+      }
+      ]]>
+    </style>
+    <style type="text/css">
+      <![CDATA[
+      #marker-icon #person {
+      display: inline;
+      }
+      ]]>
+    </style>
+  </defs>
+  <g inkscape:groupmode="layer" id="marker-bg" inkscape:label="Marker">
+    <rect style="fill:#ffffff;stroke:#000000;stroke-width:1.5px;" width="82.5" height="110" x="2" y="0.75" />
+    <path style="stroke:#000000;stroke-width:1.5px;" d="m 2,110.75 0,8.5" />
+    <circle style="fill:#000000;" cx="2" cy="119.25" r="2" />
+  </g>
+  <g inkscape:groupmode="layer" id="marker-name" inkscape:label="Name">
+    <text><tspan x="5" y="20">27/92</tspan></text>
+  </g>
+  <g inkscape:groupmode="layer" id="marker-icon" inkscape:label="Icon">
+    <g id="person" transform="translate(42.5 45) scale(0.8)">
+      <defs>
+        <style type="text/css">
+          <![CDATA[
+          #person-layer-org g {
+          display: none;
+          }
+          #person-layer-funct g {
+          display: none;
+          }
+          #person-layer-rang g {
+          display: none;
+          }
+          #person-layer-typ g {
+          display: none;
+          }
+
+          #person-layer-org rect {
+          width: 50px;
+          height: 50px;
+          y: 0px;
+          x: 0px;
+          stroke: black;
+          stroke-width: 3px;
+          transform: rotate(45);
+          }
+
+          #person-layer-funct path {
+          stroke: #000000;
+          stroke-width: 3px;
+          fill: #000000;
+          }
+
+          #person-layer-rang circle {
+          r: 3px;
+          fill: #000000;
+          }
+
+          #person-layer-typ tspan {
+          x: 0px;
+          y: 42px;
+          font-size:20px;
+          font-family:'DIN 1451 Mittelschrift';
+          text-align:center;
+          text-anchor:middle;
+          fill:#ffffff;
+          }
+          ]]>
+        </style>
+        <style type="text/css">
+          <![CDATA[
+          #person-layer-org #person-layer-org-thw {
+          display: inline;
+          }
+          #person-layer-funct #person-layer-funct-fueh {
+          display: inline;
+          }
+          #person-layer-rang #person-layer-rang-trupp {
+          display: inline;
+          }
+          #person-layer-typ #person-layer-typ-b1 {
+          display: inline;
+          }
+          ]]>
+        </style>
+      </defs>
+      <g inkscape:groupmode="layer" id="person-layer-org" inkscape:label="Organisation">
+        <g inkscape:groupmode="layer" id="person-layer-org-thw" inkscape:label="THW">
+          <rect style="fill: #0d468b;" />
+        </g>
+        <g inkscape:groupmode="layer" id="person-layer-org-fw" inkscape:label="Feuerwehr">
+          <rect style="fill: #b41302;" />
+        </g>
+        <g inkscape:groupmode="layer" id="person-layer-org-hilo" inkscape:label="Hilo">
+          <rect style="fill: #ffffff;" />
+        </g>
+        <g inkscape:groupmode="layer" id="person-layer-org-pol" inkscape:label="Polizei">
+          <rect style="fill: #2a8626;" />
+        </g>
+        <g inkscape:groupmode="layer" id="person-layer-org-fueh" inkscape:label="Führung">
+          <rect style="fill: #ffdf00;" />
+        </g>
+        <g inkscape:groupmode="layer" id="person-layer-org-sonst" inkscape:label="Sonstig">
+          <rect style="fill: #ffa13e;" />
+        </g>
+      </g>
+      <g inkscape:groupmode="layer" id="person-layer-funct" inkscape:label="Funktion">
+        <g inkscape:groupmode="layer" id="person-layer-funct-sonder" inkscape:label="Sonder">
+          <path d="M -10,10 H 10" />
+        </g>
+        <g inkscape:groupmode="layer" id="person-layer-funct-fueh" inkscape:label="Führungskraft">
+          <path d="M -10,10 H 10 L 0,0 Z" />
+        </g>
+      </g>
+      <g inkscape:groupmode="layer" id="person-layer-rang" inkscape:label="Rang">
+        <g inkscape:groupmode="layer" id="person-layer-rang-trupp" inkscape:label="Truppführer">
+          <circle cx="0" cy="-8" />
+        </g>
+        <g inkscape:groupmode="layer" id="person-layer-rang-grupp" inkscape:label="Gruppenführer">
+          <g style="display: inline;">
+            <circle cx="-4.5" cy="-8" />
+            <circle cx="4.5" cy="-8" />
+          </g>
+        </g>
+        <g inkscape:groupmode="layer" id="person-layer-rang-zug" inkscape:label="Zugführer">
+          <g style="display: inline;">
+            <circle cx="-9" cy="-8" />
+            <circle cx="0" cy="-8" />
+            <circle cx="9" cy="-8" />
+          </g>
+        </g>
+      </g>
+      <g inkscape:groupmode="layer" id="person-layer-typ" inkscape:label="Typ">
+        <g inkscape:groupmode="layer" id="person-layer-typ-b1" inkscape:label="B1">
+          <text><tspan>B1</tspan></text>
+        </g>
+        <g inkscape:groupmode="layer" id="person-layer-typ-b2" inkscape:label="B2">
+          <text><tspan>B2</tspan></text>
+        </g>
+        <g inkscape:groupmode="layer" id="person-layer-typ-b" inkscape:label="B">
+          <text><tspan>B</tspan></text>
+        </g>
+        <g inkscape:groupmode="layer" id="person-layer-typ-tz-1" inkscape:label="TZ-1">
+          <text><tspan>TZ-1</tspan></text>
+        </g>
+        <g inkscape:groupmode="layer" id="person-layer-typ-tz-2" inkscape:label="TZ-2">
+          <text><tspan>TZ-2</tspan></text>
+        </g>
+        <g inkscape:groupmode="layer" id="person-layer-typ-tz" inkscape:label="TZ">
+          <text><tspan>TZ</tspan></text>
+        </g>
+      </g>
     </g>
-    <g inkscape:groupmode="layer" id="marker-name" inkscape:label="Name">
-        <text><svg:tspan sodipodi:role="line"
-                                           id="tspan5169"
-                                           x="9.6537676"
-                                           y="38.26413"
-                                           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:19.75555611px;font-family:'DIN 1451 Mittelschrift';-inkscape-font-specification:'DIN 1451 Mittelschrift';stroke-width:0.26458332px">27/92</svg:tspan></text>
-    </g>
-    <svg:g inkscape:groupmode="layer"
-           id="layer19"
-           inkscape:label="Icon"
-           transform="translate(4.8486328e-7,-21.52381)">
-        <svg:image sodipodi:absref="E:\Eigene Dateien\Dokumente\Visual Studio 2017\Projects\mqtt-map\Lora-Map\resources\icons\marker\thw\../Person.svg"
-                   xlink:href="../Person.svg"
-                   y="43.601036"
-                   x="5"
-                   id="image4534"
-                   preserveAspectRatio="none"
-                   height="84.756111"
-                   width="75" />
-        <use xlink:href="../Person.svg"
-             xlink:actuate="onLoad"
-             xlink:type="simple" />
-    </svg:g>
+  </g>
 </svg>
