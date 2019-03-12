@@ -1,123 +1,107 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
-<svg width="86mm" height="121.25mm" viewBox="0 0 86 121.25" xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
-  <defs>
-    <style type="text/css">
-      <![CDATA[
-      @font-face {
-      font-family: 'DIN145_14H_08.87';
-      src: url('DIN1451_4H_08.87.woff') format('woff');
-      }
-      #marker-icon > g {
-      display: none;
-      }
-      #marker-name tspan {
-      font-size: 20px;
-      font-family:'DIN145_14H_08.87';
-      }
-      ]]>
-    </style>
-    <style type="text/css">
-      <![CDATA[
-      #marker-icon #person {
-      display: inline;
-      }
-      ]]>
-    </style>
-  </defs>
+<svg width="86mm" height="121.25mm" viewBox="0 0 86 121.25" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs id="global-def">
+        <style type="text/css">
+            @font-face {
+            font-family: DIN1451;
+            src: url('din1451m.woff');
+            }
+            #marker-icon > g {
+            display: none;
+            }
+            #marker-name tspan {
+            font-size: 20px;
+            font-family: DIN1451;
+            }
+        </style>
+        <style type="text/css">
+            #marker-icon #person {
+            display: inline;
+            }
+        </style>
+    </defs>
   <g inkscape:groupmode="layer" id="marker-bg" inkscape:label="Marker">
     <rect style="fill:#ffffff;stroke:#000000;stroke-width:1.5px;" width="82.5" height="110" x="2" y="0.75" />
     <path style="stroke:#000000;stroke-width:1.5px;" d="m 2,110.75 0,8.5" />
     <circle style="fill:#000000;" cx="2" cy="119.25" r="2" />
   </g>
   <g inkscape:groupmode="layer" id="marker-name" inkscape:label="Name">
-    <text><tspan x="5" y="20">27/92</tspan></text>
+    <text><tspan x="5" y="20" id="marker-name-text">27/92</tspan></text>
   </g>
   <g inkscape:groupmode="layer" id="marker-icon" inkscape:label="Icon">
     <g id="person" transform="translate(42.5 45) scale(0.8)">
-      <defs>
+      <defs id="people-def">
+          <style type="text/css">
+              #person-layer-org g {
+              display: none;
+              }
+              #person-layer-funct g {
+              display: none;
+              }
+              #person-layer-rang g {
+              display: none;
+              }
+              #person-layer-typ g {
+              display: none;
+              }
+
+              #person-layer-org rect {
+              stroke: black;
+              stroke-width: 3px;
+              }
+
+              #person-layer-funct path {
+              stroke: #000000;
+              stroke-width: 3px;
+              fill: #000000;
+              }
+
+              #person-layer-rang circle {
+              fill: #000000;
+              }
+
+              #person-layer-typ tspan {
+              font-size:20px;
+              font-family: DIN1451;
+              text-align:center;
+              text-anchor:middle;
+              fill:#ffffff;
+              }
+          </style>
         <style type="text/css">
-          <![CDATA[
-          #person-layer-org g {
-          display: none;
-          }
-          #person-layer-funct g {
-          display: none;
-          }
-          #person-layer-rang g {
-          display: none;
-          }
-          #person-layer-typ g {
-          display: none;
-          }
-
-          #person-layer-org rect {
-          width: 50px;
-          height: 50px;
-          y: 0px;
-          x: 0px;
-          stroke: black;
-          stroke-width: 3px;
-          transform: rotate(45);
-          }
-
-          #person-layer-funct path {
-          stroke: #000000;
-          stroke-width: 3px;
-          fill: #000000;
-          }
-
-          #person-layer-rang circle {
-          r: 3px;
-          fill: #000000;
-          }
-
-          #person-layer-typ tspan {
-          x: 0px;
-          y: 42px;
-          font-size:20px;
-          font-family:'DIN 1451 Mittelschrift';
-          text-align:center;
-          text-anchor:middle;
-          fill:#ffffff;
-          }
-          ]]>
-        </style>
-        <style type="text/css">
-          <![CDATA[
           #person-layer-org #person-layer-org-thw {
-          display: inline;
+            display: inline;
           }
           #person-layer-funct #person-layer-funct-fueh {
-          display: inline;
+            display: inline;
           }
           #person-layer-rang #person-layer-rang-trupp {
-          display: inline;
+            display: inline;
           }
           #person-layer-typ #person-layer-typ-b1 {
-          display: inline;
+            display: inline;
           }
-          ]]>
         </style>
       </defs>
       <g inkscape:groupmode="layer" id="person-layer-org" inkscape:label="Organisation">
         <g inkscape:groupmode="layer" id="person-layer-org-thw" inkscape:label="THW">
-          <rect style="fill: #0d468b;" />
+          <rect style="fill: #0d468b;" height="50" width="50" transform="rotate(45)"/>
         </g>
         <g inkscape:groupmode="layer" id="person-layer-org-fw" inkscape:label="Feuerwehr">
-          <rect style="fill: #b41302;" />
+          <rect style="fill: #b41302;" height="50" width="50" transform="rotate(45)"/>
         </g>
         <g inkscape:groupmode="layer" id="person-layer-org-hilo" inkscape:label="Hilo">
-          <rect style="fill: #ffffff;" />
+          <rect style="fill: #ffffff;" height="50" width="50" transform="rotate(45)"/>
         </g>
         <g inkscape:groupmode="layer" id="person-layer-org-pol" inkscape:label="Polizei">
-          <rect style="fill: #2a8626;" />
+          <rect style="fill: #2a8626;" height="50" width="50" transform="rotate(45)"/>
         </g>
         <g inkscape:groupmode="layer" id="person-layer-org-fueh" inkscape:label="Führung">
-          <rect style="fill: #ffdf00;" />
+          <rect style="fill: #ffdf00;" height="50" width="50" transform="rotate(45)"/>
         </g>
         <g inkscape:groupmode="layer" id="person-layer-org-sonst" inkscape:label="Sonstig">
-          <rect style="fill: #ffa13e;" />
+          <rect style="fill: #ffa13e;" height="50" width="50" transform="rotate(45)"/>
         </g>
       </g>
       <g inkscape:groupmode="layer" id="person-layer-funct" inkscape:label="Funktion">
@@ -130,40 +114,40 @@
       </g>
       <g inkscape:groupmode="layer" id="person-layer-rang" inkscape:label="Rang">
         <g inkscape:groupmode="layer" id="person-layer-rang-trupp" inkscape:label="Truppführer">
-          <circle cx="0" cy="-8" />
+          <circle cx="0" cy="-8" r="3" />
         </g>
         <g inkscape:groupmode="layer" id="person-layer-rang-grupp" inkscape:label="Gruppenführer">
           <g style="display: inline;">
-            <circle cx="-4.5" cy="-8" />
-            <circle cx="4.5" cy="-8" />
+            <circle cx="-4.5" cy="-8" r="3" />
+            <circle cx="4.5" cy="-8" r="3" />
           </g>
         </g>
         <g inkscape:groupmode="layer" id="person-layer-rang-zug" inkscape:label="Zugführer">
           <g style="display: inline;">
-            <circle cx="-9" cy="-8" />
-            <circle cx="0" cy="-8" />
-            <circle cx="9" cy="-8" />
+            <circle cx="-9" cy="-8" r="3" />
+            <circle cx="0" cy="-8" r="3" />
+            <circle cx="9" cy="-8" r="3" />
           </g>
         </g>
       </g>
       <g inkscape:groupmode="layer" id="person-layer-typ" inkscape:label="Typ">
         <g inkscape:groupmode="layer" id="person-layer-typ-b1" inkscape:label="B1">
-          <text><tspan>B1</tspan></text>
+          <text><tspan y="42" x="0">B1</tspan></text>
         </g>
         <g inkscape:groupmode="layer" id="person-layer-typ-b2" inkscape:label="B2">
-          <text><tspan>B2</tspan></text>
+          <text><tspan y="42" x="0">B2</tspan></text>
         </g>
         <g inkscape:groupmode="layer" id="person-layer-typ-b" inkscape:label="B">
-          <text><tspan>B</tspan></text>
+          <text><tspan y="42" x="0">B</tspan></text>
         </g>
         <g inkscape:groupmode="layer" id="person-layer-typ-tz-1" inkscape:label="TZ-1">
-          <text><tspan>TZ-1</tspan></text>
+          <text><tspan y="42" x="0">TZ-1</tspan></text>
         </g>
         <g inkscape:groupmode="layer" id="person-layer-typ-tz-2" inkscape:label="TZ-2">
-          <text><tspan>TZ-2</tspan></text>
+          <text><tspan y="42" x="0">TZ-2</tspan></text>
         </g>
         <g inkscape:groupmode="layer" id="person-layer-typ-tz" inkscape:label="TZ">
-          <text><tspan>TZ</tspan></text>
+          <text><tspan y="42" x="0">TZ</tspan></text>
         </g>
       </g>
     </g>

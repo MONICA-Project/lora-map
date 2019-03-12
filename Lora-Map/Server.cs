@@ -15,6 +15,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
   {
     private readonly SortedDictionary<String, Botclient> locations = new SortedDictionary<String, Botclient>();
     private readonly JsonData marker;
+    private readonly Dictionary<String, Marker> markertable = new Dictionary<String, Marker>();
 
     public Server(ADataBackend backend, Dictionary<String, String> settings, InIReader requests) : base(backend, settings, requests) => this.marker = JsonMapper.ToObject(File.ReadAllText("names.json"));
 
@@ -62,6 +63,18 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
           cont.Response.StatusCode = 500;
           return;
         }
+      }
+      if(cont.Request.Url.PathAndQuery.StartsWith("/icons/marker/Marker.svg") && cont.Request.Url.PathAndQuery.Contains("?")) {
+        String hash = cont.Request.Url.PathAndQuery.Substring(cont.Request.Url.PathAndQuery.IndexOf('?')+1);
+        if(!this.markertable.ContainsKey(hash)) {
+          this.markertable.Add(hash, new Marker(hash));
+        }
+        cont.Response.ContentType = "image/svg+xml";
+        Byte[] buf = Encoding.UTF8.GetBytes(this.markertable[hash].ToString());
+        cont.Response.ContentLength64 = buf.Length;
+        cont.Response.OutputStream.Write(buf, 0, buf.Length);
+        Console.WriteLine("200 - " + cont.Request.Url.PathAndQuery);
+        return;
       }
       base.SendResponse(cont);
     }
