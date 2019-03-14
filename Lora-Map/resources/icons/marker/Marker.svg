@@ -15,11 +15,6 @@
             font-family: DIN1451;
             }
         </style>
-        <style type="text/css">
-            #marker-icon #person {
-            display: inline;
-            }
-        </style>
     </defs>
   <g inkscape:groupmode="layer" id="marker-bg" inkscape:label="Marker">
     <rect style="fill:#ffffff;stroke:#000000;stroke-width:1.5px;" width="82.5" height="110" x="2" y="0.75" />
@@ -62,27 +57,13 @@
               }
 
               #person-layer-typ tspan {
-              font-size:20px;
+              font-size: 20px;
               font-family: DIN1451;
-              text-align:center;
-              text-anchor:middle;
-              fill:#ffffff;
+              text-align: center;
+              text-anchor: middle;
+              fill: #ffffff;
               }
           </style>
-        <style type="text/css">
-          #person-layer-org #person-layer-org-thw {
-            display: inline;
-          }
-          #person-layer-funct #person-layer-funct-fueh {
-            display: inline;
-          }
-          #person-layer-rang #person-layer-rang-trupp {
-            display: inline;
-          }
-          #person-layer-typ #person-layer-typ-b1 {
-            display: inline;
-          }
-        </style>
       </defs>
       <g inkscape:groupmode="layer" id="person-layer-org" inkscape:label="Organisation">
         <g inkscape:groupmode="layer" id="person-layer-org-thw" inkscape:label="THW">
@@ -131,24 +112,7 @@
         </g>
       </g>
       <g inkscape:groupmode="layer" id="person-layer-typ" inkscape:label="Typ">
-        <g inkscape:groupmode="layer" id="person-layer-typ-b1" inkscape:label="B1">
-          <text><tspan y="42" x="0">B1</tspan></text>
-        </g>
-        <g inkscape:groupmode="layer" id="person-layer-typ-b2" inkscape:label="B2">
-          <text><tspan y="42" x="0">B2</tspan></text>
-        </g>
-        <g inkscape:groupmode="layer" id="person-layer-typ-b" inkscape:label="B">
-          <text><tspan y="42" x="0">B</tspan></text>
-        </g>
-        <g inkscape:groupmode="layer" id="person-layer-typ-tz-1" inkscape:label="TZ-1">
-          <text><tspan y="42" x="0">TZ-1</tspan></text>
-        </g>
-        <g inkscape:groupmode="layer" id="person-layer-typ-tz-2" inkscape:label="TZ-2">
-          <text><tspan y="42" x="0">TZ-2</tspan></text>
-        </g>
-        <g inkscape:groupmode="layer" id="person-layer-typ-tz" inkscape:label="TZ">
-          <text><tspan y="42" x="0">TZ</tspan></text>
-        </g>
+        <text><tspan y="42" x="0" id="person-layer-typ-text"></tspan></text>
       </g>
     </g>
   </g>

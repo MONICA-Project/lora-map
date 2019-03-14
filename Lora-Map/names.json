@@ -1,10 +1,10 @@
 {
   "A": {
     "name": "26/91",
-    "icon": "icons/marker/thw/einheiten/26-91.png"
+    "icon": "icons/marker/Marker.svg?name=26/91&icon=person&person-org=thw&person-funct=fueh&person-rang=zug&person-text=TZ"
   },
   "C": {
     "name": "27/92",
-    "icon": "icons/marker/thw/einheiten/27-92.png"
+    "icon": "icons/marker/Marker.svg?name=27/92&icon=person&person-org=thw&person-funct=fueh&person-rang=trupp&person-text=B1"
   }
 }
