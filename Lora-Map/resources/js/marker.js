@@ -22,10 +22,11 @@ function parsedata() {
             if (markeritem['Icon'] === null) {
               marker = L.marker([markeritem['Latitude'], markeritem['Longitude']], { 'title': markeritem['Name'] });
             } else {
-              var myIcon = L.icon({
-                'iconUrl': markeritem['Icon'],
-                'iconSize': [56, 80],
-                'iconAnchor': [0, 80]
+              var myIcon = L.divIcon({
+                className: 'pos-marker',
+                iconSize: [56, 80],
+                iconAnchor: [0, 80],
+                html: '<object data="'+markeritem['Icon']+'" type="image/svg+xml" style="height:80px; width:56px;"></object>'
               });
               marker = L.marker([markeritem['Latitude'], markeritem['Longitude']], { 'title': markeritem['Name'], 'icon': myIcon });
             }
