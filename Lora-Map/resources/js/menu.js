@@ -69,9 +69,17 @@ function updateStatus() {
       divItem.appendChild(spanColor);
       var spanIcon = document.createElement("span");
       spanIcon.className = "icon";
-      var imgIcon = document.createElement("img");
-      imgIcon.src = "icons/marker/map-marker.png";
-      spanIcon.appendChild(imgIcon);
+      if (markeritem['Icon'] !== null) {
+        var objectIcon = document.createElement("object");
+        objectIcon.data = markeritem['Icon'] + "&marker-bg=hidden";
+        objectIcon.type = "image/svg+xml";
+        //<object data="'+markeritem['Icon']+'" type="image/svg+xml" style="height:80px; width:56px;"></object>
+        spanIcon.appendChild(objectIcon);
+      } else {
+        var imgIcon = document.createElement("img");
+        imgIcon.src = "icons/marker/map-marker.png";
+        spanIcon.appendChild(imgIcon)
+      }
       divItem.appendChild(spanIcon);
       var divLine1 = document.createElement("div");
       divLine1.className = "line1";

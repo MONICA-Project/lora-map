@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Xml;
+using LitJson;
 
 namespace Fraunhofer.Fit.IoT.LoraMap.Model
 {
@@ -10,6 +11,27 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model
     public Marker(String hash) {
       this.svg.LoadXml(File.ReadAllText("resources/icons/marker/Marker.svg"));
       this.ParseParams(hash);
+    }
+
+    public static String ParseMarkerConfig(JsonData json, String name) {
+      String ret = "icons/marker/Marker.svg";
+      if(json.ContainsKey("person") && json["person"].IsObject) {
+        ret += "?icon=person";
+        if(json["person"].ContainsKey("org") && json["person"]["org"].IsString) {
+          ret += "&person-org=" + (String)json["person"]["org"];
+        }
+        if(json["person"].ContainsKey("funct") && json["person"]["funct"].IsString) {
+          ret += "&person-funct=" + (String)json["person"]["funct"];
+        }
+        if(json["person"].ContainsKey("rang") && json["person"]["rang"].IsString) {
+          ret += "&person-rang=" + (String)json["person"]["rang"];
+        }
+        if(json["person"].ContainsKey("text") && json["person"]["text"].IsString) {
+          ret += "&person-text=" + (String)json["person"]["text"];
+        }
+      }
+      ret += (ret.Contains("?")) ? "&name=" + name : "?name=" + name;
+      return ret;
     }
 
     private void ParseParams(String hash) {
@@ -24,8 +46,30 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model
                 xmlname.Item(0).InnerText = keyvalue[1];
               }
               break;
+            case "marker-bg":
+              if(keyvalue[1].ToLower() == "hidden") {
+                XmlNodeList markerbg = this.svg.DocumentElement.SelectNodes("//*[local-name()='defs'][@id='global-def']");
+                if(markerbg.Count == 1) {
+                  markerbg[0].InnerXml += "<style type=\"text/css\">#marker-bg {display: none;}#marker-name {display: none;}</style>";
+                }
+                XmlNodeList root = this.svg.DocumentElement.SelectNodes("//*[local-name()='svg']");
+                if(root.Count == 1) {
+                  foreach(XmlAttribute item in root[0].Attributes) {
+                    if(item.Name.ToLower() == "height") {
+                      item.Value = "38px";
+                    }
+                    if(item.Name.ToLower() == "width") {
+                      item.Value = "40px";
+                    }
+                    if(item.Name.ToLower() == "viewbox") {
+                      item.Value = "8 35 70 100";
+                    }
+                  }
+                }
+              }
+              break;
             case "icon":
-              if(keyvalue[1] == "person") {
+              if(keyvalue[1].ToLower() == "person") {
                 XmlNodeList xmlicon = this.svg.DocumentElement.SelectNodes("//*[local-name()='defs'][@id='global-def']");
                 if (xmlicon.Count == 1) {
                   xmlicon.Item(0).InnerXml += "<style type=\"text/css\">#marker-icon #person { display: inline; }</style>";

@@ -61,9 +61,15 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
       if(marker.ContainsKey(id)) {
         if(marker[id].ContainsKey("name") && marker[id]["name"].IsString) {
           this.Name = (String)marker[id]["name"];
+        } else {
+          this.Name = id;
         }
-        if(marker[id].ContainsKey("icon") && marker[id]["icon"].IsString) {
+        if(marker[id].ContainsKey("marker.svg") && marker[id]["marker.svg"].IsObject) {
+          this.Icon = Marker.ParseMarkerConfig(marker[id]["marker.svg"], this.Name);
+        } else if(marker[id].ContainsKey("icon") && marker[id]["icon"].IsString) {
           this.Icon = (String)marker[id]["icon"];
+        } else {
+          this.Icon = null;
         }
       } else {
         this.Name = id;

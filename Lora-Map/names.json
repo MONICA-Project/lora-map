@@ -1,10 +1,24 @@
 {
   "A": {
     "name": "26/91",
-    "icon": "icons/marker/Marker.svg?name=26/91&icon=person&person-org=thw&person-funct=fueh&person-rang=zug&person-text=TZ"
+    "marker.svg": {
+      "person": {
+        "org": "thw",
+        "funct": "fueh",
+        "rang": "zug",
+        "text": "TZ"
+      }
+    }
   },
   "C": {
     "name": "27/92",
-    "icon": "icons/marker/Marker.svg?name=27/92&icon=person&person-org=thw&person-funct=fueh&person-rang=trupp&person-text=B1"
+    "marker.svg": {
+      "person": {
+        "org": "thw",
+        "funct": "fueh",
+        "rang": "trupp",
+        "text": "B1"
+      }
+    }
   }
 }
