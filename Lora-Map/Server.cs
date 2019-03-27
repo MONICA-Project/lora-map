@@ -50,30 +50,30 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
     }
 
     protected override void SendResponse(HttpListenerContext cont) {
-      if (cont.Request.Url.PathAndQuery.StartsWith("/loc")) {
-        try {
+      try {
+        if (cont.Request.Url.PathAndQuery.StartsWith("/loc")) {
           Dictionary<String, Object> ret = new Dictionary<String, Object>();
           Byte[] buf = Encoding.UTF8.GetBytes(JsonMapper.ToJson(this.locations));
           cont.Response.ContentLength64 = buf.Length;
           cont.Response.OutputStream.Write(buf, 0, buf.Length);
           Console.WriteLine("200 - " + cont.Request.Url.PathAndQuery);
           return;
-        } catch (Exception e) {
-          Helper.WriteError("500 - " + e.Message);
-          cont.Response.StatusCode = 500;
+        }
+        if (cont.Request.Url.PathAndQuery.StartsWith("/icons/marker/Marker.svg") && cont.Request.Url.PathAndQuery.Contains("?")) {
+          String hash = cont.Request.Url.PathAndQuery.Substring(cont.Request.Url.PathAndQuery.IndexOf('?') + 1);
+          if (!this.markertable.ContainsKey(hash)) {
+            this.markertable.Add(hash, new Marker(hash));
+          }
+          cont.Response.ContentType = "image/svg+xml";
+          Byte[] buf = Encoding.UTF8.GetBytes(this.markertable[hash].ToString());
+          cont.Response.ContentLength64 = buf.Length;
+          cont.Response.OutputStream.Write(buf, 0, buf.Length);
+          Console.WriteLine("200 - " + cont.Request.Url.PathAndQuery);
           return;
         }
-      }
-      if(cont.Request.Url.PathAndQuery.StartsWith("/icons/marker/Marker.svg") && cont.Request.Url.PathAndQuery.Contains("?")) {
-        String hash = cont.Request.Url.PathAndQuery.Substring(cont.Request.Url.PathAndQuery.IndexOf('?')+1);
-        if(!this.markertable.ContainsKey(hash)) {
-          this.markertable.Add(hash, new Marker(hash));
-        }
-        cont.Response.ContentType = "image/svg+xml";
-        Byte[] buf = Encoding.UTF8.GetBytes(this.markertable[hash].ToString());
-        cont.Response.ContentLength64 = buf.Length;
-        cont.Response.OutputStream.Write(buf, 0, buf.Length);
-        Console.WriteLine("200 - " + cont.Request.Url.PathAndQuery);
+      } catch (Exception e) {
+        Helper.WriteError("500 - " + e.Message);
+        cont.Response.StatusCode = 500;
         return;
       }
       base.SendResponse(cont);

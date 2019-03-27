@@ -2,24 +2,27 @@
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="utf-8" />
-    <title>Dashboard</title>
-    <link rel="stylesheet" type="text/css" href="js/leaflet/leaflet.css" />
-    <link rel="stylesheet" type="text/css" href="css/global.css" />
+  <meta charset="utf-8" />
+  <title>Dashboard</title>
+  <link rel="stylesheet" type="text/css" href="js/leaflet/leaflet.css" />
+  <link rel="stylesheet" type="text/css" href="css/global.css" />
 </head>
 <body>
-    <div id="bigmap"></div>
-    <div id="menucollumn">
-        <span class="pos" onclick="showHidePanel('pannels_pos');"></span>
-    </div>
-    <div id="version">vx.x.x</div>
-    <div id="pannels">
-        <div id="pannels_pos"></div>
-        <div id="pannels_info"></div>
-    </div>
-    <script type="text/javascript" src="js/leaflet/leaflet.js"></script>
-    <script type="text/javascript" src="js/nav.js"></script>
-    <script type="text/javascript" src="js/menu.js"></script>
-    <script type="text/javascript" src="js/marker.js"></script>
+  <div id="bigmap"></div>
+  <div id="menucollumn">
+    <span class="pos" onclick="showHidePanel('pannels_pos');"></span>
+    <span class="admin" onclick="showHidePanel('pannels_admin');"></span>
+    <span class="info" onclick="showHidePanel('pannels_info');"></span>
+  </div>
+  <div id="version">vx.x.x</div>
+  <div id="pannels">
+    <div id="pannels_pos"></div>
+    <div id="pannels_info"></div>
+    <div id="pannels_admin"></div>
+  </div>
+  <script type="text/javascript" src="js/leaflet/leaflet.js"></script>
+  <script type="text/javascript" src="js/nav.js"></script>
+  <script type="text/javascript" src="js/menu.js"></script>
+  <script type="text/javascript" src="js/marker.js"></script>
 </body>
 </html>

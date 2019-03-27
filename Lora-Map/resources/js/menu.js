@@ -1,12 +1,14 @@
 ﻿var visiblePanel = null;
 function showHidePanel(name) {
-  if (visiblePanel === null) {
+  if (visiblePanel === null && name !== null) {
     document.getElementById("pannels").style.display = "block";
     document.getElementById(name).style.display = "block";
     visiblePanel = name;
   } else if (visiblePanel === name && name !== "pannels_info" || name === null) {
     document.getElementById("pannels").style.display = "none";
-    document.getElementById(visiblePanel).style.display = "none";
+    if (visiblePanel !== null) {
+      document.getElementById(visiblePanel).style.display = "none";
+    }
     visiblePanel = null;
   } else {
     document.getElementById(visiblePanel).style.display = "none";
@@ -48,69 +50,59 @@ function updateDeviceStatus() {
   }
 }
 
+var overviewStatus = new Array();
+
 function updateStatus() {
-  document.getElementById("pannels_pos").innerHTML = "";
-  for (var name in serverLocation) {
-    if (serverLocation.hasOwnProperty(name)) {
-      var markeritem = serverLocation[name];
-      var divItem = document.createElement("div");
-      divItem.className = "item";
-      divItem.onclick = showMarkerInfoMenu;
-      divItem.setAttribute("rel", name);
-      var spanColor = document.createElement("span");
-      spanColor.className = "color";
-      if (markeritem["Batterysimple"] === 0) {
-        spanColor.style.backgroundColor = "red";
-      } else if (markeritem["Batterysimple"] === 1 || markeritem["Batterysimple"] === 2) {
-        spanColor.style.backgroundColor = "yellow";
-      } else if (markeritem["Batterysimple"] === 3 || markeritem["Batterysimple"] === 4) {
-        spanColor.style.backgroundColor = "green";
+  for (var id in serverLocation) {
+    if (serverLocation.hasOwnProperty(id)) {
+      var markeritem = serverLocation[id];
+      if (typeof (overviewStatus[id]) == "undefined") {
+        overviewStatus[id] = createOverviewElement(markeritem, id);
+        document.getElementById("pannels_pos").appendChild(overviewStatus[id]);
       }
-      divItem.appendChild(spanColor);
-      var spanIcon = document.createElement("span");
-      spanIcon.className = "icon";
-      if (markeritem['Icon'] !== null) {
-        var objectIcon = document.createElement("object");
-        objectIcon.data = markeritem['Icon'] + "&marker-bg=hidden";
-        objectIcon.type = "image/svg+xml";
-        //<object data="'+markeritem['Icon']+'" type="image/svg+xml" style="height:80px; width:56px;"></object>
-        spanIcon.appendChild(objectIcon);
-      } else {
-        var imgIcon = document.createElement("img");
-        imgIcon.src = "icons/marker/map-marker.png";
-        spanIcon.appendChild(imgIcon)
-      }
-      divItem.appendChild(spanIcon);
-      var divLine1 = document.createElement("div");
-      divLine1.className = "line1";
-      var spanName = document.createElement("span");
-      spanName.className = "name";
-      spanName.innerText = markeritem["Name"];
-      divLine1.appendChild(spanName);
-      var spanAkku = document.createElement("span");
-      spanAkku.className = "akku";
-      var imgAkku = document.createElement("img");
-      imgAkku.src = "icons/akku/" + markeritem["Batterysimple"] + "-4.png";
-      spanAkku.appendChild(imgAkku);
-      divLine1.appendChild(spanAkku);
-      divItem.appendChild(divLine1);
-      var divLine2 = document.createElement("div");
-      divLine2.className = "line2";
-      if (markeritem["Fix"]) {
-        divLine2.style.color = "green";
-        divLine2.innerText = "GPS-Empfang";
-      } else {
-        divLine2.style.color = "red";
-        divLine2.innerText = "kein GPS-Empfang";
-      }
-      divItem.appendChild(divLine2);
-      var divLine3 = document.createElement("div");
-      divLine3.className = "line3";
-      divLine3.innerText = "Letzter Datenempfang: vor " + timeDiffToText(markeritem["Upatedtime"]);
-      divItem.appendChild(divLine3);
-      document.getElementById("pannels_pos").appendChild(divItem);
+      updateOverviewElement(markeritem, id);
     }
   }
+}
+
+function updateOverviewElement(markeritem, id) {
+  if (markeritem["Batterysimple"] === 0) {
+    document.getElementById("overview-color-id-" + id).style.backgroundColor = "red";
+  } else if (markeritem["Batterysimple"] === 1 || markeritem["Batterysimple"] === 2) {
+    document.getElementById("overview-color-id-" + id).style.backgroundColor = "yellow";
+  } else if (markeritem["Batterysimple"] === 3 || markeritem["Batterysimple"] === 4) {
+    document.getElementById("overview-color-id-" + id).style.backgroundColor = "green";
+  }
+  document.getElementById("overview-name-id-" + id).innerText = markeritem["Name"];
+  document.getElementById("overview-akkuimg-id-" + id).src = "icons/akku/" + markeritem["Batterysimple"] + "-4.png";
+  if (markeritem["Fix"]) {
+    document.getElementById("overview-gps-id-" + id).innerText = "GPS-Empfang";
+    document.getElementById("overview-gps-id-" + id).style.color = "green";
+  } else {
+    document.getElementById("overview-gps-id-" + id).innerText = "kein GPS-Empfang";
+    document.getElementById("overview-gps-id-" + id).style.color = "red";
+  }
+  document.getElementById("overview-update-id-" + id).innerText = "Letzter Datenempfang: vor " + timeDiffToText(markeritem["Upatedtime"]);
+}
+
+function createOverviewElement(markeritem, id) {
+  var divItem = document.createElement("div");
+  divItem.className = "item";
+  divItem.onclick = showMarkerInfoMenu;
+  divItem.setAttribute("rel", id);
+  divItem.innerHTML = "<span class=\"color\" id=\"overview-color-id-" + id + "\"></span>";
+  if (markeritem['Icon'] !== null) {
+    divItem.innerHTML += "<span class=\"icon\"><object data=\"" + markeritem['Icon'] + "&marker-bg=hidden" + "\" type=\"image/svg+xml\"></object></span>";
+  } else {
+    divItem.innerHTML += "<span class=\"icon\"><img src=\"icons/marker/map-marker.png\"></span>";
+  }
+  divItem.innerHTML += "<div class=\"line1\">" +
+    "<span class=\"name\" id=\"overview-name-id-" + id + "\"></span>" +
+    "<span class=\"akku\"><img id=\"overview-akkuimg-id-" + id + "\" src=\"icons/akku/" + markeritem["Batterysimple"] + "-4.png\"></span>" +
+    "</div>";
+  divItem.innerHTML += "<div class=\"line2\" style=\"color: red;\" id=\"overview-gps-id-" + id + "\">kein GPS-Empfang</div>";
+  divItem.innerHTML += "<div class=\"line3\" id=\"overview-update-id-" + id + "\">Letzter Datenempfang: vor " + timeDiffToText(markeritem["Upatedtime"]) + "</div>";
+  return divItem;
 }
 
 function timeDiffToText(time) {
