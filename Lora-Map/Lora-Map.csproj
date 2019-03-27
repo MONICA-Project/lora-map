@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Marker.cs" />
+    <Compile Include="Model\Panicclient.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="Model\Botclient.cs" />
     <Compile Include="Program.cs" />

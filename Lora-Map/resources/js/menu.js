@@ -56,7 +56,7 @@ function updateStatus() {
   for (var id in serverLocation) {
     if (serverLocation.hasOwnProperty(id)) {
       var markeritem = serverLocation[id];
-      if (typeof (overviewStatus[id]) == "undefined") {
+      if (typeof overviewStatus[id] === "undefined") {
         overviewStatus[id] = createOverviewElement(markeritem, id);
         document.getElementById("pannels_pos").appendChild(overviewStatus[id]);
       }

@@ -14,6 +14,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
   class Server : Webserver
   {
     private readonly SortedDictionary<String, Botclient> locations = new SortedDictionary<String, Botclient>();
+    private readonly SortedDictionary<String, Panicclient> panics = new SortedDictionary<String, Panicclient>();
     private readonly JsonData marker;
     private readonly Dictionary<String, Marker> markertable = new Dictionary<String, Marker>();
 
@@ -22,27 +23,22 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
     protected override void Backend_MessageIncomming(Object sender, BackendEvent e) {
       try {
         JsonData d = JsonMapper.ToObject(e.Message);
-        if (d.ContainsKey("Rssi") && d["Rssi"].IsDouble
-          && d.ContainsKey("Snr") && d["Snr"].IsDouble
-          && d.ContainsKey("Receivedtime") && d["Receivedtime"].IsString
-          && d.ContainsKey("BatteryLevel") && d["BatteryLevel"].IsDouble
-          && d.ContainsKey("Gps") && d["Gps"].IsObject
-          && d["Gps"].ContainsKey("Latitude") && d["Gps"]["Latitude"].IsDouble
-          && d["Gps"].ContainsKey("Longitude") && d["Gps"]["Longitude"].IsDouble
-          && d["Gps"].ContainsKey("LastLatitude") && d["Gps"]["LastLatitude"].IsDouble
-          && d["Gps"].ContainsKey("LastLongitude") && d["Gps"]["LastLongitude"].IsDouble
-          && d["Gps"].ContainsKey("Hdop") && d["Gps"]["Hdop"].IsDouble
-          && d["Gps"].ContainsKey("Fix") && d["Gps"]["Fix"].IsBoolean
-          && d["Gps"].ContainsKey("Height") && d["Gps"]["Height"].IsDouble
-          && d.ContainsKey("Name") && d["Name"].IsString) {
-          String name = (String)d["Name"];
-          Botclient b = new Botclient(name, d, this.marker);
+        if (Botclient.CheckJson(d) && ((String)e.From).Contains("lora/data")) {
+          String name = Botclient.GetId(d);
           if (this.locations.ContainsKey(name)) {
-            this.locations[name] = b;
+            this.locations[name].Update(d);
           } else {
-            this.locations.Add(name, b);
+            this.locations.Add(name, new Botclient(d, this.marker));
           }
           Console.WriteLine("Koordinate erhalten!");
+        } else if(Panicclient.CheckJson(d) && ((String)e.From).Contains("lora/panic")) {
+          String name = Panicclient.GetId(d);
+          if(this.panics.ContainsKey(name)) {
+            this.panics[name].Update(d);
+          } else {
+            this.panics.Add(name, new Panicclient(d));
+          }
+          Console.WriteLine("PANIC erhalten!");
         }
       } catch (Exception ex) {
         Helper.WriteError(ex.Message);
@@ -52,14 +48,12 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
     protected override void SendResponse(HttpListenerContext cont) {
       try {
         if (cont.Request.Url.PathAndQuery.StartsWith("/loc")) {
-          Dictionary<String, Object> ret = new Dictionary<String, Object>();
-          Byte[] buf = Encoding.UTF8.GetBytes(JsonMapper.ToJson(this.locations));
-          cont.Response.ContentLength64 = buf.Length;
-          cont.Response.OutputStream.Write(buf, 0, buf.Length);
-          Console.WriteLine("200 - " + cont.Request.Url.PathAndQuery);
+          this.SendJsonResponse(this.locations, cont);
           return;
-        }
-        if (cont.Request.Url.PathAndQuery.StartsWith("/icons/marker/Marker.svg") && cont.Request.Url.PathAndQuery.Contains("?")) {
+        } else if(cont.Request.Url.PathAndQuery.StartsWith("/panic")) {
+          this.SendJsonResponse(this.panics, cont);
+          return;
+        } else if (cont.Request.Url.PathAndQuery.StartsWith("/icons/marker/Marker.svg") && cont.Request.Url.PathAndQuery.Contains("?")) {
           String hash = cont.Request.Url.PathAndQuery.Substring(cont.Request.Url.PathAndQuery.IndexOf('?') + 1);
           if (!this.markertable.ContainsKey(hash)) {
             this.markertable.Add(hash, new Marker(hash));

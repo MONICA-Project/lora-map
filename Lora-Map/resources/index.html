@@ -12,13 +12,27 @@
   <div id="menucollumn">
     <span class="pos" onclick="showHidePanel('pannels_pos');"></span>
     <span class="admin" onclick="showHidePanel('pannels_admin');"></span>
-    <span class="info" onclick="showHidePanel('pannels_info');"></span>
+    <span class="info" onclick="showHidePanel('pannels_version');"></span>
   </div>
-  <div id="version">vx.x.x</div>
   <div id="pannels">
     <div id="pannels_pos"></div>
-    <div id="pannels_info"></div>
+    <div id="pannels_info">
+      <!-- Shows infos about selected device here, this will be cleand by js -->
+    </div>
     <div id="pannels_admin"></div>
+    <div id="pannels_version">
+      <div class="versionstring">
+        Version:
+        <div id="version">vx.x.x</div>
+      </div>
+      <div class="cicons">
+        Icons:
+        <ul>
+          <li><a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> licensed <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></li>
+          <li><a href="https://www.freepik.com/" title="Freepik">Freepik</a> licensed <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></li>
+        </ul>
+      </div>
+    </div>
   </div>
   <script type="text/javascript" src="js/leaflet/leaflet.js"></script>
   <script type="text/javascript" src="js/nav.js"></script>

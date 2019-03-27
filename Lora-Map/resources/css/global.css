@@ -15,17 +15,23 @@ object {
     pointer-events: none;
 }
 
+.leaflet-touch .leaflet-bar a {
+  width: 38px;
+}
+
 #menucollumn {
   width: 32px;
   background-color: white;
+  background-clip: padding-box;
   position: absolute;
   top: 85px;
-  bottom: 35px;
+  bottom: 10px;
   left: 10px;
   z-index: 5000;
   border: #707070 2px solid;
-  border: rgba(0,0,0,0.4) 2px solid;
-  border-radius: 4px
+  border: rgba(0,0,0,0.2) 2px solid;
+  border-radius: 4px;
+  padding: 3px;
 }
 #menucollumn span {
   display: block;
@@ -42,33 +48,18 @@ object {
 #menucollumn .info {
   background-image: url("icons/information.png");
 }
-/*<div>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" 			    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 			    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>*/
-/*<div>Icons made by <a href="https://www.freepik.com/" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" 			    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 			    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>*/
-/**<div>Icons made by <a href="https://www.freepik.com/" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" 			    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 			    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>*/
-
-#version {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  z-index: 50000;
-  background-color: white;
-  border-radius: 5px;
-  height: 20px;
-  width: 40px;
-  border: #707070 2px solid;
-  border: rgba(0,0,0,0.4) 2px solid;
-}
 
 #pannels {
   position: absolute;
   top: 85px;
-  left: 47px;
-  bottom: 35px;
+  left: 55px;
+  bottom: 10px;
   width: 250px;
   z-index: 50000;
   background-color: white;
+  background-clip: padding-box;
   border: #707070 2px solid;
-  border: rgba(0,0,0,0.4) 2px solid;
+  border: rgba(0,0,0,0.2) 2px solid;
   border-radius: 4px;
   display: none;
   font-size: 11px;
@@ -132,4 +123,28 @@ object {
 }
 #pannels #pannels_info .update {
   margin-bottom: 10px;
+}
+
+#pannels #pannels_version {
+  padding: 5px;
+  display: none;
+}
+#pannels #pannels_version .versionstring {
+  font-weight: bold;
+}
+#pannels #pannels_version .versionstring #version {
+  font-weight: normal;
+  font-family: monospace;
+  display: inline;
+}
+#pannels #pannels_version .cicons {
+  font-weight: bold;
+}
+#pannels #pannels_version .cicons ul {
+  margin: 0;
+  padding: 0;
+  padding-left: 15px;
+}
+#pannels #pannels_version .cicons ul li {
+  font-weight: normal;
 }
