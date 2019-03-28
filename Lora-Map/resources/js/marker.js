@@ -1,16 +1,20 @@
-﻿var markers = {};
-var serverLocation = {};
-
-setInterval(datarunner, 1000);
+﻿setInterval(datarunner, 1000);
 function datarunner() {
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = parsedata;
-  xhttp.open("GET", "http://{%REQUEST_URL_HOST%}:8080/loc", true);
-  xhttp.send();
+  var loc = new XMLHttpRequest();
+  loc.onreadystatechange = parseAjaxLoc;
+  loc.open("GET", "http://{%REQUEST_URL_HOST%}:8080/loc", true);
+  loc.send();
+
+  var panic = new XMLHttpRequest();
+  panic.onreadystatechange = parseAjaxPanic;
+  panic.open("GET", "http://{%REQUEST_URL_HOST%}:8080/panic", true);
+  panic.send();
 }
 
+var markers = {};
+var serverLocation = {};
 //https://leafletjs.com/reference-1.4.0.html#marker
-function parsedata() {
+function parseAjaxLoc() {
   if (this.readyState === 4 && this.status === 200) {
     serverLocation = JSON.parse(this.responseText);
     for (var key in serverLocation) {
@@ -39,5 +43,15 @@ function parsedata() {
     }
     updateStatus();
     updateDeviceStatus();
+  }
+}
+
+function parseAjaxPanic() {
+  if (this.readyState === 4 && this.status === 200) {
+    var panics = JSON.parse(this.responseText);
+    for (var id in panics) {
+      if (panics.hasOwnProperty(id)) {
+      }
+    }
   }
 }
