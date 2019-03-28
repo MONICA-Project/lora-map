@@ -51,6 +51,18 @@ function parseAjaxPanic() {
     var panics = JSON.parse(this.responseText);
     for (var id in panics) {
       if (panics.hasOwnProperty(id)) {
+        var panicitem = panics[id];
+        if (markers.hasOwnProperty(id)) {
+          if (typeof markers[id].getPopup() === "undefined") {
+            markers[id].bindPopup("");
+          }
+          if (timeDiffRaw(panicitem["Triggerdtime"]) <= 10 && !markers[id].isPopupOpen()) {
+            markers[id].setPopupContent("ALERT!");
+            markers[id].openPopup();
+          } else if (timeDiffRaw(panicitem["Triggerdtime"]) > 10 && markers[id].isPopupOpen()) {
+            markers[id].closePopup();
+          }
+        }
       }
     }
   }

@@ -119,3 +119,7 @@ function timeDiffToText(time) {
   }
   return Math.floor(diff / (60 * 60 * 24)) + " d";
 }
+
+function timeDiffRaw(time) {
+  return (Date.now() - Date.parse(time)) / 1000;
+}
