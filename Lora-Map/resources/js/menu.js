@@ -24,6 +24,12 @@ function showMarkerInfo(e) {
   updateDeviceStatus();
 }
 
+function showMarkerInfoPerId(id) {
+  showHidePanel("pannels_info");
+  statusToDevice = id;
+  updateDeviceStatus();
+}
+
 function showMarkerInfoMenu() {
   showHidePanel("pannels_info");
   statusToDevice = this.getAttribute("rel");

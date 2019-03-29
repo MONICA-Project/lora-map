@@ -53,14 +53,12 @@ function parseAjaxPanic() {
       if (panics.hasOwnProperty(id)) {
         var panicitem = panics[id];
         if (markers.hasOwnProperty(id)) {
-          if (typeof markers[id].getPopup() === "undefined") {
-            markers[id].bindPopup("");
-          }
-          if (timeDiffRaw(panicitem["Triggerdtime"]) <= 10 && !markers[id].isPopupOpen()) {
-            markers[id].setPopupContent("ALERT!");
-            markers[id].openPopup();
-          } else if (timeDiffRaw(panicitem["Triggerdtime"]) > 10 && markers[id].isPopupOpen()) {
-            markers[id].closePopup();
+          var marker = markers[id];
+          if (timeDiffRaw(panicitem["Triggerdtime"]) <= 10 && marker._icon.className.indexOf(" marker-alert") === -1) {
+            marker._icon.className += " marker-alert";
+            showMarkerInfoPerId(id);
+          } else if (timeDiffRaw(panicitem["Triggerdtime"]) > 10 && marker._icon.className.indexOf(" marker-alert") !== -1) {
+            marker._icon.className = marker._icon.className.replace(" marker-alert", "");
           }
         }
       }

@@ -3,6 +3,13 @@
 #bigmap {
     height: 100%;
 }
+#bigmap .marker-alert {
+  border: red 5px dashed;
+  top: -5px;
+  left: -5px;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.4) 10px 10px;
+}
 
 /* Optional: Makes the sample page fill the window. */
 html, body {
