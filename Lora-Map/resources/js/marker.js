@@ -19,24 +19,24 @@ function parseAjaxLoc() {
     serverLocation = JSON.parse(this.responseText);
     for (var key in serverLocation) {
       if (serverLocation.hasOwnProperty(key)) {
-        var markeritem = serverLocation[key];
-        if (markeritem['Latitude'] !== 0 || markeritem['Longitude'] !== 0) {
+        var positionItem = serverLocation[key];
+        if (positionItem['Latitude'] !== 0 || positionItem['Longitude'] !== 0) {
           if (!markers.hasOwnProperty(key)) {
             var marker = null;
-            if (markeritem['Icon'] === null) {
-              marker = L.marker([markeritem['Latitude'], markeritem['Longitude']], { 'title': markeritem['Name'] });
+            if (positionItem['Icon'] === null) {
+              marker = L.marker([positionItem['Latitude'], positionItem['Longitude']], { 'title': positionItem['Name'] });
             } else {
               var myIcon = L.divIcon({
                 className: 'pos-marker',
                 iconSize: [56, 80],
                 iconAnchor: [0, 80],
-                html: '<object data="'+markeritem['Icon']+'" type="image/svg+xml" style="height:80px; width:56px;"></object>'
+                html: '<object data="'+positionItem['Icon']+'" type="image/svg+xml" style="height:80px; width:56px;"></object>'
               });
-              marker = L.marker([markeritem['Latitude'], markeritem['Longitude']], { 'title': markeritem['Name'], 'icon': myIcon });
+              marker = L.marker([positionItem['Latitude'], positionItem['Longitude']], { 'title': positionItem['Name'], 'icon': myIcon });
             }
             markers[key] = marker.addTo(mymap).on("click", showMarkerInfo, key);
           } else {
-            markers[key].setLatLng([markeritem['Latitude'], markeritem['Longitude']]);
+            markers[key].setLatLng([positionItem['Latitude'], positionItem['Longitude']]);
           }
         }
       }
@@ -51,13 +51,13 @@ function parseAjaxPanic() {
     var panics = JSON.parse(this.responseText);
     for (var id in panics) {
       if (panics.hasOwnProperty(id)) {
-        var panicitem = panics[id];
+        var alertItem = panics[id];
         if (markers.hasOwnProperty(id)) {
           var marker = markers[id];
-          if (timeDiffRaw(panicitem["Triggerdtime"]) <= 10 && marker._icon.className.indexOf(" marker-alert") === -1) {
+          if (timeCalculation(alertItem["Recievedtime"], "diffraw") <= 10 && marker._icon.className.indexOf(" marker-alert") === -1) {
             marker._icon.className += " marker-alert";
             showMarkerInfoPerId(id);
-          } else if (timeDiffRaw(panicitem["Triggerdtime"]) > 10 && marker._icon.className.indexOf(" marker-alert") !== -1) {
+          } else if (timeCalculation(alertItem["Recievedtime"], "diffraw") > 10 && marker._icon.className.indexOf(" marker-alert") !== -1) {
             marker._icon.className = marker._icon.className.replace(" marker-alert", "");
           }
         }

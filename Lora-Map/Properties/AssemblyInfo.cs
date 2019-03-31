@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Fraunhofer FIT")]
 [assembly: AssemblyProduct("Lora-Map")]
-[assembly: AssemblyCopyright("Copyright ©  2018 - 10.03.2019")]
+[assembly: AssemblyCopyright("Copyright ©  2018 - 30.03.2019")]
 [assembly: AssemblyTrademark("Fraunhofer FIT, BlubbFish")]
 [assembly: AssemblyCulture("")]
 [assembly: NeutralResourcesLanguage("de-DE")]
@@ -33,12 +33,13 @@ using System.Runtime.InteropServices;
 // Sie können alle Werte angeben oder Standardwerte für die Build- und Revisionsnummern verwenden,
 // übernehmen, indem Sie "*" eingeben:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.1.4")]
-[assembly: AssemblyFileVersion("1.1.4")]
+[assembly: AssemblyVersion("1.1.5")]
+[assembly: AssemblyFileVersion("1.1.5")]
 
 /*
 * 1.1.1 Add Debian package config
 * 1.1.2 #2 Show versions number in Site
 * 1.1.3 #1 Click on icon and show details
 * 1.1.4 #3 Create icons for devices
+* 1.1.5 Add support for alert button
 */

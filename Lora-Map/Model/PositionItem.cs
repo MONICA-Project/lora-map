@@ -3,13 +3,15 @@ using System.Globalization;
 using LitJson;
 
 namespace Fraunhofer.Fit.IoT.LoraMap.Model {
-  class Botclient {
+  class PositionItem {
     public Double Rssi { get; private set; }
     public Double Snr { get; private set; }
-    public DateTime Upatedtime { get; private set; }
+    public DateTime Lorarecievedtime { get; private set; }
+    public DateTime Recievedtime { get; private set; }
     public Double Latitude { get; private set; }
     public Double Longitude { get; private set; }
     public Double Hdop { get; private set; }
+    public DateTime Lastgpspostime { get; private set; }
     public Double Battery { get; private set; }
     public Int32 Batterysimple { get; private set; }
     public Boolean Fix { get; private set; }
@@ -17,7 +19,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
     public String Name { get; private set; }
     public String Icon { get; private set; }
 
-    public Botclient(JsonData json, JsonData marker) {
+    public PositionItem(JsonData json, JsonData marker) {
       this.Update(json);
       String id = GetId(json);
       if(marker.ContainsKey(id)) {
@@ -48,6 +50,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
       && json["Gps"].ContainsKey("Longitude") && json["Gps"]["Longitude"].IsDouble
       && json["Gps"].ContainsKey("LastLatitude") && json["Gps"]["LastLatitude"].IsDouble
       && json["Gps"].ContainsKey("LastLongitude") && json["Gps"]["LastLongitude"].IsDouble
+      && json["Gps"].ContainsKey("LastLongitude") && json["Gps"]["LastGPSPos"].IsString
       && json["Gps"].ContainsKey("Hdop") && json["Gps"]["Hdop"].IsDouble
       && json["Gps"].ContainsKey("Fix") && json["Gps"]["Fix"].IsBoolean
       && json["Gps"].ContainsKey("Height") && json["Gps"]["Height"].IsDouble
@@ -58,8 +61,9 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
       this.Rssi = (Double)json["Rssi"];
       this.Snr = (Double)json["Snr"];
       if(DateTime.TryParse((String)json["Receivedtime"], DateTimeFormatInfo.InvariantInfo, DateTimeStyles.AssumeUniversal, out DateTime updatetime)) {
-        this.Upatedtime = updatetime;
+        this.Lorarecievedtime = updatetime.ToUniversalTime();
       }
+      this.Recievedtime = DateTime.UtcNow;
       this.Battery = Math.Round((Double)json["BatteryLevel"], 2);
       if(this.Battery < 3) {
         this.Batterysimple = 0;
@@ -78,6 +82,9 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
       if(!this.Fix) {
         this.Latitude = (Double)json["Gps"]["LastLatitude"];
         this.Longitude = (Double)json["Gps"]["LastLongitude"];
+      }
+      if(DateTime.TryParse((String)json["Gps"]["LastGPSPos"], DateTimeFormatInfo.InvariantInfo, DateTimeStyles.AssumeUniversal, out DateTime lastgpstime)) {
+        this.Lastgpspostime = lastgpstime.ToUniversalTime();
       }
       this.Hdop = (Double)json["Gps"]["Hdop"];
       this.Height = (Double)json["Gps"]["Height"];

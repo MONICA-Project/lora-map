@@ -3,26 +3,26 @@ using System.Globalization;
 using LitJson;
 
 namespace Fraunhofer.Fit.IoT.LoraMap.Model {
-  class Panicclient {
+  class AlarmItem {
     public Double Rssi { get; private set; }
     public Double Snr { get; private set; }
-    public DateTime Upatedtime { get; private set; }
+    public DateTime Lorarecievedtime { get; private set; }
+    public DateTime Recievedtime { get; private set; }
     public Double Latitude { get; private set; }
     public Double Longitude { get; private set; }
     public Double Hdop { get; private set; }
     public Boolean Fix { get; private set; }
     public Double Height { get; private set; }
-    public DateTime Triggerdtime { get; private set; }
 
-    public Panicclient(JsonData json) => this.Update(json);
+    public AlarmItem(JsonData json) => this.Update(json);
 
     public void Update(JsonData json) {
-      this.Triggerdtime = DateTime.Now;
       this.Rssi = (Double)json["Rssi"];
       this.Snr = (Double)json["Snr"];
       if(DateTime.TryParse((String)json["Receivedtime"], DateTimeFormatInfo.InvariantInfo, DateTimeStyles.AssumeUniversal, out DateTime updatetime)) {
-        this.Upatedtime = updatetime;
+        this.Lorarecievedtime = updatetime.ToUniversalTime();
       }
+      this.Recievedtime = DateTime.UtcNow;
       this.Latitude = (Double)json["Gps"]["Latitude"];
       this.Longitude = (Double)json["Gps"]["Longitude"];
       this.Fix = (Boolean)json["Gps"]["Fix"];
