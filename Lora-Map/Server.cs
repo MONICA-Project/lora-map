@@ -8,6 +8,7 @@ using BlubbFish.Utils.IoT.Bots;
 using BlubbFish.Utils.IoT.Connector;
 using BlubbFish.Utils.IoT.Events;
 using Fraunhofer.Fit.IoT.LoraMap.Model;
+using Fraunhofer.Fit.IoT.LoraMap.Model.Admin;
 using LitJson;
 
 namespace Fraunhofer.Fit.IoT.LoraMap {
@@ -17,6 +18,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
     private readonly SortedDictionary<String, AlarmItem> alarms = new SortedDictionary<String, AlarmItem>();
     private readonly JsonData marker;
     private readonly Dictionary<String, Marker> markertable = new Dictionary<String, Marker>();
+    private readonly AdminModel admin = new AdminModel();
 
     public Server(ADataBackend backend, Dictionary<String, String> settings, InIReader requests) : base(backend, settings, requests) => this.marker = JsonMapper.ToObject(File.ReadAllText("names.json"));
 
@@ -45,14 +47,12 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
       }
     }
 
-    protected override void SendResponse(HttpListenerContext cont) {
+    protected override Boolean SendWebserverResponse(HttpListenerContext cont) {
       try {
         if (cont.Request.Url.PathAndQuery.StartsWith("/loc")) {
-          this.SendJsonResponse(this.positions, cont);
-          return;
+          return SendJsonResponse(this.positions, cont);
         } else if(cont.Request.Url.PathAndQuery.StartsWith("/panic")) {
-          this.SendJsonResponse(this.alarms, cont);
-          return;
+          return SendJsonResponse(this.alarms, cont);
         } else if (cont.Request.Url.PathAndQuery.StartsWith("/icons/marker/Marker.svg") && cont.Request.Url.PathAndQuery.Contains("?")) {
           String hash = cont.Request.Url.PathAndQuery.Substring(cont.Request.Url.PathAndQuery.IndexOf('?') + 1);
           if (!this.markertable.ContainsKey(hash)) {
@@ -63,17 +63,18 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
           cont.Response.ContentLength64 = buf.Length;
           cont.Response.OutputStream.Write(buf, 0, buf.Length);
           Console.WriteLine("200 - " + cont.Request.Url.PathAndQuery);
-          return;
+          return true;
         } else if(cont.Request.Url.PathAndQuery.StartsWith("/currenttime")) {
-          this.SendJsonResponse(new Dictionary<String, DateTime>() { { "utc", DateTime.UtcNow } }, cont);
-          return;
+          return SendJsonResponse(new Dictionary<String, DateTime>() { { "utc", DateTime.UtcNow } }, cont);
+        } else if(cont.Request.Url.PathAndQuery.StartsWith("/admin")) {
+          return this.admin.ParseReuqest(cont);
         }
       } catch (Exception e) {
         Helper.WriteError("500 - " + e.Message);
         cont.Response.StatusCode = 500;
-        return;
+        return false;
       }
-      base.SendResponse(cont);
+      return SendFileResponse(cont, "resources");
     }
   }
 }

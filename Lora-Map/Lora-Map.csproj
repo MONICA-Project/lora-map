@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Admin\AdminModel.cs" />
     <Compile Include="Model\Marker.cs" />
     <Compile Include="Model\AlarmItem.cs" />
     <Compile Include="Server.cs" />
@@ -178,6 +179,9 @@
       <Project>{fac8ce64-bf13-4ece-8097-aeb5dd060098}</Project>
       <Name>Utils</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="admin\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
