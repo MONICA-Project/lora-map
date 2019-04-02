@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Admin\AdminModel.cs" />
+    <Compile Include="Model\Admin\AdminSession.cs" />
     <Compile Include="Model\Marker.cs" />
     <Compile Include="Model\AlarmItem.cs" />
     <Compile Include="Server.cs" />

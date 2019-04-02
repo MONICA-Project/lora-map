@@ -74,7 +74,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
         cont.Response.StatusCode = 500;
         return false;
       }
-      return SendFileResponse(cont, "resources");
+      return SendFileResponse(cont);
     }
   }
 }
