@@ -156,3 +156,32 @@ object {
 #pannels #pannels_version .cicons ul li {
   font-weight: normal;
 }
+
+#pannels #pannels_admin {
+  padding: 5px;
+  display: none;
+}
+#pannels #pannels_admin a {
+  color: black;
+  text-decoration: underline;
+  font-size: 18px;
+  font-weight: bold;
+}
+#pannels #pannels_admin a:hover {
+  text-decoration: none;
+}
+#pannels #pannels_admin div {
+  margin-bottom: 5px;
+}
+#pannels #pannels_admin div .label {
+  width: 70px;
+  font-weight: bold;
+  display: inline-block;
+}
+#pannels #pannels_admin div input {
+  width: 150px;
+}
+#pannels #pannels_admin div .login input {
+  width: auto;
+  margin-left: 70px;
+}

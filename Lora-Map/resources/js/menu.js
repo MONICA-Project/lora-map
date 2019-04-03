@@ -117,5 +117,34 @@ function createOverviewElement(positionItem, id) {
 
 
 function update_pannels_admin() {
-  alert("update admin");
+  var testadmin = new XMLHttpRequest();
+  testadmin.onreadystatechange = parseAjaxPannelAdmin;
+  testadmin.open("GET", "http://{%REQUEST_URL_HOST%}:8080/admin", true);
+  testadmin.send();
+}
+
+function parseAjaxPannelAdmin() {
+  if (this.readyState === 4 && this.status === 403) {
+    var html = "<h3>Login to Adminpannel</h3><form onsubmit='submitloginform();return false;'>";
+    html += "<div><span class='label'>Username:</span><input id='pannels_admin_name'></div>";
+    html += "<div><span class='label'>Passwort:</span><input type='password' id='pannels_admin_pass'></div>";
+    html += "<div><span class='login'><input type='submit'></span></div></form>";
+    document.getElementById("pannels_admin").innerHTML = html;
+  } else if (this.readyState === 4 && this.status === 200) {
+    document.getElementById("pannels_admin").innerHTML = "<a href='/admin' target='_blank'>Adminpannel</a>";
+  }
+}
+
+function submitloginform() {
+  var adminlogin = new XMLHttpRequest();
+  adminlogin.onreadystatechange = parseAjaxLogin;
+  adminlogin.open("POST", "http://{%REQUEST_URL_HOST%}:8080/admin/login", true);
+  adminlogin.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  adminlogin.send("user=" + encodeURI(document.getElementById("pannels_admin_name").value) + "&pass=" + encodeURI(document.getElementById("pannels_admin_pass").value));
+}
+
+function parseAjaxLogin() {
+  if (this.readyState === 4 && this.status === 200) {
+    update_pannels_admin();
+  }
 }
