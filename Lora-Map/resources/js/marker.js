@@ -42,7 +42,7 @@ function parseAjaxLoc() {
       }
     }
     updateStatus();
-    updateDeviceStatus();
+    update_pannels_info();
   }
 }
 

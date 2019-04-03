@@ -71,6 +71,7 @@ object {
   display: none;
   font-size: 11px;
   font-family: Verdana;
+  overflow: auto;
 }
 #pannels #pannels_pos {
   display: none;

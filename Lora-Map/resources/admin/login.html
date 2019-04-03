@@ -1,15 +1,41 @@
 ﻿<!DOCTYPE html>
 
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="de-de" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="utf-8" />
-    <title></title>
+  <meta charset="utf-8" />
+  <title>Lora-Map Admin</title>
+  <style type="text/css">
+    body {
+      font-family: Verdana;
+      font-size: 13px;
+    }
+    .label {
+      width: 100px;
+      display: inline-block;
+      font-weight: bold;
+    }
+    .login {
+      margin-left: 105px;
+    }
+    div {
+      margin-bottom: 5px;
+    }
+  </style>
 </head>
 <body>
+  <h1>Login to Lora-Map Admin!</h1>
   <form method="post" action="/admin/login">
-    U:<input name='user'><br>
-    P:<input type='password' name='pass'><br>
-    <input type='submit'>
+    <div class="user">
+      <span class="label">Username: </span>
+      <input name="user"/>
+    </div>
+    <div class="pass">
+      <span class="label">Password: </span>
+      <input name="pass" type="password"/>
+    </div>
+    <div class="login">
+      <input type="submit" />
+    </div>
   </form>
 </body>
 </html>

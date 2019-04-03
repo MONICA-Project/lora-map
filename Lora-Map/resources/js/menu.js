@@ -4,6 +4,9 @@ function showHidePanel(name) {
     document.getElementById("pannels").style.display = "block";
     document.getElementById(name).style.display = "block";
     visiblePanel = name;
+    if (typeof window["update_" + name] === "function") {
+      window["update_" + name]();
+    }
   } else if (visiblePanel === name && name !== "pannels_info" || name === null) {
     document.getElementById("pannels").style.display = "none";
     if (visiblePanel !== null) {
@@ -14,29 +17,29 @@ function showHidePanel(name) {
     document.getElementById(visiblePanel).style.display = "none";
     document.getElementById(name).style.display = "block";
     visiblePanel = name;
+    if (typeof window["update_" + name] === "function") {
+      window["update_" + name]();
+    }
   }
 }
 
 var statusToDevice = null;
 function showMarkerInfo(e) {
-  showHidePanel("pannels_info");
   statusToDevice = this;
-  updateDeviceStatus();
+  showHidePanel("pannels_info");
 }
 
 function showMarkerInfoPerId(id) {
-  showHidePanel("pannels_info");
   statusToDevice = id;
-  updateDeviceStatus();
+  showHidePanel("pannels_info");
 }
 
 function showMarkerInfoMenu() {
-  showHidePanel("pannels_info");
   statusToDevice = this.getAttribute("rel");
-  updateDeviceStatus();
+  showHidePanel("pannels_info");
 }
 
-function updateDeviceStatus() {
+function update_pannels_info() {
   document.getElementById("pannels_info").innerHTML = "";
   if (serverLocation.hasOwnProperty(statusToDevice)) {
     var positionItem = serverLocation[statusToDevice];
@@ -110,4 +113,9 @@ function createOverviewElement(positionItem, id) {
   divItem.innerHTML += "<div class=\"line2\" style=\"color: red;\" id=\"overview-gps-id-" + id + "\">kein GPS-Empfang</div>";
   divItem.innerHTML += "<div class=\"line3\" id=\"overview-update-id-" + id + "\">Letzter Datenempfang: vor " + timeCalculation(positionItem["Recievedtime"], "difftext") + "</div>";
   return divItem;
+}
+
+
+function update_pannels_admin() {
+  alert("update admin");
 }
