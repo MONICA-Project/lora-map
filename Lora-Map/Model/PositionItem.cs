@@ -65,13 +65,13 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
       }
       this.Recievedtime = DateTime.UtcNow;
       this.Battery = Math.Round((Double)json["BatteryLevel"], 2);
-      if(this.Battery < 3) {
+      if(this.Battery < 3.59) {
         this.Batterysimple = 0;
-      } else if(this.Battery < 3.2) {
+      } else if(this.Battery < 3.69) {
         this.Batterysimple = 1;
-      } else if(this.Battery < 3.5) {
+      } else if(this.Battery < 3.77) {
         this.Batterysimple = 2;
-      } else if(this.Battery < 3.8) {
+      } else if(this.Battery < 3.97) {
         this.Batterysimple = 3;
       } else {
         this.Batterysimple = 4;
