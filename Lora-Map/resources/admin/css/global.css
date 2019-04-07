@@ -1,0 +1,31 @@
+﻿html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: Verdana;
+}
+
+#header {
+  font-size: 20px;
+  font-weight: bold;
+  padding: 5px;
+}
+
+#menu {
+  width: 200px;
+  font-size: 12px;
+  float: left;
+}
+#menu ul {
+  padding-left: 20px;
+}
+#menu ul li a {
+  color: black;
+}
+#menu ul li a:hover {
+  text-decoration: none;
+}
+
+#content {
+  margin-left: 210px;
+}

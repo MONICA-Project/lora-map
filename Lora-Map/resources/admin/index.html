@@ -2,10 +2,21 @@
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="utf-8" />
-    <title></title>
+  <meta charset="utf-8" />
+  <title>Adminpannel Lora-Map</title>
+  <link rel="stylesheet" type="text/css" href="css/global.css" />
+  <script type="text/javascript" src="js/menu.js"></script>
 </head>
 <body>
-  ADMIN
+  <div id="header">Adminpannel Lora-Map</div>
+  <div id="menu">
+    <ul>
+      <li><a onclick="menu_names(); return false;" href="#">Namen und Icons</a></li>
+      <li><a onclick="menu_overlay(); return false;" href="#">Karteneditor</a></li>
+      <li><a onclick="menu_export(); return false;" href="#">Einstellungen Exportieren</a></li>
+      <li><a onclick="menu_import(); return false;" href="#">Einstellungen Importieren</a></li>
+    </ul>
+  </div>
+  <div id="content">Wilkommen im Adminbereich</div>
 </body>
 </html>

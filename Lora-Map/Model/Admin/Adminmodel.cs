@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
+using System.Text;
 using BlubbFish.Utils;
 using BlubbFish.Utils.IoT.Bots;
 
@@ -14,7 +16,24 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model.Admin {
       if(!this.CheckAuth(cont)) {
         return false;
       }
+      if(cont.Request.Url.PathAndQuery.StartsWith("/admin/get_json_")) {
+        return this.SendJson(cont);
+      }
       return Webserver.SendFileResponse(cont);
+    }
+
+    private Boolean SendJson(HttpListenerContext cont) {
+      if(cont.Request.Url.PathAndQuery == "/admin/get_json_names") {
+        String file = File.ReadAllText("names.json");
+        Byte[] buf = Encoding.UTF8.GetBytes(file);
+        cont.Response.ContentLength64 = buf.Length;
+        cont.Response.OutputStream.Write(buf, 0, buf.Length);
+        Console.WriteLine("200 - Send names.json " + cont.Request.Url.PathAndQuery);
+        return true;
+      }
+      Helper.WriteError("404 - Section in get_json not found " + cont.Request.Url.PathAndQuery + "!");
+      cont.Response.StatusCode = 404;
+      return false;
     }
 
     private Boolean Login(HttpListenerContext cont) {
@@ -56,6 +75,9 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model.Admin {
     }
 
     private Boolean CheckAuth(HttpListenerContext cont) {
+      #if DEBUG
+        return true;
+      #endif
       if(cont.Request.Url.PathAndQuery.StartsWith("/admin/login.html")) {
         return true;
       } else {
