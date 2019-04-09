@@ -2,7 +2,7 @@
   var parsenames = new XMLHttpRequest();
   parsenames.onreadystatechange = function() {
     if(parsenames.readyState === 4 && parsenames.status === 200) {
-      NamesEditor.parseJson(parsenames.responseText);
+      NamesEditor.ParseJson(parsenames.responseText);
     }
   };
   parsenames.open("GET", "http://{%REQUEST_URL_HOST%}:8080/admin/get_json_names", true);
@@ -22,19 +22,77 @@ function menu_import() {
 }
 
 var NamesEditor = {
-  parseJson: function (jsontext) {
+  ParseJson: function (jsontext) {
     document.getElementById("content").innerHTML = "";
     var namesconfig = JSON.parse(jsontext);
-    var html = "<div>Einträge</div>";
+    var html = "<div id='nameeditor'><div class='title'>Namenseinträge in den Einstellungen</div>";
+    html += "<table id='nametable'>";
+    html += "<thead><tr><th class='rowid'>ID</th><th class='rowname'>Name</th><th class='rowicon'>Icon</th><th class='rowedit'></th></tr></thead>";
     for (var id in namesconfig) {
       if (namesconfig.hasOwnProperty(id)) {
         var nameentry = namesconfig[id];
-        html += "<div>" +
-          "<span>" + id + "</span>" +
-          "<span>"+nameentry["name"]+"</span>"+
-          "</div>";
+        html += "<tr>" +
+          "<td>" + id + "</td>" +
+          "<td>" + nameentry["name"] + "</td>";
+        if (nameentry.hasOwnProperty("marker.svg")) {
+          html += "<td>" + this.ParseIcon(nameentry["marker.svg"]) + "</td>";
+        } else if (nameentry.hasOwnProperty("icon")) {
+          html += "<td><img src='"+nameentry["icon"]+"'></td>";
+        } else {
+          html += "<td>kein Icon</td>";
+        }
+        html += "<td><img src='../icons/general/edit.png' onclick='NamesEditor.Edit(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='NamesEditor.Delete(this.parentNode.parentNode)' class='pointer'></td>" +
+          "</tr>";
       }
     }
-    document.getElementById("content").innerHTML = html;
+    html += "<tfoot><tr><td></td><td></td><td></td><td><img src='../icons/general/add.png' onclick='NamesEditor.Add()' class='pointer'> <img src='../icons/general/save.png' onclick='NamesEditor.Save()' class='pointer'></td></tr></tfoot>";
+    html += "</table>";
+    document.getElementById("content").innerHTML = html + "</div>";
+  },
+  ParseIcon: function (markerobj) {
+    var url = "../icons/marker/Marker.svg";
+    if (markerobj.hasOwnProperty("person")) {
+      url += "?icon=person&marker-bg=hidden";
+      if (markerobj["person"].hasOwnProperty("org")) {
+        url += "&person-org=" + markerobj["person"]["org"];
+      }
+      if(markerobj["person"].hasOwnProperty("funct")) {
+        url += "&person-funct=" + markerobj["person"]["funct"];
+      }
+      if(markerobj["person"].hasOwnProperty("rang")) {
+        url += "&person-rang=" + markerobj["person"]["rang"];
+      }
+      if(markerobj["person"].hasOwnProperty("text")) {
+        url += "&person-text=" + markerobj["person"]["text"];
+      }
+    }
+    return "<object data='"+url+"' type='image/svg+xml' style='height:50px; width:50px;'></object>";
+  },
+  Add: function () {
+    var newrow = document.createElement("tr");
+    newrow.innerHTML = "<td><input class='name'/></td>";
+    newrow.innerHTML += "<td><input /></td>";
+    newrow.innerHTML += "<td>wähle Icon</td>";
+    newrow.innerHTML += "<td><img src='../icons/general/save.png' onclick='NamesEditor.SaveRow(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='NamesEditor.Abort(this.parentNode.parentNode)' class='pointer'></td>";
+    document.getElementById("nametable").children[1].appendChild(newrow);
+  },
+  Save: function () {
+    alert("Save");
+  },
+  Delete: function (el) {
+    var name = el.firstChild.innerHTML;
+    var answ = window.prompt("Wollen sie den Eintrag für \"" + name + "\" wirklich löschen?", "");
+    if (answ !== null) {
+      el.parentNode.removeChild(el);
+    }
+  },
+  Edit: function (el) {
+    alert("Edit " + el);
+  },
+  Abort: function (el) {
+    el.parentNode.removeChild(el);
+  },
+  SaveRow: function (el) {
+    alert("Save Row");
   }
 };

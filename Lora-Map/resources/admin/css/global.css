@@ -28,4 +28,49 @@
 
 #content {
   margin-left: 210px;
+  border-left: 1px solid black;
+}
+#content #nameeditor .title {
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+#content #nameeditor #nametable {
+  margin-left: 15px;
+  border-collapse: collapse;
+}
+#content #nameeditor #nametable thead {
+  background-color: rgba(0,0,0,0.2);
+}
+#content #nameeditor #nametable thead th {
+  text-align: left;
+}
+#content #nameeditor #nametable thead .rowid {
+  width: 60px;
+}
+#content #nameeditor #nametable thead .rowicon {
+  width: 65px;
+}
+#content #nameeditor #nametable thead .rowedit {
+  width: 50px;
+}
+#content #nameeditor #nametable thead .rowname {
+  width: 250px;
+}
+#content #nameeditor #nametable tbody tr:nth-child(odd) {
+  background-color: rgba(20,0,250,0.1);
+}
+#content #nameeditor #nametable tbody tr:nth-child(even) {
+  background-color: rgba(250,59,0,0.1);
+}
+#content #nameeditor #nametable tbody tr:hover {
+  background-color: rgba(0,0,0,0.1) !important;
+}
+#content #nameeditor #nametable tfoot {
+  background-color: rgba(0,0,0,0.1);
+}
+#content #nameeditor .pointer {
+  cursor: pointer;
+}
+#content #nameeditor #nametable tbody input.name {
+  width: 55px;
 }
