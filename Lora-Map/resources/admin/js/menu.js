@@ -72,7 +72,7 @@ var NamesEditor = {
     var newrow = document.createElement("tr");
     newrow.innerHTML = "<td><input class='name'/></td>";
     newrow.innerHTML += "<td><input /></td>";
-    newrow.innerHTML += "<td>wähle Icon</td>";
+    newrow.innerHTML += "<td><img src='../icons/general/icon_edit.png' onclick='NamesEditor.IconEditor(this.parentNode)' class='pointer'> wähle Icon</td>";
     newrow.innerHTML += "<td><img src='../icons/general/save.png' onclick='NamesEditor.SaveRow(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='NamesEditor.Abort(this.parentNode.parentNode)' class='pointer'></td>";
     document.getElementById("nametable").children[1].appendChild(newrow);
   },
@@ -93,6 +93,15 @@ var NamesEditor = {
     el.parentNode.removeChild(el);
   },
   SaveRow: function (el) {
-    alert("Save Row");
+    var id = el.children[0].children[0].value;
+    var name = el.children[1].children[0].value;
+    alert("Save Row: id: " + id + " name: " + name);
+  },
+  IconEditor: function (el) {
+    var url = "";
+    if (el.children.length == 2) {
+
+    }
+    alert("icon editor");
   }
 };
