@@ -74,3 +74,28 @@
 #content #nameeditor #nametable tbody input.name {
   width: 55px;
 }
+
+#iconeditor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.8);
+}
+#iconeditor .innerbox {
+  margin: 100px;
+  background-color: white;
+  border: 5px solid black;
+  border-radius: 20px;
+  padding: 15px;
+}
+#iconeditor .innerbox .preview {
+  float: left;
+}
+#iconeditor .innerbox .controls {
+  margin-left: 220px;
+}
+#iconeditor .innerbox .save {
+  clear: both;
+}

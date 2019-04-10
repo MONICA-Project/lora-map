@@ -98,10 +98,23 @@ var NamesEditor = {
     alert("Save Row: id: " + id + " name: " + name);
   },
   IconEditor: function (el) {
-    var url = "";
+    var url = "../icons/marker/Marker.svg?marker-bg=hidden";
     if (el.children.length == 2) {
 
     }
-    alert("icon editor");
+    var ie = document.createElement("div");
+    ie.id = "iconeditor";
+    ie.innerHTML = "<div class='innerbox'>" +
+      "<div class='preview'><object id='markerprev' data='" + url + "' type='image/svg+xml' style='height:200px; width:200px;'></object></div>" +
+      "<div class='controls'>" +
+      "Typ: <select onchange='NamesEditor.ChangeLinkPreview(\"icon\",this.value);'><option>---</option><option value='person'>Person</option></select><br>"+
+      "</div>" +
+      "<div class='save'><button onclick='document.getElementById(\"iconeditor\").remove()'>Schließen</botton></div>"+
+      "</div>";
+    document.getElementsByTagName("body")[0].appendChild(ie);
+  },
+  ChangeLinkPreview: function (key, val) {
+    var cur = document.getElementById("markerprev").data;
+    alert(cur+" "+key+" "+val);
   }
 };
