@@ -61,28 +61,28 @@
               font-family: DIN1451;
               text-align: center;
               text-anchor: middle;
-              fill: #ffffff;
+              fill: #000000;
               }
           </style>
       </defs>
       <g inkscape:groupmode="layer" id="person-layer-org" inkscape:label="Organisation">
         <g inkscape:groupmode="layer" id="person-layer-org-thw" inkscape:label="THW">
-          <rect style="fill: #0d468b;" height="50" width="50" transform="rotate(45)"/>
+          <rect style="fill: #0069b4;" height="50" width="50" transform="rotate(45)"/>
         </g>
         <g inkscape:groupmode="layer" id="person-layer-org-fw" inkscape:label="Feuerwehr">
-          <rect style="fill: #b41302;" height="50" width="50" transform="rotate(45)"/>
+          <rect style="fill: #e30613;" height="50" width="50" transform="rotate(45)"/>
         </g>
         <g inkscape:groupmode="layer" id="person-layer-org-hilo" inkscape:label="Hilo">
           <rect style="fill: #ffffff;" height="50" width="50" transform="rotate(45)"/>
         </g>
         <g inkscape:groupmode="layer" id="person-layer-org-pol" inkscape:label="Polizei">
-          <rect style="fill: #2a8626;" height="50" width="50" transform="rotate(45)"/>
+          <rect style="fill: #13a538;" height="50" width="50" transform="rotate(45)"/>
         </g>
         <g inkscape:groupmode="layer" id="person-layer-org-fueh" inkscape:label="Führung">
-          <rect style="fill: #ffdf00;" height="50" width="50" transform="rotate(45)"/>
+          <rect style="fill: #ffed00;" height="50" width="50" transform="rotate(45)"/>
         </g>
         <g inkscape:groupmode="layer" id="person-layer-org-sonst" inkscape:label="Sonstig">
-          <rect style="fill: #ffa13e;" height="50" width="50" transform="rotate(45)"/>
+          <rect style="fill: #ec6725;" height="50" width="50" transform="rotate(45)"/>
         </g>
       </g>
       <g inkscape:groupmode="layer" id="person-layer-funct" inkscape:label="Funktion">

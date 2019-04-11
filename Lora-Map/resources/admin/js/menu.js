@@ -107,14 +107,34 @@ var NamesEditor = {
     ie.innerHTML = "<div class='innerbox'>" +
       "<div class='preview'><object id='markerprev' data='" + url + "' type='image/svg+xml' style='height:200px; width:200px;'></object></div>" +
       "<div class='controls'>" +
-      "Typ: <select onchange='NamesEditor.ChangeLinkPreview(\"icon\",this.value);'><option>---</option><option value='person'>Person</option></select><br>"+
+      "Typ: <select onchange='NamesEditor.ChangeLinkPreview(\"icon\",this.value); document.getElementById(\"iconeditor-type-\"+this.value).style.display = \"block\";'><option>---</option><option value='person'>Person</option></select><br>" +
+      "<div id='iconeditor-type-person' style='display: none;'>" +
+      "Organisation: <select onchange='NamesEditor.ChangeLinkPreview(\"person-org\",this.value);'><option>---</option><option value='fw'>Feuerwehr</option><option value='thw'>Technisches Hilfswerk</option><option value='hilo'>Hilfsorganisationen, Bundeswehr</option><option value='fueh'>Einrichtungen der Führung</option><option value='pol'>Polizei, Bundespolizei, Zoll</option><option value='sonst'>Sonstige Einrichtungen der Gefahrenabwehr</option></select><br>"+
+      "Funktion: <select onchange='NamesEditor.ChangeLinkPreview(\"person-funct\",this.value);'><option>---</option><option value='sonder'>Sonder</option><option value='fueh'>Führung</option></select><br>" +
+      "Rang: <select onchange='NamesEditor.ChangeLinkPreview(\"person-rang\",this.value);'><option>---</option><option value='trupp'>Trupp</option><option value='grupp'>Gruppe</option><option value='zug'>Zug</option></select><br>" +
+      "Text: <input onchange='NamesEditor.ChangeLinkPreview(\"person-text\",this.value);'><br>"+
       "</div>" +
-      "<div class='save'><button onclick='document.getElementById(\"iconeditor\").remove()'>Schließen</botton></div>"+
+      "</div>" +
+      "<div class='save'><button onclick='alert(document.getElementById(\"markerprev\").data); document.getElementById(\"iconeditor\").remove()'>Schließen</botton></div>"+
       "</div>";
     document.getElementsByTagName("body")[0].appendChild(ie);
   },
   ChangeLinkPreview: function (key, val) {
     var cur = document.getElementById("markerprev").data;
-    alert(cur+" "+key+" "+val);
+    var query = {};
+    var queryString = cur.split('?');
+    if (queryString.length === 2) {
+      var pairs = queryString[1].split('&');
+      for (var i = 0; i < pairs.length; i++) {
+        var pair = pairs[i].split('=');
+        query[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
+      }
+    }
+    query[key] = val;
+    var newq = new Array()
+    for (var id in query) {
+      newq.push(encodeURIComponent(id) + "=" + encodeURIComponent(query[id]));
+    }
+    document.getElementById("markerprev").data = queryString[0] + "?" + newq.join('&');
   }
 };
