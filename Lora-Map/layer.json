@@ -1,0 +1,4508 @@
+﻿{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.143656718313983,
+              50.70891951456917,
+              0
+            ],
+            [
+              7.143633749548513,
+              50.70890971258375,
+              0
+            ],
+            [
+              7.143668771157346,
+              50.70888636888442,
+              0
+            ],
+            [
+              7.143689947141752,
+              50.70889986615698,
+              0
+            ],
+            [
+              7.143656718313983,
+              50.70891951456917,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Getränkestand 1",
+        "styleUrl": "#msn_ylw-pushpin13",
+        "styleHash": "44a9b54a",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin9",
+          "highlight": "#sh_ylw-pushpin1"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#0055ff",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.142683712297884,
+              50.70945560239938,
+              0
+            ],
+            [
+              7.142698521551846,
+              50.70947498818132,
+              0
+            ],
+            [
+              7.142643301710807,
+              50.70949496699786,
+              0
+            ],
+            [
+              7.142626517937196,
+              50.70947122347866,
+              0
+            ],
+            [
+              7.142683712297884,
+              50.70945560239938,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Getränkestand 2",
+        "styleUrl": "#msn_ylw-pushpin13",
+        "styleHash": "44a9b54a",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin9",
+          "highlight": "#sh_ylw-pushpin1"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#0055ff",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.141438682536496,
+              50.71260980673511,
+              0
+            ],
+            [
+              7.141445587386528,
+              50.71258187899833,
+              0
+            ],
+            [
+              7.141519919693538,
+              50.7125870483876,
+              0
+            ],
+            [
+              7.141517184138515,
+              50.71261670494534,
+              0
+            ],
+            [
+              7.141438682536496,
+              50.71260980673511,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Getränkestand 3",
+        "styleUrl": "#msn_ylw-pushpin13",
+        "styleHash": "44a9b54a",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin9",
+          "highlight": "#sh_ylw-pushpin1"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#0055ff",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.140768317478072,
+              50.71275868425353,
+              0
+            ],
+            [
+              7.140748320627816,
+              50.71273278874416,
+              0
+            ],
+            [
+              7.140787166662825,
+              50.71271872484827,
+              0
+            ],
+            [
+              7.140807156419036,
+              50.71274696949041,
+              0
+            ],
+            [
+              7.140768317478072,
+              50.71275868425353,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Getränkestand 4",
+        "styleUrl": "#msn_ylw-pushpin13",
+        "styleHash": "44a9b54a",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin9",
+          "highlight": "#sh_ylw-pushpin1"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#0055ff",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.140944780410539,
+              50.71253586994404,
+              0
+            ],
+            [
+              7.140930281198208,
+              50.71251611185795,
+              0
+            ],
+            [
+              7.140976717344176,
+              50.71249287880028,
+              0
+            ],
+            [
+              7.140998666591177,
+              50.71251259860899,
+              0
+            ],
+            [
+              7.140944780410539,
+              50.71253586994404,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Getränkestand 4a",
+        "styleUrl": "#msn_ylw-pushpin13",
+        "styleHash": "44a9b54a",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin9",
+          "highlight": "#sh_ylw-pushpin1"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#0055ff",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.143820875036438,
+              50.71125479929051,
+              0
+            ],
+            [
+              7.143782372982193,
+              50.71124682289227,
+              0
+            ],
+            [
+              7.143801487630077,
+              50.71120886447669,
+              0
+            ],
+            [
+              7.143841988779491,
+              50.71122199504475,
+              0
+            ],
+            [
+              7.143820875036438,
+              50.71125479929051,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Getränkestand 5",
+        "styleUrl": "#msn_ylw-pushpin0",
+        "styleHash": "6dd810eb",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin8",
+          "highlight": "#sh_ylw-pushpin"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#0055ff",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.144106142534081,
+              50.71162428234794,
+              0
+            ],
+            [
+              7.144082832439366,
+              50.71159387035367,
+              0
+            ],
+            [
+              7.144131350585328,
+              50.71156750677977,
+              0
+            ],
+            [
+              7.14416146988772,
+              50.71159652091959,
+              0
+            ],
+            [
+              7.144106142534081,
+              50.71162428234794,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Getränkestand 6",
+        "styleUrl": "#msn_ylw-pushpin13",
+        "styleHash": "44a9b54a",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin9",
+          "highlight": "#sh_ylw-pushpin1"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#0055ff",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.144411337003258,
+              50.71126124519718,
+              0
+            ],
+            [
+              7.144366783871854,
+              50.71123135428099,
+              0
+            ],
+            [
+              7.144406777006318,
+              50.71120748547511,
+              0
+            ],
+            [
+              7.144449047327502,
+              50.71123138956879,
+              0
+            ],
+            [
+              7.144411337003258,
+              50.71126124519718,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Getränkestand 7",
+        "styleUrl": "#msn_ylw-pushpin13",
+        "styleHash": "44a9b54a",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin9",
+          "highlight": "#sh_ylw-pushpin1"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#0055ff",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.143381840963801,
+              50.711249310893,
+              0
+            ],
+            [
+              7.143412846769824,
+              50.71128357516926,
+              0
+            ],
+            [
+              7.143359055922667,
+              50.71131341710582,
+              0
+            ],
+            [
+              7.143314625200445,
+              50.71128055976347,
+              0
+            ],
+            [
+              7.143381840963801,
+              50.711249310893,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Getränkestand 8",
+        "styleUrl": "#msn_ylw-pushpin13",
+        "styleHash": "44a9b54a",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin9",
+          "highlight": "#sh_ylw-pushpin1"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#0055ff",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.143776828902537,
+              50.71029421677325,
+              0
+            ],
+            [
+              7.143788014753863,
+              50.71025443774146,
+              0
+            ],
+            [
+              7.143820935555747,
+              50.71025443382653,
+              0
+            ],
+            [
+              7.143813386325826,
+              50.71030008540087,
+              0
+            ],
+            [
+              7.143776828902537,
+              50.71029421677325,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Getränkestand 9",
+        "styleUrl": "#msn_ylw-pushpin0",
+        "styleHash": "6dd810eb",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin8",
+          "highlight": "#sh_ylw-pushpin"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#0055ff",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.144771036923108,
+              50.71057001657893,
+              0
+            ],
+            [
+              7.144767194554385,
+              50.71053420205329,
+              0
+            ],
+            [
+              7.144850126174676,
+              50.71053098212489,
+              0
+            ],
+            [
+              7.144852811274718,
+              50.71056978328173,
+              0
+            ],
+            [
+              7.144771036923108,
+              50.71057001657893,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Getränkestand 10",
+        "styleUrl": "#msn_ylw-pushpin0",
+        "styleHash": "6dd810eb",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin8",
+          "highlight": "#sh_ylw-pushpin"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#0055ff",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.144657520348288,
+              50.71057086602436,
+              0
+            ],
+            [
+              7.144649903958449,
+              50.71053268546304,
+              0
+            ],
+            [
+              7.14472502623167,
+              50.71052254610007,
+              0
+            ],
+            [
+              7.144732624183638,
+              50.71056384960276,
+              0
+            ],
+            [
+              7.144657520348288,
+              50.71057086602436,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Getränkestand 11",
+        "styleUrl": "#msn_ylw-pushpin0",
+        "styleHash": "6dd810eb",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin8",
+          "highlight": "#sh_ylw-pushpin"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#0055ff",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.144523521331405,
+              50.7105131535584,
+              0
+            ],
+            [
+              7.144534289913351,
+              50.7104796363024,
+              0
+            ],
+            [
+              7.144618891229904,
+              50.71048665750227,
+              0
+            ],
+            [
+              7.144606862150191,
+              50.71052097654322,
+              0
+            ],
+            [
+              7.144523521331405,
+              50.7105131535584,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Getränkestand 12",
+        "styleUrl": "#msn_ylw-pushpin0",
+        "styleHash": "6dd810eb",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin8",
+          "highlight": "#sh_ylw-pushpin"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#0055ff",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.144430957758019,
+              50.71044776335689,
+              0
+            ],
+            [
+              7.144455957883849,
+              50.71041711353401,
+              0
+            ],
+            [
+              7.14452752067682,
+              50.7104276544848,
+              0
+            ],
+            [
+              7.144512691962563,
+              50.7104593829975,
+              0
+            ],
+            [
+              7.144430957758019,
+              50.71044776335689,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Getränkestand 13",
+        "styleUrl": "#msn_ylw-pushpin0",
+        "styleHash": "6dd810eb",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin8",
+          "highlight": "#sh_ylw-pushpin"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#0055ff",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.144454760419981,
+              50.71021544821285,
+              0
+            ],
+            [
+              7.144494518845292,
+              50.71023647350893,
+              0
+            ],
+            [
+              7.14443636900453,
+              50.71027774816335,
+              0
+            ],
+            [
+              7.144396584749839,
+              50.71025880984545,
+              0
+            ],
+            [
+              7.144454760419981,
+              50.71021544821285,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Getränkestand 14",
+        "styleUrl": "#msn_ylw-pushpin0",
+        "styleHash": "6dd810eb",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin8",
+          "highlight": "#sh_ylw-pushpin"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#0055ff",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.144516066250053,
+              50.71022479732368,
+              0
+            ],
+            [
+              7.144474660691551,
+              50.71020061593074,
+              0
+            ],
+            [
+              7.14453616748421,
+              50.71016248806713,
+              0
+            ],
+            [
+              7.144566043732665,
+              50.71018460367775,
+              0
+            ],
+            [
+              7.144516066250053,
+              50.71022479732368,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Getränkestand 15",
+        "styleUrl": "#msn_ylw-pushpin0",
+        "styleHash": "6dd810eb",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin8",
+          "highlight": "#sh_ylw-pushpin"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#0055ff",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.144614398472717,
+              50.71019010379551,
+              0
+            ],
+            [
+              7.144601254800427,
+              50.71015314596225,
+              0
+            ],
+            [
+              7.144684843018454,
+              50.7101447244813,
+              0
+            ],
+            [
+              7.144694621184411,
+              50.71017743583835,
+              0
+            ],
+            [
+              7.144614398472717,
+              50.71019010379551,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Getränkestand 16",
+        "styleUrl": "#msn_ylw-pushpin0",
+        "styleHash": "6dd810eb",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin8",
+          "highlight": "#sh_ylw-pushpin"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#0055ff",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.144728114166179,
+              50.71017217173064,
+              0
+            ],
+            [
+              7.144713314260098,
+              50.71013735550568,
+              0
+            ],
+            [
+              7.144800474149864,
+              50.71012269624383,
+              0
+            ],
+            [
+              7.144810306356573,
+              50.71015642397156,
+              0
+            ],
+            [
+              7.144728114166179,
+              50.71017217173064,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Getränkestand 16a",
+        "styleUrl": "#msn_ylw-pushpin0",
+        "styleHash": "6dd810eb",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin8",
+          "highlight": "#sh_ylw-pushpin"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#0055ff",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.143909863319379,
+              50.71073153847721,
+              0
+            ],
+            [
+              7.143825555651913,
+              50.710731450065,
+              0
+            ],
+            [
+              7.14382943128081,
+              50.71069414447387,
+              0
+            ],
+            [
+              7.143911664979761,
+              50.71069551722194,
+              0
+            ],
+            [
+              7.143909863319379,
+              50.71073153847721,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Getränkestand 17",
+        "styleUrl": "#msn_ylw-pushpin0",
+        "styleHash": "6dd810eb",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin8",
+          "highlight": "#sh_ylw-pushpin"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#0055ff",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.143995833156049,
+              50.71095095429801,
+              0
+            ],
+            [
+              7.143978642159762,
+              50.71091487184692,
+              0
+            ],
+            [
+              7.144019566343484,
+              50.71090320887277,
+              0
+            ],
+            [
+              7.144028262356454,
+              50.71093939612863,
+              0
+            ],
+            [
+              7.143995833156049,
+              50.71095095429801,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Getränkestand 18",
+        "styleUrl": "#msn_ylw-pushpin0",
+        "styleHash": "6dd810eb",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin8",
+          "highlight": "#sh_ylw-pushpin"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#0055ff",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.146302467007972,
+              50.7087307060151,
+              0
+            ],
+            [
+              7.146337598293194,
+              50.70870849036455,
+              0
+            ],
+            [
+              7.146478045531993,
+              50.70877364566449,
+              0
+            ],
+            [
+              7.146449977362323,
+              50.70880042551345,
+              0
+            ],
+            [
+              7.146302467007972,
+              50.7087307060151,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Getränkestand 19",
+        "styleUrl": "#msn_ylw-pushpin13",
+        "styleHash": "44a9b54a",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin9",
+          "highlight": "#sh_ylw-pushpin1"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#0055ff",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.146015648538717,
+              50.70858453689996,
+              0
+            ],
+            [
+              7.146036763895161,
+              50.7085458924057,
+              0
+            ],
+            [
+              7.146198890082136,
+              50.70860257790859,
+              0
+            ],
+            [
+              7.146170647311254,
+              50.70863516139268,
+              0
+            ],
+            [
+              7.146015648538717,
+              50.70858453689996,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Getränkestand 20",
+        "styleUrl": "#msn_ylw-pushpin13",
+        "styleHash": "44a9b54a",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin9",
+          "highlight": "#sh_ylw-pushpin1"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#0055ff",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.145624787044786,
+              50.7087556843912,
+              0
+            ],
+            [
+              7.145667538212952,
+              50.70873800993761,
+              0
+            ],
+            [
+              7.145755084786122,
+              50.70883272269217,
+              0
+            ],
+            [
+              7.145702481368542,
+              50.70885193211308,
+              0
+            ],
+            [
+              7.145624787044786,
+              50.7087556843912,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Getränkestand 21",
+        "styleUrl": "#msn_ylw-pushpin13",
+        "styleHash": "44a9b54a",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin9",
+          "highlight": "#sh_ylw-pushpin1"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#0055ff",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.145780332491489,
+              50.70892188224161,
+              0
+            ],
+            [
+              7.145837435332066,
+              50.70889070389573,
+              0
+            ],
+            [
+              7.145955105240742,
+              50.70897686490103,
+              0
+            ],
+            [
+              7.145908093336074,
+              50.70900211984021,
+              0
+            ],
+            [
+              7.145780332491489,
+              50.70892188224161,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Getränkestand 22",
+        "styleUrl": "#msn_ylw-pushpin13",
+        "styleHash": "44a9b54a",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin9",
+          "highlight": "#sh_ylw-pushpin1"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#0055ff",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.144026715281166,
+              50.71188437827484,
+              0
+            ],
+            [
+              7.144058595695435,
+              50.71191435592176,
+              0
+            ],
+            [
+              7.144003630846703,
+              50.71194790257983,
+              0
+            ],
+            [
+              7.143969535667503,
+              50.71192184693599,
+              0
+            ],
+            [
+              7.144026715281166,
+              50.71188437827484,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Getränkestand 23",
+        "styleUrl": "#msn_ylw-pushpin13",
+        "styleHash": "44a9b54a",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin9",
+          "highlight": "#sh_ylw-pushpin1"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#0055ff",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.145029694524505,
+              50.71158102219721,
+              0
+            ],
+            [
+              7.145027306286538,
+              50.71154887602053,
+              0
+            ],
+            [
+              7.145100801437502,
+              50.71153592246944,
+              0
+            ],
+            [
+              7.145103432053189,
+              50.7115654317999,
+              0
+            ],
+            [
+              7.145029694524505,
+              50.71158102219721,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Getränkestand 23a",
+        "styleUrl": "#msn_ylw-pushpin13",
+        "styleHash": "44a9b54a",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin9",
+          "highlight": "#sh_ylw-pushpin1"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#0055ff",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.142585662285075,
+              50.71228720898855,
+              0
+            ],
+            [
+              7.142548703391968,
+              50.71226598686332,
+              0
+            ],
+            [
+              7.142611273094928,
+              50.71223004527176,
+              0
+            ],
+            [
+              7.142644337253499,
+              50.71224724917747,
+              0
+            ],
+            [
+              7.142585662285075,
+              50.71228720898855,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Cocktailstand 65",
+        "styleUrl": "#msn_ylw-pushpin15",
+        "styleHash": "538fde0d",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin6",
+          "highlight": "#sh_ylw-pushpin15"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#ffff00",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.142346674557228,
+              50.71242818221843,
+              0
+            ],
+            [
+              7.142309921916777,
+              50.71240542985243,
+              0
+            ],
+            [
+              7.142355831800931,
+              50.71238686803903,
+              0
+            ],
+            [
+              7.142384404853955,
+              50.71240691699704,
+              0
+            ],
+            [
+              7.142346674557228,
+              50.71242818221843,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Cocktailstand 67",
+        "styleUrl": "#msn_ylw-pushpin15",
+        "styleHash": "538fde0d",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin6",
+          "highlight": "#sh_ylw-pushpin15"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#ffff00",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.141414054698647,
+              50.71271953157302,
+              0
+            ],
+            [
+              7.141414415098916,
+              50.71269018689598,
+              0
+            ],
+            [
+              7.141485777511976,
+              50.71269419516739,
+              0
+            ],
+            [
+              7.14148536872611,
+              50.71271823511518,
+              0
+            ],
+            [
+              7.141414054698647,
+              50.71271953157302,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Cocktailstand 76",
+        "styleUrl": "#msn_ylw-pushpin15",
+        "styleHash": "538fde0d",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin6",
+          "highlight": "#sh_ylw-pushpin15"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#ffff00",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.14314304926029,
+              50.71173035124824,
+              0
+            ],
+            [
+              7.143096707482595,
+              50.71174799101614,
+              0
+            ],
+            [
+              7.143076696426942,
+              50.71172352444344,
+              0
+            ],
+            [
+              7.14311640051486,
+              50.71170033738743,
+              0
+            ],
+            [
+              7.14314304926029,
+              50.71173035124824,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Cocktailstand 86",
+        "styleUrl": "#msn_ylw-pushpin15",
+        "styleHash": "538fde0d",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin6",
+          "highlight": "#sh_ylw-pushpin15"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#ffff00",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.142956057920278,
+              50.71129462241444,
+              0
+            ],
+            [
+              7.142930856534879,
+              50.71125957998833,
+              0
+            ],
+            [
+              7.1429890513585,
+              50.71124219865995,
+              0
+            ],
+            [
+              7.143012224070988,
+              50.71127046419651,
+              0
+            ],
+            [
+              7.142956057920278,
+              50.71129462241444,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Cocktailstand 86a",
+        "styleUrl": "#msn_ylw-pushpin15",
+        "styleHash": "538fde0d",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin6",
+          "highlight": "#sh_ylw-pushpin15"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#ffff00",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.142521415856738,
+              50.71088771291871,
+              0
+            ],
+            [
+              7.142407619344963,
+              50.71084567321413,
+              0
+            ],
+            [
+              7.142458738516839,
+              50.71081590899402,
+              0
+            ],
+            [
+              7.142559486546398,
+              50.71084710925554,
+              0
+            ],
+            [
+              7.142521415856738,
+              50.71088771291871,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Cocktailstand 90",
+        "styleUrl": "#msn_ylw-pushpin15",
+        "styleHash": "538fde0d",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin6",
+          "highlight": "#sh_ylw-pushpin15"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#ffff00",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.143491588443705,
+              50.71144865713769,
+              0
+            ],
+            [
+              7.143455482784543,
+              50.71143498898881,
+              0
+            ],
+            [
+              7.143504564425633,
+              50.71140112819619,
+              0
+            ],
+            [
+              7.143542813511292,
+              50.71141615247517,
+              0
+            ],
+            [
+              7.143491588443705,
+              50.71144865713769,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Cocktailstand 225",
+        "styleUrl": "#msn_ylw-pushpin15",
+        "styleHash": "538fde0d",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin6",
+          "highlight": "#sh_ylw-pushpin15"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#ffff00",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.144426815023044,
+              50.71070078548159,
+              0
+            ],
+            [
+              7.14443753442403,
+              50.71067689172956,
+              0
+            ],
+            [
+              7.14449558937198,
+              50.710684675274,
+              0
+            ],
+            [
+              7.144490916001449,
+              50.71070664805589,
+              0
+            ],
+            [
+              7.144426815023044,
+              50.71070078548159,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Cocktailstand 228",
+        "styleUrl": "#msn_ylw-pushpin1",
+        "styleHash": "-6f2aa484",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin16",
+          "highlight": "#sh_ylw-pushpin8"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#ffff00",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.144043842273611,
+              50.71040601780071,
+              0
+            ],
+            [
+              7.144106628816516,
+              50.71039533898257,
+              0
+            ],
+            [
+              7.144123414979475,
+              50.71044580739906,
+              0
+            ],
+            [
+              7.144049716268681,
+              50.71045455248145,
+              0
+            ],
+            [
+              7.144043842273611,
+              50.71040601780071,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Cocktailstand 231",
+        "styleUrl": "#msn_ylw-pushpin3",
+        "styleHash": "7cbe39ae",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin5",
+          "highlight": "#sh_ylw-pushpin12"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#ffff00",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.144075151383476,
+              50.71022390489318,
+              0
+            ],
+            [
+              7.144112166085179,
+              50.71016777538449,
+              0
+            ],
+            [
+              7.144172826920054,
+              50.71018282708305,
+              0
+            ],
+            [
+              7.144138062172654,
+              50.71023483857226,
+              0
+            ],
+            [
+              7.144075151383476,
+              50.71022390489318,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Cocktailstand 234",
+        "styleUrl": "#msn_ylw-pushpin15",
+        "styleHash": "538fde0d",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin6",
+          "highlight": "#sh_ylw-pushpin15"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#ffff00",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.144347627436815,
+              50.71001704973096,
+              0
+            ],
+            [
+              7.144293482405237,
+              50.7099848430959,
+              0
+            ],
+            [
+              7.144347650125167,
+              50.70995103452268,
+              0
+            ],
+            [
+              7.144398506065586,
+              50.70997835365284,
+              0
+            ],
+            [
+              7.144347627436815,
+              50.71001704973096,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Cocktailstand 237",
+        "styleUrl": "#msn_ylw-pushpin1",
+        "styleHash": "-6f2aa484",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin16",
+          "highlight": "#sh_ylw-pushpin8"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#ffff00",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.144619454432188,
+              50.71071524970969,
+              0
+            ],
+            [
+              7.144611675720274,
+              50.71068468051035,
+              0
+            ],
+            [
+              7.144682028250255,
+              50.71067893736207,
+              0
+            ],
+            [
+              7.144686651287309,
+              50.71071243581184,
+              0
+            ],
+            [
+              7.144619454432188,
+              50.71071524970969,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Cocktailstand 252",
+        "styleUrl": "#msn_ylw-pushpin1",
+        "styleHash": "-6f2aa484",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin16",
+          "highlight": "#sh_ylw-pushpin8"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#ffff00",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.146586255644163,
+              50.7089146897099,
+              0
+            ],
+            [
+              7.146555631604978,
+              50.70888640288418,
+              0
+            ],
+            [
+              7.146599154172149,
+              50.70886203059396,
+              0
+            ],
+            [
+              7.146627759991642,
+              50.70888768480217,
+              0
+            ],
+            [
+              7.146586255644163,
+              50.7089146897099,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Cocktailstand 405",
+        "styleUrl": "#msn_ylw-pushpin15",
+        "styleHash": "538fde0d",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin6",
+          "highlight": "#sh_ylw-pushpin15"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#ffff00",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.145916319459635,
+              50.70855675360091,
+              0
+            ],
+            [
+              7.145929198041596,
+              50.70852542176194,
+              0
+            ],
+            [
+              7.145980969421899,
+              50.70852945234657,
+              0
+            ],
+            [
+              7.145965877715595,
+              50.70855265755975,
+              0
+            ],
+            [
+              7.145916319459635,
+              50.70855675360091,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Cocktailstand 406",
+        "styleUrl": "#msn_ylw-pushpin15",
+        "styleHash": "538fde0d",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin6",
+          "highlight": "#sh_ylw-pushpin15"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#ffff00",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.145720143375637,
+              50.70858323094554,
+              0
+            ],
+            [
+              7.145690058242533,
+              50.70856687497987,
+              0
+            ],
+            [
+              7.145709384533701,
+              50.7085302561266,
+              0
+            ],
+            [
+              7.145769583505848,
+              50.70854644365841,
+              0
+            ],
+            [
+              7.145720143375637,
+              50.70858323094554,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Cocktailstand 407",
+        "styleUrl": "#msn_ylw-pushpin15",
+        "styleHash": "538fde0d",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin6",
+          "highlight": "#sh_ylw-pushpin15"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#ffff00",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.145601898614455,
+              50.70867977415806,
+              0
+            ],
+            [
+              7.145632025394686,
+              50.70867709789182,
+              0
+            ],
+            [
+              7.145632013579917,
+              50.70870021468002,
+              0
+            ],
+            [
+              7.14559325750175,
+              50.70870424661865,
+              0
+            ],
+            [
+              7.145601898614455,
+              50.70867977415806,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Cocktailstand 409",
+        "styleUrl": "#msn_ylw-pushpin15",
+        "styleHash": "538fde0d",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin6",
+          "highlight": "#sh_ylw-pushpin15"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#ffff00",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.145906957563577,
+              50.70905837182792,
+              0
+            ],
+            [
+              7.14595436769228,
+              50.70905286623162,
+              0
+            ],
+            [
+              7.14597162830432,
+              50.7090759514842,
+              0
+            ],
+            [
+              7.145911275104401,
+              50.70908971712201,
+              0
+            ],
+            [
+              7.145906957563577,
+              50.70905837182792,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Cocktailstand 410",
+        "styleUrl": "#msn_ylw-pushpin15",
+        "styleHash": "538fde0d",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin6",
+          "highlight": "#sh_ylw-pushpin15"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#ffff00",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.144193840513939,
+              50.7084778626056,
+              0
+            ],
+            [
+              7.144154439394212,
+              50.70846341914832,
+              0
+            ],
+            [
+              7.144173133233269,
+              50.70844374526547,
+              0
+            ],
+            [
+              7.14422904738206,
+              50.70844766175522,
+              0
+            ],
+            [
+              7.144193840513939,
+              50.7084778626056,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Cocktailstand 8",
+        "styleUrl": "#msn_ylw-pushpin7",
+        "styleHash": "23f565cc",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin7",
+          "highlight": "#sh_ylw-pushpin4"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#00aa00",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.143314303494124,
+              50.70913320243787,
+              0
+            ],
+            [
+              7.143288387877711,
+              50.70911065659326,
+              0
+            ],
+            [
+              7.143340529212581,
+              50.70908566008827,
+              0
+            ],
+            [
+              7.143366362067216,
+              50.70911082719922,
+              0
+            ],
+            [
+              7.143314303494124,
+              50.70913320243787,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Cocktailstand 16",
+        "styleUrl": "#msn_ylw-pushpin7",
+        "styleHash": "23f565cc",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin7",
+          "highlight": "#sh_ylw-pushpin4"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#00aa00",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.142450609406494,
+              50.70957674121189,
+              0
+            ],
+            [
+              7.142419403278073,
+              50.70956052824707,
+              0
+            ],
+            [
+              7.142451402447428,
+              50.70954195466879,
+              0
+            ],
+            [
+              7.142490599414919,
+              50.70955950799007,
+              0
+            ],
+            [
+              7.142450609406494,
+              50.70957674121189,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Cocktailstand 92",
+        "styleUrl": "#msn_ylw-pushpin7",
+        "styleHash": "23f565cc",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin7",
+          "highlight": "#sh_ylw-pushpin4"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#00aa00",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.14187284889748,
+              50.71260521292232,
+              0
+            ],
+            [
+              7.141844090141143,
+              50.71257290252846,
+              0
+            ],
+            [
+              7.141914919468366,
+              50.71255577930465,
+              0
+            ],
+            [
+              7.141940255185631,
+              50.71258808870638,
+              0
+            ],
+            [
+              7.14187284889748,
+              50.71260521292232,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Cocktailstand 71",
+        "styleUrl": "#msn_ylw-pushpin",
+        "styleHash": "-4fed33b0",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin3",
+          "highlight": "#sh_ylw-pushpin14"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#aa0000",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.144065042800745,
+              50.71050796303457,
+              0
+            ],
+            [
+              7.14414188294771,
+              50.71050500124951,
+              0
+            ],
+            [
+              7.144151404904992,
+              50.71055626885298,
+              0
+            ],
+            [
+              7.144076131420587,
+              50.71055928835339,
+              0
+            ],
+            [
+              7.144065042800745,
+              50.71050796303457,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Cocktailstand 230",
+        "styleUrl": "#msn_ylw-pushpin2",
+        "styleHash": "-3bd611e2",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin14",
+          "highlight": "#sh_ylw-pushpin13"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#aa0000",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.144288103465863,
+              50.70962475281121,
+              0
+            ],
+            [
+              7.144260841765906,
+              50.70960742646223,
+              0
+            ],
+            [
+              7.144335900219119,
+              50.70955303765098,
+              0
+            ],
+            [
+              7.144353948540396,
+              50.70957957764232,
+              0
+            ],
+            [
+              7.144288103465863,
+              50.70962475281121,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Cocktailstand 255",
+        "styleUrl": "#msn_ylw-pushpin",
+        "styleHash": "-4fed33b0",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin3",
+          "highlight": "#sh_ylw-pushpin14"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#aa0000",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.140298002820074,
+              50.71270756795997,
+              0
+            ],
+            [
+              7.140339688348403,
+              50.71269583778495,
+              0
+            ],
+            [
+              7.1403562818951,
+              50.71271933246779,
+              0
+            ],
+            [
+              7.140319229128385,
+              50.71273107224212,
+              0
+            ],
+            [
+              7.140298002820074,
+              50.71270756795997,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Kamera 1",
+        "styleUrl": "#msn_ylw-pushpin5",
+        "styleHash": "-68e9913a",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin",
+          "highlight": "#sh_ylw-pushpin0"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "description": "Zählkamera",
+        "stroke": "#000000",
+        "stroke-opacity": 1,
+        "stroke-width": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.13999941115564,
+              50.71283324373059,
+              0
+            ],
+            [
+              7.140065360702323,
+              50.71280791931993,
+              0
+            ],
+            [
+              7.140094673411984,
+              50.71284485414734,
+              0
+            ],
+            [
+              7.140030698435407,
+              50.71286511566829,
+              0
+            ],
+            [
+              7.13999941115564,
+              50.71283324373059,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Kamera 2",
+        "styleUrl": "#msn_ylw-pushpin5",
+        "styleHash": "-68e9913a",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin",
+          "highlight": "#sh_ylw-pushpin0"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "description": "Zählkamera (unter der Brücke)",
+        "stroke": "#000000",
+        "stroke-opacity": 1,
+        "stroke-width": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.141322376936545,
+              50.7125651178722,
+              0
+            ],
+            [
+              7.141363926323116,
+              50.71256436720513,
+              0
+            ],
+            [
+              7.141367473139678,
+              50.71259374260603,
+              0
+            ],
+            [
+              7.141328281061954,
+              50.71259447871993,
+              0
+            ],
+            [
+              7.141322376936545,
+              50.7125651178722,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Kamera 3",
+        "styleUrl": "#msn_ylw-pushpin5",
+        "styleHash": "-68e9913a",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin",
+          "highlight": "#sh_ylw-pushpin0"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "description": "Mengen/Dichte",
+        "stroke": "#000000",
+        "stroke-opacity": 1,
+        "stroke-width": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.145137494373373,
+              50.70771734632173,
+              0
+            ],
+            [
+              7.14517224886134,
+              50.70769923353953,
+              0
+            ],
+            [
+              7.145214968724707,
+              50.70772313700003,
+              0
+            ],
+            [
+              7.14517492653928,
+              50.70774287947413,
+              0
+            ],
+            [
+              7.145137494373373,
+              50.70771734632173,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Kamera 4",
+        "styleUrl": "#msn_ylw-pushpin5",
+        "styleHash": "-68e9913a",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin",
+          "highlight": "#sh_ylw-pushpin0"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "description": "Zählkamera",
+        "stroke": "#000000",
+        "stroke-opacity": 1,
+        "stroke-width": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.14531885527351,
+              50.70781859283256,
+              0
+            ],
+            [
+              7.145346313826781,
+              50.70779716135441,
+              0
+            ],
+            [
+              7.145385704514773,
+              50.70781244913547,
+              0
+            ],
+            [
+              7.145359396750186,
+              50.70783234813465,
+              0
+            ],
+            [
+              7.14531885527351,
+              50.70781859283256,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Kamera 5",
+        "styleUrl": "#msn_ylw-pushpin5",
+        "styleHash": "-68e9913a",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin",
+          "highlight": "#sh_ylw-pushpin0"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "description": "Zählkamera",
+        "stroke": "#000000",
+        "stroke-opacity": 1,
+        "stroke-width": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.143291555221179,
+              50.71200590987559,
+              0
+            ],
+            [
+              7.143377598303897,
+              50.71194455833152,
+              0
+            ],
+            [
+              7.143432623199077,
+              50.71197631906678,
+              0
+            ],
+            [
+              7.14334875354086,
+              50.71203778206318,
+              0
+            ],
+            [
+              7.143291555221179,
+              50.71200590987559,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Toilets",
+        "styleUrl": "#msn_ylw-pushpin10",
+        "styleHash": "-2be5838e",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin0",
+          "highlight": "#sh_ylw-pushpin6"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "description": "handicapped accessible (\"Behind.-WC\")",
+        "stroke": "#0000ff",
+        "stroke-opacity": 1,
+        "stroke-width": 3,
+        "fill": "#0000ff",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.14473651109617,
+              50.70887153292284,
+              0
+            ],
+            [
+              7.14476083759015,
+              50.70899260575914,
+              0
+            ],
+            [
+              7.144597963684307,
+              50.70898775540857,
+              0
+            ],
+            [
+              7.144693925129218,
+              50.70887165377246,
+              0
+            ],
+            [
+              7.14473651109617,
+              50.70887153292284,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Toilets",
+        "styleUrl": "#msn_ylw-pushpin10",
+        "styleHash": "-2be5838e",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin0",
+          "highlight": "#sh_ylw-pushpin6"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "description": "handicapped accessible (\"Behind.-WC\")",
+        "stroke": "#0000ff",
+        "stroke-opacity": 1,
+        "stroke-width": 3,
+        "fill": "#0000ff",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.14292811814942,
+              50.7085166387815,
+              0
+            ],
+            [
+              7.143038531062434,
+              50.70844672088744,
+              0
+            ],
+            [
+              7.143128862997785,
+              50.70850835651822,
+              0
+            ],
+            [
+              7.143027340060588,
+              50.70857261976146,
+              0
+            ],
+            [
+              7.14292811814942,
+              50.7085166387815,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Toilets",
+        "styleUrl": "#msn_ylw-pushpin10",
+        "styleHash": "-2be5838e",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin0",
+          "highlight": "#sh_ylw-pushpin6"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#0000ff",
+        "stroke-opacity": 1,
+        "stroke-width": 3,
+        "fill": "#0000ff",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.146047393499398,
+              50.70713766436041,
+              0
+            ],
+            [
+              7.146042736135443,
+              50.70703482777762,
+              0
+            ],
+            [
+              7.146241898215591,
+              50.70701855547515,
+              0
+            ],
+            [
+              7.14624609997707,
+              50.70712796306022,
+              0
+            ],
+            [
+              7.146047393499398,
+              50.70713766436041,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Toilets",
+        "styleUrl": "#msn_ylw-pushpin10",
+        "styleHash": "-2be5838e",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin0",
+          "highlight": "#sh_ylw-pushpin6"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "description": "handicapped accessible (\"Behind.-WC\")",
+        "stroke": "#0000ff",
+        "stroke-opacity": 1,
+        "stroke-width": 3,
+        "fill": "#0000ff",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.145757979983605,
+              50.7092746433613,
+              0
+            ],
+            [
+              7.145796530550044,
+              50.70930032684402,
+              0
+            ],
+            [
+              7.145742900897325,
+              50.70933081073758,
+              0
+            ],
+            [
+              7.145706334478552,
+              50.70930661386721,
+              0
+            ],
+            [
+              7.145757979983605,
+              50.7092746433613,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Toilets",
+        "styleUrl": "#msn_ylw-pushpin10",
+        "styleHash": "-2be5838e",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin0",
+          "highlight": "#sh_ylw-pushpin6"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "description": "handicapped accessible (\"Behind.-WC\")",
+        "stroke": "#0000ff",
+        "stroke-opacity": 1,
+        "stroke-width": 3,
+        "fill": "#0000ff",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.145709843542251,
+              50.71140515056748,
+              0
+            ],
+            [
+              7.145818434123439,
+              50.71130037447568,
+              0
+            ],
+            [
+              7.145939276427463,
+              50.71139296985651,
+              0
+            ],
+            [
+              7.145919597157149,
+              50.71141995548077,
+              0
+            ],
+            [
+              7.145709843542251,
+              50.71140515056748,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Toilets",
+        "styleUrl": "#msn_ylw-pushpin10",
+        "styleHash": "-2be5838e",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin0",
+          "highlight": "#sh_ylw-pushpin6"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "description": "handicapped accessible (\"Behind.-WC\")",
+        "stroke": "#0000ff",
+        "stroke-opacity": 1,
+        "stroke-width": 3,
+        "fill": "#0000ff",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.140350101557278,
+              50.71285764881034,
+              0
+            ],
+            [
+              7.140310523112136,
+              50.71279315851363,
+              0
+            ],
+            [
+              7.140381210009372,
+              50.71276330593261,
+              0
+            ],
+            [
+              7.140432654718545,
+              50.71282781207775,
+              0
+            ],
+            [
+              7.140350101557278,
+              50.71285764881034,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Notausgang 1",
+        "styleUrl": "#msn_ylw-pushpin8",
+        "styleHash": "-3acf86d7",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin11",
+          "highlight": "#sh_ylw-pushpin7"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#00aa00",
+        "stroke-opacity": 1,
+        "fill": "#00aa00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.14614613350375,
+              50.71157162217176,
+              0
+            ],
+            [
+              7.146199714992716,
+              50.7115085953642,
+              0
+            ],
+            [
+              7.146301056529718,
+              50.71154781468269,
+              0
+            ],
+            [
+              7.146254284261899,
+              50.71160849495629,
+              0
+            ],
+            [
+              7.14614613350375,
+              50.71157162217176,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Notausgang 2",
+        "styleUrl": "#msn_ylw-pushpin8",
+        "styleHash": "-3acf86d7",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin11",
+          "highlight": "#sh_ylw-pushpin7"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#00aa00",
+        "stroke-opacity": 1,
+        "fill": "#00aa00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.148154098487076,
+              50.70879352478194,
+              0
+            ],
+            [
+              7.148197134720533,
+              50.7087632397156,
+              0
+            ],
+            [
+              7.148249638765485,
+              50.70879504715218,
+              0
+            ],
+            [
+              7.148213773448669,
+              50.70882227454613,
+              0
+            ],
+            [
+              7.148154098487076,
+              50.70879352478194,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Notausgang 3",
+        "styleUrl": "#msn_ylw-pushpin8",
+        "styleHash": "-3acf86d7",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin11",
+          "highlight": "#sh_ylw-pushpin7"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#00aa00",
+        "stroke-opacity": 1,
+        "fill": "#00aa00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.142559134923527,
+              50.70822925798508,
+              0
+            ],
+            [
+              7.142605778780125,
+              50.70819938687349,
+              0
+            ],
+            [
+              7.142662974245728,
+              50.70823038537662,
+              0
+            ],
+            [
+              7.14260504585964,
+              50.70826102389356,
+              0
+            ],
+            [
+              7.142559134923527,
+              50.70822925798508,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Notausgang 4",
+        "styleUrl": "#msn_ylw-pushpin8",
+        "styleHash": "-3acf86d7",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin11",
+          "highlight": "#sh_ylw-pushpin7"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#00aa00",
+        "stroke-opacity": 1,
+        "fill": "#00aa00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.145064050554046,
+              50.70731083989849,
+              0
+            ],
+            [
+              7.145155032524684,
+              50.70726693195053,
+              0
+            ],
+            [
+              7.145229300793538,
+              50.70732804086241,
+              0
+            ],
+            [
+              7.145133357044373,
+              50.70736433092244,
+              0
+            ],
+            [
+              7.145064050554046,
+              50.70731083989849,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Notausgang 5",
+        "styleUrl": "#msn_ylw-pushpin8",
+        "styleHash": "-3acf86d7",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin11",
+          "highlight": "#sh_ylw-pushpin7"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#00aa00",
+        "stroke-opacity": 1,
+        "fill": "#00aa00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.141648573138575,
+              50.7131995781229,
+              0
+            ],
+            [
+              7.141564149659407,
+              50.71304582944492,
+              0
+            ],
+            [
+              7.141905392816399,
+              50.71298154862737,
+              0
+            ],
+            [
+              7.141972536257526,
+              50.71312063233562,
+              0
+            ],
+            [
+              7.141648573138575,
+              50.7131995781229,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Medical Center Nord",
+        "styleUrl": "#msn_ylw-pushpin14",
+        "styleHash": "ca76f9c",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin4",
+          "highlight": "#sh_ylw-pushpin3"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#ff0000",
+        "stroke-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.147084142187936,
+              50.70885490681757,
+              0
+            ],
+            [
+              7.147063939470857,
+              50.70875679497464,
+              0
+            ],
+            [
+              7.147321130174051,
+              50.70873105171668,
+              0
+            ],
+            [
+              7.147339644719148,
+              50.70882284125741,
+              0
+            ],
+            [
+              7.147084142187936,
+              50.70885490681757,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Medical Center Süd",
+        "styleUrl": "#msn_ylw-pushpin14",
+        "styleHash": "ca76f9c",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin4",
+          "highlight": "#sh_ylw-pushpin3"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#ff0000",
+        "stroke-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.144926626248951,
+              50.71026840367463,
+              9
+            ],
+            [
+              7.145030401220347,
+              50.71025621365644,
+              9
+            ],
+            [
+              7.145054075823185,
+              50.71034965828828,
+              9
+            ],
+            [
+              7.144950864242883,
+              50.71036291421041,
+              9
+            ],
+            [
+              7.144926626248951,
+              50.71026840367463,
+              9
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Hauptbühne - Präsentiert von Deutsche Post DHL Group",
+        "styleUrl": "#m_ylw-pushpin",
+        "styleHash": "-6069b708",
+        "styleMapHash": {
+          "normal": "#s_ylw-pushpin",
+          "highlight": "#s_ylw-pushpin_hl"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#aa0000",
+        "stroke-opacity": 1,
+        "stroke-width": 3
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.141085408810184,
+              50.71244377588808,
+              0
+            ],
+            [
+              7.14113650519157,
+              50.71239398415337,
+              0
+            ],
+            [
+              7.141267127976319,
+              50.71242268809323,
+              0
+            ],
+            [
+              7.141222700672882,
+              50.71247910817752,
+              0
+            ],
+            [
+              7.141085408810184,
+              50.71244377588808,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "RheinImpuls-Bühne",
+        "styleUrl": "#m_ylw-pushpin",
+        "styleHash": "-6069b708",
+        "styleMapHash": {
+          "normal": "#s_ylw-pushpin",
+          "highlight": "#s_ylw-pushpin_hl"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#aa0000",
+        "stroke-opacity": 1,
+        "stroke-width": 3
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.146242871810255,
+              50.70902861296608,
+              0
+            ],
+            [
+              7.146311611195899,
+              50.7090982440413,
+              0
+            ],
+            [
+              7.146213448890935,
+              50.70913453611097,
+              0
+            ],
+            [
+              7.146148601459171,
+              50.709068404585,
+              0
+            ],
+            [
+              7.146242871810255,
+              50.70902861296608,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "RheinEvents-Bühne",
+        "styleUrl": "#msn_ylw-pushpin11",
+        "styleHash": "65a2076",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin1",
+          "highlight": "#sh_ylw-pushpin16"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#aa0000",
+        "stroke-opacity": 1,
+        "stroke-width": 3
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.140577401072108,
+              50.71071572112806,
+              0
+            ],
+            [
+              7.140742841992211,
+              50.71065040003943,
+              0
+            ],
+            [
+              7.140936520307877,
+              50.7106797167243,
+              0
+            ],
+            [
+              7.141034475155729,
+              50.71078709647397,
+              0
+            ],
+            [
+              7.14099200235917,
+              50.7109072817241,
+              0
+            ],
+            [
+              7.140823312870732,
+              50.71097046616428,
+              0
+            ],
+            [
+              7.140632119872599,
+              50.7109434316503,
+              0
+            ],
+            [
+              7.140533007895334,
+              50.71083686354196,
+              0
+            ],
+            [
+              7.140577401072108,
+              50.71071572112806,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Restaurant Rheinaue",
+        "styleUrl": "#msn_ylw-pushpin16",
+        "styleHash": "7e827e03",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin10",
+          "highlight": "#sh_ylw-pushpin2"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#aaaa7f",
+        "stroke-opacity": 1,
+        "stroke-width": 3,
+        "fill": "#aaaa7f",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.145262721636412,
+              50.71124541216781,
+              0
+            ],
+            [
+              7.145296604038476,
+              50.71124534138713,
+              0
+            ],
+            [
+              7.145296637218674,
+              50.71126668917909,
+              0
+            ],
+            [
+              7.145259820597483,
+              50.7112667719521,
+              0
+            ],
+            [
+              7.145262721636412,
+              50.71124541216781,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Kinder- und Jugendschutzzelt",
+        "styleUrl": "#msn_ylw-pushpin6",
+        "styleHash": "53db75d5",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin2",
+          "highlight": "#sh_ylw-pushpin10"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#00aa00",
+        "stroke-opacity": 1,
+        "stroke-width": 3
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.140924411983114,
+              50.71003586594008,
+              0
+            ],
+            [
+              7.140862270712525,
+              50.70992679101742,
+              0
+            ],
+            [
+              7.14088859484302,
+              50.70988369778213,
+              0
+            ],
+            [
+              7.141067634888589,
+              50.70984557610667,
+              0
+            ],
+            [
+              7.141131908636053,
+              50.70986102414491,
+              0
+            ],
+            [
+              7.141196489464678,
+              50.70997399035927,
+              0
+            ],
+            [
+              7.141166104128491,
+              50.71001406527097,
+              0
+            ],
+            [
+              7.140989756074632,
+              50.71005782400391,
+              0
+            ],
+            [
+              7.140924411983114,
+              50.71003586594008,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Koordinierungsgruppe",
+        "styleUrl": "#msn_ylw-pushpin4",
+        "styleHash": "4451497e",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin13",
+          "highlight": "#sh_ylw-pushpin9"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#ffff00",
+        "stroke-opacity": 1,
+        "stroke-width": 3,
+        "fill": "#ffff00",
+        "fill-opacity": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.145368657164502,
+              50.71408065361514,
+              0
+            ],
+            [
+              7.145124041995841,
+              50.71374737219405,
+              0
+            ],
+            [
+              7.146204718502243,
+              50.71339557781069,
+              0
+            ],
+            [
+              7.146488308247889,
+              50.71374408843148,
+              0
+            ],
+            [
+              7.145368657164502,
+              50.71408065361514,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Feuerwerk",
+        "styleUrl": "#msn_ylw-pushpin9",
+        "styleHash": "76446cc1",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin12",
+          "highlight": "#sh_ylw-pushpin5"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#aaaaff",
+        "stroke-opacity": 1,
+        "stroke-width": 2,
+        "fill": "#ff0000",
+        "fill-opacity": 0.19607843137254902
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            7.139180392430999,
+            50.71100360107099,
+            0
+          ],
+          [
+            7.139275922225734,
+            50.71104583770374,
+            0
+          ],
+          [
+            7.13938852162438,
+            50.71111698861912,
+            0
+          ],
+          [
+            7.139476151775714,
+            50.71121924236168,
+            0
+          ],
+          [
+            7.139579847235913,
+            50.7114020770374,
+            0
+          ],
+          [
+            7.139670431675802,
+            50.7115825820726,
+            0
+          ],
+          [
+            7.139767398468198,
+            50.71181165326897,
+            0
+          ],
+          [
+            7.139857743087744,
+            50.71202488513492,
+            0
+          ],
+          [
+            7.139921770815243,
+            50.71216665913748,
+            0
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Zaun",
+        "styleUrl": "#msn_ylw-pushpin12",
+        "styleHash": "-6ce18b61",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin15",
+          "highlight": "#sh_ylw-pushpin11"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#aa0000",
+        "stroke-opacity": 1,
+        "stroke-width": 5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            7.139889056343871,
+            50.71160149235313,
+            0
+          ],
+          [
+            7.139979073157035,
+            50.71162458776131,
+            0
+          ],
+          [
+            7.140102716182193,
+            50.71165360612504,
+            0
+          ],
+          [
+            7.140170229252687,
+            50.71167579974384,
+            0
+          ],
+          [
+            7.140268140040784,
+            50.71170296148243,
+            0
+          ],
+          [
+            7.140357205058765,
+            50.71174527258987,
+            0
+          ],
+          [
+            7.140383646748562,
+            50.71178578874062,
+            0
+          ],
+          [
+            7.140390023669355,
+            50.71187665240666,
+            0
+          ],
+          [
+            7.140437882149993,
+            50.7120292286869,
+            0
+          ],
+          [
+            7.140529075931159,
+            50.71216413820171,
+            0
+          ],
+          [
+            7.140582192592369,
+            50.71221790074472,
+            0
+          ],
+          [
+            7.140608076929642,
+            50.71228560594128,
+            0
+          ],
+          [
+            7.140597844462649,
+            50.71234430605122,
+            0
+          ],
+          [
+            7.140552588766298,
+            50.71240622294322,
+            0
+          ],
+          [
+            7.140447527423353,
+            50.71245373685524,
+            0
+          ],
+          [
+            7.140330119520753,
+            50.71248373446613,
+            0
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Zaun",
+        "styleUrl": "#msn_ylw-pushpin12",
+        "styleHash": "-6ce18b61",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin15",
+          "highlight": "#sh_ylw-pushpin11"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#aa0000",
+        "stroke-opacity": 1,
+        "stroke-width": 5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            7.13989494291706,
+            50.71156212472648,
+            0
+          ],
+          [
+            7.139971748835645,
+            50.71158826678508,
+            0
+          ],
+          [
+            7.140078666945511,
+            50.71161418834419,
+            0
+          ],
+          [
+            7.140213223659721,
+            50.71164637108009,
+            0
+          ],
+          [
+            7.140326794610205,
+            50.71167864481418,
+            0
+          ],
+          [
+            7.14040132031939,
+            50.71169625654449,
+            0
+          ],
+          [
+            7.140420411059099,
+            50.7116338320313,
+            0
+          ],
+          [
+            7.140447328420119,
+            50.71157817836861,
+            0
+          ],
+          [
+            7.140502445174459,
+            50.71149704805108,
+            0
+          ],
+          [
+            7.140562786166502,
+            50.71144320476651,
+            0
+          ],
+          [
+            7.140667855267942,
+            50.71136238931033,
+            0
+          ],
+          [
+            7.140840557432451,
+            50.71127501894011,
+            0
+          ],
+          [
+            7.141015912662388,
+            50.71119938770673,
+            0
+          ],
+          [
+            7.141108935839908,
+            50.7111298421671,
+            0
+          ],
+          [
+            7.141194524264495,
+            50.71104746382181,
+            0
+          ],
+          [
+            7.141208281234979,
+            50.71099893918836,
+            0
+          ],
+          [
+            7.141178956039647,
+            50.71096650667092,
+            0
+          ],
+          [
+            7.141127713832849,
+            50.71093922227884,
+            0
+          ],
+          [
+            7.141086448613308,
+            50.71092056217166,
+            0
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Zaun",
+        "styleUrl": "#msn_ylw-pushpin12",
+        "styleHash": "-6ce18b61",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin15",
+          "highlight": "#sh_ylw-pushpin11"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#aa0000",
+        "stroke-opacity": 1,
+        "stroke-width": 5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            7.142199608277872,
+            50.70885365700156,
+            0
+          ],
+          [
+            7.142273225012222,
+            50.70886276292615,
+            0
+          ],
+          [
+            7.14232707760101,
+            50.70887555932553,
+            0
+          ],
+          [
+            7.14235540336996,
+            50.70890432949932,
+            0
+          ],
+          [
+            7.142357754882784,
+            50.70919192284875,
+            0
+          ],
+          [
+            7.142348830999213,
+            50.70925614661827,
+            0
+          ],
+          [
+            7.142303088730579,
+            50.70931522817544,
+            0
+          ],
+          [
+            7.142189234085588,
+            50.70937987951121,
+            0
+          ],
+          [
+            7.141997228098278,
+            50.70944642298861,
+            0
+          ],
+          [
+            7.141688100818104,
+            50.70962597202868,
+            0
+          ],
+          [
+            7.141541717148778,
+            50.70977467199371,
+            0
+          ],
+          [
+            7.141484561969509,
+            50.70985018615801,
+            0
+          ],
+          [
+            7.141442602677648,
+            50.70985717007431,
+            0
+          ],
+          [
+            7.14129982475884,
+            50.70979573619663,
+            0
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Zaun",
+        "styleUrl": "#msn_ylw-pushpin12",
+        "styleHash": "-6ce18b61",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin15",
+          "highlight": "#sh_ylw-pushpin11"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#aa0000",
+        "stroke-opacity": 1,
+        "stroke-width": 5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            7.142380592836233,
+            50.70882416171562,
+            0
+          ],
+          [
+            7.142427384364845,
+            50.70875290934613,
+            0
+          ],
+          [
+            7.142532897370177,
+            50.70866453822871,
+            0
+          ],
+          [
+            7.142629972982366,
+            50.70858665661589,
+            0
+          ],
+          [
+            7.142657988296335,
+            50.70852107958986,
+            0
+          ],
+          [
+            7.142655381893361,
+            50.70843761172656,
+            0
+          ],
+          [
+            7.142613544167937,
+            50.70836611676134,
+            0
+          ],
+          [
+            7.142580880312497,
+            50.70831868846224,
+            0
+          ],
+          [
+            7.142572439561318,
+            50.70826964119824,
+            0
+          ],
+          [
+            7.142581753077537,
+            50.70825278140578,
+            0
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Zaun",
+        "styleUrl": "#msn_ylw-pushpin12",
+        "styleHash": "-6ce18b61",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin15",
+          "highlight": "#sh_ylw-pushpin11"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#aa0000",
+        "stroke-opacity": 1,
+        "stroke-width": 5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            7.14264957803163,
+            50.70820474985728,
+            0
+          ],
+          [
+            7.142679149576184,
+            50.70822558295896,
+            0
+          ],
+          [
+            7.142726026655262,
+            50.70822689829262,
+            0
+          ],
+          [
+            7.142776854211085,
+            50.70822074571667,
+            0
+          ],
+          [
+            7.142825859269337,
+            50.7082312236707,
+            0
+          ],
+          [
+            7.142870147216107,
+            50.7082522983856,
+            0
+          ],
+          [
+            7.142913621242366,
+            50.70826744771149,
+            0
+          ],
+          [
+            7.143001978965884,
+            50.70827670377262,
+            0
+          ],
+          [
+            7.143089608807607,
+            50.70827707049306,
+            0
+          ],
+          [
+            7.143153897159169,
+            50.70825288680496,
+            0
+          ],
+          [
+            7.143243387057461,
+            50.7081902971626,
+            0
+          ],
+          [
+            7.143378572345744,
+            50.7081201312314,
+            0
+          ],
+          [
+            7.14354062034944,
+            50.70806363813053,
+            0
+          ],
+          [
+            7.143829297958177,
+            50.70803764884994,
+            0
+          ],
+          [
+            7.144054112354496,
+            50.70804549112044,
+            0
+          ],
+          [
+            7.144251209770724,
+            50.70807335619259,
+            0
+          ],
+          [
+            7.144369439209624,
+            50.70808154234681,
+            0
+          ],
+          [
+            7.14463365600067,
+            50.70796427107782,
+            0
+          ],
+          [
+            7.144882461959286,
+            50.70778532928459,
+            0
+          ],
+          [
+            7.145068613932022,
+            50.70762585577374,
+            0
+          ],
+          [
+            7.145098845176589,
+            50.7075133630342,
+            0
+          ],
+          [
+            7.145009217437519,
+            50.70738670202538,
+            0
+          ],
+          [
+            7.144959077589645,
+            50.70721796586268,
+            0
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Zaun",
+        "styleUrl": "#msn_ylw-pushpin12",
+        "styleHash": "-6ce18b61",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin15",
+          "highlight": "#sh_ylw-pushpin11"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#aa0000",
+        "stroke-opacity": 1,
+        "stroke-width": 5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            7.146590165526301,
+            50.71168377593218,
+            0
+          ],
+          [
+            7.146316296026143,
+            50.71155384882299,
+            0
+          ],
+          [
+            7.145830232408928,
+            50.71124389390097,
+            0
+          ],
+          [
+            7.145467067259935,
+            50.71135055776031,
+            0
+          ],
+          [
+            7.145116547744681,
+            50.71141419957789,
+            0
+          ],
+          [
+            7.145098719702978,
+            50.71139526469951,
+            0
+          ],
+          [
+            7.145175594626965,
+            50.7112735656163,
+            0
+          ],
+          [
+            7.145186461214175,
+            50.71118696835789,
+            0
+          ],
+          [
+            7.145179238383481,
+            50.71107042057491,
+            0
+          ],
+          [
+            7.145130930685379,
+            50.71098196265256,
+            0
+          ],
+          [
+            7.145086425582397,
+            50.71090669431499,
+            0
+          ],
+          [
+            7.145027005012812,
+            50.71080626741545,
+            0
+          ],
+          [
+            7.1450512585378,
+            50.71072932036694,
+            0
+          ],
+          [
+            7.145065209508099,
+            50.71061975529934,
+            0
+          ],
+          [
+            7.145042231931398,
+            50.71050422839983,
+            0
+          ],
+          [
+            7.144976045001041,
+            50.71038664827225,
+            0
+          ],
+          [
+            7.144952093473799,
+            50.71037293824534,
+            0
+          ],
+          [
+            7.144917768106391,
+            50.71025089026504,
+            0
+          ],
+          [
+            7.144900622638226,
+            50.7101810077929,
+            0
+          ],
+          [
+            7.1449094547347,
+            50.71014131143954,
+            0
+          ],
+          [
+            7.145014330446376,
+            50.71009655852635,
+            0
+          ],
+          [
+            7.145125264228835,
+            50.71006820300443,
+            0
+          ],
+          [
+            7.145324918302949,
+            50.70998918404909,
+            0
+          ],
+          [
+            7.145376350777428,
+            50.70981852729973,
+            0
+          ],
+          [
+            7.145426288373107,
+            50.70970374242339,
+            0
+          ],
+          [
+            7.145633747603821,
+            50.709459190765,
+            0
+          ],
+          [
+            7.145729592674361,
+            50.70939237491777,
+            0
+          ],
+          [
+            7.146058813297504,
+            50.70919809461827,
+            0
+          ],
+          [
+            7.146143229814401,
+            50.70906805677248,
+            0
+          ],
+          [
+            7.146251626151927,
+            50.70902361413009,
+            0
+          ],
+          [
+            7.14646649595166,
+            50.70905258669995,
+            0
+          ],
+          [
+            7.146842585732179,
+            50.70897902010286,
+            0
+          ],
+          [
+            7.14766455594813,
+            50.70887176771528,
+            0
+          ],
+          [
+            7.147832325864889,
+            50.70875534034721,
+            0
+          ],
+          [
+            7.147937076664044,
+            50.70880496086538,
+            0
+          ],
+          [
+            7.14847163911331,
+            50.70905413003309,
+            0
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Zaun",
+        "styleUrl": "#msn_ylw-pushpin12",
+        "styleHash": "-6ce18b61",
+        "styleMapHash": {
+          "normal": "#sn_ylw-pushpin15",
+          "highlight": "#sh_ylw-pushpin11"
+        },
+        "icon": "http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",
+        "stroke": "#aa0000",
+        "stroke-opacity": 1,
+        "stroke-width": 5
+      }
+    }
+  ]
+}

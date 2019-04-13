@@ -22,6 +22,7 @@ function menu_import() {
 }
 
 var NamesEditor = {
+  iconeditorcounter: 0,
   ParseJson: function (jsontext) {
     document.getElementById("content").innerHTML = "";
     var namesconfig = JSON.parse(jsontext);
@@ -39,7 +40,7 @@ var NamesEditor = {
         } else if (nameentry.hasOwnProperty("icon")) {
           html += "<td><img src='"+nameentry["icon"]+"'></td>";
         } else {
-          html += "<td>kein Icon</td>";
+          html += "<td><img src='../js/leaflet/images/marker-icon.png'></td>";
         }
         html += "<td><img src='../icons/general/edit.png' onclick='NamesEditor.Edit(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='NamesEditor.Delete(this.parentNode.parentNode)' class='pointer'></td>" +
           "</tr>";
@@ -87,7 +88,20 @@ var NamesEditor = {
     }
   },
   Edit: function (el) {
-    alert("Edit " + el);
+    var id = el.children[0].innerText;
+    var name = el.children[1].innerText;
+    var url = null;
+    if (el.children[2].children[0].hasAttribute("data")) {
+      url = el.children[2].children[0].data;
+    }
+    el.innerHTML = "<td><input class='name' value='" + id + "'/></td>";
+    el.innerHTML += "<td><input value='" + name + "'/></td>";
+    if (url === null) {
+      el.innerHTML += "<td><img src='../icons/general/icon_edit.png' onclick='NamesEditor.IconEditor(this.parentNode)' class='pointer'> wähle Icon</td>";
+    } else {
+      el.innerHTML += "<td><img src='../icons/general/icon_edit.png' onclick='NamesEditor.IconEditor(this.parentNode)' class='pointer'> <object data='" + url + "' type='image/svg+xml' style='height:50px; width:50px;'></object></td>";
+    }
+    el.innerHTML += "<td><img src='../icons/general/save.png' onclick='NamesEditor.SaveRow(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='NamesEditor.Abort(this.parentNode.parentNode)' class='pointer'></td>";
   },
   Abort: function (el) {
     el.parentNode.removeChild(el);
@@ -95,46 +109,98 @@ var NamesEditor = {
   SaveRow: function (el) {
     var id = el.children[0].children[0].value;
     var name = el.children[1].children[0].value;
-    alert("Save Row: id: " + id + " name: " + name);
+    var url = null;
+    if (el.children[2].children.length == 2) {
+      url = el.children[2].children[1].data;
+    }
+    el.innerHTML = "<td>" + id + "</td>" +
+      "<td>" + name + "</td>";
+    if (url === null) {
+      el.innerHTML += "<td><img src='../js/leaflet/images/marker-icon.png'></td>";
+    } else {
+      el.innerHTML += "<td><object data='" + url +"' type='image/svg+xml' style='height:50px; width:50px;'></object></td>";
+    }
+    el.innerHTML += "<td><img src='../icons/general/edit.png' onclick='NamesEditor.Edit(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='NamesEditor.Delete(this.parentNode.parentNode)' class='pointer'></td>";
   },
   IconEditor: function (el) {
     var url = "../icons/marker/Marker.svg?marker-bg=hidden";
+    el.id = "icon_edit_" + this.iconeditorcounter++;
     if (el.children.length == 2) {
-
+      url = el.children[1].data;
     }
+    var query = this.SplitQueryIntoObject(this.SplitUrlIntoParts(url).query);
     var ie = document.createElement("div");
     ie.id = "iconeditor";
     ie.innerHTML = "<div class='innerbox'>" +
       "<div class='preview'><object id='markerprev' data='" + url + "' type='image/svg+xml' style='height:200px; width:200px;'></object></div>" +
       "<div class='controls'>" +
-      "Typ: <select onchange='NamesEditor.ChangeLinkPreview(\"icon\",this.value); document.getElementById(\"iconeditor-type-\"+this.value).style.display = \"block\";'><option>---</option><option value='person'>Person</option></select><br>" +
-      "<div id='iconeditor-type-person' style='display: none;'>" +
-      "Organisation: <select onchange='NamesEditor.ChangeLinkPreview(\"person-org\",this.value);'><option>---</option><option value='fw'>Feuerwehr</option><option value='thw'>Technisches Hilfswerk</option><option value='hilo'>Hilfsorganisationen, Bundeswehr</option><option value='fueh'>Einrichtungen der Führung</option><option value='pol'>Polizei, Bundespolizei, Zoll</option><option value='sonst'>Sonstige Einrichtungen der Gefahrenabwehr</option></select><br>"+
-      "Funktion: <select onchange='NamesEditor.ChangeLinkPreview(\"person-funct\",this.value);'><option>---</option><option value='sonder'>Sonder</option><option value='fueh'>Führung</option></select><br>" +
-      "Rang: <select onchange='NamesEditor.ChangeLinkPreview(\"person-rang\",this.value);'><option>---</option><option value='trupp'>Trupp</option><option value='grupp'>Gruppe</option><option value='zug'>Zug</option></select><br>" +
-      "Text: <input onchange='NamesEditor.ChangeLinkPreview(\"person-text\",this.value);'><br>"+
+      this.CreateSelectBox("Typ", "icon", query, { "person": "Person" }, "iconeditor-type-") + "<br>" +
+      "<div id='iconeditor-type-person' style='display: " + ((query.hasOwnProperty("icon") && query["icon"] == "person") ? "block" : "none") + ";'>" +
+      this.CreateSelectBox("Organisation", "person-org", query, { "fw": "Feuerwehr", "thw": "Technisches Hilfswerk", "hilo": "Hilfsorganisationen, Bundeswehr", "fueh": "Einrichtungen der Führung", "pol": "Polizei, Bundespolizei, Zoll", "sonst": "Sonstige Einrichtungen der Gefahrenabwehr" }) + "<br>" +
+      this.CreateSelectBox("Funktion", "person-funct", query, { "sonder": "Sonder", "fueh": "Führung" }) + "<br>" +
+      this.CreateSelectBox("Rang", "person-rang", query, { "trupp": "Trupp", "grupp": "Gruppe", "zug":"Zug" }) + "<br>" +
+      "Text: <input onchange='NamesEditor.ChangeLinkPreview(\"person-text\",this.value);' value='" + ((query.hasOwnProperty("person-text")) ? query["person-text"] : "") + "'><br>" +
       "</div>" +
       "</div>" +
-      "<div class='save'><button onclick='alert(document.getElementById(\"markerprev\").data); document.getElementById(\"iconeditor\").remove()'>Schließen</botton></div>"+
+      "<div class='save'><button onclick='NamesEditor.SaveIconEditor(\"" + el.id + "\"); '>Schließen</botton></div>" +
       "</div>";
     document.getElementsByTagName("body")[0].appendChild(ie);
   },
-  ChangeLinkPreview: function (key, val) {
-    var cur = document.getElementById("markerprev").data;
-    var query = {};
-    var queryString = cur.split('?');
-    if (queryString.length === 2) {
-      var pairs = queryString[1].split('&');
-      for (var i = 0; i < pairs.length; i++) {
-        var pair = pairs[i].split('=');
-        query[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
+  CreateSelectBox: function (title, key, query, options, group) {
+    var html = title + ": ";
+    var eventtext = "NamesEditor.ChangeLinkPreview(\"" + key + "\",this.value);";
+    if (typeof group !== "undefined") {
+      eventtext += " document.getElementById(\"" + group + "\"+this.value).style.display = \"block\";'";
+    }
+    html += "<select onchange='" + eventtext + "'>";
+    html += "<option>---</option>";
+    for (var value in options) {
+      if (query.hasOwnProperty(key) && query[key] == value) {
+        html += "<option value='" + value + "' selected>" + options[value] + "</option>";
+      } else {
+        html += "<option value='" + value + "'>" + options[value] + "</option>";
       }
     }
-    query[key] = val;
-    var newq = new Array()
-    for (var id in query) {
-      newq.push(encodeURIComponent(id) + "=" + encodeURIComponent(query[id]));
+    html += "</select>";
+    return html;
+  },
+  SaveIconEditor: function (id) {
+    var cell = document.getElementById(id);
+    cell.innerHTML = "<img src='../icons/general/icon_edit.png' onclick='NamesEditor.IconEditor(this.parentNode)' class='pointer'> <object data='" + document.getElementById("markerprev").data + "' type='image/svg+xml' style='height:50px; width:50px;'></object>";
+    cell.removeAttribute("id");
+    document.getElementById("iconeditor").remove();
+  },
+  SplitQueryIntoObject: function (query) {
+    if (query.indexOf("?") !== -1) {
+      query = query.split("?")[1];
     }
-    document.getElementById("markerprev").data = queryString[0] + "?" + newq.join('&');
+    var queryobj = {};
+    var pairs = query.split("&");
+    for (var i = 0; i < pairs.length; i++) {
+      var pair = pairs[i].split("=");
+      queryobj[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || "");
+    }
+    return queryobj;
+  },
+  JoinObjectIntoQuery: function (queryobj) {
+    var query = new Array();
+    for (var id in queryobj) {
+      query.push(encodeURIComponent(id) + "=" + encodeURIComponent(queryobj[id]));
+    }
+    return query.join("&");
+  },
+  SplitUrlIntoParts: function (url) {
+    var parts = url.split("?");
+    return { "file": parts[0], "query": parts[1] || "" };
+  },
+  ChangeLinkPreview: function (key, val) {
+    var cur = this.SplitUrlIntoParts(document.getElementById("markerprev").data);
+    var query = this.SplitQueryIntoObject(cur.query);
+    if (val === "---") {
+      delete query[key];
+    } else {
+      query[key] = val;
+    }
+    document.getElementById("markerprev").data = cur.file + "?" + this.JoinObjectIntoQuery(query);
   }
 };

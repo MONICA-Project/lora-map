@@ -67,6 +67,7 @@
     <None Include="dpkg\postinst" />
     <None Include="dpkg\preinst" />
     <None Include="dpkg\prerm" />
+    <None Include="layer.json" />
     <None Include="names.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
