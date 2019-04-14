@@ -16,11 +16,32 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
   {
     private readonly SortedDictionary<String, PositionItem> positions = new SortedDictionary<String, PositionItem>();
     private readonly SortedDictionary<String, AlarmItem> alarms = new SortedDictionary<String, AlarmItem>();
-    private readonly JsonData marker;
+    private JsonData marker;
     private readonly Dictionary<String, Marker> markertable = new Dictionary<String, Marker>();
     private readonly AdminModel admin = new AdminModel();
 
-    public Server(ADataBackend backend, Dictionary<String, String> settings, InIReader requests) : base(backend, settings, requests) => this.marker = JsonMapper.ToObject(File.ReadAllText("names.json"));
+    public Server(ADataBackend backend, Dictionary<String, String> settings, InIReader requests) : base(backend, settings, requests) {
+      this.CheckJsonFiles();
+      this.marker = JsonMapper.ToObject(File.ReadAllText("json/names.json"));
+      this.admin.NamesUpdate += this.AdminModelUpdateNames;
+      this.StartListen();
+    }
+
+    private void AdminModelUpdateNames(Object sender, EventArgs e) {
+      this.marker = JsonMapper.ToObject(File.ReadAllText("json/names.json"));
+      foreach(KeyValuePair<String, PositionItem> item in this.positions) {
+        item.Value.UpdateMarker(this.marker, item.Key);
+      }
+    }
+
+    private void CheckJsonFiles() {
+      if(!Directory.Exists("json")) {
+        Directory.CreateDirectory("json");
+      }
+      if(!File.Exists("json/names.json")) {
+        File.WriteAllText("json/names.json", "{}");
+      }
+    }
 
     protected override void Backend_MessageIncomming(Object sender, BackendEvent e) {
       try {

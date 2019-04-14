@@ -68,9 +68,7 @@
     <None Include="dpkg\preinst" />
     <None Include="dpkg\prerm" />
     <None Include="layer.json" />
-    <None Include="names.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="names.json" />
     <None Include="resources\icons\marker\din1451m.woff">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -135,12 +133,6 @@
     </Content>
     <Content Include="resources\icons\marker\Person.svg">
       <SubType>Designer</SubType>
-    </Content>
-    <Content Include="resources\icons\marker\thw\einheiten\26-91.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\icons\marker\thw\einheiten\27-92.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="resources\js\functions.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

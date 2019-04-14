@@ -8,6 +8,9 @@ using BlubbFish.Utils.IoT.Bots;
 
 namespace Fraunhofer.Fit.IoT.LoraMap.Model.Admin {
   class AdminModel {
+    public delegate void AdminEvent(Object sender, EventArgs e);
+    public event AdminEvent NamesUpdate;
+
     private readonly Dictionary<Int64, AdminSession> session = new Dictionary<Int64, AdminSession>();
     public Boolean ParseReuqest(HttpListenerContext cont) {
       if(cont.Request.Url.PathAndQuery == "/admin/login") {
@@ -19,12 +22,29 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model.Admin {
       if(cont.Request.Url.PathAndQuery.StartsWith("/admin/get_json_")) {
         return this.SendJson(cont);
       }
+      if(cont.Request.Url.PathAndQuery.StartsWith("/admin/set_json_")) {
+        return this.GetJson(cont);
+      }
       return Webserver.SendFileResponse(cont);
+    }
+
+    private Boolean GetJson(HttpListenerContext cont) {
+      if(cont.Request.Url.PathAndQuery == "/admin/set_json_names") {
+        StreamReader reader = new StreamReader(cont.Request.InputStream, cont.Request.ContentEncoding);
+        String rawData = reader.ReadToEnd();
+        cont.Request.InputStream.Close();
+        reader.Close();
+        File.WriteAllText("json/names.json", rawData);
+        Console.WriteLine("200 - Get names.json " + cont.Request.Url.PathAndQuery);
+        this.NamesUpdate?.Invoke(this, new EventArgs());
+        return true;
+      }
+      return false;
     }
 
     private Boolean SendJson(HttpListenerContext cont) {
       if(cont.Request.Url.PathAndQuery == "/admin/get_json_names") {
-        String file = File.ReadAllText("names.json");
+        String file = File.ReadAllText("json/names.json");
         Byte[] buf = Encoding.UTF8.GetBytes(file);
         cont.Response.ContentLength64 = buf.Length;
         cont.Response.OutputStream.Write(buf, 0, buf.Length);

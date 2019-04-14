@@ -2,12 +2,12 @@
 function datarunner() {
   var loc = new XMLHttpRequest();
   loc.onreadystatechange = parseAjaxLoc;
-  loc.open("GET", "http://{%REQUEST_URL_HOST%}:8080/loc", true);
+  loc.open("GET", "http://{%REQUEST_URL_HOST%}/loc", true);
   loc.send();
 
   var panic = new XMLHttpRequest();
   panic.onreadystatechange = parseAjaxPanic;
-  panic.open("GET", "http://{%REQUEST_URL_HOST%}:8080/panic", true);
+  panic.open("GET", "http://{%REQUEST_URL_HOST%}/panic", true);
   panic.send();
 }
 
@@ -37,6 +37,26 @@ function parseAjaxLoc() {
             markers[key] = marker.addTo(mymap).on("click", showMarkerInfo, key);
           } else {
             markers[key].setLatLng([positionItem['Latitude'], positionItem['Longitude']]);
+            if (positionItem['Icon'] !== null) {
+              if (markers[key]._icon.children.length === 0) {
+                markers[key].setIcon(L.divIcon({
+                  className: 'pos-marker',
+                  iconSize: [56, 80],
+                  iconAnchor: [0, 80],
+                  html: '<object data="' + positionItem['Icon'] + '" type="image/svg+xml" style="height:80px; width:56px;"></object>'
+                }));
+              } else if (markers[key]._icon.children[0].hasAttribute("data")) {
+                var old = markers[key]._icon.children[0]["data"].substring(markers[key]._icon.children[0]["data"].indexOf("/", 7) + 1);
+                if (old !== positionItem['Icon']) {
+                  markers[key]._icon.children[0]["data"] = positionItem['Icon'];
+                }
+              }
+            } else {
+              if (markers[key]._icon.children.length === 1 && markers[key]._icon.children[0].hasAttribute("data")) {
+                markers[key].removeFrom(mymap);
+                markers[key] = L.marker([positionItem['Latitude'], positionItem['Longitude']], { 'title': positionItem['Name'] }).addTo(mymap).on("click", showMarkerInfo, key);
+              }
+            }
           }
         }
       }

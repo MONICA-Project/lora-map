@@ -93,6 +93,20 @@ function updateOverviewElement(positionItem, id) {
     document.getElementById("overview-gps-id-" + id).style.color = "red";
   }
   document.getElementById("overview-update-id-" + id).innerText = "Letzter Datenempfang: vor " + timeCalculation(positionItem["Recievedtime"], "difftext");
+  if (positionItem['Icon'] === null) {
+    var icon = document.getElementById("overview-icon-id-" + id);
+    if (icon.children[0].hasAttribute("data")) {
+      document.getElementById("overview-icon-id-" + id).innerHTML = "<img src =\"icons/marker/map-marker.png\">";
+    }
+  } else {
+    if (document.getElementById("overview-icon-id-" + id).children[0].hasAttribute("data")) {
+      if (document.getElementById("overview-icon-id-" + id).children[0]["data"].substring(document.getElementById("overview-icon-id-" + id).children[0]["data"].indexOf("/", 7) + 1) !== positionItem['Icon'] + "&marker-bg=hidden") {
+        document.getElementById("overview-icon-id-" + id).children[0]["data"] = positionItem['Icon'] + "&marker-bg=hidden";
+      }
+    } else {
+      document.getElementById("overview-icon-id-" + id).innerHTML = "<object data=\"" + positionItem['Icon'] + "&marker-bg=hidden" + "\" type=\"image/svg+xml\"></object>";
+    }
+  }
 }
 
 function createOverviewElement(positionItem, id) {
@@ -102,9 +116,9 @@ function createOverviewElement(positionItem, id) {
   divItem.setAttribute("rel", id);
   divItem.innerHTML = "<span class=\"color\" id=\"overview-color-id-" + id + "\"></span>";
   if (positionItem['Icon'] !== null) {
-    divItem.innerHTML += "<span class=\"icon\"><object data=\"" + positionItem['Icon'] + "&marker-bg=hidden" + "\" type=\"image/svg+xml\"></object></span>";
+    divItem.innerHTML += "<span class=\"icon\" id=\"overview-icon-id-" + id + "\"><object data=\"" + positionItem['Icon'] + "&marker-bg=hidden" + "\" type=\"image/svg+xml\"></object></span>";
   } else {
-    divItem.innerHTML += "<span class=\"icon\"><img src=\"icons/marker/map-marker.png\"></span>";
+    divItem.innerHTML += "<span class=\"icon\" id=\"overview-icon-id-" + id + "\"><img src=\"icons/marker/map-marker.png\"></span>";
   }
   divItem.innerHTML += "<div class=\"line1\">" +
     "<span class=\"name\" id=\"overview-name-id-" + id + "\"></span>" +
@@ -119,7 +133,7 @@ function createOverviewElement(positionItem, id) {
 function update_pannels_admin() {
   var testadmin = new XMLHttpRequest();
   testadmin.onreadystatechange = parseAjaxPannelAdmin;
-  testadmin.open("GET", "http://{%REQUEST_URL_HOST%}:8080/admin", true);
+  testadmin.open("GET", "http://{%REQUEST_URL_HOST%}/admin", true);
   testadmin.send();
 }
 
@@ -131,14 +145,14 @@ function parseAjaxPannelAdmin() {
     html += "<div><span class='login'><input type='submit'></span></div></form>";
     document.getElementById("pannels_admin").innerHTML = html;
   } else if (this.readyState === 4 && this.status === 200) {
-    document.getElementById("pannels_admin").innerHTML = "<a href='/admin' target='_blank'>Adminpannel</a>";
+    document.getElementById("pannels_admin").innerHTML = "<a href='/admin/' target='_blank'>Adminpannel</a>";
   }
 }
 
 function submitloginform() {
   var adminlogin = new XMLHttpRequest();
   adminlogin.onreadystatechange = parseAjaxLogin;
-  adminlogin.open("POST", "http://{%REQUEST_URL_HOST%}:8080/admin/login", true);
+  adminlogin.open("POST", "http://{%REQUEST_URL_HOST%}/admin/login", true);
   adminlogin.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
   adminlogin.send("user=" + encodeURI(document.getElementById("pannels_admin_name").value) + "&pass=" + encodeURI(document.getElementById("pannels_admin_pass").value));
 }

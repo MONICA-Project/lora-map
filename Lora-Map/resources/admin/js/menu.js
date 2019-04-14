@@ -5,7 +5,7 @@
       NamesEditor.ParseJson(parsenames.responseText);
     }
   };
-  parsenames.open("GET", "http://{%REQUEST_URL_HOST%}:8080/admin/get_json_names", true);
+  parsenames.open("GET", "http://{%REQUEST_URL_HOST%}/admin/get_json_names", true);
   parsenames.send();
 }
 
@@ -13,11 +13,7 @@ function menu_overlay() {
 
 }
 
-function menu_export() {
-
-}
-
-function menu_import() {
+function menu_eximport() {
 
 }
 
@@ -29,6 +25,7 @@ var NamesEditor = {
     var html = "<div id='nameeditor'><div class='title'>Namenseinträge in den Einstellungen</div>";
     html += "<table id='nametable'>";
     html += "<thead><tr><th class='rowid'>ID</th><th class='rowname'>Name</th><th class='rowicon'>Icon</th><th class='rowedit'></th></tr></thead>";
+    html += "<tbody>";
     for (var id in namesconfig) {
       if (namesconfig.hasOwnProperty(id)) {
         var nameentry = namesconfig[id];
@@ -46,6 +43,7 @@ var NamesEditor = {
           "</tr>";
       }
     }
+    html += "</tbody>";
     html += "<tfoot><tr><td></td><td></td><td></td><td><img src='../icons/general/add.png' onclick='NamesEditor.Add()' class='pointer'> <img src='../icons/general/save.png' onclick='NamesEditor.Save()' class='pointer'></td></tr></tfoot>";
     html += "</table>";
     document.getElementById("content").innerHTML = html + "</div>";
@@ -69,6 +67,26 @@ var NamesEditor = {
     }
     return "<object data='"+url+"' type='image/svg+xml' style='height:50px; width:50px;'></object>";
   },
+  BuildIconJson: function (url) {
+    var query = this.SplitQueryIntoObject(this.SplitUrlIntoParts(url).query);
+    var markerobj = {};
+    if (query.hasOwnProperty("icon") && query["icon"] === "person") {
+      markerobj["person"] = {};
+      if (query.hasOwnProperty("person-org")) {
+        markerobj["person"]["org"] = query["person-org"];
+      }
+      if (query.hasOwnProperty("person-funct")) {
+        markerobj["person"]["funct"] = query["person-funct"];
+      }
+      if (query.hasOwnProperty("person-rang")) {
+        markerobj["person"]["rang"] = query["person-rang"];
+      }
+      if (query.hasOwnProperty("person-text")) {
+        markerobj["person"]["text"] = query["person-text"];
+      }
+    }
+    return markerobj;
+  },
   Add: function () {
     var newrow = document.createElement("tr");
     newrow.innerHTML = "<td><input class='name'/></td>";
@@ -78,7 +96,28 @@ var NamesEditor = {
     document.getElementById("nametable").children[1].appendChild(newrow);
   },
   Save: function () {
-    alert("Save");
+    var rows = document.getElementById("nametable").children[1].children;
+    var namejson = {};
+    for (var i = 0; i < rows.length; i++) {
+      if (rows[i].children[0].children.length === 1) {
+        alert("Bitte zuerst alle Zeilen speichern oder Löschen!");
+        return;
+      }
+      var id = rows[i].children[0].innerText;
+      var name = rows[i].children[1].innerText;
+      namejson[id] = { "name": name };
+      if (rows[i].children[2].children[0].hasAttribute("data")) {
+        namejson[id]["marker.svg"] = this.BuildIconJson(rows[i].children[2].children[0].data);
+      }
+    }
+    var savenames = new XMLHttpRequest();
+    savenames.onreadystatechange = function () {
+      if (savenames.readyState === 4 && savenames.status === 200) {
+        alert("Änderungen gespeichert!");
+      }
+    };
+    savenames.open("POST", "http://{%REQUEST_URL_HOST%}/admin/set_json_names", true);
+    savenames.send(JSON.stringify(namejson));
   },
   Delete: function (el) {
     var name = el.firstChild.innerHTML;
@@ -110,7 +149,7 @@ var NamesEditor = {
     var id = el.children[0].children[0].value;
     var name = el.children[1].children[0].value;
     var url = null;
-    if (el.children[2].children.length == 2) {
+    if (el.children[2].children.length === 2) {
       url = el.children[2].children[1].data;
     }
     el.innerHTML = "<td>" + id + "</td>" +
@@ -125,7 +164,7 @@ var NamesEditor = {
   IconEditor: function (el) {
     var url = "../icons/marker/Marker.svg?marker-bg=hidden";
     el.id = "icon_edit_" + this.iconeditorcounter++;
-    if (el.children.length == 2) {
+    if (el.children.length === 2) {
       url = el.children[1].data;
     }
     var query = this.SplitQueryIntoObject(this.SplitUrlIntoParts(url).query);
@@ -135,11 +174,11 @@ var NamesEditor = {
       "<div class='preview'><object id='markerprev' data='" + url + "' type='image/svg+xml' style='height:200px; width:200px;'></object></div>" +
       "<div class='controls'>" +
       this.CreateSelectBox("Typ", "icon", query, { "person": "Person" }, "iconeditor-type-") + "<br>" +
-      "<div id='iconeditor-type-person' style='display: " + ((query.hasOwnProperty("icon") && query["icon"] == "person") ? "block" : "none") + ";'>" +
+      "<div id='iconeditor-type-person' style='display: " + (query.hasOwnProperty("icon") && query["icon"] === "person" ? "block" : "none") + ";'>" +
       this.CreateSelectBox("Organisation", "person-org", query, { "fw": "Feuerwehr", "thw": "Technisches Hilfswerk", "hilo": "Hilfsorganisationen, Bundeswehr", "fueh": "Einrichtungen der Führung", "pol": "Polizei, Bundespolizei, Zoll", "sonst": "Sonstige Einrichtungen der Gefahrenabwehr" }) + "<br>" +
       this.CreateSelectBox("Funktion", "person-funct", query, { "sonder": "Sonder", "fueh": "Führung" }) + "<br>" +
       this.CreateSelectBox("Rang", "person-rang", query, { "trupp": "Trupp", "grupp": "Gruppe", "zug":"Zug" }) + "<br>" +
-      "Text: <input onchange='NamesEditor.ChangeLinkPreview(\"person-text\",this.value);' value='" + ((query.hasOwnProperty("person-text")) ? query["person-text"] : "") + "'><br>" +
+      "Text: <input onchange='NamesEditor.ChangeLinkPreview(\"person-text\",this.value);' value='" + (query.hasOwnProperty("person-text") ? query["person-text"] : "") + "'><br>" +
       "</div>" +
       "</div>" +
       "<div class='save'><button onclick='NamesEditor.SaveIconEditor(\"" + el.id + "\"); '>Schließen</botton></div>" +
@@ -155,7 +194,7 @@ var NamesEditor = {
     html += "<select onchange='" + eventtext + "'>";
     html += "<option>---</option>";
     for (var value in options) {
-      if (query.hasOwnProperty(key) && query[key] == value) {
+      if (query.hasOwnProperty(key) && query[key] === value) {
         html += "<option value='" + value + "' selected>" + options[value] + "</option>";
       } else {
         html += "<option value='" + value + "'>" + options[value] + "</option>";
@@ -204,3 +243,5 @@ var NamesEditor = {
     document.getElementById("markerprev").data = cur.file + "?" + this.JoinObjectIntoQuery(query);
   }
 };
+
+var ExImport = {};

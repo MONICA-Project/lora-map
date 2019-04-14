@@ -39,6 +39,7 @@
   border-collapse: collapse;
 }
 #content #nameeditor #nametable thead {
+  background-color: #CCCCCC;
   background-color: rgba(0,0,0,0.2);
 }
 #content #nameeditor #nametable thead th {
@@ -57,21 +58,25 @@
   width: 250px;
 }
 #content #nameeditor #nametable tbody tr:nth-child(odd) {
+  background-color: #f39d9d;
   background-color: rgba(20,0,250,0.1);
 }
 #content #nameeditor #nametable tbody tr:nth-child(even) {
+  background-color: #9c9eee;
   background-color: rgba(250,59,0,0.1);
 }
 #content #nameeditor #nametable tbody tr:hover {
-  background-color: rgba(0,0,0,0.1) !important;
+  background-color: #e4e1e1;
+  background-color: rgba(0,0,0,0.1);
 }
 #content #nameeditor #nametable tfoot {
+  background-color: #e4e1e1;
   background-color: rgba(0,0,0,0.1);
 }
 #content #nameeditor .pointer {
   cursor: pointer;
 }
-#content #nameeditor #nametable tbody input.name {
+#content #nameeditor #nametable tbody .name {
   width: 55px;
 }
 
@@ -81,6 +86,7 @@
   left: 0;
   right: 0;
   bottom: 0;
+  background-color: #333232;
   background-color: rgba(0,0,0,0.8);
 }
 #iconeditor .innerbox {

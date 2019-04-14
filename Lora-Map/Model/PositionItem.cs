@@ -21,7 +21,10 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
 
     public PositionItem(JsonData json, JsonData marker) {
       this.Update(json);
-      String id = GetId(json);
+      this.UpdateMarker(marker, GetId(json));
+    }
+
+    public void UpdateMarker(JsonData marker, String id) {
       if(marker.ContainsKey(id)) {
         if(marker[id].ContainsKey("name") && marker[id]["name"].IsString) {
           this.Name = (String)marker[id]["name"];
@@ -40,7 +43,6 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
         this.Icon = null;
       }
     }
-
     public static Boolean CheckJson(JsonData json) => json.ContainsKey("Rssi") && json["Rssi"].IsDouble
       && json.ContainsKey("Snr") && json["Snr"].IsDouble
       && json.ContainsKey("Receivedtime") && json["Receivedtime"].IsString
@@ -57,6 +59,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
       && json.ContainsKey("Name") && json["Name"].IsString;
 
     public static String GetId(JsonData json) => (String)json["Name"];
+
     public void Update(JsonData json) {
       this.Rssi = (Double)json["Rssi"];
       this.Snr = (Double)json["Snr"];
