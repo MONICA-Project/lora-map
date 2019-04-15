@@ -5,6 +5,7 @@ using System.Net;
 using System.Text;
 using BlubbFish.Utils;
 using BlubbFish.Utils.IoT.Bots;
+using LitJson;
 
 namespace Fraunhofer.Fit.IoT.LoraMap.Model.Admin {
   class AdminModel {
@@ -12,6 +13,16 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model.Admin {
     public event AdminEvent NamesUpdate;
 
     private readonly Dictionary<Int64, AdminSession> session = new Dictionary<Int64, AdminSession>();
+    private readonly Dictionary<String, String> settings;
+
+    public AdminModel(Dictionary<String, String> settings) {
+      this.settings = settings;
+      if(!settings.ContainsKey("admin_user") || !settings.ContainsKey("admin_pass")) {
+        Helper.WriteError("Kann die Einstellungen [webserver] admin_user und admin_pass nicht laden!");
+        throw new FileNotFoundException("Kann die Einstellungen [webserver] admin_user und admin_pass nicht laden!");
+      }
+    }
+
     public Boolean ParseReuqest(HttpListenerContext cont) {
       if(cont.Request.Url.PathAndQuery == "/admin/login") {
         return this.Login(cont);
@@ -34,6 +45,13 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model.Admin {
         String rawData = reader.ReadToEnd();
         cont.Request.InputStream.Close();
         reader.Close();
+        try {
+          JsonMapper.ToObject(rawData);
+        } catch(Exception) {
+          Helper.WriteError("501 - Error recieving names.json " + cont.Request.Url.PathAndQuery);
+          cont.Response.StatusCode = 501;
+          return false;
+        }
         File.WriteAllText("json/names.json", rawData);
         Console.WriteLine("200 - Get names.json " + cont.Request.Url.PathAndQuery);
         this.NamesUpdate?.Invoke(this, new EventArgs());
@@ -58,8 +76,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model.Admin {
 
     private Boolean Login(HttpListenerContext cont) {
       Dictionary<String, String> POST = Webserver.GetPostParams(cont.Request);
-      if(POST.ContainsKey("user") && POST["user"] == "admin" &&
-        POST.ContainsKey("pass") && POST["pass"] == "password") {
+      if(POST.ContainsKey("user") && POST["user"] == this.settings["admin_user"] && POST.ContainsKey("pass") && POST["pass"] == this.settings["admin_pass"]) {
         Int64 sessionid = 0;
         while(true) {
           sessionid = AdminSession.GetRandomSessionid();

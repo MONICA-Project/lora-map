@@ -18,10 +18,12 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
     private readonly SortedDictionary<String, AlarmItem> alarms = new SortedDictionary<String, AlarmItem>();
     private JsonData marker;
     private readonly Dictionary<String, Marker> markertable = new Dictionary<String, Marker>();
-    private readonly AdminModel admin = new AdminModel();
+    private readonly AdminModel admin;
 
     public Server(ADataBackend backend, Dictionary<String, String> settings, InIReader requests) : base(backend, settings, requests) {
+      this.logger.SetPath(settings["loggingpath"]);
       this.CheckJsonFiles();
+      this.admin = new AdminModel(settings);
       this.marker = JsonMapper.ToObject(File.ReadAllText("json/names.json"));
       this.admin.NamesUpdate += this.AdminModelUpdateNames;
       this.StartListen();
@@ -32,6 +34,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
       foreach(KeyValuePair<String, PositionItem> item in this.positions) {
         item.Value.UpdateMarker(this.marker, item.Key);
       }
+      Console.WriteLine("Namen und Icons aktualisiert!");
     }
 
     private void CheckJsonFiles() {

@@ -4,3 +4,6 @@ server=127.0.0.1
 
 [webserver]
 prefix=http://+:8080/
+admin_user=admin
+admin_pass=password
+loggingpath=/var/log/loramap.log

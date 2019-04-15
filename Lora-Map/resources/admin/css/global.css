@@ -105,3 +105,12 @@
 #iconeditor .innerbox .save {
   clear: both;
 }
+
+#content #eximport .title {
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+#content #eximport .names textarea {
+  height: 120px;
+  width: 90%;
+}

@@ -1,12 +1,12 @@
 ﻿function menu_names() {
-  var parsenames = new XMLHttpRequest();
-  parsenames.onreadystatechange = function() {
-    if(parsenames.readyState === 4 && parsenames.status === 200) {
-      NamesEditor.ParseJson(parsenames.responseText);
+  var ajaxnames = new XMLHttpRequest();
+  ajaxnames.onreadystatechange = function() {
+    if(ajaxnames.readyState === 4 && ajaxnames.status === 200) {
+      NamesEditor.ParseJson(ajaxnames.responseText);
     }
   };
-  parsenames.open("GET", "http://{%REQUEST_URL_HOST%}/admin/get_json_names", true);
-  parsenames.send();
+  ajaxnames.open("GET", "http://{%REQUEST_URL_HOST%}/admin/get_json_names", true);
+  ajaxnames.send();
 }
 
 function menu_overlay() {
@@ -14,7 +14,14 @@ function menu_overlay() {
 }
 
 function menu_eximport() {
-
+  var ajaxnames = new XMLHttpRequest();
+  ajaxnames.onreadystatechange = function () {
+    if (ajaxnames.readyState === 4 && ajaxnames.status === 200) {
+      ExImport.ParseJson(ajaxnames.responseText);
+    }
+  };
+  ajaxnames.open("GET", "http://{%REQUEST_URL_HOST%}/admin/get_json_names", true);
+  ajaxnames.send();
 }
 
 var NamesEditor = {
@@ -112,8 +119,12 @@ var NamesEditor = {
     }
     var savenames = new XMLHttpRequest();
     savenames.onreadystatechange = function () {
-      if (savenames.readyState === 4 && savenames.status === 200) {
-        alert("Änderungen gespeichert!");
+      if (savenames.readyState === 4) {
+        if (savenames.status === 200) {
+          alert("Änderungen gespeichert!");
+        } else if (savenames.status === 501) {
+          alert("Ein Fehler ist aufgetreten (invalid JSON)!");
+        }
       }
     };
     savenames.open("POST", "http://{%REQUEST_URL_HOST%}/admin/set_json_names", true);
@@ -244,4 +255,26 @@ var NamesEditor = {
   }
 };
 
-var ExImport = {};
+var ExImport = {
+  ParseJson: function (jsonstring) {
+    html = "<div id='eximport'><div class='title'>Ex- und Import der Einstellungen</div>";
+    html += "<div class='names'>names.json (Namen und Icons)<br/><textarea id='ex_names'></textarea> <img src='../icons/general/save.png' onclick='ExImport.SaveNames()' class='pointer'></div>";
+    html += "</div>";
+    document.getElementById("content").innerHTML = html;
+    document.getElementById("ex_names").value = jsonstring;
+  },
+  SaveNames: function () {
+    var savenames = new XMLHttpRequest();
+    savenames.onreadystatechange = function () {
+      if (savenames.readyState === 4) {
+        if (savenames.status === 200) {
+          alert("Änderungen gespeichert!");
+        } else if (savenames.status === 501) {
+          alert("Ein Fehler ist aufgetreten (invalid JSON)!");
+        }
+      }
+    };
+    savenames.open("POST", "http://{%REQUEST_URL_HOST%}/admin/set_json_names", true);
+    savenames.send(document.getElementById("ex_names").value);
+  }
+};
