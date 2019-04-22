@@ -63,6 +63,11 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
           } else {
             this.alarms.Add(name, new AlarmItem(d));
           }
+          if(this.positions.ContainsKey(name)) {
+            this.positions[name].Update(d);
+          } else {
+            this.positions.Add(name, new PositionItem(d, this.marker));
+          }
           Console.WriteLine("PANIC erhalten!");
         }
       } catch(Exception ex) {
