@@ -27,43 +27,47 @@
   <g inkscape:groupmode="layer" id="marker-icon" inkscape:label="Icon">
     <g id="person" transform="translate(42.5 45) scale(0.8)">
       <defs id="people-def">
-          <style type="text/css">
-              #person-layer-org g {
-              display: none;
-              }
-              #person-layer-funct g {
-              display: none;
-              }
-              #person-layer-rang g {
-              display: none;
-              }
-              #person-layer-typ g {
-              display: none;
-              }
+        <style type="text/css">
+          #person-layer-org g {
+            display: none;
+          }
+          #person-layer-funct g {
+            display: none;
+          }
+          #person-layer-rang g {
+            display: none;
+          }
+          #person-layer-typ g {
+            display: none;
+          }
 
-              #person-layer-org rect {
-              stroke: black;
-              stroke-width: 3px;
-              }
+          #person-layer-org rect {
+            stroke: black;
+            stroke-width: 3px;
+          }
 
-              #person-layer-funct path {
-              stroke: #000000;
-              stroke-width: 3px;
-              fill: #000000;
-              }
+          #person-layer-funct path {
+            stroke: #000000;
+            stroke-width: 3px;
+            fill: #000000;
+          }
 
-              #person-layer-rang circle {
-              fill: #000000;
-              }
+          #person-layer-rang circle {
+            fill: #000000;
+          }
 
-              #person-layer-typ tspan {
-              font-size: 20px;
-              font-family: DIN1451;
-              text-align: center;
-              text-anchor: middle;
-              fill: #000000;
-              }
-          </style>
+          #person-layer-typ tspan {
+            font-size: 20px;
+            font-family: DIN1451;
+            text-align: center;
+            text-anchor: middle;
+            fill: #000000;
+          }
+          #person-layer-typ line {
+            stroke-width: 3px;
+            stroke: black;
+          }
+        </style>
       </defs>
       <g inkscape:groupmode="layer" id="person-layer-org" inkscape:label="Organisation">
         <g inkscape:groupmode="layer" id="person-layer-org-thw" inkscape:label="THW">
@@ -113,6 +117,19 @@
       </g>
       <g inkscape:groupmode="layer" id="person-layer-typ" inkscape:label="Typ">
         <text><tspan y="42" x="0" id="person-layer-typ-text"></tspan></text>
+        <g id="person-layer-typ-loesch">
+          <line x1="-35" y1="35.5" x2="35" y2="35.5" />
+          <line x1="17.5" y1="35.5" x2="25" y2="26" />
+          <line x1="17.5" y1="35.5" x2="25" y2="44" />
+        </g>
+        <g id="person-layer-typ-sani">
+          <line x1="0" y1="0" x2="0" y2="70" />
+          <line x1="-35" y1="35.5" x2="35" y2="35.5" />
+        </g>
+        <g id="person-layer-typ-betreu">
+          <line x1="-17" y1="53" x2="0" y2="35.5" />
+          <line x1="17" y1="53" x2="0" y2="35.5" />
+        </g>
       </g>
     </g>
   </g>

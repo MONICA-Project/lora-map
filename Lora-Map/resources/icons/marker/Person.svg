@@ -14,89 +14,71 @@
    height="84.703323mm"
    viewBox="-37.5 -12 74.953316 84.703323">
   <g id="person">
-    <defs>
+    <defs id="people-def">
       <style type="text/css">
-        <![CDATA[
         #person-layer-org g {
-          display: none;
+        display: none;
         }
         #person-layer-funct g {
-          display: none;
+        display: none;
         }
         #person-layer-rang g {
-          display: none;
+        display: none;
         }
         #person-layer-typ g {
-          display: none;
+        display: none;
         }
-        
+
         #person-layer-org rect {
-          width: 50px;
-          height: 50px;
-          y: 0px;
-          x: 0px;
-          stroke: black;
-          stroke-width: 3px;
-          transform: rotate(45);
+        stroke: black;
+        stroke-width: 3px;
         }
-        
+
         #person-layer-funct path {
-          stroke: #000000;
-          stroke-width: 3px;
-          fill: #000000;
+        stroke: #000000;
+        stroke-width: 3px;
+        fill: #000000;
         }
-        
+
         #person-layer-rang circle {
-          r: 3px;
-          fill: #000000;
+        fill: #000000;
         }
-        
+
         #person-layer-typ tspan {
-          x: 0px;
-          y: 42px;
-          font-size:20px;
-          font-family:'DIN 1451 Mittelschrift';
-          text-align:center;
-          text-anchor:middle;
-          fill:#ffffff;
+        font-size: 20px;
+        font-family: DIN1451;
+        text-align: center;
+        text-anchor: middle;
+        fill: #000000;
         }
-      ]]>
+        #person-layer-typ line {
+        stroke-width: 3px;
+        stroke: black;
+        }
       </style>
-      <style>
-        <![CDATA[
-        #person-layer-org #person-layer-org-thw {
-          display: inline;
-        }
-        #person-layer-funct #person-layer-funct-fueh {
-          display: inline;
-        }
-        #person-layer-rang #person-layer-rang-trupp {
-          display: inline;
-        }
-        #person-layer-typ #person-layer-typ-b1 {
-          display: inline;
-        }
-      ]]>
+      <style type="text/css">
+        #person-layer-org #person-layer-org-thw {display:inline;}
+        #person-layer-typ #person-layer-typ-loesch {display:inline;}
       </style>
     </defs>
     <g inkscape:groupmode="layer" id="person-layer-org" inkscape:label="Organisation">
       <g inkscape:groupmode="layer" id="person-layer-org-thw" inkscape:label="THW">
-        <rect style="fill: #0d468b;" />
+        <rect style="fill: #0069b4;" height="50" width="50" transform="rotate(45)" />
       </g>
       <g inkscape:groupmode="layer" id="person-layer-org-fw" inkscape:label="Feuerwehr">
-        <rect style="fill: #b41302;" />
+        <rect style="fill: #e30613;" height="50" width="50" transform="rotate(45)" />
       </g>
       <g inkscape:groupmode="layer" id="person-layer-org-hilo" inkscape:label="Hilo">
-        <rect style="fill: #ffffff;" />
+        <rect style="fill: #ffffff;" height="50" width="50" transform="rotate(45)" />
       </g>
       <g inkscape:groupmode="layer" id="person-layer-org-pol" inkscape:label="Polizei">
-        <rect style="fill: #2a8626;" />
+        <rect style="fill: #13a538;" height="50" width="50" transform="rotate(45)" />
       </g>
       <g inkscape:groupmode="layer" id="person-layer-org-fueh" inkscape:label="Führung">
-        <rect style="fill: #ffdf00;" />
+        <rect style="fill: #ffed00;" height="50" width="50" transform="rotate(45)" />
       </g>
       <g inkscape:groupmode="layer" id="person-layer-org-sonst" inkscape:label="Sonstig">
-        <rect style="fill: #ffa13e;" />
+        <rect style="fill: #ec6725;" height="50" width="50" transform="rotate(45)" />
       </g>
     </g>
     <g inkscape:groupmode="layer" id="person-layer-funct" inkscape:label="Funktion">
@@ -109,41 +91,37 @@
     </g>
     <g inkscape:groupmode="layer" id="person-layer-rang" inkscape:label="Rang">
       <g inkscape:groupmode="layer" id="person-layer-rang-trupp" inkscape:label="Truppführer">
-        <circle cx="0" cy="-8" />
+        <circle cx="0" cy="-8" r="3" />
       </g>
       <g inkscape:groupmode="layer" id="person-layer-rang-grupp" inkscape:label="Gruppenführer">
         <g style="display: inline;">
-          <circle cx="-4.5" cy="-8" />
-          <circle cx="4.5" cy="-8" />
+          <circle cx="-4.5" cy="-8" r="3" />
+          <circle cx="4.5" cy="-8" r="3" />
         </g>
       </g>
       <g inkscape:groupmode="layer" id="person-layer-rang-zug" inkscape:label="Zugführer">
         <g style="display: inline;">
-          <circle cx="-9" cy="-8" />
-          <circle cx="0" cy="-8" />
-          <circle cx="9" cy="-8" />
+          <circle cx="-9" cy="-8" r="3" />
+          <circle cx="0" cy="-8" r="3" />
+          <circle cx="9" cy="-8" r="3" />
         </g>
       </g>
     </g>
     <g inkscape:groupmode="layer" id="person-layer-typ" inkscape:label="Typ">
-    <g inkscape:groupmode="layer" id="person-layer-typ-b1" inkscape:label="B1">
-      <text><tspan>B1</tspan></text>
+      <text><tspan y="42" x="0" id="person-layer-typ-text"></tspan></text>
+      <g id="person-layer-typ-loesch">
+        <line x1="-35" y1="35.5" x2="35" y2="35.5" />
+        <line x1="17.5" y1="35.5" x2="25" y2="26" />
+        <line x1="17.5" y1="35.5" x2="25" y2="44" />
+      </g>
+      <g id="person-layer-typ-sani">
+        <line x1="0" y1="0" x2="0" y2="70" />
+        <line x1="-35" y1="35.5" x2="35" y2="35.5" />
+      </g>
+      <g id="person-layer-typ-betreu">
+        <line x1="-17" y1="53" x2="0" y2="35.5" />
+        <line x1="17" y1="53" x2="0" y2="35.5" />
+      </g>
     </g>
-    <g inkscape:groupmode="layer" id="person-layer-typ-b2" inkscape:label="B2">
-      <text><tspan>B2</tspan></text>
-    </g>
-    <g inkscape:groupmode="layer" id="person-layer-typ-b" inkscape:label="B">
-      <text><tspan>B</tspan></text>
-    </g>
-    <g inkscape:groupmode="layer" id="person-layer-typ-tz-1" inkscape:label="TZ-1">
-      <text><tspan>TZ-1</tspan></text>
-    </g>
-    <g inkscape:groupmode="layer" id="person-layer-typ-tz-2" inkscape:label="TZ-2">
-      <text><tspan>TZ-2</tspan></text>
-    </g>
-    <g inkscape:groupmode="layer" id="person-layer-typ-tz" inkscape:label="TZ">
-      <text><tspan>TZ</tspan></text>
-    </g>
-  </g>
   </g>
 </svg>
