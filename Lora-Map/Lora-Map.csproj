@@ -67,10 +67,10 @@
     <None Include="dpkg\postinst" />
     <None Include="dpkg\preinst" />
     <None Include="dpkg\prerm" />
-    <None Include="layer.json" />
     <None Include="resources\icons\marker\din1451m.woff">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="resources\js\leaflet\leaflet-src.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="resources\admin\css\global.css">
@@ -86,6 +86,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="resources\css\icons\admin-with-cogwheels.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="resources\css\icons\cctv.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="resources\css\icons\failtile.png">

@@ -43,6 +43,9 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
       if(!File.Exists("json/names.json")) {
         File.WriteAllText("json/names.json", "{}");
       }
+      if(!File.Exists("json/geo.json")) {
+        File.WriteAllText("json/geo.json", "{}");
+      }
     }
 
     protected override void Backend_MessageIncomming(Object sender, BackendEvent e) {
@@ -100,6 +103,12 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
           return SendJsonResponse(this.FindMapLayer(cont.Request), cont);
         } else if(cont.Request.Url.PathAndQuery.StartsWith("/maps/")) {
           return SendFileResponse(cont, "resources", false);
+        } else if(cont.Request.Url.PathAndQuery.StartsWith("/getgeo")) {
+          Byte[] buf = Encoding.UTF8.GetBytes(File.ReadAllText("json/geo.json"));
+          cont.Response.ContentLength64 = buf.Length;
+          cont.Response.OutputStream.Write(buf, 0, buf.Length);
+          Console.WriteLine("200 - " + cont.Request.Url.PathAndQuery);
+          return true;
         }
       } catch(Exception e) {
         Helper.WriteError("500 - " + e.Message);

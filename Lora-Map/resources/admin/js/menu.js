@@ -17,7 +17,14 @@ function menu_eximport() {
   var ajaxnames = new XMLHttpRequest();
   ajaxnames.onreadystatechange = function () {
     if (ajaxnames.readyState === 4 && ajaxnames.status === 200) {
-      ExImport.ParseJson(ajaxnames.responseText);
+      var ajaxgeo = new XMLHttpRequest();
+      ajaxgeo.onreadystatechange = function () {
+        if (ajaxgeo.readyState === 4 && ajaxgeo.status === 200) {
+          ExImport.ParseJson(ajaxnames.responseText, ajaxgeo.responseText);
+        }
+      };
+      ajaxgeo.open("GET", "http://{%REQUEST_URL_HOST%}/admin/get_json_geo", true);
+      ajaxgeo.send();
     }
   };
   ajaxnames.open("GET", "http://{%REQUEST_URL_HOST%}/admin/get_json_names", true);
@@ -256,19 +263,21 @@ var NamesEditor = {
 };
 
 var ExImport = {
-  ParseJson: function (jsonstring) {
+  ParseJson: function (jsonnames, jsongeo) {
     html = "<div id='eximport'><div class='title'>Ex- und Import der Einstellungen</div>";
     html += "<div class='names'>names.json (Namen und Icons)<br/><textarea id='ex_names'></textarea> <img src='../icons/general/save.png' onclick='ExImport.SaveNames()' class='pointer'></div>";
+    html += "<div class='names'>geo.json (Layer on the MAP)<br/><textarea id='ex_geo'></textarea> <img src='../icons/general/save.png' onclick='ExImport.SaveGeo()' class='pointer'></div>";
     html += "</div>";
     document.getElementById("content").innerHTML = html;
-    document.getElementById("ex_names").value = jsonstring;
+    document.getElementById("ex_names").value = jsonnames;
+    document.getElementById("ex_geo").value = jsongeo;
   },
   SaveNames: function () {
     var savenames = new XMLHttpRequest();
     savenames.onreadystatechange = function () {
       if (savenames.readyState === 4) {
         if (savenames.status === 200) {
-          alert("Änderungen gespeichert!");
+          alert("Änderungen an names.json gespeichert!");
         } else if (savenames.status === 501) {
           alert("Ein Fehler ist aufgetreten (invalid JSON)!");
         }
@@ -276,5 +285,19 @@ var ExImport = {
     };
     savenames.open("POST", "http://{%REQUEST_URL_HOST%}/admin/set_json_names", true);
     savenames.send(document.getElementById("ex_names").value);
+  },
+  SaveGeo: function () {
+    var savegeo = new XMLHttpRequest();
+    savegeo.onreadystatechange = function () {
+      if (savegeo.readyState === 4) {
+        if (savegeo.status === 200) {
+          alert("Änderungen an geo.json gespeichert!");
+        } else if (savegeo.status === 501) {
+          alert("Ein Fehler ist aufgetreten (invalid JSON)!");
+        }
+      }
+    };
+    savegeo.open("POST", "http://{%REQUEST_URL_HOST%}/admin/set_json_geo", true);
+    savegeo.send(document.getElementById("ex_geo").value);
   }
 };

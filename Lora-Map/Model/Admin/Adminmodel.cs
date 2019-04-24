@@ -53,7 +53,23 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model.Admin {
           return false;
         }
         File.WriteAllText("json/names.json", rawData);
-        Console.WriteLine("200 - Get names.json " + cont.Request.Url.PathAndQuery);
+        Console.WriteLine("200 - Post names.json " + cont.Request.Url.PathAndQuery);
+        this.NamesUpdate?.Invoke(this, new EventArgs());
+        return true;
+      } else if(cont.Request.Url.PathAndQuery == "/admin/set_json_geo") {
+        StreamReader reader = new StreamReader(cont.Request.InputStream, cont.Request.ContentEncoding);
+        String rawData = reader.ReadToEnd();
+        cont.Request.InputStream.Close();
+        reader.Close();
+        try {
+          JsonMapper.ToObject(rawData);
+        } catch(Exception) {
+          Helper.WriteError("501 - Error recieving geo.json " + cont.Request.Url.PathAndQuery);
+          cont.Response.StatusCode = 501;
+          return false;
+        }
+        File.WriteAllText("json/geo.json", rawData);
+        Console.WriteLine("200 - Post geo.json " + cont.Request.Url.PathAndQuery);
         this.NamesUpdate?.Invoke(this, new EventArgs());
         return true;
       }
@@ -67,6 +83,13 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model.Admin {
         cont.Response.ContentLength64 = buf.Length;
         cont.Response.OutputStream.Write(buf, 0, buf.Length);
         Console.WriteLine("200 - Send names.json " + cont.Request.Url.PathAndQuery);
+        return true;
+      } else if(cont.Request.Url.PathAndQuery == "/admin/get_json_geo") {
+        String file = File.ReadAllText("json/geo.json");
+        Byte[] buf = Encoding.UTF8.GetBytes(file);
+        cont.Response.ContentLength64 = buf.Length;
+        cont.Response.OutputStream.Write(buf, 0, buf.Length);
+        Console.WriteLine("200 - Send geo.json " + cont.Request.Url.PathAndQuery);
         return true;
       }
       Helper.WriteError("404 - Section in get_json not found " + cont.Request.Url.PathAndQuery + "!");
