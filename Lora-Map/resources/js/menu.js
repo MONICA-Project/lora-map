@@ -50,10 +50,13 @@ function update_pannels_info() {
     } else {
       html += "<div class=\"gps\" style=\"color: red;\">kein GPS-Empfang</div>";
     }
-    html += "<div class=\"coord\">" + positionItem["Latitude"].toFixed(7) + ", " + positionItem["Longitude"].toFixed(7) + "</div>";
-    html += "<div class=\"lastgps\"><span class=\"bold\">Letzter Wert:</span> Vor: " + timeCalculation(positionItem["Lastgpspostime"], "difftext") + "</div>";
+    html += "<div class=\"coord\">" + positionItem["UTM"]["MGRS"] + "</div>";
+    html += "<div class=\"planquad\"><span class=\"bold\">Planquadrat:</span> " + positionItem["UTM"]["FieldWidth"] + ", " + positionItem["UTM"]["FieldHeight"] + "</div>";
+    html += "<div class=\"section\"><span class=\"bold\">Ausschnitt:</span> " + positionItem["UTM"]["Width"] + ", " + positionItem["UTM"]["Height"]+"</div>";
     html += "<div class=\"height\"><span class=\"bold\">Höhe:</span> " + positionItem["Height"].toFixed(1) + " m</div>";
     html += "<div class=\"hdop\"><span class=\"bold\">HDOP:</span>  " + positionItem["Hdop"].toFixed(1) + "</div>";
+    html += "<div class=\"lanlot\"><span class=\"bold\">Dezimal:</span> " + positionItem["Latitude"].toFixed(5) + ", " + positionItem["Longitude"].toFixed(5) + "</div>";
+    html += "<div class=\"lastgps\"><span class=\"bold\">Letzter Wert:</span> Vor: " + timeCalculation(positionItem["Lastgpspostime"], "difftext") + "</div>";
     html += "<div class=\"update\"><span class=\"bold\">Update:</span> " + timeCalculation(positionItem["Recievedtime"], "str") + "<br><span class=\"bold\">Vor:</span> " + timeCalculation(positionItem["Recievedtime"], "difftext") + "</div>";
     html += "<div><span class=\"bold\">RSSI:</span> " + positionItem["Rssi"] + ", <span class=\"bold\">SNR:</span> " + positionItem["Snr"] + "</div>";
     document.getElementById("pannels_info").innerHTML = html;

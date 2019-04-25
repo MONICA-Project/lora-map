@@ -10,6 +10,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
     public DateTime Recievedtime { get; private set; }
     public Double Latitude { get; private set; }
     public Double Longitude { get; private set; }
+    public UTMData UTM { get; private set; }
     public Double Hdop { get; private set; }
     public Boolean Fix { get; private set; }
     public Double Height { get; private set; }
@@ -30,6 +31,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
         this.Latitude = (Double)json["Gps"]["LastLatitude"];
         this.Longitude = (Double)json["Gps"]["LastLongitude"];
       }
+      this.UTM = new UTMData(this.Latitude, this.Longitude);
       this.Hdop = (Double)json["Gps"]["Hdop"];
       this.Height = (Double)json["Gps"]["Height"];
     }

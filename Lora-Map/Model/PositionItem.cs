@@ -10,6 +10,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
     public DateTime Recievedtime { get; private set; }
     public Double Latitude { get; private set; }
     public Double Longitude { get; private set; }
+    public UTMData UTM { get; private set; }
     public Double Hdop { get; private set; }
     public DateTime Lastgpspostime { get; private set; }
     public Double Battery { get; private set; }
@@ -18,6 +19,8 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
     public Double Height { get; private set; }
     public String Name { get; private set; }
     public String Icon { get; private set; }
+
+    
 
     public PositionItem(JsonData json, JsonData marker) {
       this.Update(json);
@@ -86,6 +89,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
         this.Latitude = (Double)json["Gps"]["LastLatitude"];
         this.Longitude = (Double)json["Gps"]["LastLongitude"];
       }
+      this.UTM = new UTMData(this.Latitude, this.Longitude);
       if(DateTime.TryParse((String)json["Gps"]["LastGPSPos"], DateTimeFormatInfo.InvariantInfo, DateTimeStyles.AssumeUniversal, out DateTime lastgpstime)) {
         this.Lastgpspostime = lastgpstime.ToUniversalTime();
       }

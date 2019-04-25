@@ -124,9 +124,10 @@ object {
 }
 #pannels #pannels_info .coord {
   font-family: monospace;
-  font-size: 14px;
+  font-size: 22px;
+  font-weight: bold;
 }
-#pannels #pannels_info .hdop {
+#pannels #pannels_info .lastgps {
   margin-bottom: 10px;
 }
 #pannels #pannels_info .update {

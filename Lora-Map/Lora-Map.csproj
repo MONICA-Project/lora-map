@@ -45,10 +45,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helper\Celestial.Assistant.cs" />
+    <Compile Include="Helper\Celestial.cs" />
+    <Compile Include="Helper\Celestial.LunarEclipseCalc.cs" />
+    <Compile Include="Helper\Celestial.MeeusTables.cs" />
+    <Compile Include="Helper\Celestial.MoonCalculations.cs" />
+    <Compile Include="Helper\Celestial.SolarEclipseCalc.cs" />
+    <Compile Include="Helper\Celestial.SunCalculations.cs" />
+    <Compile Include="Helper\Coordinate.Assistant.cs" />
+    <Compile Include="Helper\Coordinate.Cartesian.cs" />
+    <Compile Include="Helper\Coordinate.cs" />
+    <Compile Include="Helper\Coordinate.EagerLoad.cs" />
+    <Compile Include="Helper\Coordinate.ECEF.cs" />
+    <Compile Include="Helper\Coordinate.Formatting.cs" />
+    <Compile Include="Helper\Coordinate.MGRS.cs" />
+    <Compile Include="Helper\Coordinate.Parser.cs" />
+    <Compile Include="Helper\Coordinate.UTM.cs" />
+    <Compile Include="Helper\Distance.cs" />
+    <Compile Include="Helper\Eclipse\LunarData.cs" />
+    <Compile Include="Helper\Eclipse\SolarData.cs" />
+    <Compile Include="Helper\GeoFence.cs" />
     <Compile Include="Model\Admin\AdminModel.cs" />
     <Compile Include="Model\Admin\AdminSession.cs" />
     <Compile Include="Model\Marker.cs" />
     <Compile Include="Model\AlarmItem.cs" />
+    <Compile Include="Model\UTMData.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="Model\PositionItem.cs" />
     <Compile Include="Program.cs" />
