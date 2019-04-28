@@ -50,9 +50,7 @@ function update_pannels_info() {
     } else {
       html += "<div class=\"gps\" style=\"color: red;\">kein GPS-Empfang</div>";
     }
-    html += "<div class=\"coord\">" + positionItem["UTM"]["MGRS"] + "</div>";
-    html += "<div class=\"planquad\"><span class=\"bold\">Planquadrat:</span> " + positionItem["UTM"]["FieldWidth"] + ", " + positionItem["UTM"]["FieldHeight"] + "</div>";
-    html += "<div class=\"section\"><span class=\"bold\">Ausschnitt:</span> " + positionItem["UTM"]["Width"] + ", " + positionItem["UTM"]["Height"]+"</div>";
+    html += "<div class=\"coord\">" + positionItem["UTM"]["Base"] + " <span style=\"color: #b1a831;\">" + positionItem["UTM"]["FieldWidth"] + "</span><span style=\"color: #218c00;\">" + positionItem["UTM"]["Width"] + "</span> <span style=\"color: #b1a831;\">" + positionItem["UTM"]["FieldHeight"] + "</span><span style=\"color: #218c00;\">" + positionItem["UTM"]["Height"] + "</span></div>";
     html += "<div class=\"height\"><span class=\"bold\">Höhe:</span> " + positionItem["Height"].toFixed(1) + " m</div>";
     html += "<div class=\"hdop\"><span class=\"bold\">HDOP:</span>  " + positionItem["Hdop"].toFixed(1) + "</div>";
     html += "<div class=\"lanlot\"><span class=\"bold\">Dezimal:</span> " + positionItem["Latitude"].toFixed(5) + ", " + positionItem["Longitude"].toFixed(5) + "</div>";

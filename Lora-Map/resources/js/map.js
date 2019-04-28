@@ -49,6 +49,7 @@ function GetMapLayers() {
   layergetter.send();
 }
 
+var SpecialMarkers = new Array();
 GetGeoLayer();
 function GetGeoLayer() {
   var geogetter = new XMLHttpRequest();
@@ -57,9 +58,6 @@ function GetGeoLayer() {
       var geo = JSON.parse(geogetter.responseText);
       L.geoJSON(geo, {
         style: function (features) {
-          if (typeof features.properties["stroke-width"] === "undefined") {
-            //alert("no!");
-          }
           return {
             color: typeof features.properties["stroke"] === "undefined" ? '#000000' : features.properties["stroke"],
             weight: typeof features.properties["stroke-width"] === "undefined" ? 1 : features.properties["stroke-width"],
@@ -69,12 +67,32 @@ function GetGeoLayer() {
           };
         },
         onEachFeature: function (feature, layer) {
-          if (feature.geometry.type !== "LineString") {
+          if (feature.geometry.type === "Polygon" || (feature.geometry.type === "Point" && feature.properties.hasOwnProperty("icon"))) {
             layer.bindPopup(feature.properties.name);
           }
         },
         pointToLayer: function (geoJsonPoint, latlng) {
-          return L.marker(latlng, { icon: L.icon({iconUrl: "css/icons/cctv.png", iconSize: [32,32]}) });
+          if (geoJsonPoint.properties.hasOwnProperty("description") && geoJsonPoint.properties["description"] === "snumber" && !geoJsonPoint.properties.hasOwnProperty("icon")) {
+            var snumbericon = L.marker(latlng, {
+              icon: new L.DivIcon({
+                className: "snumber-icon",
+                html: geoJsonPoint.properties["name"]
+              })
+            });
+            SpecialMarkers.push(snumbericon);
+            return snumbericon;
+          } else if (geoJsonPoint.properties.hasOwnProperty("description") && geoJsonPoint.properties["description"] === "coord" && !geoJsonPoint.properties.hasOwnProperty("icon")) {
+            var coordicon = L.marker(latlng, {
+              icon: new L.DivIcon({
+                className: "coord-icon",
+                html: geoJsonPoint.properties["name"]
+              })
+            });
+            SpecialMarkers.push(coordicon);
+            return coordicon;
+          } else if (geoJsonPoint.properties.hasOwnProperty("icon")) {
+            return L.marker(latlng, { icon: L.icon({ iconUrl: "css/icons/cctv.png", iconSize: [32, 32] }) });
+          }
         }
       }).addTo(mymap);
     }
@@ -82,6 +100,53 @@ function GetGeoLayer() {
   geogetter.open("GET", "http://{%REQUEST_URL_HOST%}/getgeo", true);
   geogetter.send();
 }
+
+mymap.on('zoomend', function () {
+  var currentZoom = mymap.getZoom();
+  if (currentZoom < 16) {
+    SpecialMarkers.forEach(function (elem, index) {
+      if (elem.feature.properties["description"] === "snumber") {
+        elem._icon.style.fontSize = "1px";
+      }
+      if (elem.feature.properties["description"] === "coord") {
+        elem._icon.style.fontSize = "1px";
+      }
+    });
+  } else if (currentZoom < 16) {
+    SpecialMarkers.forEach(function (elem, index) {
+      if (elem.feature.properties["description"] === "snumber") {
+        elem._icon.style.fontSize = "5px";
+      }
+      if (elem.feature.properties["description"] === "coord") {
+        elem._icon.style.fontSize = "8px";
+      }
+    });
+  } else if (currentZoom < 17) {
+    SpecialMarkers.forEach(function (elem, index) {
+      if (elem.feature.properties["description"] === "snumber") {
+        elem._icon.style.fontSize = "8px";
+      }
+      if (elem.feature.properties["description"] === "coord") {
+        elem._icon.style.fontSize = "12px";
+      }
+    });
+  } else if (currentZoom < 18) {
+    SpecialMarkers.forEach(function (elem, index) {
+      if (elem.feature.properties["description"] === "coord") {
+        elem._icon.style.fontSize = "14px";
+      }
+    });
+  } else {
+    SpecialMarkers.forEach(function (elem, index) {
+      if (elem.feature.properties["description"] === "coord") {
+        elem._icon.style.fontSize = "17px";
+      }
+      if (elem.feature.properties["description"] === "snumber") {
+        elem._icon.style.fontSize = "12px";
+      }
+    });
+  }
+});
 
 mymap.on("click", hidePanel);
 

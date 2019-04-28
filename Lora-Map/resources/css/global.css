@@ -10,6 +10,16 @@
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.4) 10px 10px;
 }
+#bigmap .leaflet-map-pane .leaflet-marker-pane .snumber-icon {
+  font-weight: bold;
+  font-size: 9px;
+}
+#bigmap .leaflet-map-pane .leaflet-marker-pane .coord-icon {
+  font-size: 13px;
+  text-shadow: 3px 3px 3px #000000;
+  color: #ffffff;
+  font-weight: bold;
+}
 
 /* Optional: Makes the sample page fill the window. */
 html, body {

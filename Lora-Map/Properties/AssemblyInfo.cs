@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Fraunhofer FIT")]
 [assembly: AssemblyProduct("Lora-Map")]
-[assembly: AssemblyCopyright("Copyright ©  2018 - 24.04.2019")]
+[assembly: AssemblyCopyright("Copyright ©  2018 - 28.04.2019")]
 [assembly: AssemblyTrademark("Fraunhofer FIT, BlubbFish")]
 [assembly: AssemblyCulture("")]
 [assembly: NeutralResourcesLanguage("de-DE")]
@@ -33,8 +33,8 @@ using System.Runtime.InteropServices;
 // Sie können alle Werte angeben oder Standardwerte für die Build- und Revisionsnummern verwenden,
 // übernehmen, indem Sie "*" eingeben:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.2.3")]
-[assembly: AssemblyFileVersion("1.2.3")]
+[assembly: AssemblyVersion("1.2.4")]
+[assembly: AssemblyFileVersion("1.2.4")]
 
 /*
 * 1.1.1 Add Debian package config
@@ -48,4 +48,5 @@ using System.Runtime.InteropServices;
 * 1.2.1 #6 Load the map from the Device
 * 1.2.2 Bugfix, if only recieve panic packet with gps data, update the marker on the map also
 * 1.2.3 #9 display polygons and marker on the map
+* 1.2.4 Can draw Textmarkers on the Map, use MGRS (UTM) on the Map
 */
