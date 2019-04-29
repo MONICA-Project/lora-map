@@ -266,7 +266,7 @@ var ExImport = {
   ParseJson: function (jsonnames, jsongeo) {
     html = "<div id='eximport'><div class='title'>Ex- und Import der Einstellungen</div>";
     html += "<div class='names'>names.json (Namen und Icons)<br/><textarea id='ex_names'></textarea> <img src='../icons/general/save.png' onclick='ExImport.SaveNames()' class='pointer'></div>";
-    html += "<div class='names'>geo.json (Layer on the MAP)<br/><textarea id='ex_geo'></textarea> <img src='../icons/general/save.png' onclick='ExImport.SaveGeo()' class='pointer'></div>";
+    html += "<div class='names'>geo.json (Layer on the MAP) <a href='https://mapbox.github.io/togeojson/'>Kml Konverter</a><br/><textarea id='ex_geo'></textarea> <img src='../icons/general/save.png' onclick='ExImport.SaveGeo()' class='pointer'></div>";
     html += "</div>";
     document.getElementById("content").innerHTML = html;
     document.getElementById("ex_names").value = jsonnames;

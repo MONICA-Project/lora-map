@@ -93,7 +93,7 @@ function updateOverviewElement(positionItem, id) {
     document.getElementById("overview-gps-id-" + id).innerText = "kein GPS-Empfang";
     document.getElementById("overview-gps-id-" + id).style.color = "red";
   }
-  document.getElementById("overview-update-id-" + id).innerText = "Letzter Datenempfang: vor " + timeCalculation(positionItem["Recievedtime"], "difftext");
+  document.getElementById("overview-update-id-" + id).innerText = "Letzte Werte: vor " + timeCalculation(positionItem["Recievedtime"], "difftext");
   if (positionItem['Icon'] === null) {
     var icon = document.getElementById("overview-icon-id-" + id);
     if (icon.children[0].hasAttribute("data")) {
@@ -126,7 +126,7 @@ function createOverviewElement(positionItem, id) {
     "<span class=\"akku\"><img id=\"overview-akkuimg-id-" + id + "\" src=\"icons/akku/" + positionItem["Batterysimple"] + "-4.png\"></span>" +
     "</div>";
   divItem.innerHTML += "<div class=\"line2\" style=\"color: red;\" id=\"overview-gps-id-" + id + "\">kein GPS-Empfang</div>";
-  divItem.innerHTML += "<div class=\"line3\" id=\"overview-update-id-" + id + "\">Letzter Datenempfang: vor " + timeCalculation(positionItem["Recievedtime"], "difftext") + "</div>";
+  divItem.innerHTML += "<div class=\"line3\" id=\"overview-update-id-" + id + "\">Letzte Werte: vor " + timeCalculation(positionItem["Recievedtime"], "difftext") + "</div>";
   return divItem;
 }
 

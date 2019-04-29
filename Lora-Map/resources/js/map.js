@@ -76,7 +76,8 @@ function GetGeoLayer() {
             var snumbericon = L.marker(latlng, {
               icon: new L.DivIcon({
                 className: "snumber-icon",
-                html: geoJsonPoint.properties["name"]
+                html: geoJsonPoint.properties["name"],
+                iconSize: [8, 8]
               })
             });
             SpecialMarkers.push(snumbericon);
@@ -103,46 +104,81 @@ function GetGeoLayer() {
 
 mymap.on('zoomend', function () {
   var currentZoom = mymap.getZoom();
-  if (currentZoom < 16) {
+  if (currentZoom < 14) {
     SpecialMarkers.forEach(function (elem, index) {
       if (elem.feature.properties["description"] === "snumber") {
-        elem._icon.style.fontSize = "1px";
+        elem._icon.style.fontSize = "0px";
+        elem._icon.style.marginLeft = "0px";
+        elem._icon.style.marginTop = "0px";
       }
       if (elem.feature.properties["description"] === "coord") {
-        elem._icon.style.fontSize = "1px";
+        elem._icon.style.fontSize = "0px";
       }
     });
-  } else if (currentZoom < 16) {
+  } else if (currentZoom == 14) {
+    SpecialMarkers.forEach(function (elem, index) {
+      if (elem.feature.properties["description"] === "snumber") {
+        elem._icon.style.fontSize = "0px";
+        elem._icon.style.marginLeft = "0px";
+        elem._icon.style.marginTop = "0px";
+      }
+      if (elem.feature.properties["description"] === "coord") {
+        elem._icon.style.fontSize = "6px";
+      }
+    });
+  } else if (currentZoom == 15) {
+    SpecialMarkers.forEach(function (elem, index) {
+      if (elem.feature.properties["description"] === "snumber") {
+        elem._icon.style.fontSize = "0px";
+        elem._icon.style.marginLeft = "0px";
+        elem._icon.style.marginTop = "0px";
+      }
+      if (elem.feature.properties["description"] === "coord") {
+        elem._icon.style.fontSize = "9px";
+      }
+    });
+  } else if (currentZoom == 16) {
     SpecialMarkers.forEach(function (elem, index) {
       if (elem.feature.properties["description"] === "snumber") {
         elem._icon.style.fontSize = "5px";
+        elem._icon.style.marginLeft = "-4px";
+        elem._icon.style.marginTop = "-4px";
       }
       if (elem.feature.properties["description"] === "coord") {
-        elem._icon.style.fontSize = "8px";
+        elem._icon.style.fontSize = "13px";
       }
     });
-  } else if (currentZoom < 17) {
+  } else if (currentZoom == 17) {
+    SpecialMarkers.forEach(function (elem, index) {
+      if (elem.feature.properties["description"] === "snumber") {
+        elem._icon.style.fontSize = "5px";
+        elem._icon.style.marginLeft = "-4px";
+        elem._icon.style.marginTop = "-4px";
+      }
+      if (elem.feature.properties["description"] === "coord") {
+        elem._icon.style.fontSize = "16px";
+      }
+    });
+  } else if (currentZoom == 18) {
     SpecialMarkers.forEach(function (elem, index) {
       if (elem.feature.properties["description"] === "snumber") {
         elem._icon.style.fontSize = "8px";
+        elem._icon.style.marginLeft = "-5px";
+        elem._icon.style.marginTop = "-6px";
       }
       if (elem.feature.properties["description"] === "coord") {
-        elem._icon.style.fontSize = "12px";
+        elem._icon.style.fontSize = "25px";
       }
     });
-  } else if (currentZoom < 18) {
+  } else if (currentZoom == 19) {
     SpecialMarkers.forEach(function (elem, index) {
-      if (elem.feature.properties["description"] === "coord") {
+      if (elem.feature.properties["description"] === "snumber") {
         elem._icon.style.fontSize = "14px";
+        elem._icon.style.marginLeft = "-8px";
+        elem._icon.style.marginTop = "-11px";
       }
-    });
-  } else {
-    SpecialMarkers.forEach(function (elem, index) {
       if (elem.feature.properties["description"] === "coord") {
-        elem._icon.style.fontSize = "17px";
-      }
-      if (elem.feature.properties["description"] === "snumber") {
-        elem._icon.style.fontSize = "12px";
+        elem._icon.style.fontSize = "45px";
       }
     });
   }
