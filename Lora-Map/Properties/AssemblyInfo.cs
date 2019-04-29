@@ -33,8 +33,8 @@ using System.Runtime.InteropServices;
 // Sie können alle Werte angeben oder Standardwerte für die Build- und Revisionsnummern verwenden,
 // übernehmen, indem Sie "*" eingeben:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.2.5")]
-[assembly: AssemblyFileVersion("1.2.5")]
+[assembly: AssemblyVersion("1.2.6")]
+[assembly: AssemblyFileVersion("1.2.6")]
 
 /*
 * 1.1.1 Add Debian package config
@@ -50,4 +50,5 @@ using System.Runtime.InteropServices;
 * 1.2.3 #9 display polygons and marker on the map
 * 1.2.4 Can draw Textmarkers on the Map, use MGRS (UTM) on the Map
 * 1.2.5 #10 text Letzer Datenempfang is too long when scrollbar is there and #11 set textsize for every zoomlevel
+* 1.2.6 New Types of marker for person
 */

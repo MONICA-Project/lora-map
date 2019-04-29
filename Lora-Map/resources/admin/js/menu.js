@@ -78,6 +78,11 @@ var NamesEditor = {
       if(markerobj["person"].hasOwnProperty("text")) {
         url += "&person-text=" + markerobj["person"]["text"];
       }
+      if (markerobj["person"].hasOwnProperty("typ") && Array.isArray(markerobj["person"]["typ"])) {
+        for (i in markerobj["person"]["typ"]) {
+          url += "&person-typ=" + markerobj["person"]["typ"][i];
+        }
+      }
     }
     return "<object data='"+url+"' type='image/svg+xml' style='height:50px; width:50px;'></object>";
   },
@@ -97,6 +102,17 @@ var NamesEditor = {
       }
       if (query.hasOwnProperty("person-text")) {
         markerobj["person"]["text"] = query["person-text"];
+      }
+      if (query.hasOwnProperty("person-typ")) {
+        if (Array.isArray(query["person-typ"])) {
+          markerobj["person"]["typ"] = new Array();
+          for (var i in query["person-typ"]) {
+            markerobj["person"]["typ"].push(query["person-typ"][i]);
+          }
+        } else {
+          markerobj["person"]["typ"] = new Array();
+          markerobj["person"]["typ"].push(query["person-typ"]);
+        }
       }
     }
     return markerobj;
@@ -191,29 +207,43 @@ var NamesEditor = {
     ie.innerHTML = "<div class='innerbox'>" +
       "<div class='preview'><object id='markerprev' data='" + url + "' type='image/svg+xml' style='height:200px; width:200px;'></object></div>" +
       "<div class='controls'>" +
-      this.CreateSelectBox("Typ", "icon", query, { "person": "Person" }, "iconeditor-type-") + "<br>" +
+      this.CreateSelectBox("Typ", "icon", query, { "person": "Person" }, null, "iconeditor-type-") + "<br>" +
       "<div id='iconeditor-type-person' style='display: " + (query.hasOwnProperty("icon") && query["icon"] === "person" ? "block" : "none") + ";'>" +
       this.CreateSelectBox("Organisation", "person-org", query, { "fw": "Feuerwehr", "thw": "Technisches Hilfswerk", "hilo": "Hilfsorganisationen, Bundeswehr", "fueh": "Einrichtungen der Führung", "pol": "Polizei, Bundespolizei, Zoll", "sonst": "Sonstige Einrichtungen der Gefahrenabwehr" }) + "<br>" +
       this.CreateSelectBox("Funktion", "person-funct", query, { "sonder": "Sonder", "fueh": "Führung" }) + "<br>" +
       this.CreateSelectBox("Rang", "person-rang", query, { "trupp": "Trupp", "grupp": "Gruppe", "zug":"Zug" }) + "<br>" +
       "Text: <input onchange='NamesEditor.ChangeLinkPreview(\"person-text\",this.value);' value='" + (query.hasOwnProperty("person-text") ? query["person-text"] : "") + "'><br>" +
+      this.CreateSelectBox("Typ", "person-typ", query, { "loesch": "Brandbekämpfung/Löscheinsatz", "sani": "Rettungswesen, Sanitätswesen, Gesundheitswesen", "betreu": "Betreuung" }, true) + "<br>" +
       "</div>" +
       "</div>" +
       "<div class='save'><button onclick='NamesEditor.SaveIconEditor(\"" + el.id + "\"); '>Schließen</botton></div>" +
       "</div>";
     document.getElementsByTagName("body")[0].appendChild(ie);
   },
-  CreateSelectBox: function (title, key, query, options, group) {
+  CreateSelectBox: function (title, key, query, options, muliple, group) {
     var html = title + ": ";
-    var eventtext = "NamesEditor.ChangeLinkPreview(\"" + key + "\",this.value);";
+    var eventtext = "NamesEditor.ChangeLinkPreview(\"" + key + "\",this.selectedOptions);";
     if (typeof group !== "undefined") {
       eventtext += " document.getElementById(\"" + group + "\"+this.value).style.display = \"block\";'";
     }
-    html += "<select onchange='" + eventtext + "'>";
-    html += "<option>---</option>";
+    html += "<select onchange='" + eventtext + "'" + (typeof muliple !== "undefined" && muliple !== null ? " multiple" : "") + ">";
+    if (typeof muliple === "undefined" || muliple === null) {
+      html += "<option>---</option>";
+    }
     for (var value in options) {
       if (query.hasOwnProperty(key) && query[key] === value) {
         html += "<option value='" + value + "' selected>" + options[value] + "</option>";
+      } else if (query.hasOwnProperty(key) && Array.isArray(query[key])) {
+        var notinqueryarray = true;
+        for (var i in query[key]) {
+          if (query[key][i] === value) {
+            notinqueryarray = false;
+            html += "<option value='" + value + "' selected>" + options[value] + "</option>";
+          }
+        }
+        if (notinqueryarray) {
+          html += "<option value='" + value + "'>" + options[value] + "</option>";
+        }
       } else {
         html += "<option value='" + value + "'>" + options[value] + "</option>";
       }
@@ -235,14 +265,31 @@ var NamesEditor = {
     var pairs = query.split("&");
     for (var i = 0; i < pairs.length; i++) {
       var pair = pairs[i].split("=");
-      queryobj[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || "");
+      if (queryobj.hasOwnProperty(decodeURIComponent(pair[0]))) {
+        if (Array.isArray(queryobj[decodeURIComponent(pair[0])])) {
+          queryobj[decodeURIComponent(pair[0])].push(decodeURIComponent(pair[1] || ""));
+        } else {
+          var tmp = queryobj[decodeURIComponent(pair[0])];
+          queryobj[decodeURIComponent(pair[0])] = new Array();
+          queryobj[decodeURIComponent(pair[0])].push(tmp);
+          queryobj[decodeURIComponent(pair[0])].push(decodeURIComponent(pair[1] || ""));
+        }
+      } else {
+        queryobj[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || "");
+      }
     }
     return queryobj;
   },
   JoinObjectIntoQuery: function (queryobj) {
     var query = new Array();
     for (var id in queryobj) {
-      query.push(encodeURIComponent(id) + "=" + encodeURIComponent(queryobj[id]));
+      if (Array.isArray(queryobj[id])) {
+        for (var i in queryobj[id]) {
+          query.push(encodeURIComponent(id) + "=" + encodeURIComponent(queryobj[id][i]));
+        }
+      } else {
+        query.push(encodeURIComponent(id) + "=" + encodeURIComponent(queryobj[id]));
+      }
     }
     return query.join("&");
   },
@@ -253,10 +300,21 @@ var NamesEditor = {
   ChangeLinkPreview: function (key, val) {
     var cur = this.SplitUrlIntoParts(document.getElementById("markerprev").data);
     var query = this.SplitQueryIntoObject(cur.query);
-    if (val === "---") {
-      delete query[key];
+    if (typeof val === "object") {
+      query[key] = new Array();
+      for (var i = 0; i < val.length; i++) {
+        query[key].push(val[i].value);
+        if (val[i].value === "---") {
+          delete query[key];
+          break;
+        }
+      }
     } else {
-      query[key] = val;
+      if (val === "---" || val === "") {
+        delete query[key];
+      } else {
+        query[key] = val;
+      }
     }
     document.getElementById("markerprev").data = cur.file + "?" + this.JoinObjectIntoQuery(query);
   }

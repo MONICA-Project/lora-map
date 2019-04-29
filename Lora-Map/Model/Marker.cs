@@ -29,6 +29,13 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model
         if(json["person"].ContainsKey("text") && json["person"]["text"].IsString) {
           ret += "&person-text=" + (String)json["person"]["text"];
         }
+        if(json["person"].ContainsKey("typ") && json["person"]["typ"].IsArray) {
+          foreach(JsonData item in json["person"]["typ"]) {
+            if(item.IsString) {
+              ret += "&person-typ=" + (String)item;
+            }
+          }
+        }
       }
       ret += (ret.Contains("?")) ? "&name=" + name : "?name=" + name;
       return ret;
@@ -98,6 +105,12 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model
               XmlNodeList xmlpersontext = this.svg.DocumentElement.SelectNodes("//*[local-name()='tspan'][@id='person-layer-typ-text']");
               if (xmlpersontext.Count == 1) {
                 xmlpersontext.Item(0).InnerText = keyvalue[1];
+              }
+              break;
+            case "person-typ":
+              XmlNodeList xmlpersontyp = this.svg.DocumentElement.SelectNodes("//*[local-name()='defs'][@id='people-def']");
+              if(xmlpersontyp.Count == 1) {
+                xmlpersontyp.Item(0).InnerXml += "<style type=\"text/css\">#person-layer-typ #person-layer-typ-" + keyvalue[1] + " { display: inline; }</style>";
               }
               break;
           }
