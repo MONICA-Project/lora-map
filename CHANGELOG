@@ -1,0 +1,14 @@
+1.1.1 Add Debian package config
+1.1.2 #2 Show versions number in Site
+1.1.3 #1 Click on icon and show details
+1.1.4 #3 Create icons for devices
+1.1.5 Add support for alert button
+1.1.6 #5 Create admin area
+1.1.7 #8 Editor for Names
+1.2.0 #4 Possible to Ex and Import Setting
+1.2.1 #6 Load the map from the Device
+1.2.2 Bugfix, if only recieve panic packet with gps data, update the marker on the map also
+1.2.3 #9 display polygons and marker on the map
+1.2.4 Can draw Textmarkers on the Map, use MGRS (UTM) on the Map
+1.2.5 #10 text Letzer Datenempfang is too long when scrollbar is there and #11 set textsize for every zoomlevel
+1.2.6 New Types of marker for person
