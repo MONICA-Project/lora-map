@@ -67,6 +67,7 @@
     <Compile Include="Helper\GeoFence.cs" />
     <Compile Include="Model\Admin\AdminModel.cs" />
     <Compile Include="Model\Admin\AdminSession.cs" />
+    <Compile Include="Model\Camera.cs" />
     <Compile Include="Model\Marker.cs" />
     <Compile Include="Model\AlarmItem.cs" />
     <Compile Include="Model\UTMData.cs" />
@@ -137,6 +138,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="resources\icons\general\add.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="resources\icons\general\bullet_add.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="resources\icons\general\bullet_delete.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="resources\icons\general\bullet_star.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="resources\icons\general\edit.png">
@@ -232,6 +242,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="resources\admin\js\menu.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="resources\js\overlays.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

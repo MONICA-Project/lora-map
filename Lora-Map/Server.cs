@@ -15,6 +15,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
   class Server : Webserver {
     private readonly SortedDictionary<String, PositionItem> positions = new SortedDictionary<String, PositionItem>();
     private readonly SortedDictionary<String, AlarmItem> alarms = new SortedDictionary<String, AlarmItem>();
+    private readonly SortedDictionary<String, Camera> cameras = new SortedDictionary<String, Camera>();
     private JsonData marker;
     private readonly Dictionary<String, Marker> markertable = new Dictionary<String, Marker>();
     private readonly AdminModel admin;
@@ -72,6 +73,13 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
             this.positions.Add(name, new PositionItem(d, this.marker));
           }
           Console.WriteLine("PANIC erhalten!");
+        } else if(Camera.CheckJson(d) && ((String)e.From).Contains("camera/count")) {
+          String cameraid = Camera.GetId(d);
+          if(this.cameras.ContainsKey(cameraid)) {
+            this.cameras[cameraid].Update(d);
+          } else {
+            this.cameras.Add(cameraid, new Camera(d));
+          }
         }
       } catch(Exception ex) {
         Helper.WriteError(ex.Message);
@@ -109,6 +117,8 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
           cont.Response.OutputStream.Write(buf, 0, buf.Length);
           Console.WriteLine("200 - " + cont.Request.Url.PathAndQuery);
           return true;
+        } else if(cont.Request.Url.PathAndQuery.StartsWith("/cameracount")) {
+          return SendJsonResponse(this.cameras, cont);
         }
       } catch(Exception e) {
         Helper.WriteError("500 - " + e.Message);

@@ -55,7 +55,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
       && json["Gps"].ContainsKey("Longitude") && json["Gps"]["Longitude"].IsDouble
       && json["Gps"].ContainsKey("LastLatitude") && json["Gps"]["LastLatitude"].IsDouble
       && json["Gps"].ContainsKey("LastLongitude") && json["Gps"]["LastLongitude"].IsDouble
-      && json["Gps"].ContainsKey("LastLongitude") && json["Gps"]["LastGPSPos"].IsString
+      && json["Gps"].ContainsKey("LastGPSPos") && json["Gps"]["LastGPSPos"].IsString
       && json["Gps"].ContainsKey("Hdop") && json["Gps"]["Hdop"].IsDouble
       && json["Gps"].ContainsKey("Fix") && json["Gps"]["Fix"].IsBoolean
       && json["Gps"].ContainsKey("Height") && json["Gps"]["Height"].IsDouble

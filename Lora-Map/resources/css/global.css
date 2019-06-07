@@ -196,3 +196,35 @@ object {
   width: auto;
   margin-left: 70px;
 }
+
+#overlays #cameracount {
+  position: absolute;
+  top: 10px;
+  left: 61px;
+  z-index: 50000;
+  font-size: 11px;
+  font-family: "Verdana";
+  padding: 3px;
+}
+#overlays #cameracount .camera {
+  background-color: white;
+  border: rgba(0,0,0,0.3) solid 2px;
+  border-radius: 5px;
+  padding: 4px;
+}
+#overlays #cameracount .camera span {
+  display: block;
+  text-align: center;
+}
+#overlays #cameracount .camera .name {
+  font-weight: bold;
+}
+  #overlays #cameracount .camera .in::after {
+    content: url("../icons/general/bullet_add.png");
+  }
+  #overlays #cameracount .camera .out::after {
+    content: url("../icons/general/bullet_delete.png");
+  }
+  #overlays #cameracount .camera .total::after {
+    content: url("../icons/general/bullet_star.png");
+  }
