@@ -1,0 +1,13 @@
+version: '2.3'
+
+services:
+  loramap:
+    build:
+      context: .
+    image: janniswarnat/loramap
+    command: ["mono","./Lora-Map.exe"]
+    ports:
+      - 8080:8080
+    volumes:
+      - "./Lora-Map/config/requests.conf:/etc/loramap/requests.conf"
+      - "./Lora-Map/config/settings.conf:/etc/loramap/settings.conf"
