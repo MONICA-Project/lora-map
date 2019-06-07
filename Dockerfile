@@ -7,6 +7,4 @@ RUN echo "deb http://repo.blubbfish.net blubb main" | tee "/etc/apt/sources.list
 
 RUN apt-get update && apt-get install -y loramap
 
-RUN chmod u+x /usr/local/bin/loramap/Lora-Map.exe
-
 WORKDIR /usr/local/bin/loramap
