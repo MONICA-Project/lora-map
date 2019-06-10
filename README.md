@@ -1,6 +1,11 @@
 # Fraunhofer.Fit.IoT.LoraMap (Lora-Map)
 Program that displays items with coordinates from Mqtt on a map
 
+## Docker
+* Build: `docker-compose build`
+* Provide: `./Lora-Map/config/requests.conf` and `./Lora-Map/config/settings.conf`
+* Run `docker-compose up -d`
+
 ## Linking to
 ### Internal
 * BlubbFish.Utils ([Utils](http://git.blubbfish.net/vs_utils/Utils))
