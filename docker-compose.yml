@@ -11,3 +11,6 @@ services:
     volumes:
       - "./Lora-Map/config/requests.conf:/etc/loramap/requests.conf"
       - "./Lora-Map/config/settings.conf:/etc/loramap/settings.conf"
+      - "./maps:/usr/local/bin/loramap/resources/maps"
+      - "./json:/usr/local/bin/loramap/json"
+
