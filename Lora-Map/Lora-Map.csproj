@@ -68,6 +68,7 @@
     <Compile Include="Model\Admin\AdminModel.cs" />
     <Compile Include="Model\Admin\AdminSession.cs" />
     <Compile Include="Model\Camera.cs" />
+    <Compile Include="Model\Crowd.cs" />
     <Compile Include="Model\Marker.cs" />
     <Compile Include="Model\AlarmItem.cs" />
     <Compile Include="Model\UTMData.cs" />

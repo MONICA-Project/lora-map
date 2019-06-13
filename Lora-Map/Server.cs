@@ -16,6 +16,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
     private readonly SortedDictionary<String, PositionItem> positions = new SortedDictionary<String, PositionItem>();
     private readonly SortedDictionary<String, AlarmItem> alarms = new SortedDictionary<String, AlarmItem>();
     private readonly SortedDictionary<String, Camera> cameras = new SortedDictionary<String, Camera>();
+    private readonly SortedDictionary<String, Crowd> crowds = new SortedDictionary<String, Crowd>();
     private JsonData marker;
     private readonly Dictionary<String, Marker> markertable = new Dictionary<String, Marker>();
     private readonly AdminModel admin;
@@ -80,6 +81,13 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
           } else {
             this.cameras.Add(cameraid, new Camera(d));
           }
+        } else if((Crowd.CheckJsonCrowdDensityLocal(d) || Crowd.CheckJsonFightingDetection(d) || Crowd.CheckJsonFlow(d)) && ((String)e.From).Contains("camera/crowd")) {
+          String cameraid = Crowd.GetId(d);
+          if(this.crowds.ContainsKey(cameraid)) {
+            this.crowds[cameraid].Update(d);
+          } else {
+            this.crowds.Add(cameraid, new Crowd(d));
+          }
         }
       } catch(Exception ex) {
         Helper.WriteError(ex.Message);
@@ -119,6 +127,8 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
           return true;
         } else if(cont.Request.Url.PathAndQuery.StartsWith("/cameracount")) {
           return SendJsonResponse(this.cameras, cont);
+        } else if (cont.Request.Url.PathAndQuery.StartsWith("/crowdcount")) {
+          return SendJsonResponse(this.crowds, cont);
         }
       } catch(Exception e) {
         Helper.WriteError("500 - " + e.Message);
