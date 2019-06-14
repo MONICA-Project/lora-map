@@ -56,46 +56,48 @@ function GetGeoLayer() {
   geogetter.onreadystatechange = function () {
     if (geogetter.readyState === 4 && geogetter.status === 200) {
       var geo = JSON.parse(geogetter.responseText);
-      L.geoJSON(geo, {
-        style: function (features) {
-          return {
-            color: typeof features.properties["stroke"] === "undefined" ? '#000000' : features.properties["stroke"],
-            weight: typeof features.properties["stroke-width"] === "undefined" ? 1 : features.properties["stroke-width"],
-            opacity: typeof features.properties["stroke-opacity"] === "undefined" ? 1 : features.properties["stroke-opacity"],
-            fillColor: typeof features.properties["fill"] === "undefined" ? '#ffffff' : features.properties["fill"],
-            fillOpacity: typeof features.properties["fill-opacity"] === "undefined" ? 1 : features.properties["fill-opacity"]
-          };
-        },
-        onEachFeature: function (feature, layer) {
-          if (feature.geometry.type === "Polygon" || (feature.geometry.type === "Point" && feature.properties.hasOwnProperty("icon"))) {
-            layer.bindPopup(feature.properties.name);
+      if (!(Object.keys(geo).length === 0 && geo.constructor === Object)) {
+        L.geoJSON(geo, {
+          style: function (features) {
+            return {
+              color: typeof features.properties["stroke"] === "undefined" ? '#000000' : features.properties["stroke"],
+              weight: typeof features.properties["stroke-width"] === "undefined" ? 1 : features.properties["stroke-width"],
+              opacity: typeof features.properties["stroke-opacity"] === "undefined" ? 1 : features.properties["stroke-opacity"],
+              fillColor: typeof features.properties["fill"] === "undefined" ? '#ffffff' : features.properties["fill"],
+              fillOpacity: typeof features.properties["fill-opacity"] === "undefined" ? 1 : features.properties["fill-opacity"]
+            };
+          },
+          onEachFeature: function (feature, layer) {
+            if (feature.geometry.type === "Polygon" || (feature.geometry.type === "Point" && feature.properties.hasOwnProperty("icon"))) {
+              layer.bindPopup(feature.properties.name);
+            }
+          },
+          pointToLayer: function (geoJsonPoint, latlng) {
+            if (geoJsonPoint.properties.hasOwnProperty("description") && geoJsonPoint.properties["description"] === "snumber" && !geoJsonPoint.properties.hasOwnProperty("icon")) {
+              var snumbericon = L.marker(latlng, {
+                icon: new L.DivIcon({
+                  className: "snumber-icon",
+                  html: geoJsonPoint.properties["name"],
+                  iconSize: [8, 8]
+                })
+              });
+              SpecialMarkers.push(snumbericon);
+              return snumbericon;
+            } else if (geoJsonPoint.properties.hasOwnProperty("description") && geoJsonPoint.properties["description"] === "coord" && !geoJsonPoint.properties.hasOwnProperty("icon")) {
+              var coordicon = L.marker(latlng, {
+                icon: new L.DivIcon({
+                  className: "coord-icon",
+                  html: geoJsonPoint.properties["name"]
+                })
+              });
+              SpecialMarkers.push(coordicon);
+              return coordicon;
+            } else if (geoJsonPoint.properties.hasOwnProperty("icon")) {
+              return L.marker(latlng, { icon: L.icon({ iconUrl: "css/icons/cctv.png", iconSize: [32, 32] }) });
+            }
           }
-        },
-        pointToLayer: function (geoJsonPoint, latlng) {
-          if (geoJsonPoint.properties.hasOwnProperty("description") && geoJsonPoint.properties["description"] === "snumber" && !geoJsonPoint.properties.hasOwnProperty("icon")) {
-            var snumbericon = L.marker(latlng, {
-              icon: new L.DivIcon({
-                className: "snumber-icon",
-                html: geoJsonPoint.properties["name"],
-                iconSize: [8, 8]
-              })
-            });
-            SpecialMarkers.push(snumbericon);
-            return snumbericon;
-          } else if (geoJsonPoint.properties.hasOwnProperty("description") && geoJsonPoint.properties["description"] === "coord" && !geoJsonPoint.properties.hasOwnProperty("icon")) {
-            var coordicon = L.marker(latlng, {
-              icon: new L.DivIcon({
-                className: "coord-icon",
-                html: geoJsonPoint.properties["name"]
-              })
-            });
-            SpecialMarkers.push(coordicon);
-            return coordicon;
-          } else if (geoJsonPoint.properties.hasOwnProperty("icon")) {
-            return L.marker(latlng, { icon: L.icon({ iconUrl: "css/icons/cctv.png", iconSize: [32, 32] }) });
-          }
-        }
-      }).addTo(mymap);
+        }).addTo(mymap);
+      }
     }
   };
   geogetter.open("GET", "http://{%REQUEST_URL_HOST%}/getgeo", true);

@@ -18,7 +18,9 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
         return;
       }
       InIReader ini = InIReader.GetInstance("settings");
-      ADataBackend b = (ADataBackend)ABackend.GetInstance(ini.GetSection("mqtt"), ABackend.BackendType.Data);
+      Dictionary<String, String> backenddata = ini.GetSection("mqtt");
+      backenddata.Add("topic", "lora/#;camera/#");
+      ADataBackend b = (ADataBackend)ABackend.GetInstance(backenddata, ABackend.BackendType.Data);
       new Server(b, ini.GetSection("webserver"), InIReader.GetInstance("requests"));
       while(true) {
         System.Threading.Thread.Sleep(1000);
