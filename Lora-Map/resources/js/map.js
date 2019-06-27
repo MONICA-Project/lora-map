@@ -69,7 +69,11 @@ function GetGeoLayer() {
           },
           onEachFeature: function (feature, layer) {
             if (feature.geometry.type === "Polygon" || (feature.geometry.type === "Point" && feature.properties.hasOwnProperty("icon"))) {
-              layer.bindPopup(feature.properties.name);
+              var text = "<b>"+feature.properties.name+"</b>";
+              if (feature.properties.hasOwnProperty("description")) {
+                text = text + "<br>" + feature.properties.description;
+              }
+              layer.bindPopup(text);
             }
           },
           pointToLayer: function (geoJsonPoint, latlng) {
