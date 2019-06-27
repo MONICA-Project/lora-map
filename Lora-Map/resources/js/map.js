@@ -45,7 +45,7 @@ function GetMapLayers() {
       }
     }
   };
-  layergetter.open("GET", "http://{%REQUEST_URL_HOST%}/getlayer", true);
+  layergetter.open("GET", "/getlayer", true);
   layergetter.send();
 }
 
@@ -100,7 +100,7 @@ function GetGeoLayer() {
       }
     }
   };
-  geogetter.open("GET", "http://{%REQUEST_URL_HOST%}/getgeo", true);
+  geogetter.open("GET", "/getgeo", true);
   geogetter.send();
 }
 

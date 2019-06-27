@@ -2,12 +2,12 @@
 function datarunner() {
   var loc = new XMLHttpRequest();
   loc.onreadystatechange = parseAjaxLoc;
-  loc.open("GET", "http://{%REQUEST_URL_HOST%}/loc", true);
+  loc.open("GET", "/loc", true);
   loc.send();
 
   var panic = new XMLHttpRequest();
   panic.onreadystatechange = parseAjaxPanic;
-  panic.open("GET", "http://{%REQUEST_URL_HOST%}/panic", true);
+  panic.open("GET", "/panic", true);
   panic.send();
 }
 

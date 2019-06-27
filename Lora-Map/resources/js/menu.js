@@ -134,7 +134,7 @@ function createOverviewElement(positionItem, id) {
 function update_pannels_admin() {
   var testadmin = new XMLHttpRequest();
   testadmin.onreadystatechange = parseAjaxPannelAdmin;
-  testadmin.open("GET", "http://{%REQUEST_URL_HOST%}/admin", true);
+  testadmin.open("GET", "/admin", true);
   testadmin.send();
 }
 
@@ -153,7 +153,7 @@ function parseAjaxPannelAdmin() {
 function submitloginform() {
   var adminlogin = new XMLHttpRequest();
   adminlogin.onreadystatechange = parseAjaxLogin;
-  adminlogin.open("POST", "http://{%REQUEST_URL_HOST%}/admin/login", true);
+  adminlogin.open("POST", "/admin/login", true);
   adminlogin.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
   adminlogin.send("user=" + encodeURI(document.getElementById("pannels_admin_name").value) + "&pass=" + encodeURI(document.getElementById("pannels_admin_pass").value));
 }
