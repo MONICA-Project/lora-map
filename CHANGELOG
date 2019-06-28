@@ -7,7 +7,7 @@
 * Implement #13 fixing issue with port when using proxy
 * Implement #14 show description on map in tooltip on area
 ### Changes
-* 
+* Move CoordinateSharp to own Library
 
 ## 1.2.7
 ### New Features
