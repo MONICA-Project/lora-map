@@ -2,7 +2,7 @@
 
 ## 1.2.8
 ### New Features
-* 
+* #12 Make icon transparent if there is no data update
 ### Bugfixes
 * Implement #13 fixing issue with port when using proxy
 * Implement #14 show description on map in tooltip on area

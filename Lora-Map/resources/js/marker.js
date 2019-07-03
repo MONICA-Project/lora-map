@@ -58,6 +58,18 @@ function parseAjaxLoc() {
               }
             }
           }
+          var lasttime = timeCalculation(positionItem['Recievedtime'], "diffraw");
+          if (lasttime <= 5 * 60) {
+            markers[key]._icon.style.opacity = 1;
+          } else if (lasttime > 5 * 60 && lasttime <= 15 * 60) {
+            markers[key]._icon.style.opacity = 0.9 - (((lasttime - (5 * 60)) / ((15 * 60) - (5 * 60))) * (0.9 - 0.7));
+          } else if (lasttime > 15 * 60 && lasttime <= 30 * 60) {
+            markers[key]._icon.style.opacity = 0.7 - (((lasttime - (15 * 60)) / ((30 * 60) - (15 * 60))) * (0.7 - 0.5));
+          } else if (lasttime > 30 * 60 && lasttime <= 60 * 60) {
+            markers[key]._icon.style.opacity = 0.5 - (((lasttime - (30 * 60)) / ((30 * 60) - (30 * 60))) * (0.5 - 0.25));
+          } else if (lasttime > 60 * 60) {
+            markers[key]._icon.style.opacity = 0.25;
+          }
         }
       }
     }
