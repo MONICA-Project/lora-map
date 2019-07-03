@@ -8,6 +8,7 @@
 * Implement #14 show description on map in tooltip on area
 ### Changes
 * Move CoordinateSharp to own Library
+* Changes to new Mqtt topic for camera density
 
 ## 1.2.7
 ### New Features

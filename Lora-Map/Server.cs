@@ -81,7 +81,9 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
           } else {
             this.cameras.Add(cameraid, new Camera(d));
           }
-        } else if((Crowd.CheckJsonCrowdDensityLocal(d) || Crowd.CheckJsonFightingDetection(d) || Crowd.CheckJsonFlow(d)) && ((String)e.From).Contains("camera/crowd")) {
+        } else if((((String)e.From).Contains("sfn/crowd_density_local") && Crowd.CheckJsonCrowdDensityLocal(d)) || 
+          (((String)e.From).Contains("sfn/fighting_detection") && Crowd.CheckJsonFightingDetection(d)) || 
+          (((String)e.From).Contains("sfn/flow") && Crowd.CheckJsonFlow(d))) {
           String cameraid = Crowd.GetId(d);
           if(this.crowds.ContainsKey(cameraid)) {
             this.crowds[cameraid].Update(d);
