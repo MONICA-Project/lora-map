@@ -30,7 +30,7 @@ function parseAjaxLoc() {
                 className: 'pos-marker',
                 iconSize: [56, 80],
                 iconAnchor: [0, 80],
-                html: '<object data="'+positionItem['Icon']+'" type="image/svg+xml" style="height:80px; width:56px;"></object>'
+                html: '<img src="' + positionItem['Icon'] + '" height="80" width="56" />'
               });
               marker = L.marker([positionItem['Latitude'], positionItem['Longitude']], { 'title': positionItem['Name'], 'icon': myIcon });
             }
@@ -43,16 +43,16 @@ function parseAjaxLoc() {
                   className: 'pos-marker',
                   iconSize: [56, 80],
                   iconAnchor: [0, 80],
-                  html: '<object data="' + positionItem['Icon'] + '" type="image/svg+xml" style="height:80px; width:56px;"></object>'
+                  html: '<img src="' + positionItem['Icon'] + '" height="80" width="56" />'
                 }));
-              } else if (markers[key]._icon.children[0].hasAttribute("data")) {
-                var old = markers[key]._icon.children[0]["data"].substring(markers[key]._icon.children[0]["data"].indexOf("/", 7) + 1);
+              } else if (markers[key]._icon.children[0].hasAttribute("src")) {
+                var old = markers[key]._icon.children[0]["src"].substring(markers[key]._icon.children[0]["src"].indexOf("/", 7) + 1);
                 if (old !== positionItem['Icon']) {
-                  markers[key]._icon.children[0]["data"] = positionItem['Icon'];
+                  markers[key]._icon.children[0]["src"] = positionItem['Icon'];
                 }
               }
             } else {
-              if (markers[key]._icon.children.length === 1 && markers[key]._icon.children[0].hasAttribute("data")) {
+              if (markers[key]._icon.children.length === 1 && markers[key]._icon.children[0].hasAttribute("src")) {
                 markers[key].removeFrom(mymap);
                 markers[key] = L.marker([positionItem['Latitude'], positionItem['Longitude']], { 'title': positionItem['Name'] }).addTo(mymap).on("click", showMarkerInfo, key);
               }
