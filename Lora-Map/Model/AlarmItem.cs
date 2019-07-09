@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using LitJson;
 
 namespace Fraunhofer.Fit.IoT.LoraMap.Model {
@@ -14,8 +16,12 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
     public Double Hdop { get; private set; }
     public Boolean Fix { get; private set; }
     public Double Height { get; private set; }
+    public SortedDictionary<DateTime, String> History { get; private set; }
 
-    public AlarmItem(JsonData json) => this.Update(json);
+    public AlarmItem(JsonData json) {
+      this.History = new SortedDictionary<DateTime, String>();
+      this.Update(json);
+    }
 
     public void Update(JsonData json) {
       this.Rssi = (Double)json["Rssi"];
@@ -34,21 +40,43 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
       this.UTM = new UTMData(this.Latitude, this.Longitude);
       this.Hdop = (Double)json["Gps"]["Hdop"];
       this.Height = (Double)json["Gps"]["Height"];
+      this.SetHistory(json);
+    }
+
+    private void SetHistory(JsonData json) {
+      String key = ((Double)json["BatteryLevel"]).ToString();
+      key += "_" + ((Int32)json["Calculatedcrc"]).ToString();
+      key += "_" + ((Double)json["Gps"]["Hdop"]).ToString();
+      key += "_" + ((Double)json["Gps"]["Height"]).ToString();
+      key += "_" + ((Boolean)json["Gps"]["Fix"]).ToString();
+      key += "_" + ((Double)json["Gps"]["LastLatitude"]).ToString();
+      key += "_" + ((Double)json["Gps"]["LastLongitude"]).ToString();
+      key += "_" + ((String)json["Gps"]["Time"]);
+      if(!this.History.ContainsValue(key)) {
+        this.History.Add(DateTime.UtcNow, key);
+        if(this.History.Count > 2) {
+          this.History.Remove(this.History.Keys.ToList().First());
+        }
+      }
     }
 
     public static String GetId(JsonData json) => (String)json["Name"];
 
-    public static Boolean CheckJson(JsonData json) => json.ContainsKey("Rssi") && json["Rssi"].IsDouble
-      && json.ContainsKey("Snr") && json["Snr"].IsDouble
-      && json.ContainsKey("Receivedtime") && json["Receivedtime"].IsString
-      && json.ContainsKey("Gps") && json["Gps"].IsObject
-      && json["Gps"].ContainsKey("Latitude") && json["Gps"]["Latitude"].IsDouble
-      && json["Gps"].ContainsKey("Longitude") && json["Gps"]["Longitude"].IsDouble
-      && json["Gps"].ContainsKey("LastLatitude") && json["Gps"]["LastLatitude"].IsDouble
-      && json["Gps"].ContainsKey("LastLongitude") && json["Gps"]["LastLongitude"].IsDouble
-      && json["Gps"].ContainsKey("Hdop") && json["Gps"]["Hdop"].IsDouble
-      && json["Gps"].ContainsKey("Fix") && json["Gps"]["Fix"].IsBoolean
-      && json["Gps"].ContainsKey("Height") && json["Gps"]["Height"].IsDouble
-      && json.ContainsKey("Name") && json["Name"].IsString;
+    public static Boolean CheckJson(JsonData json) => 
+      json.ContainsKey("Rssi") && json["Rssi"].IsDouble &&
+      json.ContainsKey("Snr") && json["Snr"].IsDouble &&
+      json.ContainsKey("Receivedtime") && json["Receivedtime"].IsString &&
+      json.ContainsKey("Gps") && json["Gps"].IsObject &&
+      json["Gps"].ContainsKey("Latitude") && json["Gps"]["Latitude"].IsDouble &&
+      json["Gps"].ContainsKey("Longitude") && json["Gps"]["Longitude"].IsDouble &&
+      json["Gps"].ContainsKey("LastLatitude") && json["Gps"]["LastLatitude"].IsDouble &&
+      json["Gps"].ContainsKey("LastLongitude") && json["Gps"]["LastLongitude"].IsDouble &&
+      json["Gps"].ContainsKey("Hdop") && json["Gps"]["Hdop"].IsDouble &&
+      json["Gps"].ContainsKey("Fix") && json["Gps"]["Fix"].IsBoolean &&
+      json["Gps"].ContainsKey("Height") && json["Gps"]["Height"].IsDouble &&
+      json["Gps"].ContainsKey("Time") && json["Gps"]["Time"].IsString &&
+      json.ContainsKey("Name") && json["Name"].IsString &&
+      json.ContainsKey("Calculatedcrc") && json["Calculatedcrc"].IsInt &&
+      json.ContainsKey("BatteryLevel") && json["BatteryLevel"].IsDouble;
   }
 }
