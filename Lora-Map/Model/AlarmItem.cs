@@ -16,12 +16,11 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
     public Double Hdop { get; private set; }
     public Boolean Fix { get; private set; }
     public Double Height { get; private set; }
-    public SortedDictionary<DateTime, String> History { get; private set; }
+    public List<DateTime> ButtonPressed => this.buttonhistory.Keys.ToList();
 
-    public AlarmItem(JsonData json) {
-      this.History = new SortedDictionary<DateTime, String>();
-      this.Update(json);
-    }
+    private readonly SortedDictionary<DateTime, String> buttonhistory = new SortedDictionary<DateTime, String>();
+
+    public AlarmItem(JsonData json) => this.Update(json);
 
     public void Update(JsonData json) {
       this.Rssi = (Double)json["Rssi"];
@@ -52,10 +51,10 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
       key += "_" + ((Double)json["Gps"]["LastLatitude"]).ToString();
       key += "_" + ((Double)json["Gps"]["LastLongitude"]).ToString();
       key += "_" + ((String)json["Gps"]["Time"]);
-      if(!this.History.ContainsValue(key)) {
-        this.History.Add(DateTime.UtcNow, key);
-        if(this.History.Count > 2) {
-          this.History.Remove(this.History.Keys.ToList().First());
+      if(!this.buttonhistory.ContainsValue(key)) {
+        this.buttonhistory.Add(DateTime.UtcNow, key);
+        if(this.buttonhistory.Count > 10) {
+          this.buttonhistory.Remove(this.buttonhistory.Keys.ToList().First());
         }
       }
     }

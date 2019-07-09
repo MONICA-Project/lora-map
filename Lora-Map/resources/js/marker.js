@@ -62,11 +62,11 @@ function parseAjaxLoc() {
           if (lasttime <= 5 * 60) {
             markers[key]._icon.style.opacity = 1;
           } else if (lasttime > 5 * 60 && lasttime <= 15 * 60) {
-            markers[key]._icon.style.opacity = 0.9 - (((lasttime - (5 * 60)) / ((15 * 60) - (5 * 60))) * (0.9 - 0.7));
+            markers[key]._icon.style.opacity = 0.9 - (lasttime - 5 * 60) / (15 * 60 - 5 * 60) * (0.9 - 0.7);
           } else if (lasttime > 15 * 60 && lasttime <= 30 * 60) {
-            markers[key]._icon.style.opacity = 0.7 - (((lasttime - (15 * 60)) / ((30 * 60) - (15 * 60))) * (0.7 - 0.5));
+            markers[key]._icon.style.opacity = 0.7 - (lasttime - 15 * 60) / (30 * 60 - 15 * 60) * (0.7 - 0.5);
           } else if (lasttime > 30 * 60 && lasttime <= 60 * 60) {
-            markers[key]._icon.style.opacity = 0.5 - (((lasttime - (30 * 60)) / ((30 * 60) - (30 * 60))) * (0.5 - 0.25));
+            markers[key]._icon.style.opacity = 0.5 - (lasttime - 30 * 60) / (30 * 60 - 30 * 60) * (0.5 - 0.25);
           } else if (lasttime > 60 * 60) {
             markers[key]._icon.style.opacity = 0.25;
           }
@@ -78,12 +78,13 @@ function parseAjaxLoc() {
   }
 }
 
+var serverPanic = {};
 function parseAjaxPanic() {
   if (this.readyState === 4 && this.status === 200) {
-    var panics = JSON.parse(this.responseText);
-    for (var id in panics) {
-      if (panics.hasOwnProperty(id)) {
-        var alertItem = panics[id];
+    serverPanic = JSON.parse(this.responseText);
+    for (var id in serverPanic) {
+      if (serverPanic.hasOwnProperty(id)) {
+        var alertItem = serverPanic[id];
         if (markers.hasOwnProperty(id)) {
           var marker = markers[id];
           if (timeCalculation(alertItem["Recievedtime"], "diffraw") <= 10 && marker._icon.className.indexOf(" marker-alert") === -1) {

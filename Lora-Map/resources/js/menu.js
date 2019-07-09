@@ -57,6 +57,16 @@ function update_pannels_info() {
     html += "<div class=\"lastgps\"><span class=\"bold\">Letzter Wert:</span> Vor: " + timeCalculation(positionItem["Lastgpspostime"], "difftext") + "</div>";
     html += "<div class=\"update\"><span class=\"bold\">Update:</span> " + timeCalculation(positionItem["Recievedtime"], "str") + "<br><span class=\"bold\">Vor:</span> " + timeCalculation(positionItem["Recievedtime"], "difftext") + "</div>";
     html += "<div><span class=\"bold\">RSSI:</span> " + positionItem["Rssi"] + ", <span class=\"bold\">SNR:</span> " + positionItem["Snr"] + "</div>";
+    if (serverPanic.hasOwnProperty(statusToDevice)) {
+      var panicData = serverPanic[statusToDevice];
+      if (panicData["ButtonPressed"].length > 0) {
+        html += "<div class='alerts'><span class=\"bold\">Alerts:</span>";
+        for (var i = 0; i < panicData["ButtonPressed"].length; i++) {
+          html += "<span class='panicitem'>" + timeCalculation(panicData["ButtonPressed"][i], "str")+" (vor " + timeCalculation(panicData["ButtonPressed"][i],"difftext")+")</span>";
+        }
+        html += "</div>";
+      }
+    }
     document.getElementById("pannels_info").innerHTML = html;
   }
 }
