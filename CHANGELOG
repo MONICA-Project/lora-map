@@ -2,10 +2,13 @@
 
 ## 1.2.8
 ### New Features
-* #12 Make icon transparent if there is no data update
+* Implement #12 Make icon transparent if there is no data update
+* Implement #18 history an panikbutton pressed
 ### Bugfixes
 * Implement #13 fixing issue with port when using proxy
 * Implement #14 show description on map in tooltip on area
+* Implement #25 Icons flickering when using ssl
+* Add some errorhandling with locks
 ### Changes
 * Move CoordinateSharp to own Library
 * Changes to new Mqtt topic for camera density
