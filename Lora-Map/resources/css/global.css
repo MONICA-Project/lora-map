@@ -143,6 +143,12 @@ object {
 #pannels #pannels_info .update {
   margin-bottom: 10px;
 }
+#pannels #pannels_info .alerts {
+  margin-top: 10px;
+}
+#pannels #pannels_info .alerts .panicitem {
+  display: block;
+}
 
 #pannels #pannels_version {
   padding: 5px;

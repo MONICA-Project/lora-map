@@ -2,12 +2,12 @@
 function datarunner() {
   var loc = new XMLHttpRequest();
   loc.onreadystatechange = parseAjaxLoc;
-  loc.open("GET", "http://{%REQUEST_URL_HOST%}/loc", true);
+  loc.open("GET", "/loc", true);
   loc.send();
 
   var panic = new XMLHttpRequest();
   panic.onreadystatechange = parseAjaxPanic;
-  panic.open("GET", "http://{%REQUEST_URL_HOST%}/panic", true);
+  panic.open("GET", "/panic", true);
   panic.send();
 }
 
@@ -30,7 +30,7 @@ function parseAjaxLoc() {
                 className: 'pos-marker',
                 iconSize: [56, 80],
                 iconAnchor: [0, 80],
-                html: '<object data="'+positionItem['Icon']+'" type="image/svg+xml" style="height:80px; width:56px;"></object>'
+                html: '<img src="' + positionItem['Icon'] + '" height="80" width="56" />'
               });
               marker = L.marker([positionItem['Latitude'], positionItem['Longitude']], { 'title': positionItem['Name'], 'icon': myIcon });
             }
@@ -43,20 +43,32 @@ function parseAjaxLoc() {
                   className: 'pos-marker',
                   iconSize: [56, 80],
                   iconAnchor: [0, 80],
-                  html: '<object data="' + positionItem['Icon'] + '" type="image/svg+xml" style="height:80px; width:56px;"></object>'
+                  html: '<img src="' + positionItem['Icon'] + '" height="80" width="56" />'
                 }));
-              } else if (markers[key]._icon.children[0].hasAttribute("data")) {
-                var old = markers[key]._icon.children[0]["data"].substring(markers[key]._icon.children[0]["data"].indexOf("/", 7) + 1);
+              } else if (markers[key]._icon.children[0].hasAttribute("src")) {
+                var old = markers[key]._icon.children[0]["src"].substring(markers[key]._icon.children[0]["src"].indexOf("/", 7) + 1);
                 if (old !== positionItem['Icon']) {
-                  markers[key]._icon.children[0]["data"] = positionItem['Icon'];
+                  markers[key]._icon.children[0]["src"] = positionItem['Icon'];
                 }
               }
             } else {
-              if (markers[key]._icon.children.length === 1 && markers[key]._icon.children[0].hasAttribute("data")) {
+              if (markers[key]._icon.children.length === 1 && markers[key]._icon.children[0].hasAttribute("src")) {
                 markers[key].removeFrom(mymap);
                 markers[key] = L.marker([positionItem['Latitude'], positionItem['Longitude']], { 'title': positionItem['Name'] }).addTo(mymap).on("click", showMarkerInfo, key);
               }
             }
+          }
+          var lasttime = timeCalculation(positionItem['Recievedtime'], "diffraw");
+          if (lasttime <= 5 * 60) {
+            markers[key]._icon.style.opacity = 1;
+          } else if (lasttime > 5 * 60 && lasttime <= 15 * 60) {
+            markers[key]._icon.style.opacity = 0.9 - (lasttime - 5 * 60) / (15 * 60 - 5 * 60) * (0.9 - 0.7);
+          } else if (lasttime > 15 * 60 && lasttime <= 30 * 60) {
+            markers[key]._icon.style.opacity = 0.7 - (lasttime - 15 * 60) / (30 * 60 - 15 * 60) * (0.7 - 0.5);
+          } else if (lasttime > 30 * 60 && lasttime <= 60 * 60) {
+            markers[key]._icon.style.opacity = 0.5 - (lasttime - 30 * 60) / (30 * 60 - 30 * 60) * (0.5 - 0.25);
+          } else if (lasttime > 60 * 60) {
+            markers[key]._icon.style.opacity = 0.25;
           }
         }
       }
@@ -66,12 +78,13 @@ function parseAjaxLoc() {
   }
 }
 
+var serverPanic = {};
 function parseAjaxPanic() {
   if (this.readyState === 4 && this.status === 200) {
-    var panics = JSON.parse(this.responseText);
-    for (var id in panics) {
-      if (panics.hasOwnProperty(id)) {
-        var alertItem = panics[id];
+    serverPanic = JSON.parse(this.responseText);
+    for (var id in serverPanic) {
+      if (serverPanic.hasOwnProperty(id)) {
+        var alertItem = serverPanic[id];
         if (markers.hasOwnProperty(id)) {
           var marker = markers[id];
           if (timeCalculation(alertItem["Recievedtime"], "diffraw") <= 10 && marker._icon.className.indexOf(" marker-alert") === -1) {

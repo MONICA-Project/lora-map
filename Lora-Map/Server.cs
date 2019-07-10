@@ -20,6 +20,8 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
     private JsonData marker;
     private readonly Dictionary<String, Marker> markertable = new Dictionary<String, Marker>();
     private readonly AdminModel admin;
+    private readonly Object lockData = new Object();
+    private readonly Object lockPanic = new Object();
 
     public Server(ADataBackend backend, Dictionary<String, String> settings, InIReader requests) : base(backend, settings, requests) {
       this.logger.SetPath(settings["loggingpath"]);
@@ -50,38 +52,46 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
       }
     }
 
-    protected override void Backend_MessageIncomming(Object sender, BackendEvent e) {
+    protected override void Backend_MessageIncomming(Object sender, BackendEvent mqtt) {
       try {
-        JsonData d = JsonMapper.ToObject(e.Message);
-        if(PositionItem.CheckJson(d) && ((String)e.From).Contains("lora/data")) {
+        JsonData d = JsonMapper.ToObject(mqtt.Message);
+        if(PositionItem.CheckJson(d) && ((String)mqtt.From).Contains("lora/data")) {
           String name = PositionItem.GetId(d);
-          if(this.positions.ContainsKey(name)) {
-            this.positions[name].Update(d);
-          } else {
-            this.positions.Add(name, new PositionItem(d, this.marker));
+          lock(this.lockData) {
+            if(this.positions.ContainsKey(name)) {
+              this.positions[name].Update(d);
+            } else {
+              this.positions.Add(name, new PositionItem(d, this.marker));
+            }
           }
           Console.WriteLine("Koordinate erhalten!");
-        } else if(AlarmItem.CheckJson(d) && ((String)e.From).Contains("lora/panic")) {
+        } else if(AlarmItem.CheckJson(d) && ((String)mqtt.From).Contains("lora/panic")) {
           String name = AlarmItem.GetId(d);
-          if(this.alarms.ContainsKey(name)) {
-            this.alarms[name].Update(d);
-          } else {
-            this.alarms.Add(name, new AlarmItem(d));
+          lock(this.lockPanic) {
+            if(this.alarms.ContainsKey(name)) {
+              this.alarms[name].Update(d);
+            } else {
+              this.alarms.Add(name, new AlarmItem(d));
+            }
           }
-          if(this.positions.ContainsKey(name)) {
-            this.positions[name].Update(d);
-          } else {
-            this.positions.Add(name, new PositionItem(d, this.marker));
+          lock(this.lockData) {
+            if(this.positions.ContainsKey(name)) {
+              this.positions[name].Update(d);
+            } else {
+              this.positions.Add(name, new PositionItem(d, this.marker));
+            }
           }
           Console.WriteLine("PANIC erhalten!");
-        } else if(Camera.CheckJson(d) && ((String)e.From).Contains("camera/count")) {
+        } else if(Camera.CheckJson(d) && ((String)mqtt.From).Contains("camera/count")) {
           String cameraid = Camera.GetId(d);
           if(this.cameras.ContainsKey(cameraid)) {
             this.cameras[cameraid].Update(d);
           } else {
             this.cameras.Add(cameraid, new Camera(d));
           }
-        } else if((Crowd.CheckJsonCrowdDensityLocal(d) || Crowd.CheckJsonFightingDetection(d) || Crowd.CheckJsonFlow(d)) && ((String)e.From).Contains("camera/crowd")) {
+        } else if((((String)mqtt.From).Contains("sfn/crowd_density_local") && Crowd.CheckJsonCrowdDensityLocal(d)) || 
+          (((String)mqtt.From).Contains("sfn/fighting_detection") && Crowd.CheckJsonFightingDetection(d)) || 
+          (((String)mqtt.From).Contains("sfn/flow") && Crowd.CheckJsonFlow(d))) {
           String cameraid = Crowd.GetId(d);
           if(this.crowds.ContainsKey(cameraid)) {
             this.crowds[cameraid].Update(d);
@@ -89,8 +99,8 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
             this.crowds.Add(cameraid, new Crowd(d));
           }
         }
-      } catch(Exception ex) {
-        Helper.WriteError(ex.Message);
+      } catch(Exception e) {
+        Helper.WriteError("Backend_MessageIncomming(): "+e.Message + "\n\n" + e.StackTrace);
       }
     }
 
@@ -131,7 +141,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
           return SendJsonResponse(this.crowds, cont);
         }
       } catch(Exception e) {
-        Helper.WriteError("500 - " + e.Message);
+        Helper.WriteError("SendWebserverResponse(): 500 - " + e.Message + "\n\n" + e.StackTrace);
         cont.Response.StatusCode = 500;
         return false;
       }

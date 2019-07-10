@@ -5,7 +5,7 @@
       NamesEditor.ParseJson(ajaxnames.responseText);
     }
   };
-  ajaxnames.open("GET", "http://{%REQUEST_URL_HOST%}/admin/get_json_names", true);
+  ajaxnames.open("GET", "/admin/get_json_names", true);
   ajaxnames.send();
 }
 
@@ -23,11 +23,11 @@ function menu_eximport() {
           ExImport.ParseJson(ajaxnames.responseText, ajaxgeo.responseText);
         }
       };
-      ajaxgeo.open("GET", "http://{%REQUEST_URL_HOST%}/admin/get_json_geo", true);
+      ajaxgeo.open("GET", "/admin/get_json_geo", true);
       ajaxgeo.send();
     }
   };
-  ajaxnames.open("GET", "http://{%REQUEST_URL_HOST%}/admin/get_json_names", true);
+  ajaxnames.open("GET", "/admin/get_json_names", true);
   ajaxnames.send();
 }
 
@@ -150,7 +150,7 @@ var NamesEditor = {
         }
       }
     };
-    savenames.open("POST", "http://{%REQUEST_URL_HOST%}/admin/set_json_names", true);
+    savenames.open("POST", "/admin/set_json_names", true);
     savenames.send(JSON.stringify(namejson));
   },
   Delete: function (el) {
@@ -341,7 +341,7 @@ var ExImport = {
         }
       }
     };
-    savenames.open("POST", "http://{%REQUEST_URL_HOST%}/admin/set_json_names", true);
+    savenames.open("POST", "/admin/set_json_names", true);
     savenames.send(document.getElementById("ex_names").value);
   },
   SaveGeo: function () {
@@ -355,7 +355,7 @@ var ExImport = {
         }
       }
     };
-    savegeo.open("POST", "http://{%REQUEST_URL_HOST%}/admin/set_json_geo", true);
+    savegeo.open("POST", "/admin/set_json_geo", true);
     savegeo.send(document.getElementById("ex_geo").value);
   }
 };

@@ -4,7 +4,7 @@ timecorrectionrunner();
 function timecorrectionrunner() {
   var timecorrection = new XMLHttpRequest();
   timecorrection.onreadystatechange = parseAjaxTimecorrection;
-  timecorrection.open("GET", "http://{%REQUEST_URL_HOST%}/currenttime", true);
+  timecorrection.open("GET", "/currenttime", true);
   timecorrection.send();
 }
 

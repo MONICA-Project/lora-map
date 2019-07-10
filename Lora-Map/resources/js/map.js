@@ -45,7 +45,7 @@ function GetMapLayers() {
       }
     }
   };
-  layergetter.open("GET", "http://{%REQUEST_URL_HOST%}/getlayer", true);
+  layergetter.open("GET", "/getlayer", true);
   layergetter.send();
 }
 
@@ -68,8 +68,12 @@ function GetGeoLayer() {
             };
           },
           onEachFeature: function (feature, layer) {
-            if (feature.geometry.type === "Polygon" || (feature.geometry.type === "Point" && feature.properties.hasOwnProperty("icon"))) {
-              layer.bindPopup(feature.properties.name);
+            if (feature.geometry.type === "Polygon" || feature.geometry.type === "Point" && feature.properties.hasOwnProperty("icon")) {
+              var text = "<b>"+feature.properties.name+"</b>";
+              if (feature.properties.hasOwnProperty("description")) {
+                text = text + "<br>" + feature.properties.description;
+              }
+              layer.bindPopup(text);
             }
           },
           pointToLayer: function (geoJsonPoint, latlng) {
@@ -100,7 +104,7 @@ function GetGeoLayer() {
       }
     }
   };
-  geogetter.open("GET", "http://{%REQUEST_URL_HOST%}/getgeo", true);
+  geogetter.open("GET", "/getgeo", true);
   geogetter.send();
 }
 
@@ -117,7 +121,7 @@ mymap.on('zoomend', function () {
         elem._icon.style.fontSize = "0px";
       }
     });
-  } else if (currentZoom == 14) {
+  } else if (currentZoom === 14) {
     SpecialMarkers.forEach(function (elem, index) {
       if (elem.feature.properties["description"] === "snumber") {
         elem._icon.style.fontSize = "0px";
@@ -128,7 +132,7 @@ mymap.on('zoomend', function () {
         elem._icon.style.fontSize = "6px";
       }
     });
-  } else if (currentZoom == 15) {
+  } else if (currentZoom === 15) {
     SpecialMarkers.forEach(function (elem, index) {
       if (elem.feature.properties["description"] === "snumber") {
         elem._icon.style.fontSize = "0px";
@@ -139,7 +143,7 @@ mymap.on('zoomend', function () {
         elem._icon.style.fontSize = "9px";
       }
     });
-  } else if (currentZoom == 16) {
+  } else if (currentZoom === 16) {
     SpecialMarkers.forEach(function (elem, index) {
       if (elem.feature.properties["description"] === "snumber") {
         elem._icon.style.fontSize = "5px";
@@ -150,7 +154,7 @@ mymap.on('zoomend', function () {
         elem._icon.style.fontSize = "13px";
       }
     });
-  } else if (currentZoom == 17) {
+  } else if (currentZoom === 17) {
     SpecialMarkers.forEach(function (elem, index) {
       if (elem.feature.properties["description"] === "snumber") {
         elem._icon.style.fontSize = "5px";
@@ -161,7 +165,7 @@ mymap.on('zoomend', function () {
         elem._icon.style.fontSize = "16px";
       }
     });
-  } else if (currentZoom == 18) {
+  } else if (currentZoom === 18) {
     SpecialMarkers.forEach(function (elem, index) {
       if (elem.feature.properties["description"] === "snumber") {
         elem._icon.style.fontSize = "8px";
@@ -172,7 +176,7 @@ mymap.on('zoomend', function () {
         elem._icon.style.fontSize = "25px";
       }
     });
-  } else if (currentZoom == 19) {
+  } else if (currentZoom === 19) {
     SpecialMarkers.forEach(function (elem, index) {
       if (elem.feature.properties["description"] === "snumber") {
         elem._icon.style.fontSize = "14px";

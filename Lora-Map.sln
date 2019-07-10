@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2026
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mora-Map", "Lora-Map\Lora-Map.csproj", "{95D6F48A-9488-42A6-A973-941B45B26DB8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lora-Map", "Lora-Map\Lora-Map.csproj", "{95D6F48A-9488-42A6-A973-941B45B26DB8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utils-IoT", "..\Utils\Utils-IoT\Utils-IoT\Utils-IoT.csproj", "{B870E4D5-6806-4A0B-B233-8907EEDC5AFC}"
 EndProject
@@ -18,6 +18,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utils", "..\Utils\Utils\Utils\Utils.csproj", "{FAC8CE64-BF13-4ECE-8097-AEB5DD060098}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mono.Posix", "..\Librarys\Mono.Posix\Mono.Posix\Mono.Posix.csproj", "{E2CA132E-E85C-40AD-BE94-B138AA68772B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoordinateSharp", "..\Librarys\Coordinates\CoordinateSharp\CoordinateSharp.csproj", "{DA8510CE-7899-49DD-9E17-7C974382288D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{E2CA132E-E85C-40AD-BE94-B138AA68772B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E2CA132E-E85C-40AD-BE94-B138AA68772B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E2CA132E-E85C-40AD-BE94-B138AA68772B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA8510CE-7899-49DD-9E17-7C974382288D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA8510CE-7899-49DD-9E17-7C974382288D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA8510CE-7899-49DD-9E17-7C974382288D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA8510CE-7899-49DD-9E17-7C974382288D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
