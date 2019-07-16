@@ -41,8 +41,8 @@ function showMarkerInfoMenu() {
 
 function update_pannels_info() {
   document.getElementById("pannels_info").innerHTML = "";
-  if (serverLocation.hasOwnProperty(statusToDevice)) {
-    var positionItem = serverLocation[statusToDevice];
+  if (MarkerObject.LocationData.hasOwnProperty(statusToDevice)) {
+    var positionItem = MarkerObject.LocationData[statusToDevice];
     var html = "<div class=\"name\">Name: <span class=\"bold\">" + positionItem["Name"] + "</span></div>";
     html += "<div class=\"batt\"><span class=\"bold\">Batterie:</span> " + positionItem["Battery"] + "V <img src=\"icons/akku/" + positionItem["Batterysimple"] + "-4.png\"></div>";
     if (positionItem["Fix"]) {
@@ -54,15 +54,15 @@ function update_pannels_info() {
     html += "<div class=\"height\"><span class=\"bold\">Höhe:</span> " + positionItem["Height"].toFixed(1) + " m</div>";
     html += "<div class=\"hdop\"><span class=\"bold\">HDOP:</span>  " + positionItem["Hdop"].toFixed(1) + "</div>";
     html += "<div class=\"lanlot\"><span class=\"bold\">Dezimal:</span> " + positionItem["Latitude"].toFixed(5) + ", " + positionItem["Longitude"].toFixed(5) + "</div>";
-    html += "<div class=\"lastgps\"><span class=\"bold\">Letzter Wert:</span> Vor: " + timeCalculation(positionItem["Lastgpspostime"], "difftext") + "</div>";
-    html += "<div class=\"update\"><span class=\"bold\">Update:</span> " + timeCalculation(positionItem["Recievedtime"], "str") + "<br><span class=\"bold\">Vor:</span> " + timeCalculation(positionItem["Recievedtime"], "difftext") + "</div>";
+    html += "<div class=\"lastgps\"><span class=\"bold\">Letzter Wert:</span> Vor: " + FunctionsObject.TimeCalculation(positionItem["Lastgpspostime"], "difftext") + "</div>";
+    html += "<div class=\"update\"><span class=\"bold\">Update:</span> " + FunctionsObject.TimeCalculation(positionItem["Recievedtime"], "str") + "<br><span class=\"bold\">Vor:</span> " + FunctionsObject.TimeCalculation(positionItem["Recievedtime"], "difftext") + "</div>";
     html += "<div><span class=\"bold\">RSSI:</span> " + positionItem["Rssi"] + ", <span class=\"bold\">SNR:</span> " + positionItem["Snr"] + "</div>";
-    if (serverPanic.hasOwnProperty(statusToDevice)) {
-      var panicData = serverPanic[statusToDevice];
+    if (MarkerObject.PanicData.hasOwnProperty(statusToDevice)) {
+      var panicData = MarkerObject.PanicData[statusToDevice];
       if (panicData["ButtonPressed"].length > 0) {
         html += "<div class='alerts'><span class=\"bold\">Alerts:</span>";
         for (var i = 0; i < panicData["ButtonPressed"].length; i++) {
-          html += "<span class='panicitem'>" + timeCalculation(panicData["ButtonPressed"][i], "str")+" (vor " + timeCalculation(panicData["ButtonPressed"][i],"difftext")+")</span>";
+          html += "<span class='panicitem'>" + FunctionsObject.TimeCalculation(panicData["ButtonPressed"][i], "str") + " (vor " + FunctionsObject.TimeCalculation(panicData["ButtonPressed"][i],"difftext")+")</span>";
         }
         html += "</div>";
       }
@@ -74,9 +74,9 @@ function update_pannels_info() {
 var overviewStatus = new Array();
 
 function updateStatus() {
-  for (var id in serverLocation) {
-    if (serverLocation.hasOwnProperty(id)) {
-      var positionItem = serverLocation[id];
+  for (var id in MarkerObject.LocationData) {
+    if (MarkerObject.LocationData.hasOwnProperty(id)) {
+      var positionItem = MarkerObject.LocationData[id];
       if (typeof overviewStatus[id] === "undefined") {
         overviewStatus[id] = createOverviewElement(positionItem, id);
         document.getElementById("pannels_pos").appendChild(overviewStatus[id]);
@@ -103,7 +103,7 @@ function updateOverviewElement(positionItem, id) {
     document.getElementById("overview-gps-id-" + id).innerText = "kein GPS-Empfang";
     document.getElementById("overview-gps-id-" + id).style.color = "red";
   }
-  document.getElementById("overview-update-id-" + id).innerText = "Letzte Werte: vor " + timeCalculation(positionItem["Recievedtime"], "difftext");
+  document.getElementById("overview-update-id-" + id).innerText = "Letzte Werte: vor " + FunctionsObject.TimeCalculation(positionItem["Recievedtime"], "difftext");
   if (positionItem['Icon'] === null) {
     var icon = document.getElementById("overview-icon-id-" + id);
     if (icon.children[0].hasAttribute("rel")) {
@@ -136,7 +136,7 @@ function createOverviewElement(positionItem, id) {
     "<span class=\"akku\"><img id=\"overview-akkuimg-id-" + id + "\" src=\"icons/akku/" + positionItem["Batterysimple"] + "-4.png\"></span>" +
     "</div>";
   divItem.innerHTML += "<div class=\"line2\" style=\"color: red;\" id=\"overview-gps-id-" + id + "\">kein GPS-Empfang</div>";
-  divItem.innerHTML += "<div class=\"line3\" id=\"overview-update-id-" + id + "\">Letzte Werte: vor " + timeCalculation(positionItem["Recievedtime"], "difftext") + "</div>";
+  divItem.innerHTML += "<div class=\"line3\" id=\"overview-update-id-" + id + "\">Letzte Werte: vor " + FunctionsObject.TimeCalculation(positionItem["Recievedtime"], "difftext") + "</div>";
   return divItem;
 }
 

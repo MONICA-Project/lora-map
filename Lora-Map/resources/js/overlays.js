@@ -1,18 +1,29 @@
-﻿setInterval(overlayrunner, 1000);
-function overlayrunner() {
-  var ccount = new XMLHttpRequest();
-  ccount.onreadystatechange = parseAjaxCount;
-  ccount.open("GET", "/cameracount", true);
-  ccount.send();
-  var cdensity = new XMLHttpRequest();
-  cdensity.onreadystatechange = parseAjaxDensity;
-  cdensity.open("GET", "/crowdcount", true);
-  cdensity.send();
-}
+﻿var OverlayObject = {
+  Start: function () {
+    setInterval(this._Runner, 1000);
+    this._Runner();
+    return this;
+  },
+  _Runner: function () {
+    var ccount = new XMLHttpRequest();
+    ccount.onreadystatechange = function () {
+      if (ccount.readyState === 4 && ccount.status === 200) {
+        OverlayObject._ParseAJAXCount(JSON.parse(ccount.responseText));
+      }
+    };
+    ccount.open("GET", "/cameracount", true);
+    ccount.send();
 
-function parseAjaxCount() {
-  if (this.readyState === 4 && this.status === 200) {
-    var cameracounts = JSON.parse(this.responseText);
+    var cdensity = new XMLHttpRequest();
+    cdensity.onreadystatechange = function () {
+      if (cdensity.readyState === 4 && cdensity.status === 200) {
+        OverlayObject._ParseAJAXDensity(JSON.parse(cdensity.responseText));
+      }
+    };
+    cdensity.open("GET", "/crowdcount", true);
+    cdensity.send();
+  },
+  _ParseAJAXCount: function (cameracounts) {
     var camerastext = "";
     for (var cameraid in cameracounts) {
       if (cameracounts.hasOwnProperty(cameraid)) {
@@ -27,12 +38,8 @@ function parseAjaxCount() {
       }
     }
     document.getElementById("cameracount").innerHTML = camerastext;
-  }
-}
-
-function parseAjaxDensity() {
-  if (this.readyState === 4 && this.status === 200) {
-    var cameradensy = JSON.parse(this.responseText);
+  },
+  _ParseAJAXDensity: function (cameradensy) {
     var densystext = "";
     for (var densyid in cameradensy) {
       if (cameradensy.hasOwnProperty(densyid)) {
@@ -46,4 +53,4 @@ function parseAjaxDensity() {
     }
     document.getElementById("crwoddensy").innerHTML = densystext;
   }
-}
+}.Start();
