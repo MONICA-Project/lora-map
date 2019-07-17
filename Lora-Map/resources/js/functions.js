@@ -1,11 +1,11 @@
 ﻿var FunctionsObject = {
   _internalTimeOffset: 0,
   Start: function () {
-    setInterval(this._Runner, 60000);
-    this._Runner();
+    setInterval(this._Runner60000, 60000);
+    this._Runner60000();
     return this;
   },
-  _Runner: function () {
+  _Runner60000: function () {
     var timecorrection = new XMLHttpRequest();
     timecorrection.onreadystatechange = function () {
       if (timecorrection.readyState === 4 && timecorrection.status === 200) {

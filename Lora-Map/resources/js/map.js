@@ -1,11 +1,14 @@
 ﻿var MapObject = {
   Map: {},
+  _SpecialMarkers: new Array(),
   Start: function () {
     this.Map = L.map('bigmap').setView(["{%START_LOCATION%}"], 16);
-    this._GetMapLayers();
+    this._RunnerOnce();
+    this._SetupMapZoomFontsize();
+    this._SetupClickHandler();
     return this;
   },
-  _GetMapLayers: function () {
+  _RunnerOnce: function () {
     var layergetter = new XMLHttpRequest();
     layergetter.onreadystatechange = function () {
       if (layergetter.readyState === 4 && layergetter.status === 200) {
@@ -14,6 +17,15 @@
     };
     layergetter.open("GET", "/getlayer", true);
     layergetter.send();
+
+    var geogetter = new XMLHttpRequest();
+    geogetter.onreadystatechange = function () {
+      if (geogetter.readyState === 4 && geogetter.status === 200) {
+        MapObject._ParseAJAXGeo(JSON.parse(geogetter.responseText));
+      }
+    };
+    geogetter.open("GET", "/getgeo", true);
+    geogetter.send();
   },
   _ParseAJAXLayers: function (maps) {
     var i = 0;
@@ -53,152 +65,142 @@
       }
       L.control.layers(baseMaps).addTo(this.Map);
     }
+  },
+  _ParseAJAXGeo: function (geo) {
+    if (!(Object.keys(geo).length === 0 && geo.constructor === Object)) {
+      L.geoJSON(geo, {
+        style: function (features) {
+          return {
+            color: typeof features.properties["stroke"] === "undefined" ? '#000000' : features.properties["stroke"],
+            weight: typeof features.properties["stroke-width"] === "undefined" ? 1 : features.properties["stroke-width"],
+            opacity: typeof features.properties["stroke-opacity"] === "undefined" ? 1 : features.properties["stroke-opacity"],
+            fillColor: typeof features.properties["fill"] === "undefined" ? '#ffffff' : features.properties["fill"],
+            fillOpacity: typeof features.properties["fill-opacity"] === "undefined" ? 1 : features.properties["fill-opacity"]
+          };
+        },
+        onEachFeature: function (feature, layer) {
+          if (feature.geometry.type === "Polygon" || feature.geometry.type === "Point" && feature.properties.hasOwnProperty("icon")) {
+            var text = "<b>" + feature.properties.name + "</b>";
+            if (feature.properties.hasOwnProperty("description")) {
+              text = text + "<br>" + feature.properties.description;
+            }
+            layer.bindPopup(text);
+          }
+        },
+        pointToLayer: function (geoJsonPoint, latlng) {
+          if (geoJsonPoint.properties.hasOwnProperty("description") && geoJsonPoint.properties["description"] === "snumber" && !geoJsonPoint.properties.hasOwnProperty("icon")) {
+            var snumbericon = L.marker(latlng, {
+              icon: new L.DivIcon({
+                className: "snumber-icon",
+                html: geoJsonPoint.properties["name"],
+                iconSize: [8, 8]
+              })
+            });
+            MapObject._SpecialMarkers.push(snumbericon);
+            return snumbericon;
+          } else if (geoJsonPoint.properties.hasOwnProperty("description") && geoJsonPoint.properties["description"] === "coord" && !geoJsonPoint.properties.hasOwnProperty("icon")) {
+            var coordicon = L.marker(latlng, {
+              icon: new L.DivIcon({
+                className: "coord-icon",
+                html: geoJsonPoint.properties["name"]
+              })
+            });
+            MapObject._SpecialMarkers.push(coordicon);
+            return coordicon;
+          } else if (geoJsonPoint.properties.hasOwnProperty("icon")) {
+            return L.marker(latlng, { icon: L.icon({ iconUrl: "css/icons/cctv.png", iconSize: [32, 32] }) });
+          }
+        }
+      }).addTo(this.Map);
+    }
+  },
+  _SetupMapZoomFontsize: function () {
+    this.Map.on('zoomend', function () {
+      var currentZoom = MapObject.Map.getZoom();
+      if (currentZoom < 14) {
+        MapObject._SpecialMarkers.forEach(function (elem, index) {
+          if (elem.feature.properties["description"] === "snumber") {
+            elem._icon.style.fontSize = "0px";
+            elem._icon.style.marginLeft = "0px";
+            elem._icon.style.marginTop = "0px";
+          }
+          if (elem.feature.properties["description"] === "coord") {
+            elem._icon.style.fontSize = "0px";
+          }
+        });
+      } else if (currentZoom === 14) {
+        MapObject._SpecialMarkers.forEach(function (elem, index) {
+          if (elem.feature.properties["description"] === "snumber") {
+            elem._icon.style.fontSize = "0px";
+            elem._icon.style.marginLeft = "0px";
+            elem._icon.style.marginTop = "0px";
+          }
+          if (elem.feature.properties["description"] === "coord") {
+            elem._icon.style.fontSize = "6px";
+          }
+        });
+      } else if (currentZoom === 15) {
+        MapObject._SpecialMarkers.forEach(function (elem, index) {
+          if (elem.feature.properties["description"] === "snumber") {
+            elem._icon.style.fontSize = "0px";
+            elem._icon.style.marginLeft = "0px";
+            elem._icon.style.marginTop = "0px";
+          }
+          if (elem.feature.properties["description"] === "coord") {
+            elem._icon.style.fontSize = "9px";
+          }
+        });
+      } else if (currentZoom === 16) {
+        MapObject._SpecialMarkers.forEach(function (elem, index) {
+          if (elem.feature.properties["description"] === "snumber") {
+            elem._icon.style.fontSize = "5px";
+            elem._icon.style.marginLeft = "-4px";
+            elem._icon.style.marginTop = "-4px";
+          }
+          if (elem.feature.properties["description"] === "coord") {
+            elem._icon.style.fontSize = "13px";
+          }
+        });
+      } else if (currentZoom === 17) {
+        MapObject._SpecialMarkers.forEach(function (elem, index) {
+          if (elem.feature.properties["description"] === "snumber") {
+            elem._icon.style.fontSize = "5px";
+            elem._icon.style.marginLeft = "-4px";
+            elem._icon.style.marginTop = "-4px";
+          }
+          if (elem.feature.properties["description"] === "coord") {
+            elem._icon.style.fontSize = "16px";
+          }
+        });
+      } else if (currentZoom === 18) {
+        MapObject._SpecialMarkers.forEach(function (elem, index) {
+          if (elem.feature.properties["description"] === "snumber") {
+            elem._icon.style.fontSize = "8px";
+            elem._icon.style.marginLeft = "-5px";
+            elem._icon.style.marginTop = "-6px";
+          }
+          if (elem.feature.properties["description"] === "coord") {
+            elem._icon.style.fontSize = "25px";
+          }
+        });
+      } else if (currentZoom === 19) {
+        MapObject._SpecialMarkers.forEach(function (elem, index) {
+          if (elem.feature.properties["description"] === "snumber") {
+            elem._icon.style.fontSize = "14px";
+            elem._icon.style.marginLeft = "-8px";
+            elem._icon.style.marginTop = "-11px";
+          }
+          if (elem.feature.properties["description"] === "coord") {
+            elem._icon.style.fontSize = "45px";
+          }
+        });
+      }
+    });
+  },
+  _SetupClickHandler: function () {
+    this.Map.on("click", this._HidePanel);
+  },
+  _HidePanel: function (e) {
+    MenuObject.ShowHidePanel(null);
   }
 }.Start();
-
-var SpecialMarkers = new Array();
-GetGeoLayer();
-function GetGeoLayer() {
-  var geogetter = new XMLHttpRequest();
-  geogetter.onreadystatechange = function () {
-    if (geogetter.readyState === 4 && geogetter.status === 200) {
-      var geo = JSON.parse(geogetter.responseText);
-      if (!(Object.keys(geo).length === 0 && geo.constructor === Object)) {
-        L.geoJSON(geo, {
-          style: function (features) {
-            return {
-              color: typeof features.properties["stroke"] === "undefined" ? '#000000' : features.properties["stroke"],
-              weight: typeof features.properties["stroke-width"] === "undefined" ? 1 : features.properties["stroke-width"],
-              opacity: typeof features.properties["stroke-opacity"] === "undefined" ? 1 : features.properties["stroke-opacity"],
-              fillColor: typeof features.properties["fill"] === "undefined" ? '#ffffff' : features.properties["fill"],
-              fillOpacity: typeof features.properties["fill-opacity"] === "undefined" ? 1 : features.properties["fill-opacity"]
-            };
-          },
-          onEachFeature: function (feature, layer) {
-            if (feature.geometry.type === "Polygon" || feature.geometry.type === "Point" && feature.properties.hasOwnProperty("icon")) {
-              var text = "<b>"+feature.properties.name+"</b>";
-              if (feature.properties.hasOwnProperty("description")) {
-                text = text + "<br>" + feature.properties.description;
-              }
-              layer.bindPopup(text);
-            }
-          },
-          pointToLayer: function (geoJsonPoint, latlng) {
-            if (geoJsonPoint.properties.hasOwnProperty("description") && geoJsonPoint.properties["description"] === "snumber" && !geoJsonPoint.properties.hasOwnProperty("icon")) {
-              var snumbericon = L.marker(latlng, {
-                icon: new L.DivIcon({
-                  className: "snumber-icon",
-                  html: geoJsonPoint.properties["name"],
-                  iconSize: [8, 8]
-                })
-              });
-              SpecialMarkers.push(snumbericon);
-              return snumbericon;
-            } else if (geoJsonPoint.properties.hasOwnProperty("description") && geoJsonPoint.properties["description"] === "coord" && !geoJsonPoint.properties.hasOwnProperty("icon")) {
-              var coordicon = L.marker(latlng, {
-                icon: new L.DivIcon({
-                  className: "coord-icon",
-                  html: geoJsonPoint.properties["name"]
-                })
-              });
-              SpecialMarkers.push(coordicon);
-              return coordicon;
-            } else if (geoJsonPoint.properties.hasOwnProperty("icon")) {
-              return L.marker(latlng, { icon: L.icon({ iconUrl: "css/icons/cctv.png", iconSize: [32, 32] }) });
-            }
-          }
-        }).addTo(MapObject.Map);
-      }
-    }
-  };
-  geogetter.open("GET", "/getgeo", true);
-  geogetter.send();
-}
-
-MapObject.Map.on('zoomend', function () {
-  var currentZoom = MapObject.Map.getZoom();
-  if (currentZoom < 14) {
-    SpecialMarkers.forEach(function (elem, index) {
-      if (elem.feature.properties["description"] === "snumber") {
-        elem._icon.style.fontSize = "0px";
-        elem._icon.style.marginLeft = "0px";
-        elem._icon.style.marginTop = "0px";
-      }
-      if (elem.feature.properties["description"] === "coord") {
-        elem._icon.style.fontSize = "0px";
-      }
-    });
-  } else if (currentZoom === 14) {
-    SpecialMarkers.forEach(function (elem, index) {
-      if (elem.feature.properties["description"] === "snumber") {
-        elem._icon.style.fontSize = "0px";
-        elem._icon.style.marginLeft = "0px";
-        elem._icon.style.marginTop = "0px";
-      }
-      if (elem.feature.properties["description"] === "coord") {
-        elem._icon.style.fontSize = "6px";
-      }
-    });
-  } else if (currentZoom === 15) {
-    SpecialMarkers.forEach(function (elem, index) {
-      if (elem.feature.properties["description"] === "snumber") {
-        elem._icon.style.fontSize = "0px";
-        elem._icon.style.marginLeft = "0px";
-        elem._icon.style.marginTop = "0px";
-      }
-      if (elem.feature.properties["description"] === "coord") {
-        elem._icon.style.fontSize = "9px";
-      }
-    });
-  } else if (currentZoom === 16) {
-    SpecialMarkers.forEach(function (elem, index) {
-      if (elem.feature.properties["description"] === "snumber") {
-        elem._icon.style.fontSize = "5px";
-        elem._icon.style.marginLeft = "-4px";
-        elem._icon.style.marginTop = "-4px";
-      }
-      if (elem.feature.properties["description"] === "coord") {
-        elem._icon.style.fontSize = "13px";
-      }
-    });
-  } else if (currentZoom === 17) {
-    SpecialMarkers.forEach(function (elem, index) {
-      if (elem.feature.properties["description"] === "snumber") {
-        elem._icon.style.fontSize = "5px";
-        elem._icon.style.marginLeft = "-4px";
-        elem._icon.style.marginTop = "-4px";
-      }
-      if (elem.feature.properties["description"] === "coord") {
-        elem._icon.style.fontSize = "16px";
-      }
-    });
-  } else if (currentZoom === 18) {
-    SpecialMarkers.forEach(function (elem, index) {
-      if (elem.feature.properties["description"] === "snumber") {
-        elem._icon.style.fontSize = "8px";
-        elem._icon.style.marginLeft = "-5px";
-        elem._icon.style.marginTop = "-6px";
-      }
-      if (elem.feature.properties["description"] === "coord") {
-        elem._icon.style.fontSize = "25px";
-      }
-    });
-  } else if (currentZoom === 19) {
-    SpecialMarkers.forEach(function (elem, index) {
-      if (elem.feature.properties["description"] === "snumber") {
-        elem._icon.style.fontSize = "14px";
-        elem._icon.style.marginLeft = "-8px";
-        elem._icon.style.marginTop = "-11px";
-      }
-      if (elem.feature.properties["description"] === "coord") {
-        elem._icon.style.fontSize = "45px";
-      }
-    });
-  }
-});
-
-MapObject.Map.on("click", hidePanel);
-
-function hidePanel(e) {
-  showHidePanel(null);
-}

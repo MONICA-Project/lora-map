@@ -3,10 +3,11 @@
   PanicData: {},
   LocationData: {},
   Start: function () {
-    setInterval(this._Runner, 1000);
+    setInterval(this._Runner1000, 1000);
+    this._Runner1000();
     return this;
   },
-  _Runner: function () {
+  _Runner1000: function () {
     var loc = new XMLHttpRequest();
     loc.onreadystatechange = function () {
       if (loc.readyState === 4 && loc.status === 200) {
@@ -44,7 +45,7 @@
               });
               marker = L.marker([positionItem['Latitude'], positionItem['Longitude']], { 'title': positionItem['Name'], 'icon': myIcon });
             }
-            this._Markers[key] = marker.addTo(MapObject.Map).on("click", showMarkerInfo, key);
+            this._Markers[key] = marker.addTo(MapObject.Map).on("click", function () { MenuObject.statusToDevice = this; MenuObject.ShowHidePanel("pannels_info"); }, key);
           } else {
             this._Markers[key].setLatLng([positionItem['Latitude'], positionItem['Longitude']]);
             if (positionItem['Icon'] !== null) {
@@ -64,7 +65,7 @@
             } else {
               if (this._Markers[key]._icon.children.length === 1 && this._Markers[key]._icon.children[0].hasAttribute("src")) {
                 this._Markers[key].removeFrom(MapObject.Map);
-                this._Markers[key] = L.marker([positionItem['Latitude'], positionItem['Longitude']], { 'title': positionItem['Name'] }).addTo(MapObject.Map).on("click", showMarkerInfo, key);
+                this._Markers[key] = L.marker([positionItem['Latitude'], positionItem['Longitude']], { 'title': positionItem['Name'] }).addTo(MapObject.Map).on("click", function () { MenuObject.statusToDevice = this; MenuObject.ShowHidePanel("pannels_info"); }, key);
               }
             }
           }
@@ -83,8 +84,8 @@
         }
       }
     }
-    updateStatus();
-    update_pannels_info();
+    MenuObject.UpdateStatus();
+    MenuObject._Update_pannels_info();
   }, 
   _ParseAJAXPanic: function (serverPanic) {
     this.PanicData = serverPanic;
@@ -95,7 +96,7 @@
           var marker = this._Markers[id];
           if (FunctionsObject.TimeCalculation(alertItem["Recievedtime"], "diffraw") <= 10 && marker._icon.className.indexOf(" marker-alert") === -1) {
             marker._icon.className += " marker-alert";
-            showMarkerInfoPerId(id);
+            MenuObject.ShowMarkerInfoPerId(id);
           } else if (FunctionsObject.TimeCalculation(alertItem["Recievedtime"], "diffraw") > 10 && marker._icon.className.indexOf(" marker-alert") !== -1) {
             marker._icon.className = marker._icon.className.replace(" marker-alert", "");
           }

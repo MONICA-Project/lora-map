@@ -1,10 +1,10 @@
 ﻿var OverlayObject = {
   Start: function () {
-    setInterval(this._Runner, 1000);
-    this._Runner();
+    setInterval(this._Runner1000, 1000);
+    this._Runner1000();
     return this;
   },
-  _Runner: function () {
+  _Runner1000: function () {
     var ccount = new XMLHttpRequest();
     ccount.onreadystatechange = function () {
       if (ccount.readyState === 4 && ccount.status === 200) {
