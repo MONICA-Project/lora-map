@@ -1,27 +1,6 @@
 ﻿var OverlayObject = {
   Start: function () {
-    setInterval(this._Runner1000, 1000);
-    this._Runner1000();
     return this;
-  },
-  _Runner1000: function () {
-    var ccount = new XMLHttpRequest();
-    ccount.onreadystatechange = function () {
-      if (ccount.readyState === 4 && ccount.status === 200) {
-        OverlayObject._ParseAJAXCount(JSON.parse(ccount.responseText));
-      }
-    };
-    ccount.open("GET", "/cameracount", true);
-    ccount.send();
-
-    var cdensity = new XMLHttpRequest();
-    cdensity.onreadystatechange = function () {
-      if (cdensity.readyState === 4 && cdensity.status === 200) {
-        OverlayObject._ParseAJAXDensity(JSON.parse(cdensity.responseText));
-      }
-    };
-    cdensity.open("GET", "/crowdcount", true);
-    cdensity.send();
   },
   _ParseAJAXCount: function (cameracounts) {
     var camerastext = "";

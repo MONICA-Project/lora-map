@@ -2,18 +2,66 @@
   _internalTimeOffset: 0,
   Start: function () {
     setInterval(this._Runner60000, 60000);
+    setInterval(this._Runner1000, 1000);
     this._Runner60000();
+    this._Runner1000();
+    this._RunnerOnce();
     return this;
   },
   _Runner60000: function () {
-    var timecorrection = new XMLHttpRequest();
-    timecorrection.onreadystatechange = function () {
-      if (timecorrection.readyState === 4 && timecorrection.status === 200) {
-        FunctionsObject._ParseAJAX(JSON.parse(timecorrection.responseText));
+    var get60000 = new XMLHttpRequest();
+    get60000.onreadystatechange = function () {
+      if (get60000.readyState === 4 && get60000.status === 200) {
+        var json = JSON.parse(get60000.responseText);
+        FunctionsObject._ParseAJAX(json["currenttime"]);
       }
     };
-    timecorrection.open("GET", "/currenttime", true);
-    timecorrection.send();
+    get60000.open("GET", "/get60000", true);
+    get60000.send();
+  },
+  _Runner1000: function () {
+    var get1000 = new XMLHttpRequest();
+    get1000.onreadystatechange = function () {
+      if (get1000.readyState === 4 && get1000.status === 200) {
+        var json = JSON.parse(get1000.responseText);
+        MarkerObject._ParseAJAXLoc(json["loc"]);
+        MarkerObject._ParseAJAXPanic(json["panic"]);
+        OverlayObject._ParseAJAXCount(json["cameracount"]);
+        OverlayObject._ParseAJAXDensity(json["crowdcount"]);
+      }
+    };
+    get1000.open("GET", "/get1000", true);
+    get1000.send();
+  },
+  _RunnerOnce: function () {
+    /*var getonce = new XMLHttpRequest();
+    getonce.onreadystatechange = function () {
+      if (getonce.readyState === 4 && getonce.status === 200) {
+        var json = JSON.parse(getonce.responseText);
+        MapObject._ParseAJAXLayers(json["getlayer"]);
+        MapObject._ParseAJAXGeo(json["getgeo"]);
+      }
+    };
+    getonce.open("GET", "/getonce", true);
+    getonce.send();*/
+
+    var layergetter = new XMLHttpRequest();
+    layergetter.onreadystatechange = function () {
+      if (layergetter.readyState === 4 && layergetter.status === 200) {
+        MapObject._ParseAJAXLayers(JSON.parse(layergetter.responseText));
+      }
+    };
+    layergetter.open("GET", "/getlayer", true);
+    layergetter.send();
+
+    var geogetter = new XMLHttpRequest();
+    geogetter.onreadystatechange = function () {
+      if (geogetter.readyState === 4 && geogetter.status === 200) {
+        MapObject._ParseAJAXGeo(JSON.parse(geogetter.responseText));
+      }
+    };
+    geogetter.open("GET", "/getgeo", true);
+    geogetter.send();
   },
   _ParseAJAX: function (utcobject) {
     if (utcobject.hasOwnProperty("utc")) {

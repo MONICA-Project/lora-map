@@ -3,29 +3,9 @@
   _SpecialMarkers: new Array(),
   Start: function () {
     this.Map = L.map('bigmap').setView(["{%START_LOCATION%}"], 16);
-    this._RunnerOnce();
     this._SetupMapZoomFontsize();
     this._SetupClickHandler();
     return this;
-  },
-  _RunnerOnce: function () {
-    var layergetter = new XMLHttpRequest();
-    layergetter.onreadystatechange = function () {
-      if (layergetter.readyState === 4 && layergetter.status === 200) {
-        MapObject._ParseAJAXLayers(JSON.parse(layergetter.responseText));
-      }
-    };
-    layergetter.open("GET", "/getlayer", true);
-    layergetter.send();
-
-    var geogetter = new XMLHttpRequest();
-    geogetter.onreadystatechange = function () {
-      if (geogetter.readyState === 4 && geogetter.status === 200) {
-        MapObject._ParseAJAXGeo(JSON.parse(geogetter.responseText));
-      }
-    };
-    geogetter.open("GET", "/getgeo", true);
-    geogetter.send();
   },
   _ParseAJAXLayers: function (maps) {
     var i = 0;

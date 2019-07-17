@@ -106,13 +106,25 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
 
     protected override Boolean SendWebserverResponse(HttpListenerContext cont) {
       try {
-        if(cont.Request.Url.PathAndQuery.StartsWith("/loc")) {
-          return SendJsonResponse(this.positions, cont);
-        } else if(cont.Request.Url.PathAndQuery.StartsWith("/panic")) {
-          return SendJsonResponse(this.alarms, cont);
-        } else if(cont.Request.Url.PathAndQuery.StartsWith("/icons/marker/Marker.svg") && cont.Request.Url.PathAndQuery.Contains("?")) {
+        if (cont.Request.Url.PathAndQuery.StartsWith("/get1000")) {
+          return SendJsonResponse(new Dictionary<String, Object>() {
+            { "loc", this.positions },
+            { "panic", this.alarms },
+            { "cameracount", this.cameras },
+            { "crowdcount", this.crowds }
+          }, cont);
+        } else if (cont.Request.Url.PathAndQuery.StartsWith("/get60000")) {
+          return SendJsonResponse(new Dictionary<String, Object>() {
+            { "currenttime", new Dictionary<String, DateTime>() { { "utc", DateTime.UtcNow } } }
+          }, cont);
+        } else if (cont.Request.Url.PathAndQuery.StartsWith("/getonce")) {
+          return SendJsonResponse(new Dictionary<String, Object>() {
+            { "getlayer", this.FindMapLayer(cont.Request) },
+            { "getgeo", JsonMapper.ToObject(File.ReadAllText("json/geo.json")) }
+          }, cont);
+        } else if (cont.Request.Url.PathAndQuery.StartsWith("/icons/marker/Marker.svg") && cont.Request.Url.PathAndQuery.Contains("?")) {
           String hash = cont.Request.Url.PathAndQuery.Substring(cont.Request.Url.PathAndQuery.IndexOf('?') + 1);
-          if(!this.markertable.ContainsKey(hash)) {
+          if (!this.markertable.ContainsKey(hash)) {
             this.markertable.Add(hash, new Marker(hash));
           }
           cont.Response.ContentType = "image/svg+xml";
@@ -121,24 +133,18 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
           cont.Response.OutputStream.Write(buf, 0, buf.Length);
           Console.WriteLine("200 - " + cont.Request.Url.PathAndQuery);
           return true;
-        } else if(cont.Request.Url.PathAndQuery.StartsWith("/currenttime")) {
-          return SendJsonResponse(new Dictionary<String, DateTime>() { { "utc", DateTime.UtcNow } }, cont);
-        } else if(cont.Request.Url.PathAndQuery.StartsWith("/admin")) {
+        } else if (cont.Request.Url.PathAndQuery.StartsWith("/admin")) {
           return this.admin.ParseReuqest(cont);
-        } else if(cont.Request.Url.PathAndQuery.StartsWith("/getlayer")) {
+        } else if (cont.Request.Url.PathAndQuery.StartsWith("/getlayer")) {
           return SendJsonResponse(this.FindMapLayer(cont.Request), cont);
-        } else if(cont.Request.Url.PathAndQuery.StartsWith("/maps/")) {
+        } else if (cont.Request.Url.PathAndQuery.StartsWith("/maps/")) {
           return SendFileResponse(cont, "resources", false);
-        } else if(cont.Request.Url.PathAndQuery.StartsWith("/getgeo")) {
+        } else if (cont.Request.Url.PathAndQuery.StartsWith("/getgeo")) {
           Byte[] buf = Encoding.UTF8.GetBytes(File.ReadAllText("json/geo.json"));
           cont.Response.ContentLength64 = buf.Length;
           cont.Response.OutputStream.Write(buf, 0, buf.Length);
           Console.WriteLine("200 - " + cont.Request.Url.PathAndQuery);
           return true;
-        } else if(cont.Request.Url.PathAndQuery.StartsWith("/cameracount")) {
-          return SendJsonResponse(this.cameras, cont);
-        } else if (cont.Request.Url.PathAndQuery.StartsWith("/crowdcount")) {
-          return SendJsonResponse(this.crowds, cont);
         }
       } catch(Exception e) {
         Helper.WriteError("SendWebserverResponse(): 500 - " + e.Message + "\n\n" + e.StackTrace);

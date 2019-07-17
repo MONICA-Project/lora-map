@@ -3,28 +3,7 @@
   PanicData: {},
   LocationData: {},
   Start: function () {
-    setInterval(this._Runner1000, 1000);
-    this._Runner1000();
     return this;
-  },
-  _Runner1000: function () {
-    var loc = new XMLHttpRequest();
-    loc.onreadystatechange = function () {
-      if (loc.readyState === 4 && loc.status === 200) {
-        MarkerObject._ParseAJAXLoc(JSON.parse(loc.responseText));
-      }
-    };
-    loc.open("GET", "/loc", true);
-    loc.send();
-
-    var panic = new XMLHttpRequest();
-    panic.onreadystatechange = function () {
-      if (panic.readyState === 4 && panic.status === 200) {
-        MarkerObject._ParseAJAXPanic(JSON.parse(panic.responseText));
-      }
-    };
-    panic.open("GET", "/panic", true);
-    panic.send();
   },
   _ParseAJAXLoc: function (serverLocation) {
     this.LocationData = serverLocation;
