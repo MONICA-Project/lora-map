@@ -34,7 +34,7 @@
     get1000.send();
   },
   _RunnerOnce: function () {
-    /*var getonce = new XMLHttpRequest();
+    var getonce = new XMLHttpRequest();
     getonce.onreadystatechange = function () {
       if (getonce.readyState === 4 && getonce.status === 200) {
         var json = JSON.parse(getonce.responseText);
@@ -43,25 +43,7 @@
       }
     };
     getonce.open("GET", "/getonce", true);
-    getonce.send();*/
-
-    var layergetter = new XMLHttpRequest();
-    layergetter.onreadystatechange = function () {
-      if (layergetter.readyState === 4 && layergetter.status === 200) {
-        MapObject._ParseAJAXLayers(JSON.parse(layergetter.responseText));
-      }
-    };
-    layergetter.open("GET", "/getlayer", true);
-    layergetter.send();
-
-    var geogetter = new XMLHttpRequest();
-    geogetter.onreadystatechange = function () {
-      if (geogetter.readyState === 4 && geogetter.status === 200) {
-        MapObject._ParseAJAXGeo(JSON.parse(geogetter.responseText));
-      }
-    };
-    geogetter.open("GET", "/getgeo", true);
-    geogetter.send();
+    getonce.send();
   },
   _ParseAJAX: function (utcobject) {
     if (utcobject.hasOwnProperty("utc")) {

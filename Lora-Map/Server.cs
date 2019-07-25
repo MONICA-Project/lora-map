@@ -135,17 +135,9 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
           return true;
         } else if (cont.Request.Url.PathAndQuery.StartsWith("/admin")) {
           return this.admin.ParseReuqest(cont);
-        } else if (cont.Request.Url.PathAndQuery.StartsWith("/getlayer")) {
-          return SendJsonResponse(this.FindMapLayer(cont.Request), cont);
         } else if (cont.Request.Url.PathAndQuery.StartsWith("/maps/")) {
           return SendFileResponse(cont, "resources", false);
-        } else if (cont.Request.Url.PathAndQuery.StartsWith("/getgeo")) {
-          Byte[] buf = Encoding.UTF8.GetBytes(File.ReadAllText("json/geo.json"));
-          cont.Response.ContentLength64 = buf.Length;
-          cont.Response.OutputStream.Write(buf, 0, buf.Length);
-          Console.WriteLine("200 - " + cont.Request.Url.PathAndQuery);
-          return true;
-        }
+        } 
       } catch(Exception e) {
         Helper.WriteError("SendWebserverResponse(): 500 - " + e.Message + "\n\n" + e.StackTrace);
         cont.Response.StatusCode = 500;

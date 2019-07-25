@@ -5,6 +5,7 @@
 ### Bugfixes
 ### Changes
 * Refactoring of all JS
+* Make only one request per second instead of four per AJAX
 
 ## 1.2.8
 ### New Features
