@@ -50,6 +50,9 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
       if(!File.Exists("json/geo.json")) {
         File.WriteAllText("json/geo.json", "{}");
       }
+      if (!File.Exists("json/settings.json")) {
+        File.WriteAllText("json/settings.json", "{}");
+      }
     }
 
     protected override void Backend_MessageIncomming(Object sender, BackendEvent mqtt) {
