@@ -1,35 +1,55 @@
-﻿function menu_names() {
-  var ajaxnames = new XMLHttpRequest();
-  ajaxnames.onreadystatechange = function() {
-    if(ajaxnames.readyState === 4 && ajaxnames.status === 200) {
-      NamesEditor.ParseJson(ajaxnames.responseText);
-    }
-  };
-  ajaxnames.open("GET", "/admin/get_json_names", true);
-  ajaxnames.send();
-}
-
-function menu_overlay() {
-
-}
-
-function menu_eximport() {
-  var ajaxnames = new XMLHttpRequest();
-  ajaxnames.onreadystatechange = function () {
-    if (ajaxnames.readyState === 4 && ajaxnames.status === 200) {
-      var ajaxgeo = new XMLHttpRequest();
-      ajaxgeo.onreadystatechange = function () {
-        if (ajaxgeo.readyState === 4 && ajaxgeo.status === 200) {
-          ExImport.ParseJson(ajaxnames.responseText, ajaxgeo.responseText);
-        }
-      };
-      ajaxgeo.open("GET", "/admin/get_json_geo", true);
-      ajaxgeo.send();
-    }
-  };
-  ajaxnames.open("GET", "/admin/get_json_names", true);
-  ajaxnames.send();
-}
+﻿var AdminMenu = {
+  Names: function () {
+    var ajaxnames = new XMLHttpRequest();
+    ajaxnames.onreadystatechange = function () {
+      if (ajaxnames.readyState === 4 && ajaxnames.status === 200) {
+        NamesEditor.ParseJson(ajaxnames.responseText);
+      }
+    };
+    ajaxnames.open("GET", "/admin/get_json_names", true);
+    ajaxnames.send();
+    return false;
+  },
+  Overlay: function () {
+    return false;
+  },
+  Settings: function () {
+    var ajaxsettings = new XMLHttpRequest();
+    ajaxsettings.onreadystatechange = function () {
+      if (ajaxsettings.readyState === 4 && ajaxsettings.status === 200) {
+        Settings.ParseJson(JSON.parse(ajaxsettings.responseText));
+      }
+    };
+    ajaxsettings.open("GET", "/admin/get_json_settings", true);
+    ajaxsettings.send();
+    return false;
+  },
+  ExImport: function () {
+    var ajaxnames = new XMLHttpRequest();
+    ajaxnames.onreadystatechange = function () {
+      if (ajaxnames.readyState === 4 && ajaxnames.status === 200) {
+        var ajaxgeo = new XMLHttpRequest();
+        ajaxgeo.onreadystatechange = function () {
+          if (ajaxgeo.readyState === 4 && ajaxgeo.status === 200) {
+            var ajaxsettings = new XMLHttpRequest();
+            ajaxsettings.onreadystatechange = function () {
+              if (ajaxsettings.readyState === 4 && ajaxsettings.status === 200) {
+                ExImport.ParseJson(ajaxnames.responseText, ajaxgeo.responseText, ajaxsettings.responseText);
+              }
+            };
+            ajaxsettings.open("GET", "/admin/get_json_settings", true);
+            ajaxsettings.send();
+          }
+        };
+        ajaxgeo.open("GET", "/admin/get_json_geo", true);
+        ajaxgeo.send();
+      }
+    };
+    ajaxnames.open("GET", "/admin/get_json_names", true);
+    ajaxnames.send();
+    return false;
+  }
+};
 
 var NamesEditor = {
   iconeditorcounter: 0,
@@ -320,15 +340,48 @@ var NamesEditor = {
   }
 };
 
+var Settings = {
+  ParseJson: function (jsonsettings) {
+    var html = "<div id='settingseditor'><div class='title'>Einstellungen</div>";
+    html += "<div class='startloc'>Startlocation: <input value='" + jsonsettings.StartPos.lat + "' id='startlat'> Lat, <input value='" + jsonsettings.StartPos.lon + "' id='startlon'> Lon</div>";
+    html += "<div class='wetterwarnings'>CellId's für DWD-Wetterwarnungen: <input value='" + jsonsettings.CellIds.join(";") + "' id='wetterids'> (Trennen durch \";\", <a href='https://www.dwd.de/DE/leistungen/opendata/help/warnungen/cap_warncellids_csv.html'>cap_warncellids_csv</a>)</div>";
+    html += "<div class='savesettings'><img src='../icons/general/save.png' onclick='Settings.Save()' class='pointer'></div>";
+    document.getElementById("content").innerHTML = html + "</div>";
+  },
+  Save: function () {
+    var ret = {};
+    ret.StartPos = {};
+    ret.StartPos.lat = parseFloat(document.getElementById("startlat").value.replace(",", "."));
+    ret.StartPos.lon = parseFloat(document.getElementById("startlon").value.replace(",", "."));
+    ret.CellIds = document.getElementById("wetterids").value.split(";");
+
+    var savesettings = new XMLHttpRequest();
+    savesettings.onreadystatechange = function () {
+      if (savesettings.readyState === 4) {
+        if (savesettings.status === 200) {
+          alert("Änderungen gespeichert!");
+        } else if (savesettings.status === 501) {
+          alert("Ein Fehler ist aufgetreten (invalid JSON)!");
+        }
+      }
+    };
+    savesettings.open("POST", "/admin/set_json_settings", true);
+    savesettings.send(JSON.stringify(ret));
+  }
+};
+
 var ExImport = {
-  ParseJson: function (jsonnames, jsongeo) {
+  ParseJson: function (jsonnames, jsongeo, jsonsettings) {
     html = "<div id='eximport'><div class='title'>Ex- und Import der Einstellungen</div>";
     html += "<div class='names'>names.json (Namen und Icons)<br/><textarea id='ex_names'></textarea> <img src='../icons/general/save.png' onclick='ExImport.SaveNames()' class='pointer'></div>";
     html += "<div class='names'>geo.json (Layer on the MAP) <a href='https://mapbox.github.io/togeojson/'>Kml Konverter</a><br/><textarea id='ex_geo'></textarea> <img src='../icons/general/save.png' onclick='ExImport.SaveGeo()' class='pointer'></div>";
+    html += "<div class='names'>settings.json (Settings of the Map)<br/><textarea id='ex_settings'></textarea> <img src='../icons/general/save.png' onclick='ExImport.SaveSettings()' class='pointer'></div>";
+
     html += "</div>";
     document.getElementById("content").innerHTML = html;
     document.getElementById("ex_names").value = jsonnames;
     document.getElementById("ex_geo").value = jsongeo;
+    document.getElementById("ex_settings").value = jsonsettings;
   },
   SaveNames: function () {
     var savenames = new XMLHttpRequest();
@@ -357,5 +410,19 @@ var ExImport = {
     };
     savegeo.open("POST", "/admin/set_json_geo", true);
     savegeo.send(document.getElementById("ex_geo").value);
+  },
+  SaveSettings: function () {
+    var savesettings = new XMLHttpRequest();
+    savesettings.onreadystatechange = function () {
+      if (savesettings.readyState === 4) {
+        if (savesettings.status === 200) {
+          alert("Änderungen an settings.json gespeichert!");
+        } else if (savesettings.status === 501) {
+          alert("Ein Fehler ist aufgetreten (invalid JSON)!");
+        }
+      }
+    };
+    savesettings.open("POST", "/admin/set_json_settings", true);
+    savesettings.send(document.getElementById("ex_settings").value);
   }
 };

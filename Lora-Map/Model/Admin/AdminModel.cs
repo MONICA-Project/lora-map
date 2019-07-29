@@ -59,7 +59,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model.Admin {
     private Boolean GetJsonFiles(HttpListenerContext cont) =>
       cont.Request.Url.PathAndQuery == "/admin/get_json_names" ? this.GetJsonFile(cont, "names.json") :
       cont.Request.Url.PathAndQuery == "/admin/get_json_geo" ? this.GetJsonFile(cont, "geo.json") :
-      cont.Request.Url.PathAndQuery == "/admin/get_json_settings" ? this.GetJsonFile(cont, "settings.json");
+      cont.Request.Url.PathAndQuery == "/admin/get_json_settings" ? this.GetJsonFile(cont, "settings.json") : 
       false;
 
     private Boolean GetJsonFile(HttpListenerContext cont, String filename) {

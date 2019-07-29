@@ -114,3 +114,14 @@
   height: 120px;
   width: 90%;
 }
+
+#content #settingseditor .title {
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+#content #settingseditor .startloc,
+#content #settingseditor .wetterwarnings,
+#content #settingseditor .savesettings {
+  margin-left: 15px;
+}

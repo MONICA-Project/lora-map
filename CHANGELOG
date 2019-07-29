@@ -6,7 +6,7 @@
 ### Changes
 * Refactoring of all JS
 * Make only one request per second instead of four per AJAX
-* Refactoring Adminpannel
+* Refactoring Adminpannel and add settings.json
 
 ## 1.2.8
 ### New Features
