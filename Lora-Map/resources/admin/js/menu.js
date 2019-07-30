@@ -343,8 +343,9 @@ var NamesEditor = {
 var Settings = {
   ParseJson: function (jsonsettings) {
     var html = "<div id='settingseditor'><div class='title'>Einstellungen</div>";
-    html += "<div class='startloc'>Startlocation: <input value='" + jsonsettings.StartPos.lat + "' id='startlat'> Lat, <input value='" + jsonsettings.StartPos.lon + "' id='startlon'> Lon</div>";
+    html += "<div class='startloc'>Startpunkt: <input value='" + jsonsettings.StartPos.lat + "' id='startlat'> Lat, <input value='" + jsonsettings.StartPos.lon + "' id='startlon'> Lon</div>";
     html += "<div class='wetterwarnings'>CellId's für DWD-Wetterwarnungen: <input value='" + jsonsettings.CellIds.join(";") + "' id='wetterids'> (Trennen durch \";\", <a href='https://www.dwd.de/DE/leistungen/opendata/help/warnungen/cap_warncellids_csv.html'>cap_warncellids_csv</a>)</div>";
+    html += "<div class='gridradius'>Radius für das Grid um den Startpunkt: <input value='" + jsonsettings.GridRadius + "' id='gridrad'>m</div>";
     html += "<div class='savesettings'><img src='../icons/general/save.png' onclick='Settings.Save()' class='pointer'></div>";
     document.getElementById("content").innerHTML = html + "</div>";
   },
@@ -354,6 +355,7 @@ var Settings = {
     ret.StartPos.lat = parseFloat(document.getElementById("startlat").value.replace(",", "."));
     ret.StartPos.lon = parseFloat(document.getElementById("startlon").value.replace(",", "."));
     ret.CellIds = document.getElementById("wetterids").value.split(";");
+    ret.GridRadius = parseInt(document.getElementById("gridrad").value);
 
     var savesettings = new XMLHttpRequest();
     savesettings.onreadystatechange = function () {

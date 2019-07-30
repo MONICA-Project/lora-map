@@ -18,6 +18,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
     private readonly SortedDictionary<String, Camera> cameras = new SortedDictionary<String, Camera>();
     private readonly SortedDictionary<String, Crowd> crowds = new SortedDictionary<String, Crowd>();
     private JsonData marker;
+    private Settings settings;
     private readonly Dictionary<String, Marker> markertable = new Dictionary<String, Marker>();
     private readonly AdminModel admin;
     private readonly Object lockData = new Object();
@@ -29,6 +30,8 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
       this.admin = new AdminModel(settings);
       this.marker = JsonMapper.ToObject(File.ReadAllText("json/names.json"));
       this.admin.NamesUpdate += this.AdminModelUpdateNames;
+      this.settings = new Settings();
+      this.admin.SettingsUpdate += this.settings.AdminModelUpdateSettings;
       this.StartListen();
     }
 
@@ -123,7 +126,8 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
         } else if (cont.Request.Url.PathAndQuery.StartsWith("/getonce")) {
           return SendJsonResponse(new Dictionary<String, Object>() {
             { "getlayer", this.FindMapLayer(cont.Request) },
-            { "getgeo", JsonMapper.ToObject(File.ReadAllText("json/geo.json")) }
+            { "getgeo", JsonMapper.ToObject(File.ReadAllText("json/geo.json")) },
+            { "startup", this.settings }
           }, cont);
         } else if (cont.Request.Url.PathAndQuery.StartsWith("/icons/marker/Marker.svg") && cont.Request.Url.PathAndQuery.Contains("?")) {
           String hash = cont.Request.Url.PathAndQuery.Substring(cont.Request.Url.PathAndQuery.IndexOf('?') + 1);

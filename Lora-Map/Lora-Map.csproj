@@ -51,6 +51,7 @@
     <Compile Include="Model\Crowd.cs" />
     <Compile Include="Model\Marker.cs" />
     <Compile Include="Model\AlarmItem.cs" />
+    <Compile Include="Model\Settings.cs" />
     <Compile Include="Model\UTMData.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="Model\PositionItem.cs" />

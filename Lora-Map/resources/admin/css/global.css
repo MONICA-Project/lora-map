@@ -122,6 +122,7 @@
 
 #content #settingseditor .startloc,
 #content #settingseditor .wetterwarnings,
-#content #settingseditor .savesettings {
+#content #settingseditor .savesettings,
+#content #settingseditor .gridradius {
   margin-left: 15px;
 }
