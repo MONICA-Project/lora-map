@@ -342,6 +342,15 @@ var NamesEditor = {
 
 var Settings = {
   ParseJson: function (jsonsettings) {
+    if (typeof jsonsettings.StartPos === "undefined") {
+      jsonsettings.StartPos = { lat: 0, lon: 0 };
+    }
+    if (typeof jsonsettings.CellIds === "undefined") {
+      jsonsettings.CellIds = [];
+    }
+    if (typeof jsonsettings.GridRadius === "undefined") {
+      jsonsettings.GridRadius = 1000;
+    }
     var html = "<div id='settingseditor'><div class='title'>Einstellungen</div>";
     html += "<div class='startloc'>Startpunkt: <input value='" + jsonsettings.StartPos.lat + "' id='startlat'> Lat, <input value='" + jsonsettings.StartPos.lon + "' id='startlon'> Lon</div>";
     html += "<div class='wetterwarnings'>CellId's für DWD-Wetterwarnungen: <input value='" + jsonsettings.CellIds.join(";") + "' id='wetterids'> (Trennen durch \";\", <a href='https://www.dwd.de/DE/leistungen/opendata/help/warnungen/cap_warncellids_csv.html'>cap_warncellids_csv</a>)</div>";

@@ -46,15 +46,15 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
       }
       MilitaryGridReferenceSystem start = new Coordinate(this.Startloclat, this.Startloclon).MGRS;
 
-      Double left = start.Easting - this.gridradius - ((start.Easting - this.gridradius) % 100);
-      Double bottom = start.Northing - this.gridradius - ((start.Northing - this.gridradius) % 100);
-      Double right = start.Easting + this.gridradius + (100 - ((start.Easting + this.gridradius) % 100));
-      Double top = start.Northing + this.gridradius + (100 - ((start.Northing + this.gridradius) % 100));
+      Double left = start.Easting - this.gridradius - (start.Easting - this.gridradius) % 100;
+      Double bottom = start.Northing - this.gridradius - (start.Northing - this.gridradius) % 100;
+      Double right = start.Easting + this.gridradius + (100 - (start.Easting + this.gridradius) % 100);
+      Double top = start.Northing + this.gridradius + (100 - (start.Northing + this.gridradius) % 100);
       this.Grid = new Dictionary<String, List<Dictionary<String, List<Double>>>> {
         { "Major", new List<Dictionary<String, List<Double>>>() },
         { "Minor", new List<Dictionary<String, List<Double>>>() }
       };
-      for (Double i = left; i <= right; i = i + 50) {
+      for (Double i = left; i <= right; i += 50) {
         Coordinate TopLeft = MilitaryGridReferenceSystem.MGRStoLatLong(new MilitaryGridReferenceSystem(start.LatZone, start.LongZone, start.Digraph, i, top));
         Coordinate BottomLeft = MilitaryGridReferenceSystem.MGRStoLatLong(new MilitaryGridReferenceSystem(start.LatZone, start.LongZone, start.Digraph, i, bottom));
         if(i%100 == 0) {
@@ -85,7 +85,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
           });
         }
       }
-      for (Double i = bottom; i <= top; i = i + 50) {
+      for (Double i = bottom; i <= top; i += 50) {
         Coordinate BottomLeft = MilitaryGridReferenceSystem.MGRStoLatLong(new MilitaryGridReferenceSystem(start.LatZone, start.LongZone, start.Digraph, left, i));
         Coordinate BottomRight = MilitaryGridReferenceSystem.MGRStoLatLong(new MilitaryGridReferenceSystem(start.LatZone, start.LongZone, start.Digraph, right, i));
         if (i % 100 == 0) {

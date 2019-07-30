@@ -40,6 +40,7 @@
         var json = JSON.parse(getonce.responseText);
         MapObject._ParseAJAXLayers(json["getlayer"]);
         MapObject._ParseAJAXGeo(json["getgeo"]);
+        MapObject._ParseAJAXSettings(json["startup"]);
       }
     };
     getonce.open("GET", "/getonce", true);

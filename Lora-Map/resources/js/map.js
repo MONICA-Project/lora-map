@@ -2,10 +2,14 @@
   Map: {},
   _SpecialMarkers: new Array(),
   Start: function () {
-    this.Map = L.map('bigmap').setView(["{%START_LOCATION%}"], 16);
+    this.Map = L.map('bigmap').setView([0, 0], 16);
     this._SetupMapZoomFontsize();
     this._SetupClickHandler();
     return this;
+  },
+  _ParseAJAXSettings: function (settings) {
+    this.Map.panTo([settings.Startloclat, settings.Startloclon]);
+    this._GenerateGrid(settings.Grid);
   },
   _ParseAJAXLayers: function (maps) {
     var i = 0;
@@ -44,6 +48,16 @@
         }
       }
       L.control.layers(baseMaps).addTo(this.Map);
+    }
+  },
+  _GenerateGrid: function (grid) {
+    for (var i = 0; i < grid.Major.length; i++) {
+      var linemajor = grid.Major[i];
+      L.polyline([[linemajor.from[0], linemajor.from[1]], [linemajor.to[0], linemajor.to[1]]], { color: "red", weight: 1 }).addTo(this.Map);
+    }
+    for (var j = 0; j < grid.Minor.length; j++) {
+      var lineminor = grid.Minor[j];
+      L.polyline([[lineminor.from[0], lineminor.from[1]], [lineminor.to[0], lineminor.to[1]]], { color: "red", weight: 0.7, opacity: 0.5 }).addTo(this.Map);
     }
   },
   _ParseAJAXGeo: function (geo) {
