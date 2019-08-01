@@ -18,7 +18,8 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
     private readonly SortedDictionary<String, Camera> cameras = new SortedDictionary<String, Camera>();
     private readonly SortedDictionary<String, Crowd> crowds = new SortedDictionary<String, Crowd>();
     private JsonData marker;
-    private Settings settings;
+    private readonly Settings settings;
+    private readonly WeatherWarnings weather;
     private readonly Dictionary<String, Marker> markertable = new Dictionary<String, Marker>();
     private readonly AdminModel admin;
     private readonly Object lockData = new Object();
@@ -31,6 +32,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
       this.marker = JsonMapper.ToObject(File.ReadAllText("json/names.json"));
       this.admin.NamesUpdate += this.AdminModelUpdateNames;
       this.settings = new Settings();
+      this.weather = new WeatherWarnings(this.settings);
       this.admin.SettingsUpdate += this.settings.AdminModelUpdateSettings;
       this.StartListen();
     }
@@ -117,7 +119,8 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
             { "loc", this.positions },
             { "panic", this.alarms },
             { "cameracount", this.cameras },
-            { "crowdcount", this.crowds }
+            { "crowdcount", this.crowds },
+            { "weatherwarnings", this.weather }
           }, cont);
         } else if (cont.Request.Url.PathAndQuery.StartsWith("/get60000")) {
           return SendJsonResponse(new Dictionary<String, Object>() {
