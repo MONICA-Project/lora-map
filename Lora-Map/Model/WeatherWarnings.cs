@@ -14,5 +14,8 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
 
     private void StartBackgroundThread() {
     }
+
+    internal void Dispose() {
+    }
   }
 }

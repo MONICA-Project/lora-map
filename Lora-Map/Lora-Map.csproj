@@ -53,6 +53,7 @@
     <Compile Include="Model\AlarmItem.cs" />
     <Compile Include="Model\Settings.cs" />
     <Compile Include="Model\UTMData.cs" />
+    <Compile Include="Model\WeatherWarnings.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="Model\PositionItem.cs" />
     <Compile Include="Program.cs" />

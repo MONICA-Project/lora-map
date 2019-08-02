@@ -35,6 +35,8 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
       this.weather = new WeatherWarnings(this.settings);
       this.admin.SettingsUpdate += this.settings.AdminModelUpdateSettings;
       this.StartListen();
+      this.WaitForShutdown();
+      this.Dispose();
     }
 
     private void AdminModelUpdateNames(Object sender, EventArgs e) {
@@ -47,7 +49,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
 
     private void CheckJsonFiles() {
       if(!Directory.Exists("json")) {
-        Directory.CreateDirectory("json");
+        _ = Directory.CreateDirectory("json");
       }
       if(!File.Exists("json/names.json")) {
         File.WriteAllText("json/names.json", "{}");
@@ -189,6 +191,11 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
         }
       }
       return ret;
+    }
+
+    public override void Dispose() {
+      this.weather.Dispose();
+      base.Dispose();
     }
   }
 }

@@ -5,6 +5,7 @@
 * Add setting model to code
 * #19 grid automatisch generieren
 ### Bugfixes
+* Add Correct Dispose Handling
 ### Changes
 * Refactoring of all JS
 * Make only one request per second instead of four per AJAX
