@@ -117,5 +117,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
         }
       }
     }
+
+    public List<Int32> GetWeatherCellIds() => this.weatherCellIDs;
   }
 }
