@@ -351,10 +351,14 @@ var Settings = {
     if (typeof jsonsettings.GridRadius === "undefined") {
       jsonsettings.GridRadius = 1000;
     }
+    if (typeof jsonsettings.FightDedection === "undefined") {
+      jsonsettings.FightDedection = [];
+    }
     var html = "<div id='settingseditor'><div class='title'>Einstellungen</div>";
     html += "<div class='startloc'>Startpunkt: <input value='" + jsonsettings.StartPos.lat + "' id='startlat'> Lat, <input value='" + jsonsettings.StartPos.lon + "' id='startlon'> Lon</div>";
     html += "<div class='wetterwarnings'>CellId's für DWD-Wetterwarnungen: <input value='" + jsonsettings.CellIds.join(";") + "' id='wetterids'> (Trennen durch \";\", <a href='https://www.dwd.de/DE/leistungen/opendata/help/warnungen/cap_warncellids_csv.html'>cap_warncellids_csv</a>)</div>";
     html += "<div class='gridradius'>Radius für das Grid um den Startpunkt: <input value='" + jsonsettings.GridRadius + "' id='gridrad'>m</div>";
+    html += "<div class='fightdedection'>" + this._renderFightDedection(jsonsettings.FightDedection) + "</div>";
     html += "<div class='savesettings'><img src='../icons/general/save.png' onclick='Settings.Save()' class='pointer'></div>";
     document.getElementById("content").innerHTML = html + "</div>";
   },
@@ -378,6 +382,9 @@ var Settings = {
     };
     savesettings.open("POST", "/admin/set_json_settings", true);
     savesettings.send(JSON.stringify(ret));
+  }, 
+  _renderFightDedection: function (json) {
+    return "";
   }
 };
 
