@@ -126,3 +126,46 @@
 #content #settingseditor .gridradius {
   margin-left: 15px;
 }
+
+#content #settingseditor .fightdedection {
+  margin-left: 15px;
+  margin-top: 20px;
+}
+#content #settingseditor #fighttable {
+  border-collapse: collapse;
+}
+#content #settingseditor #fighttable thead {
+  background-color: #CCCCCC;
+  background-color: rgba(0,0,0,0.2);
+}
+#content #settingseditor #fighttable thead th {
+  text-align: left;
+}
+#content #settingseditor #fighttable thead .rowid {
+  width: 60px;
+}
+#content #settingseditor #fighttable thead .rowcoord {
+  width: 250px;
+}
+#content #settingseditor #fighttable thead .rowedit {
+  width: 50px;
+}
+#content #settingseditor #fighttable tbody tr:nth-child(odd) {
+  background-color: #f39d9d;
+  background-color: rgba(20,0,250,0.1);
+}
+#content #settingseditor #fighttable tbody tr:nth-child(even) {
+  background-color: #9c9eee;
+  background-color: rgba(250,59,0,0.1);
+}
+#content #settingseditor #fighttable tbody tr:hover {
+  background-color: #e4e1e1;
+  background-color: rgba(0,0,0,0.1);
+}
+#content #settingseditor #fighttable tfoot {
+  background-color: #e4e1e1;
+  background-color: rgba(0,0,0,0.1);
+}
+#content #settingseditor .pointer {
+  cursor: pointer;
+}
