@@ -48,18 +48,18 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
       public Warning(JsonData warning) {
         this.Id = warning["id"].ToString();
         this.From = warning["properties"]["SENT"].ToString();
-        this.Expires = warning["properties"]["EXPIRES"].ToString();
+        this.To = warning["properties"]["EXPIRES"].ToString();
         this.Location = warning["properties"]["NAME"].ToString();
         this.Type = warning["properties"]["EVENT"].ToString();
-        this.Level = warning["properties"]["SEVERITY"].ToString();
+        this.Level = warning["properties"]["SEVERITY"].ToString().ToLower();
         this.Headline = warning["properties"]["HEADLINE"].ToString();
         this.Body = warning["properties"]["DESCRIPTION"].ToString();
-        this.Instructions = warning["properties"]["INSTRUCTION"].ToString();
+        this.Instructions = warning["properties"]["INSTRUCTION"] != null ? warning["properties"]["INSTRUCTION"].ToString() : "";
       }
 
       public String Id { get; }
       public String From { get; }
-      public String Expires { get; }
+      public String To { get; }
       public String Location { get; }
       public String Type { get; }
       public String Level { get; }

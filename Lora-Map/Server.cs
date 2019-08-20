@@ -122,7 +122,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
             { "panic", this.alarms },
             { "cameracount", this.cameras },
             { "crowdcount", this.crowds },
-            { "weatherwarnings", this.weather }
+            { "weatherwarnings", this.weather.Warnungen }
           }, cont);
         } else if (cont.Request.Url.PathAndQuery.StartsWith("/get60000")) {
           return SendJsonResponse(new Dictionary<String, Object>() {

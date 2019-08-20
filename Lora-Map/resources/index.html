@@ -11,6 +11,7 @@
   <div id="bigmap"></div>
   <div id="menucollumn">
     <span class="pos" onclick="MenuObject.ShowHidePanel('pannels_pos');"></span>
+    <span class="weather" onclick="MenuObject.ShowHidePanel('pannels_weather');" id="menucol_weather_icon"></span>
     <span class="admin" onclick="MenuObject.ShowHidePanel('pannels_admin');"></span>
     <span class="info" onclick="MenuObject.ShowHidePanel('pannels_version');"></span>
   </div>
@@ -18,6 +19,9 @@
     <div id="pannels_pos"></div>
     <div id="pannels_info">
       <!-- Shows infos about selected device here, this will be cleand by js -->
+    </div>
+    <div id="pannels_weather">
+      <h1>Keine Gefahren</h1>
     </div>
     <div id="pannels_admin">
       Teste Login...

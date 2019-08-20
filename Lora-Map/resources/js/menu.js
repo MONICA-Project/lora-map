@@ -163,5 +163,24 @@
     };
     testadmin.open("GET", "/admin", true);
     testadmin.send();
+  },
+  _ParseAJAXWeatherAlerts: function (json) {
+    if (json.length > 0) {
+      var html = "";
+      for (var i = 0; i < json.length; i++) {
+        var walert = json[i];
+        html += "<div class='alertitem " + walert.Level + "'>" +
+          "<span class='head'>" + walert.Headline + "</span>" +
+          "<span class='ort'>" + walert.Location + "</span>" +
+          "<span class='text'>" + walert.Body + (walert.Instructions != "" ? "<br><br>" + walert.Instructions : "") + "</span>" +
+          "<span class='time'><b>Von:</b> vor " + FunctionsObject.TimeCalculation(walert.From, "difftext") + " <b>Bis:</b> in " + FunctionsObject.TimeCalculation(walert.To, "difftextn") + "</span>" +
+          "</div>";
+      }
+      document.getElementById("pannels_weather").innerHTML = html;
+      document.getElementById("menucol_weather_icon").className = "weather ac";
+    } else {
+      document.getElementById("pannels_weather").innerHTML = "<h1>Keine Gefahren</h1>";
+      document.getElementById("menucol_weather_icon").className = "weather";
+    }
   }
 }.Start();

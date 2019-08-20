@@ -28,6 +28,7 @@
         MarkerObject._ParseAJAXPanic(json["panic"]);
         OverlayObject._ParseAJAXCount(json["cameracount"]);
         OverlayObject._ParseAJAXDensity(json["crowdcount"]);
+        MenuObject._ParseAJAXWeatherAlerts(json["weatherwarnings"]);
       }
     };
     get1000.open("GET", "/get1000", true);
@@ -52,21 +53,29 @@
     }
   },
   TimeCalculation: function (timestr, type) {
-    if (type === "diffraw" || type === "difftext") {
+    if (type === "diffraw" || type === "difftext" || type === "difftextn") {
       var diff = Math.round((Date.now() - Date.parse(timestr) - this._internalTimeOffset) / 1000);
       if (type === "diffraw") {
         return diff;
       }
+      if (type === "difftextn" && diff < 0) {
+        diff = diff * -1;
+      }
+      var isneg = false;
+      if (diff < 0) {
+        isneg = true;
+        diff = diff * -1;
+      }
       if (diff < 60) {
-        return diff + " s";
+        return (isneg ? "-" : "") + diff + " s";
       }
       if (diff < 60 * 60) {
-        return Math.floor(diff / 60) + " m";
+        return (isneg ? "-" : "") + Math.floor(diff / 60) + " m";
       }
       if (diff < 60 * 60 * 24) {
-        return Math.floor(diff / (60 * 60)) + " h";
+        return (isneg ? "-" : "") + Math.floor(diff / (60 * 60)) + " h";
       }
-      return Math.floor(diff / (60 * 60 * 24)) + " d";
+      return (isneg ? "-" : "") + Math.floor(diff / (60 * 60 * 24)) + " d";
     } else if (type === "str") {
       var date = new Date(Date.parse(timestr) + this._internalTimeOffset);
       var str = date.toLocaleString();

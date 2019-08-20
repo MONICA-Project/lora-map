@@ -65,6 +65,12 @@ object {
 #menucollumn .info {
   background-image: url("icons/information.png");
 }
+#menucollumn .weather {
+  background-image: url("icons/storm-in.png");
+}
+#menucollumn .weather.ac {
+  background-image: url("icons/storm-ac.png");
+}
 
 #pannels {
   position: absolute;
@@ -87,7 +93,7 @@ object {
   display: none;
 }
 #pannels #pannels_pos .item {
-  margin: 4px;
+margin: 4px;
 }
 #pannels #pannels_pos .item .color {
   float: left;
@@ -101,10 +107,10 @@ object {
   margin-right: 5px;
 }
 #pannels #pannels_pos .item .icon img {
-  height: 40px;
-  width: 40px;
-  margin-left: 3px;
-}
+    height: 40px;
+    width: 40px;
+    margin-left: 3px;
+  }
 #pannels #pannels_pos .item .line1 .name {
   font-weight: bold;
 }
@@ -201,6 +207,44 @@ object {
 #pannels #pannels_admin div .login input {
   width: auto;
   margin-left: 70px;
+}
+
+#pannels #pannels_weather {
+  margin: 5px;
+}
+#pannels #pannels_weather h1 {
+  margin: 0;
+  font-size: 20px;
+  text-align: center;
+}
+#pannels #pannels_weather .alertitem {
+  padding: 5px;
+}
+#pannels #pannels_weather .alertitem.minor {
+  background-color: #ffeb3b;
+}
+#pannels #pannels_weather .alertitem.moderate {
+  background-color: #fb8c00;
+}
+#pannels #pannels_weather .alertitem.severe {
+  background-color: #e53935;
+}
+#pannels #pannels_weather .alertitem.extreme {
+  background-color: #880e4f;
+}
+#pannels #pannels_weather .alertitem .head {
+  font-weight: bold;
+  display: block;
+  font-size: 14px;
+}
+#pannels #pannels_weather .alertitem .ort {
+  display: block;
+  text-align: right;
+  margin-bottom: 10px;
+}
+#pannels #pannels_weather .alertitem .text {
+  display: block;
+  margin-bottom: 10px;
 }
 
 #overlays #cameracount {
