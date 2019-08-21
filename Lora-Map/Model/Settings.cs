@@ -12,6 +12,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
     public Double Startloclat { get; private set; }
     public Double Startloclon { get; private set; }
     public Dictionary<String, List<Dictionary<String, List<Double>>>> Grid { get; private set; }
+    public Dictionary<String, List<List<Double>>> FightDedection { get; private set; }
 
     public Settings() => this.ParseJson();
     
@@ -35,6 +36,24 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
             this.weatherCellIDs.Add(cellid);
           }
         }
+      }
+      if(json.ContainsKey("FightDedection") && json["FightDedection"].IsObject) {
+        Dictionary<String, List<List<Double>>> fight = new Dictionary<String, List<List<Double>>>();
+        foreach (KeyValuePair<String, JsonData> entry in json["FightDedection"]) {
+          List<List<Double>> poly = new List<List<Double>>();
+          if(entry.Value.ContainsKey("Poly") && entry.Value["Poly"].IsArray) {
+            foreach (JsonData coord in entry.Value["Poly"]) {
+              List<Double> coords = new List<Double>();
+              if (coord.ContainsKey("Lat") && coord["Lat"].IsDouble && coord.ContainsKey("Lon") && coord["Lon"].IsDouble) {
+                coords.Add((Double)coord["Lat"]);
+                coords.Add((Double)coord["Lon"]);
+              }
+              poly.Add(coords);
+            }
+          }
+          fight.Add(entry.Key, poly);
+        }
+        this.FightDedection = fight;
       }
       this.gridradius = json.ContainsKey("GridRadius") && json["GridRadius"].IsInt && this.Startloclat != 0 && this.Startloclon != 0 ? (Int32)json["GridRadius"] : 0;
       this.GenerateGrid();

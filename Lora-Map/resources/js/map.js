@@ -1,5 +1,6 @@
 ﻿var MapObject = {
   Map: {},
+  _FightDedection: {},
   _SpecialMarkers: new Array(),
   Start: function () {
     this.Map = L.map('bigmap').setView([0, 0], 16);
@@ -10,6 +11,7 @@
   _ParseAJAXSettings: function (settings) {
     this.Map.panTo([settings.Startloclat, settings.Startloclon]);
     this._GenerateGrid(settings.Grid);
+    this._GenerateFightBoxes(settings.FightDedection);
   },
   _ParseAJAXLayers: function (maps) {
     var i = 0;
@@ -58,6 +60,32 @@
     for (var j = 0; j < grid.Minor.length; j++) {
       var lineminor = grid.Minor[j];
       L.polyline([[lineminor.from[0], lineminor.from[1]], [lineminor.to[0], lineminor.to[1]]], { color: "red", weight: 0.7, opacity: 0.5 }).addTo(this.Map);
+    }
+  },
+  _GenerateFightBoxes: function (fightdedection) {
+    for (var cameraid in fightdedection) {
+      this._FightDedection[cameraid] = L.polygon(fightdedection[cameraid], { color: 'black', weight: 1 }).addTo(this.Map);
+      this._FightDedection[cameraid].bindPopup("Fightdedection für Kamera: " + cameraid);
+    }
+  },
+  _ParseAJAXFightDedection: function (json) {
+    for (var cameraid in json) {
+      if (this._FightDedection.hasOwnProperty(cameraid)) {
+        var fight = json[cameraid];
+        var box = this._FightDedection[cameraid];
+        var diff = FunctionsObject.TimeCalculation(fight["LastUpdate"], "diffraw");
+        if (diff <= 10 && box.options.color === "black") {
+          box.setStyle({ color: 'rgb(' + (fight["FightProbability"]*255)+',0,0)' });
+        } else if (diff <= 10 && box.options.color !== "black") {
+          if (diff % 2 == 0) {
+            box.setStyle({ color: 'rgb(' + (fight["FightProbability"] * 255) + ',0,0)' });
+          } else {
+            box.setStyle({ color: 'green' });
+          }
+        } else if (diff > 10 && box.options.color !== "black") {
+          box.setStyle({ color: 'black' });
+        }
+      }
     }
   },
   _ParseAJAXGeo: function (geo) {

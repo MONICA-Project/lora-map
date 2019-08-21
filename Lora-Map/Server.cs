@@ -17,6 +17,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
     private readonly SortedDictionary<String, AlarmItem> alarms = new SortedDictionary<String, AlarmItem>();
     private readonly SortedDictionary<String, Camera> cameras = new SortedDictionary<String, Camera>();
     private readonly SortedDictionary<String, Crowd> crowds = new SortedDictionary<String, Crowd>();
+    private readonly SortedDictionary<String, Fight> fights = new SortedDictionary<String, Fight>();
     private JsonData marker;
     private readonly Settings settings;
     private readonly WeatherWarnings weather;
@@ -24,6 +25,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
     private readonly AdminModel admin;
     private readonly Object lockData = new Object();
     private readonly Object lockPanic = new Object();
+    private readonly Object lockFight = new Object();
 
     public Server(ADataBackend backend, Dictionary<String, String> settings, InIReader requests) : base(backend, settings, requests) {
       this.logger.SetPath(settings["loggingpath"]);
@@ -100,13 +102,21 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
             this.cameras.Add(cameraid, new Camera(d));
           }
         } else if((((String)mqtt.From).Contains("sfn/crowd_density_local") && Crowd.CheckJsonCrowdDensityLocal(d)) || 
-          (((String)mqtt.From).Contains("sfn/fighting_detection") && Crowd.CheckJsonFightingDetection(d)) || 
           (((String)mqtt.From).Contains("sfn/flow") && Crowd.CheckJsonFlow(d))) {
           String cameraid = Crowd.GetId(d);
           if(this.crowds.ContainsKey(cameraid)) {
             this.crowds[cameraid].Update(d);
           } else {
             this.crowds.Add(cameraid, new Crowd(d));
+          }
+        } else if(((String)mqtt.From).Contains("camera/fighting_detection") && Fight.CheckJsonFightingDetection(d)) {
+          String cameraid = Fight.GetId(d);
+          lock (this.lockFight) {
+            if (this.fights.ContainsKey(cameraid)) {
+              this.fights[cameraid].Update(d);
+            } else {
+              this.fights.Add(cameraid, new Fight(d));
+            }
           }
         }
       } catch(Exception e) {
@@ -122,6 +132,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
             { "panic", this.alarms },
             { "cameracount", this.cameras },
             { "crowdcount", this.crowds },
+            { "fightdedect", this.fights },
             { "weatherwarnings", this.weather.Warnungen }
           }, cont);
         } else if (cont.Request.Url.PathAndQuery.StartsWith("/get60000")) {
