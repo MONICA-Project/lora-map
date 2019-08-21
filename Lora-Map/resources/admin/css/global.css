@@ -127,42 +127,56 @@
   margin-left: 15px;
 }
 
-#content #settingseditor .fightdedection {
+#content #settingseditor .fightdedection,
+#content #settingseditor .crowddensity {
   margin-left: 15px;
   margin-top: 20px;
 }
-#content #settingseditor #fighttable {
+#content #settingseditor #fighttable,
+#content #settingseditor #crowdtable {
   border-collapse: collapse;
 }
-#content #settingseditor #fighttable thead {
+#content #settingseditor #fighttable thead,
+#content #settingseditor #crowdtable thead {
   background-color: #CCCCCC;
   background-color: rgba(0,0,0,0.2);
 }
-#content #settingseditor #fighttable thead th {
+#content #settingseditor #fighttable thead th,
+#content #settingseditor #crowdtable thead th {
   text-align: left;
 }
-#content #settingseditor #fighttable thead .rowid {
+#content #settingseditor #fighttable thead .rowid,
+#content #settingseditor #crowdtable thead .rowid {
   width: 60px;
 }
-#content #settingseditor #fighttable thead .rowcoord {
+#content #settingseditor #crowdtable thead .rownum {
+  width: 200px;
+}
+#content #settingseditor #fighttable thead .rowcoord,
+#content #settingseditor #crowdtable thead .rowcoord {
   width: 250px;
 }
-#content #settingseditor #fighttable thead .rowedit {
+#content #settingseditor #fighttable thead .rowedit,
+#content #settingseditor #crowdtable thead .rowedit {
   width: 50px;
 }
-#content #settingseditor #fighttable tbody tr:nth-child(odd) {
+#content #settingseditor #fighttable tbody tr:nth-child(odd),
+#content #settingseditor #crowdtable tbody tr:nth-child(odd) {
   background-color: #f39d9d;
   background-color: rgba(20,0,250,0.1);
 }
-#content #settingseditor #fighttable tbody tr:nth-child(even) {
+#content #settingseditor #fighttable tbody tr:nth-child(even),
+#content #settingseditor #crowdtable tbody tr:nth-child(even) {
   background-color: #9c9eee;
   background-color: rgba(250,59,0,0.1);
 }
-#content #settingseditor #fighttable tbody tr:hover {
+#content #settingseditor #fighttable tbody tr:hover,
+#content #settingseditor #crowdtable tbody tr:hover {
   background-color: #e4e1e1;
   background-color: rgba(0,0,0,0.1);
 }
-#content #settingseditor #fighttable tfoot {
+#content #settingseditor #fighttable tfoot,
+#content #settingseditor #crowdtable tfoot {
   background-color: #e4e1e1;
   background-color: rgba(0,0,0,0.1);
 }

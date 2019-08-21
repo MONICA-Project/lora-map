@@ -354,11 +354,15 @@ var Settings = {
     if (typeof jsonsettings.FightDedection === "undefined") {
       jsonsettings.FightDedection = [];
     }
+    if (typeof jsonsettings.CrwodDensity === "undefined") {
+      jsonsettings.CrwodDensity = [];
+    }
     var html = "<div id='settingseditor'><div class='title'>Einstellungen</div>";
     html += "<div class='startloc'>Startpunkt: <input value='" + jsonsettings.StartPos.lat + "' id='startlat'> Lat, <input value='" + jsonsettings.StartPos.lon + "' id='startlon'> Lon</div>";
     html += "<div class='wetterwarnings'>CellId's für DWD-Wetterwarnungen: <input value='" + jsonsettings.CellIds.join(";") + "' id='wetterids'> (Trennen durch \";\", <a href='https://www.dwd.de/DE/leistungen/opendata/help/warnungen/cap_warncellids_csv.html'>cap_warncellids_csv</a>)</div>";
     html += "<div class='gridradius'>Radius für das Grid um den Startpunkt: <input value='" + jsonsettings.GridRadius + "' id='gridrad'>m</div>";
     html += "<div class='fightdedection'>Fight Dedection Kameras: <br>" + this._renderFightDedection(jsonsettings.FightDedection) + "</div>";
+    html += "<div class='crowddensity'>Crowd Density Kameras: <br>" + this._renderCrowdDensity(jsonsettings.CrwodDensity) + "</div>";
     html += "<div class='savesettings'><img src='../icons/general/save.png' onclick='Settings.Save()' class='pointer'></div>";
     document.getElementById("content").innerHTML = html + "</div>";
   },
@@ -370,15 +374,15 @@ var Settings = {
     ret.CellIds = document.getElementById("wetterids").value.split(";");
     ret.GridRadius = parseInt(document.getElementById("gridrad").value);
 
-    var rows = document.getElementById("fighttable").children[1].children;
+    var rowsf = document.getElementById("fighttable").children[1].children;
     var fightjson = {};
-    for (var i = 0; i < rows.length; i++) {
-      if (rows[i].children[0].children.length === 1) {
+    for (var i = 0; i < rowsf.length; i++) {
+      if (rowsf[i].children[0].children.length === 1) {
         alert("Bitte zuerst alle Zeilen speichern oder Löschen!");
         return;
       }
-      var id = rows[i].children[0].innerText;
-      var coords = rows[i].children[1].innerHTML.split("<br>");
+      var id = rowsf[i].children[0].innerText;
+      var coords = rowsf[i].children[1].innerHTML.split("<br>");
       var polyjson = [];
       for (var j = 0; j < coords.length; j++) {
         var coord = coords[j].split(";");
@@ -387,6 +391,29 @@ var Settings = {
       fightjson[id] = { "Poly": polyjson };
     }
     ret.FightDedection = fightjson;
+
+    var rowsc = document.getElementById("crowdtable").children[1].children;
+    var crowdjson = {};
+    for (i = 0; i < rowsc.length; i++) {
+      if (rowsc[i].children[0].children.length === 1) {
+        alert("Bitte zuerst alle Zeilen speichern oder Löschen!");
+        return;
+      }
+      id = rowsc[i].children[0].innerText;
+      var num = this._filterFloat(rowsc[i].children[1].innerText);
+      coords = rowsc[i].children[2].innerHTML.split("<br>");
+
+      polyjson = [];
+      for (j = 0; j < coords.length; j++) {
+        coord = coords[j].split(";");
+        polyjson[j] = { "Lat": this._filterFloat(coord[0]), "Lon": this._filterFloat(coord[1]) };
+      }
+      crowdjson[id] = {
+        "Poly": polyjson,
+        "Count": num
+      };
+    }
+    ret.CrwodDensity = crowdjson;
 
     var savesettings = new XMLHttpRequest();
     savesettings.onreadystatechange = function () {
@@ -414,11 +441,33 @@ var Settings = {
       ret += "<tr>" +
         "<td>" + id + "</td>" +
         "<td>" + coords.join("<br>") + "</td>" +
-        "<td><img src='../icons/general/edit.png' onclick='Settings.EditFight(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='Settings.DeleteFight(this.parentNode.parentNode)' class='pointer'></td>" +
+        "<td><img src='../icons/general/edit.png' onclick='Settings.EditFight(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='Settings.Delete(this.parentNode.parentNode)' class='pointer'></td>" +
         "</tr>";
     }
     ret += "</tbody>";
     ret += "<tfoot><tr><td></td><td></td><td><img src='../icons/general/add.png' onclick='Settings.AddFight()' class='pointer'></td></tr></tfoot>";
+    ret += "</table>";
+    return ret;
+  },
+  _renderCrowdDensity: function (json) {
+    var ret = "";
+    ret += "<table id='crowdtable'>";
+    ret += "<thead><tr><th class='rowid'>ID</th><th class='rownum'>Personenanzahl</th><th class='rowcoord'>Koordinaten</th><th class='rowedit'></th></tr></thead>";
+    ret += "<tbody>";
+    for (var id in json) {
+      var coords = [];
+      for (var i = 0; i < json[id].Poly.length; i++) {
+        coords[i] = json[id].Poly[i].Lat + ";" + json[id].Poly[i].Lon;
+      }
+      ret += "<tr>" +
+        "<td>" + id + "</td>" +
+        "<td>" + json[id].Count + "</td>" +
+        "<td>" + coords.join("<br>") + "</td>" +
+        "<td><img src='../icons/general/edit.png' onclick='Settings.EditDensity(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='Settings.Delete(this.parentNode.parentNode)' class='pointer'></td>" +
+        "</tr>";
+    }
+    ret += "</tbody>";
+    ret += "<tfoot><tr><td></td><td></td><td></td><td><img src='../icons/general/add.png' onclick='Settings.AddDensity()' class='pointer'></td></tr></tfoot>";
     ret += "</table>";
     return ret;
   },
@@ -428,6 +477,14 @@ var Settings = {
     newrow.innerHTML += "<td><textarea></textarea></td>";
     newrow.innerHTML += "<td><img src='../icons/general/save.png' onclick='Settings.SaveRowfight(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='Settings.Abort(this.parentNode.parentNode)' class='pointer'></td>";
     document.getElementById("fighttable").children[1].appendChild(newrow);
+  },
+  AddDensity: function () {
+    var newrow = document.createElement("tr");
+    newrow.innerHTML = "<td><input class='id'/></td>";
+    newrow.innerHTML += "<td><input class='count'/></td>";
+    newrow.innerHTML += "<td><textarea></textarea></td>";
+    newrow.innerHTML += "<td><img src='../icons/general/save.png' onclick='Settings.SaveRowdensity(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='Settings.Abort(this.parentNode.parentNode)' class='pointer'></td>";
+    document.getElementById("crowdtable").children[1].appendChild(newrow);
   },
   Abort: function (el) {
     el.parentNode.removeChild(el);
@@ -455,7 +512,35 @@ var Settings = {
       "<td>" + coords + "</td>" +
       "<td><img src='../icons/general/edit.png' onclick='Settings.EditFight(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='Settings.DeleteFight(this.parentNode.parentNode)' class='pointer'></td>";
   },
-  DeleteFight: function (el) {
+  SaveRowdensity: function (el) {
+    var coords = el.children[2].children[0].value.replace(/\n/gi, "<br>");
+    var coordscheck = coords.split("<br>");
+    var fail = false;
+    for (var i = 0; i < coordscheck.length; i++) {
+      var coord = coordscheck[i].split(";");
+      if (coord.length !== 2) {
+        fail = true;
+        break;
+      }
+      if (isNaN(this._filterFloat(coord[0])) || isNaN(this._filterFloat(coord[1]))) {
+        fail = true;
+        break;
+      }
+    }
+    if (fail) {
+      alert("Die Eingabe der Koordinaten ist nicht Korrekt!\n\nBeispiel:\n50.7;7.8\n50.6;7.9");
+      return;
+    }
+    if (isNaN(this._filterFloat(el.children[1].children[0].value))) {
+      alert("Die Eingabe der Maximalen Anzahl der Personen ist nicht Korrekt, erwarte eine Zahl.");
+      return;
+    }
+    el.innerHTML = "<td>" + el.children[0].children[0].value + "</td>" +
+      "<td>" + el.children[1].children[0].value + "</td>" +
+      "<td>" + coords + "</td>" +
+      "<td><img src='../icons/general/edit.png' onclick='Settings.EditDensity(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='Settings.DeleteFight(this.parentNode.parentNode)' class='pointer'></td>";
+  },
+  Delete: function (el) {
     var answ = window.prompt("Wollen sie den Eintrag für \"" + el.firstChild.innerHTML + "\" wirklich löschen?", "");
     if (answ !== null) {
       el.parentNode.removeChild(el);
@@ -465,6 +550,12 @@ var Settings = {
     el.innerHTML = "<td><input class='id' value='" + el.children[0].innerText + "'/></td>" +
       "<td><textarea>" + el.children[1].innerText + "</textarea></td>" +
       "<td><img src='../icons/general/save.png' onclick='Settings.SaveRowfight(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='Settings.Abort(this.parentNode.parentNode)' class='pointer'></td>";
+  },
+  EditDensity: function (el) {
+    el.innerHTML = "<td><input class='id' value='" + el.children[0].innerText + "'/></td>" +
+      "<td><input class='count' value='" + el.children[1].innerText + "'/></td>" +
+      "<td><textarea>" + el.children[2].innerText + "</textarea></td>" +
+      "<td><img src='../icons/general/save.png' onclick='Settings.SaveRowdensity(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='Settings.Abort(this.parentNode.parentNode)' class='pointer'></td>";
   },
   _filterFloat: function (value) {
     if (/^(\-|\+)?([0-9]+(\.[0-9]+)?|Infinity)$/.test(value)) {
