@@ -18,7 +18,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model
       json.ContainsKey("density_map") && json["density_map"].IsArray &&
       json.ContainsKey("type_module") && json["type_module"].IsString && json["type_module"].ToString() == "crowd_density_local" &&
       json.ContainsKey("density_count") && json["density_count"].IsInt &&
-      json.ContainsKey("timestamp1") && json["timestamp1"].IsString;
+      json.ContainsKey("timestamp_1") && json["timestamp_1"].IsString;
 
     public static Boolean CheckJsonFlow(JsonData json) => json.ContainsKey("camera_ids") && json["camera_ids"].IsArray && json["camera_ids"].Count == 1 &&
       json.ContainsKey("average_flow_magnitude") && json["average_flow_magnitude"].IsArray &&
@@ -31,7 +31,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model
     public void Update(JsonData json) {
       if(CheckJsonCrowdDensityLocal(json)) {
         this.DensityCount = (Int32)json["density_count"];
-        if (DateTime.TryParse((String)json["timestamp1"], DateTimeFormatInfo.InvariantInfo, DateTimeStyles.AssumeUniversal, out DateTime updatetime)) {
+        if (DateTime.TryParse((String)json["timestamp_1"], DateTimeFormatInfo.InvariantInfo, DateTimeStyles.AssumeUniversal, out DateTime updatetime)) {
           this.TimeStamp = updatetime.ToUniversalTime();
         }
       } else if(CheckJsonFlow(json)) {

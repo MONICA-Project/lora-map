@@ -1,6 +1,7 @@
 ﻿var MapObject = {
   Map: {},
   _FightDedection: {},
+  _DensityAreas: {},
   _SpecialMarkers: new Array(),
   Start: function () {
     this.Map = L.map('bigmap').setView([0, 0], 16);
@@ -12,6 +13,7 @@
     this.Map.panTo([settings.Startloclat, settings.Startloclon]);
     this._GenerateGrid(settings.Grid);
     this._GenerateFightBoxes(settings.FightDedection);
+    this._GenerateDensityBoxes(settings.DensityArea);
   },
   _ParseAJAXLayers: function (maps) {
     var i = 0;
@@ -87,6 +89,34 @@
         }
       }
     }
+  },
+  _GenerateDensityBoxes: function (densityareas) {
+    for (var cameraid in densityareas) {
+      this._DensityAreas[cameraid] = { 'Poly': L.polygon(densityareas[cameraid].Polygon, { color: 'hsl(120,100%,50%)', weight: 1 }).addTo(this.Map), 'Maximum': densityareas[cameraid].Maximum };
+      this._DensityAreas[cameraid].Poly.bindPopup("<strong>Besuchermenge:</strong><br>" +
+        "Besucher <strong>(0/" + this._DensityAreas[cameraid].Maximum + ")</strong> Personen<br>" +
+        "<progress value='0' max='" + this._DensityAreas[cameraid].Maximum + "'></progress>");
+    }
+  },
+  _ParseAJAXDensity: function (json) {
+    for (var cameraid in json) {
+      if (this._DensityAreas.hasOwnProperty(cameraid)) {
+        var crowd = json[cameraid];
+        var box = this._DensityAreas[cameraid].Poly;
+        var max = this._DensityAreas[cameraid].Maximum;
+        var cur = crowd.DensityCount;
+        if (cur > max) {
+          cur = max;
+        }
+        box.setStyle({ color: this._createRGB(cur, max) });
+        var p = box.getPopup().setContent("<strong>Besuchermenge:</strong><br>" +
+          "Besucher <strong>(" + cur + "/" + max + ")</strong> Personen<br>" +
+          "<progress value='" + cur + "' max='" + max + "'></progress>").update();
+      }
+    }
+  },
+  _createRGB: function (current, max) {
+    return "hsl(" + (120 * (1 - (current / max))) + ",100%,50%)";
   },
   _ParseAJAXGeo: function (geo) {
     if (!(Object.keys(geo).length === 0 && geo.constructor === Object)) {

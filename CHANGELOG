@@ -6,6 +6,7 @@
 * #19 grid automatisch generieren
 * #24 Add information about weather/warning
 * #28 Fightdedection Plygon on Map
+* #27 Draw Camera-Desity bock on map
 ### Bugfixes
 * Add Correct Dispose Handling
 * TimeCalculation now handle negative values correct

@@ -30,6 +30,7 @@
         OverlayObject._ParseAJAXDensity(json["crowdcount"]);
         MenuObject._ParseAJAXWeatherAlerts(json["weatherwarnings"]);
         MapObject._ParseAJAXFightDedection(json["fightdedect"]);
+        MapObject._ParseAJAXDensity(json["crowdcount"]);
       }
     };
     get1000.open("GET", "/get1000", true);

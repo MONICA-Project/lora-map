@@ -13,6 +13,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
     public Double Startloclon { get; private set; }
     public Dictionary<String, List<Dictionary<String, List<Double>>>> Grid { get; private set; }
     public Dictionary<String, List<List<Double>>> FightDedection { get; private set; }
+    public Dictionary<String, Density> DensityArea { get; private set; }
 
     public Settings() => this.ParseJson();
     
@@ -54,6 +55,28 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
           fight.Add(entry.Key, poly);
         }
         this.FightDedection = fight;
+      }
+      if (json.ContainsKey("CrwodDensity") && json["CrwodDensity"].IsObject) {
+        Dictionary<String, Density> densitys = new Dictionary<String, Density>();
+        foreach (KeyValuePair<String, JsonData> entry in json["CrwodDensity"]) {
+          Density density = new Density();
+          density.Polygon = new List<List<Double>>();
+          if (entry.Value.ContainsKey("Poly") && entry.Value["Poly"].IsArray) {
+            foreach (JsonData coord in entry.Value["Poly"]) {
+              List<Double> coords = new List<Double>();
+              if (coord.ContainsKey("Lat") && coord["Lat"].IsDouble && coord.ContainsKey("Lon") && coord["Lon"].IsDouble) {
+                coords.Add((Double)coord["Lat"]);
+                coords.Add((Double)coord["Lon"]);
+              }
+              density.Polygon.Add(coords);
+            }
+          }
+          if(entry.Value.ContainsKey("Count") && (entry.Value["Count"].IsInt || entry.Value["Count"].IsDouble)) {
+            density.Maximum = (Int32)entry.Value["Count"];
+          }
+          densitys.Add(entry.Key, density);
+        }
+        this.DensityArea = densitys;
       }
       this.gridradius = json.ContainsKey("GridRadius") && json["GridRadius"].IsInt && this.Startloclat != 0 && this.Startloclon != 0 ? (Int32)json["GridRadius"] : 0;
       this.GenerateGrid();
@@ -138,5 +161,10 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
     }
 
     public List<Int32> GetWeatherCellIds() => this.weatherCellIDs;
+
+    public struct Density {
+      public List<List<Double>> Polygon { get; set; }
+      public Int32 Maximum { get; set; }
+    }
   }
 }
