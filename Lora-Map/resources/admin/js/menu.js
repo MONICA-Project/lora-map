@@ -57,8 +57,8 @@ var NamesEditor = {
     document.getElementById("content").innerHTML = "";
     var namesconfig = JSON.parse(jsontext);
     var html = "<div id='nameeditor'><div class='title'>Namenseinträge in den Einstellungen</div>";
-    html += "<table id='nametable'>";
-    html += "<thead><tr><th class='rowid'>ID</th><th class='rowname'>Name</th><th class='rowicon'>Icon</th><th class='rowedit'></th></tr></thead>";
+    html += "<table id='nametable' class='settingstable'>";
+    html += "<thead><tr><th width='60'>ID</th><th width='250'>Name</th><th width='65'>Icon</th><th width='150'>Filter Gruppe</th><th width='50'></th></tr></thead>";
     html += "<tbody>";
     for (var id in namesconfig) {
       if (namesconfig.hasOwnProperty(id)) {
@@ -73,12 +73,13 @@ var NamesEditor = {
         } else {
           html += "<td><img src='../js/leaflet/images/marker-icon.png'></td>";
         }
+        html += "<td>"+nameentry.Group+"</td>";
         html += "<td><img src='../icons/general/edit.png' onclick='NamesEditor.Edit(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='NamesEditor.Delete(this.parentNode.parentNode)' class='pointer'></td>" +
           "</tr>";
       }
     }
     html += "</tbody>";
-    html += "<tfoot><tr><td></td><td></td><td></td><td><img src='../icons/general/add.png' onclick='NamesEditor.Add()' class='pointer'> <img src='../icons/general/save.png' onclick='NamesEditor.Save()' class='pointer'></td></tr></tfoot>";
+    html += "<tfoot><tr><td></td><td></td><td></td><td></td><td><img src='../icons/general/add.png' onclick='NamesEditor.Add()' class='pointer'> <img src='../icons/general/save.png' onclick='NamesEditor.Save()' class='pointer'></td></tr></tfoot>";
     html += "</table>";
     document.getElementById("content").innerHTML = html + "</div>";
   },
@@ -139,9 +140,19 @@ var NamesEditor = {
   },
   Add: function () {
     var newrow = document.createElement("tr");
-    newrow.innerHTML = "<td><input class='name'/></td>";
-    newrow.innerHTML += "<td><input /></td>";
+    newrow.innerHTML = "<td><input style='width: 55px;'/></td>";
+    newrow.innerHTML += "<td><input style='width: 245px;'/></td>";
     newrow.innerHTML += "<td><img src='../icons/general/icon_edit.png' onclick='NamesEditor.IconEditor(this.parentNode)' class='pointer'> wähle Icon</td>";
+    newrow.innerHTML += "<td><select style='width: 145px;'>" +
+      "<option value='no'>immer Sichtbar</option>" +
+      "<option value='fw'>Feuerwehr</option>" +
+      "<option value='sani'>Sanitäter</option>" +
+      "<option value='pol'>Polizei</option>" +
+      "<option value='oa'>Ordnungsamt</option>" +
+      "<option value='sicherheitsdienst'>Sicherheitsdienst</option>" +
+      "<option value='thw'>THW</option>" +
+      "<option value='crew'>Veranstalter</option>" +
+      "</select></td>";
     newrow.innerHTML += "<td><img src='../icons/general/save.png' onclick='NamesEditor.SaveRow(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='NamesEditor.Abort(this.parentNode.parentNode)' class='pointer'></td>";
     document.getElementById("nametable").children[1].appendChild(newrow);
   },
@@ -187,13 +198,23 @@ var NamesEditor = {
     if (el.children[2].children[0].hasAttribute("data")) {
       url = el.children[2].children[0].data;
     }
-    el.innerHTML = "<td><input class='name' value='" + id + "'/></td>";
-    el.innerHTML += "<td><input value='" + name + "'/></td>";
+    el.innerHTML = "<td><input style='width: 55px;' value='" + id + "'/></td>";
+    el.innerHTML += "<td><input style='width: 245px;' value='" + name + "'/></td>";
     if (url === null) {
       el.innerHTML += "<td><img src='../icons/general/icon_edit.png' onclick='NamesEditor.IconEditor(this.parentNode)' class='pointer'> wähle Icon</td>";
     } else {
       el.innerHTML += "<td><img src='../icons/general/icon_edit.png' onclick='NamesEditor.IconEditor(this.parentNode)' class='pointer'> <object data='" + url + "' type='image/svg+xml' style='height:50px; width:50px;'></object></td>";
     }
+    el.innerHTML += "<td><select style='width: 145px;'>" +
+      "<option value='no'>immer Sichtbar</option>" +
+      "<option value='fw'>Feuerwehr</option>" +
+      "<option value='sani'>Sanitäter</option>" +
+      "<option value='pol'>Polizei</option>" +
+      "<option value='oa'>Ordnungsamt</option>" +
+      "<option value='sicherheitsdienst'>Sicherheitsdienst</option>" +
+      "<option value='thw'>THW</option>" +
+      "<option value='crew'>Veranstalter</option>" +
+      "</select></td>";
     el.innerHTML += "<td><img src='../icons/general/save.png' onclick='NamesEditor.SaveRow(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='NamesEditor.Abort(this.parentNode.parentNode)' class='pointer'></td>";
   },
   Abort: function (el) {
@@ -206,6 +227,7 @@ var NamesEditor = {
     if (el.children[2].children.length === 2) {
       url = el.children[2].children[1].data;
     }
+    var group = "";
     el.innerHTML = "<td>" + id + "</td>" +
       "<td>" + name + "</td>";
     if (url === null) {
@@ -213,6 +235,7 @@ var NamesEditor = {
     } else {
       el.innerHTML += "<td><object data='" + url +"' type='image/svg+xml' style='height:50px; width:50px;'></object></td>";
     }
+    el.innerHTML += "<td>" + group + "</td>";
     el.innerHTML += "<td><img src='../icons/general/edit.png' onclick='NamesEditor.Edit(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='NamesEditor.Delete(this.parentNode.parentNode)' class='pointer'></td>";
   },
   IconEditor: function (el) {
@@ -430,8 +453,8 @@ var Settings = {
   }, 
   _renderFightDedection: function (json) {
     var ret = "";
-    ret += "<table id='fighttable'>";
-    ret += "<thead><tr><th class='rowid'>ID</th><th class='rowcoord'>Koordinaten</th><th class='rowedit'></th></tr></thead>";
+    ret += "<table id='fighttable' class='settingstable'>";
+    ret += "<thead><tr><th width='150'>ID</th><th width='250'>Koordinaten</th><th width='50'></th></tr></thead>";
     ret += "<tbody>";
     for (var id in json) {
       var coords = [];
@@ -451,8 +474,8 @@ var Settings = {
   },
   _renderCrowdDensity: function (json) {
     var ret = "";
-    ret += "<table id='crowdtable'>";
-    ret += "<thead><tr><th class='rowid'>ID</th><th class='rownum'>Personenanzahl</th><th class='rowcoord'>Koordinaten</th><th class='rowedit'></th></tr></thead>";
+    ret += "<table id='crowdtable' class='settingstable'>";
+    ret += "<thead><tr><th width='150'>ID</th><th width='200'>Personenanzahl</th><th width='250'>Koordinaten</th><th width='50'></th></tr></thead>";
     ret += "<tbody>";
     for (var id in json) {
       var coords = [];
@@ -473,16 +496,16 @@ var Settings = {
   },
   AddFight: function () {
     var newrow = document.createElement("tr");
-    newrow.innerHTML = "<td><input class='id'/></td>";
-    newrow.innerHTML += "<td><textarea></textarea></td>";
+    newrow.innerHTML = "<td><input style='width: 145px;'/></td>";
+    newrow.innerHTML += "<td><textarea style='width: 240px;height: 60px;'></textarea></td>";
     newrow.innerHTML += "<td><img src='../icons/general/save.png' onclick='Settings.SaveRowfight(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='Settings.Abort(this.parentNode.parentNode)' class='pointer'></td>";
     document.getElementById("fighttable").children[1].appendChild(newrow);
   },
   AddDensity: function () {
     var newrow = document.createElement("tr");
-    newrow.innerHTML = "<td><input class='id'/></td>";
-    newrow.innerHTML += "<td><input class='count'/></td>";
-    newrow.innerHTML += "<td><textarea></textarea></td>";
+    newrow.innerHTML = "<td><input style='width: 145px;'/></td>";
+    newrow.innerHTML += "<td><input style='width: 195px;'/></td>";
+    newrow.innerHTML += "<td><textarea style='width: 240px;height: 60px;'></textarea></td>";
     newrow.innerHTML += "<td><img src='../icons/general/save.png' onclick='Settings.SaveRowdensity(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='Settings.Abort(this.parentNode.parentNode)' class='pointer'></td>";
     document.getElementById("crowdtable").children[1].appendChild(newrow);
   },
@@ -547,14 +570,14 @@ var Settings = {
     }
   },
   EditFight: function (el) {
-    el.innerHTML = "<td><input class='id' value='" + el.children[0].innerText + "'/></td>" +
-      "<td><textarea>" + el.children[1].innerText + "</textarea></td>" +
+    el.innerHTML = "<td><input style='width: 145px;' value='" + el.children[0].innerText + "'/></td>" +
+      "<td><textarea style='width: 240px;height: 60px;'>" + el.children[1].innerText + "</textarea></td>" +
       "<td><img src='../icons/general/save.png' onclick='Settings.SaveRowfight(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='Settings.Abort(this.parentNode.parentNode)' class='pointer'></td>";
   },
   EditDensity: function (el) {
-    el.innerHTML = "<td><input class='id' value='" + el.children[0].innerText + "'/></td>" +
-      "<td><input class='count' value='" + el.children[1].innerText + "'/></td>" +
-      "<td><textarea>" + el.children[2].innerText + "</textarea></td>" +
+    el.innerHTML = "<td><input style='width: 145px;' value='" + el.children[0].innerText + "'/></td>" +
+      "<td><input style='width: 195px;' value='" + el.children[1].innerText + "'/></td>" +
+      "<td><textarea style='width: 240px;height: 60px;'>" + el.children[2].innerText + "</textarea></td>" +
       "<td><img src='../icons/general/save.png' onclick='Settings.SaveRowdensity(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='Settings.Abort(this.parentNode.parentNode)' class='pointer'></td>";
   },
   _filterFloat: function (value) {

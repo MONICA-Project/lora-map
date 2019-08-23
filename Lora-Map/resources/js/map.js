@@ -110,7 +110,7 @@
         }
         box.setStyle({ color: this._createRGB(cur, max) });
         var p = box.getPopup().setContent("<strong>Besuchermenge:</strong><br>" +
-          "Besucher <strong>(" + cur + "/" + max + ")</strong> Personen<br>" +
+          "Besucher <strong>(" + crowd.DensityCount + "/" + max + ")</strong> Personen<br>" +
           "<progress value='" + cur + "' max='" + max + "'></progress>").update();
       }
     }
