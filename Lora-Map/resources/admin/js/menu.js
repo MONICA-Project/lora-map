@@ -53,6 +53,7 @@
 
 var NamesEditor = {
   iconeditorcounter: 0,
+  filterGropus: { no: "immer Sichtbar", fw: "Feuerwehr", sani: "Sanitäter", pol: "Polizei", oa: "Ordnungsamt", si: "Sicherheitsdienst", thw: "Technisches Hilfswerk", crew: "Veranstalter", dev: "Entwickler" },
   ParseJson: function (jsontext) {
     document.getElementById("content").innerHTML = "";
     var namesconfig = JSON.parse(jsontext);
@@ -73,7 +74,8 @@ var NamesEditor = {
         } else {
           html += "<td><img src='../js/leaflet/images/marker-icon.png'></td>";
         }
-        html += "<td>"+nameentry.Group+"</td>";
+        var gfilter = (typeof nameentry.Group === "undefined") ? "no" : nameentry.Group;
+        html += "<td rel='" + gfilter + "'>" + this.filterGropus[gfilter] + "</td>";
         html += "<td><img src='../icons/general/edit.png' onclick='NamesEditor.Edit(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='NamesEditor.Delete(this.parentNode.parentNode)' class='pointer'></td>" +
           "</tr>";
       }
@@ -143,16 +145,7 @@ var NamesEditor = {
     newrow.innerHTML = "<td><input style='width: 55px;'/></td>";
     newrow.innerHTML += "<td><input style='width: 245px;'/></td>";
     newrow.innerHTML += "<td><img src='../icons/general/icon_edit.png' onclick='NamesEditor.IconEditor(this.parentNode)' class='pointer'> wähle Icon</td>";
-    newrow.innerHTML += "<td><select style='width: 145px;'>" +
-      "<option value='no'>immer Sichtbar</option>" +
-      "<option value='fw'>Feuerwehr</option>" +
-      "<option value='sani'>Sanitäter</option>" +
-      "<option value='pol'>Polizei</option>" +
-      "<option value='oa'>Ordnungsamt</option>" +
-      "<option value='sicherheitsdienst'>Sicherheitsdienst</option>" +
-      "<option value='thw'>THW</option>" +
-      "<option value='crew'>Veranstalter</option>" +
-      "</select></td>";
+    newrow.innerHTML += "<td>" + this.CreateSelectBox("", "item", { item: "" }, this.filterGropus, null, null, true);
     newrow.innerHTML += "<td><img src='../icons/general/save.png' onclick='NamesEditor.SaveRow(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='NamesEditor.Abort(this.parentNode.parentNode)' class='pointer'></td>";
     document.getElementById("nametable").children[1].appendChild(newrow);
   },
@@ -166,7 +159,7 @@ var NamesEditor = {
       }
       var id = rows[i].children[0].innerText;
       var name = rows[i].children[1].innerText;
-      namejson[id] = { "name": name };
+      namejson[id] = { "name": name, "Group": rows[i].children[3].attributes.rel.nodeValue };
       if (rows[i].children[2].children[0].hasAttribute("data")) {
         namejson[id]["marker.svg"] = this.BuildIconJson(rows[i].children[2].children[0].data);
       }
@@ -195,6 +188,7 @@ var NamesEditor = {
     var id = el.children[0].innerText;
     var name = el.children[1].innerText;
     var url = null;
+    var gfilter = el.children[3].attributes.rel.nodeValue;
     if (el.children[2].children[0].hasAttribute("data")) {
       url = el.children[2].children[0].data;
     }
@@ -205,16 +199,7 @@ var NamesEditor = {
     } else {
       el.innerHTML += "<td><img src='../icons/general/icon_edit.png' onclick='NamesEditor.IconEditor(this.parentNode)' class='pointer'> <object data='" + url + "' type='image/svg+xml' style='height:50px; width:50px;'></object></td>";
     }
-    el.innerHTML += "<td><select style='width: 145px;'>" +
-      "<option value='no'>immer Sichtbar</option>" +
-      "<option value='fw'>Feuerwehr</option>" +
-      "<option value='sani'>Sanitäter</option>" +
-      "<option value='pol'>Polizei</option>" +
-      "<option value='oa'>Ordnungsamt</option>" +
-      "<option value='sicherheitsdienst'>Sicherheitsdienst</option>" +
-      "<option value='thw'>THW</option>" +
-      "<option value='crew'>Veranstalter</option>" +
-      "</select></td>";
+    el.innerHTML += "<td>" + this.CreateSelectBox("", "item", { item: gfilter }, this.filterGropus, null, null, true);
     el.innerHTML += "<td><img src='../icons/general/save.png' onclick='NamesEditor.SaveRow(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='NamesEditor.Abort(this.parentNode.parentNode)' class='pointer'></td>";
   },
   Abort: function (el) {
@@ -224,10 +209,10 @@ var NamesEditor = {
     var id = el.children[0].children[0].value;
     var name = el.children[1].children[0].value;
     var url = null;
+    var gfilter = el.children[3].children[0].selectedOptions[0].value;
     if (el.children[2].children.length === 2) {
       url = el.children[2].children[1].data;
     }
-    var group = "";
     el.innerHTML = "<td>" + id + "</td>" +
       "<td>" + name + "</td>";
     if (url === null) {
@@ -235,7 +220,7 @@ var NamesEditor = {
     } else {
       el.innerHTML += "<td><object data='" + url +"' type='image/svg+xml' style='height:50px; width:50px;'></object></td>";
     }
-    el.innerHTML += "<td>" + group + "</td>";
+    el.innerHTML += "<td rel='" + gfilter + "'>" + this.filterGropus[gfilter] + "</td>";
     el.innerHTML += "<td><img src='../icons/general/edit.png' onclick='NamesEditor.Edit(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='NamesEditor.Delete(this.parentNode.parentNode)' class='pointer'></td>";
   },
   IconEditor: function (el) {
@@ -263,13 +248,17 @@ var NamesEditor = {
       "</div>";
     document.getElementsByTagName("body")[0].appendChild(ie);
   },
-  CreateSelectBox: function (title, key, query, options, muliple, group) {
-    var html = title + ": ";
-    var eventtext = "NamesEditor.ChangeLinkPreview(\"" + key + "\",this.selectedOptions);";
-    if (typeof group !== "undefined") {
-      eventtext += " document.getElementById(\"" + group + "\"+this.value).style.display = \"block\";'";
+  CreateSelectBox: function (title, key, query, options, muliple, group, noonchange) {
+    var html = title !== "" ? title + ": " : "";
+    var onchange = "";
+    if (!(typeof noonchange !== "undefined" && noonchange === true)) {
+      var eventtext = "NamesEditor.ChangeLinkPreview(\"" + key + "\",this.selectedOptions);";
+      if (typeof group !== "undefined" && group !== null) {
+        eventtext += " document.getElementById(\"" + group + "\"+this.value).style.display = \"block\";'";
+      }
+      onchange = " onchange='" + eventtext + "'";
     }
-    html += "<select onchange='" + eventtext + "'" + (typeof muliple !== "undefined" && muliple !== null ? " multiple" : "") + ">";
+    html += "<select" + onchange + (typeof muliple !== "undefined" && muliple !== null ? " multiple" : "") + ">";
     if (typeof muliple === "undefined" || muliple === null) {
       html += "<option>---</option>";
     }
