@@ -74,7 +74,7 @@ var NamesEditor = {
         } else {
           html += "<td><img src='../js/leaflet/images/marker-icon.png'></td>";
         }
-        var gfilter = (typeof nameentry.Group === "undefined") ? "no" : nameentry.Group;
+        var gfilter = typeof nameentry.Group === "undefined" ? "no" : nameentry.Group;
         html += "<td rel='" + gfilter + "'>" + this.filterGropus[gfilter] + "</td>";
         html += "<td><img src='../icons/general/edit.png' onclick='NamesEditor.Edit(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='NamesEditor.Delete(this.parentNode.parentNode)' class='pointer'></td>" +
           "</tr>";

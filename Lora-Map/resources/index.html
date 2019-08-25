@@ -11,6 +11,7 @@
   <div id="bigmap"></div>
   <div id="menucollumn">
     <span class="pos" onclick="MenuObject.ShowHidePanel('pannels_pos');"></span>
+    <span class="filter" onclick="MenuObject.ShowHidePanel('pannels_filter');"></span>
     <span class="weather" onclick="MenuObject.ShowHidePanel('pannels_weather');" id="menucol_weather_icon"></span>
     <span class="admin" onclick="MenuObject.ShowHidePanel('pannels_admin');"></span>
     <span class="info" onclick="MenuObject.ShowHidePanel('pannels_version');"></span>
@@ -19,6 +20,21 @@
     <div id="pannels_pos"></div>
     <div id="pannels_info">
       <!-- Shows infos about selected device here, this will be cleand by js -->
+    </div>
+    <div id="pannels_filter">
+      <h1>Angezeigte Gruppen</h1>
+      <select multiple>
+        <option value="fw">Feuerwehr</option>
+        <option value="sani">Sanitäter</option>
+        <option value="pol">Polizei</option>
+        <option value="oa">Ordnungsamt</option>
+        <option value="si">Sicherheitsdienst</option>
+        <option value="thw">Technisches Hilfswerk</option>
+        <option value="crew">Veranstalter</option>
+        <option value="dev">Entwickler</option>
+      </select><br />
+      <span>(Klicken Sie mit <strong>STRG</strong> in das Formular um mehrere Gruppen auszuwählen)</span><br /><br />
+      <span>Sind keine Gruppen ausgewählt, werden alle Icons angezeigt, egal welcher Gruppe sie angehören.</span>
     </div>
     <div id="pannels_weather">
       <h1>Keine Gefahren</h1>

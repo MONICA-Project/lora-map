@@ -211,6 +211,7 @@ margin: 4px;
 
 #pannels #pannels_weather {
   margin: 5px;
+  display: none;
 }
 #pannels #pannels_weather h1 {
   margin: 0;
@@ -245,6 +246,18 @@ margin: 4px;
 #pannels #pannels_weather .alertitem .text {
   display: block;
   margin-bottom: 10px;
+}
+
+#pannels #pannels_filter {
+  margin: 5px;
+  display: none;
+}
+#pannels #pannels_filter h1 {
+  font-size: 16px;
+}
+#pannels #pannels_filter select {
+  height: 140px;
+  width: 235px;
 }
 
 #overlays #cameracount {

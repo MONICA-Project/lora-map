@@ -77,10 +77,10 @@
         var box = this._FightDedection[cameraid];
         var diff = FunctionsObject.TimeCalculation(fight["LastUpdate"], "diffraw");
         if (diff <= 10 && box.options.color === "black") {
-          box.setStyle({ color: 'rgb(' + (fight["FightProbability"]*255)+',0,0)' });
+          box.setStyle({ color: 'rgb(' + fight["FightProbability"]*255+',0,0)' });
         } else if (diff <= 10 && box.options.color !== "black") {
-          if (diff % 2 == 0) {
-            box.setStyle({ color: 'rgb(' + (fight["FightProbability"] * 255) + ',0,0)' });
+          if (diff % 2 === 0) {
+            box.setStyle({ color: 'rgb(' + fight["FightProbability"] * 255 + ',0,0)' });
           } else {
             box.setStyle({ color: 'green' });
           }
@@ -116,7 +116,7 @@
     }
   },
   _createRGB: function (current, max) {
-    return "hsl(" + (120 * (1 - (current / max))) + ",100%,50%)";
+    return "hsl(" + 120 * (1 - current / max) + ",100%,50%)";
   },
   _ParseAJAXGeo: function (geo) {
     if (!(Object.keys(geo).length === 0 && geo.constructor === Object)) {

@@ -19,8 +19,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
     public Double Height { get; private set; }
     public String Name { get; private set; }
     public String Icon { get; private set; }
-
-    
+    public String Group { get; private set; }
 
     public PositionItem(JsonData json, JsonData marker) {
       this.Update(json);
@@ -29,18 +28,9 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
 
     public void UpdateMarker(JsonData marker, String id) {
       if(marker.ContainsKey(id)) {
-        if(marker[id].ContainsKey("name") && marker[id]["name"].IsString) {
-          this.Name = (String)marker[id]["name"];
-        } else {
-          this.Name = id;
-        }
-        if(marker[id].ContainsKey("marker.svg") && marker[id]["marker.svg"].IsObject) {
-          this.Icon = Marker.ParseMarkerConfig(marker[id]["marker.svg"], this.Name);
-        } else if(marker[id].ContainsKey("icon") && marker[id]["icon"].IsString) {
-          this.Icon = (String)marker[id]["icon"];
-        } else {
-          this.Icon = null;
-        }
+        this.Name = marker[id].ContainsKey("name") && marker[id]["name"].IsString ? (String)marker[id]["name"] : id;
+        this.Icon = marker[id].ContainsKey("marker.svg") && marker[id]["marker.svg"].IsObject ? Marker.ParseMarkerConfig(marker[id]["marker.svg"], this.Name) : marker[id].ContainsKey("icon") && marker[id]["icon"].IsString ? (String)marker[id]["icon"] : null;
+        this.Group = marker[id].ContainsKey("Group") && marker[id]["Group"].IsString ? (String)marker[id]["Group"] : "no";
       } else {
         this.Name = id;
         this.Icon = null;
@@ -71,17 +61,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
       }
       this.Recievedtime = DateTime.UtcNow;
       this.Battery = Math.Round((Double)json["BatteryLevel"], 2);
-      if(this.Battery < 3.44) {
-        this.Batterysimple = 0;
-      } else if(this.Battery < 3.53) {
-        this.Batterysimple = 1;
-      } else if(this.Battery < 3.6525) {
-        this.Batterysimple = 2;
-      } else if(this.Battery < 3.8825) {
-        this.Batterysimple = 3;
-      } else {
-        this.Batterysimple = 4;
-      }
+      this.Batterysimple = this.Battery < 3.44 ? 0 : this.Battery < 3.53 ? 1 : this.Battery < 3.6525 ? 2 : this.Battery < 3.8825 ? 3 : 4;
       this.Latitude = (Double)json["Gps"]["Latitude"];
       this.Longitude = (Double)json["Gps"]["Longitude"];
       this.Fix = (Boolean)json["Gps"]["Fix"];

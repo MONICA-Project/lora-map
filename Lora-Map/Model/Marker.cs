@@ -37,7 +37,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model
           }
         }
       }
-      ret += (ret.Contains("?")) ? "&name=" + name : "?name=" + name;
+      ret += ret.Contains("?") ? "&name=" + name : "?name=" + name;
       return ret;
     }
 
