@@ -169,11 +169,17 @@
       var html = "";
       for (var i = 0; i < json.length; i++) {
         var walert = json[i];
-        html += "<div class='alertitem " + walert.Level + "'>" +
+        html += "<div class='alertitem " + walert.Level +" "+ walert.Type + "'>" +
           "<span class='head'>" + walert.Headline + "</span>" +
           "<span class='ort'>" + walert.Location + "</span>" +
           "<span class='text'>" + walert.Body + (walert.Instructions != "" ? "<br><br>" + walert.Instructions : "") + "</span>" +
-          "<span class='time'><b>Von:</b> vor " + FunctionsObject.TimeCalculation(walert.From, "difftext") + " <b>Bis:</b> in " + FunctionsObject.TimeCalculation(walert.To, "difftextn") + "</span>" +
+          "<span class='time'><b>Von:</b> ";
+        if (FunctionsObject.TimeCalculation(walert.From, "diffraw") < 0) {
+          html += "in " + FunctionsObject.TimeCalculation(walert.From, "difftextn");
+        } else {
+          html += "vor " + FunctionsObject.TimeCalculation(walert.From, "difftext");
+        }
+        html += " <b>Bis:</b> in " + FunctionsObject.TimeCalculation(walert.To, "difftextn") + "</span>" +
           "</div>";
       }
       document.getElementById("pannels_weather").innerHTML = html;

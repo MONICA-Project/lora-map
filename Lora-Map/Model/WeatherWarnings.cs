@@ -50,7 +50,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
         this.From = warning["properties"]["SENT"].ToString();
         this.To = warning["properties"]["EXPIRES"].ToString();
         this.Location = warning["properties"]["NAME"].ToString();
-        this.Type = warning["properties"]["EVENT"].ToString();
+        this.Type = warning["properties"]["EVENT"].ToString().ToLower();
         this.Level = warning["properties"]["SEVERITY"].ToString().ToLower();
         this.Headline = warning["properties"]["HEADLINE"].ToString();
         this.Body = warning["properties"]["DESCRIPTION"].ToString();

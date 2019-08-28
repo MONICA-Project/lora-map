@@ -59,6 +59,9 @@ object {
 #menucollumn .pos {
   background-image: url("icons/placeholder.png");
 }
+#menucollumn .filter {
+  background-image: url("icons/filter.png");
+}
 #menucollumn .admin {
   background-image: url("icons/admin-with-cogwheels.png");
 }
@@ -220,6 +223,7 @@ margin: 4px;
 }
 #pannels #pannels_weather .alertitem {
   padding: 5px;
+  margin-bottom: 10px;
 }
 #pannels #pannels_weather .alertitem.minor {
   background-color: #ffeb3b;
@@ -232,6 +236,9 @@ margin: 4px;
 }
 #pannels #pannels_weather .alertitem.extreme {
   background-color: #880e4f;
+}
+#pannels #pannels_weather .alertitem.hitze {
+  background-color: #c9f;
 }
 #pannels #pannels_weather .alertitem .head {
   font-weight: bold;
