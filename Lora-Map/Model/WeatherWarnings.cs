@@ -28,14 +28,16 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
       while(true) {
         List<Warning> ret = new List<Warning>();
         foreach(Int32 item in this.settings.GetWeatherCellIds()) {
-          JsonData json = this.webrequests.GetJson("https://maps.dwd.de/geoserver/wfs?SERVICE=WFS&VERSION=2.0.0&REQUEST=GetFeature&typeName=dwd:Warnungen_Gemeinden&outputFormat=application/json&cql_filter=WARNCELLID=" + item);
-          if(json.ContainsKey("features") && json["features"].IsArray && json["features"].Count > 0) {
-            foreach(JsonData warning in json["features"]) {
-              try {
-                ret.Add(new Warning(warning));
-              } catch { }
+          try {
+            JsonData json = this.webrequests.GetJson("https://maps.dwd.de/geoserver/wfs?SERVICE=WFS&VERSION=2.0.0&REQUEST=GetFeature&typeName=dwd:Warnungen_Gemeinden&outputFormat=application/json&cql_filter=WARNCELLID=" + item);
+            if (json.ContainsKey("features") && json["features"].IsArray && json["features"].Count > 0) {
+              foreach (JsonData warning in json["features"]) {
+                try {
+                  ret.Add(new Warning(warning));
+                } catch { }
+              }
             }
-          }
+          } catch { }
         }
         this.Warnungen = ret;
         Thread.Sleep(60 * 1000);
