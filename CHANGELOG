@@ -7,6 +7,7 @@
 * #24 Add information about weather/warning
 * #28 Fightdedection Plygon on Map
 * #27 Draw Camera-Desity bock on map
+* #16 filter nach kategorien/tracker einbauen
 ### Bugfixes
 * Add Correct Dispose Handling
 * TimeCalculation now handle negative values correct

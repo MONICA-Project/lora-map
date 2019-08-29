@@ -40,6 +40,15 @@
           this._overviewStatus[id] = this._CreateOverviewElement(positionItem, id);
           document.getElementById("pannels_pos").appendChild(this._overviewStatus[id]);
         }
+        if (positionItem.Group !== null && MarkerObject.VisibleMarkers.hasOwnProperty("___isset") && !MarkerObject.VisibleMarkers.hasOwnProperty(positionItem.Group)) {
+          if (this._overviewStatus[id].className.indexOf("filter") === -1) {
+            this._overviewStatus[id].className = "item filter";
+          }
+        } else {
+          if (this._overviewStatus[id].className.indexOf("filter") !== -1) {
+            this._overviewStatus[id].className = "item";
+          }
+        }
         this._UpdateOverviewElement(positionItem, id);
       }
     }
@@ -172,7 +181,7 @@
         html += "<div class='alertitem " + walert.Level +" "+ walert.Type + "'>" +
           "<span class='head'>" + walert.Headline + "</span>" +
           "<span class='ort'>" + walert.Location + "</span>" +
-          "<span class='text'>" + walert.Body + (walert.Instructions != "" ? "<br><br>" + walert.Instructions : "") + "</span>" +
+          "<span class='text'>" + walert.Body + (walert.Instructions !== "" ? "<br><br>" + walert.Instructions : "") + "</span>" +
           "<span class='time'><b>Von:</b> ";
         if (FunctionsObject.TimeCalculation(walert.From, "diffraw") < 0) {
           html += "in " + FunctionsObject.TimeCalculation(walert.From, "difftextn");

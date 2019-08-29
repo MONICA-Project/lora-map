@@ -34,6 +34,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
       } else {
         this.Name = id;
         this.Icon = null;
+        this.Group = null;
       }
     }
     public static Boolean CheckJson(JsonData json) => json.ContainsKey("Rssi") && json["Rssi"].IsDouble

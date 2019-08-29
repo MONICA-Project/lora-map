@@ -210,6 +210,9 @@ var NamesEditor = {
     var name = el.children[1].children[0].value;
     var url = null;
     var gfilter = el.children[3].children[0].selectedOptions[0].value;
+    if (gfilter === "---") {
+      gfilter = "no";
+    }
     if (el.children[2].children.length === 2) {
       url = el.children[2].children[1].data;
     }

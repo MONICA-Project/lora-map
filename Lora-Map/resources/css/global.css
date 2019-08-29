@@ -96,7 +96,11 @@ object {
   display: none;
 }
 #pannels #pannels_pos .item {
-margin: 4px;
+  margin: 4px;
+}
+#pannels #pannels_pos .item.filter {
+  opacity: 0.4;
+  background-color: rgba(1,1,1,0.2);
 }
 #pannels #pannels_pos .item .color {
   float: left;

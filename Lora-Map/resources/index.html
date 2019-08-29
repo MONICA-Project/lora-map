@@ -23,7 +23,7 @@
     </div>
     <div id="pannels_filter">
       <h1>Angezeigte Gruppen</h1>
-      <select multiple>
+      <select multiple onchange="MarkerObject.ChangeFilter(this);">
         <option value="fw">Feuerwehr</option>
         <option value="sani">Sanitäter</option>
         <option value="pol">Polizei</option>

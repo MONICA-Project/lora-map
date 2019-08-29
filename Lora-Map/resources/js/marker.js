@@ -2,6 +2,7 @@
   _Markers: {},
   PanicData: {},
   LocationData: {},
+  VisibleMarkers: {},
   Start: function () {
     return this;
   },
@@ -48,17 +49,21 @@
               }
             }
           }
-          var lasttime = FunctionsObject.TimeCalculation(positionItem['Recievedtime'], "diffraw");
-          if (lasttime <= 5 * 60) {
-            this._Markers[key]._icon.style.opacity = 1;
-          } else if (lasttime > 5 * 60 && lasttime <= 15 * 60) {
-            this._Markers[key]._icon.style.opacity = 0.9 - (lasttime - 5 * 60) / (15 * 60 - 5 * 60) * (0.9 - 0.7);
-          } else if (lasttime > 15 * 60 && lasttime <= 30 * 60) {
-            this._Markers[key]._icon.style.opacity = 0.7 - (lasttime - 15 * 60) / (30 * 60 - 15 * 60) * (0.7 - 0.5);
-          } else if (lasttime > 30 * 60 && lasttime <= 60 * 60) {
-            this._Markers[key]._icon.style.opacity = 0.5 - (lasttime - 30 * 60) / (30 * 60 - 30 * 60) * (0.5 - 0.25);
-          } else if (lasttime > 60 * 60) {
-            this._Markers[key]._icon.style.opacity = 0.25;
+          if (positionItem.Group !== null && this.VisibleMarkers.hasOwnProperty("___isset") && !this.VisibleMarkers.hasOwnProperty(positionItem.Group)) {
+            this._Markers[key]._icon.style.opacity = 0;
+          } else {
+            var lasttime = FunctionsObject.TimeCalculation(positionItem['Recievedtime'], "diffraw");
+            if (lasttime <= 5 * 60) {
+              this._Markers[key]._icon.style.opacity = 1;
+            } else if (lasttime > 5 * 60 && lasttime <= 15 * 60) {
+              this._Markers[key]._icon.style.opacity = 0.9 - (lasttime - 5 * 60) / (15 * 60 - 5 * 60) * (0.9 - 0.7);
+            } else if (lasttime > 15 * 60 && lasttime <= 30 * 60) {
+              this._Markers[key]._icon.style.opacity = 0.7 - (lasttime - 15 * 60) / (30 * 60 - 15 * 60) * (0.7 - 0.5);
+            } else if (lasttime > 30 * 60 && lasttime <= 60 * 60) {
+              this._Markers[key]._icon.style.opacity = 0.5 - (lasttime - 30 * 60) / (30 * 60 - 30 * 60) * (0.5 - 0.25);
+            } else if (lasttime > 60 * 60) {
+              this._Markers[key]._icon.style.opacity = 0.25;
+            }
           }
         }
       }
@@ -73,14 +78,27 @@
         var alertItem = this.PanicData[id];
         if (this._Markers.hasOwnProperty(id)) {
           var marker = this._Markers[id];
-          if (FunctionsObject.TimeCalculation(alertItem["Recievedtime"], "diffraw") <= 10 && marker._icon.className.indexOf(" marker-alert") === -1) {
-            marker._icon.className += " marker-alert";
-            MenuObject.ShowMarkerInfoPerId(id);
-          } else if (FunctionsObject.TimeCalculation(alertItem["Recievedtime"], "diffraw") > 10 && marker._icon.className.indexOf(" marker-alert") !== -1) {
-            marker._icon.className = marker._icon.className.replace(" marker-alert", "");
+          if (!(this.LocationData[id].Group !== null && this.VisibleMarkers.hasOwnProperty("___isset") && !this.VisibleMarkers.hasOwnProperty(this.LocationData[id].Group))) {
+            if (FunctionsObject.TimeCalculation(alertItem["Recievedtime"], "diffraw") <= 10 && marker._icon.className.indexOf(" marker-alert") === -1) {
+              marker._icon.className += " marker-alert";
+              MenuObject.ShowMarkerInfoPerId(id);
+            } else if (FunctionsObject.TimeCalculation(alertItem["Recievedtime"], "diffraw") > 10 && marker._icon.className.indexOf(" marker-alert") !== -1) {
+              marker._icon.className = marker._icon.className.replace(" marker-alert", "");
+            }
           }
         }
       }
     }
+  },
+  ChangeFilter: function (select) {
+    this.VisibleMarkers = {};
+    if (select.selectedOptions.length > 0) {
+      for (var i = 0; i < select.selectedOptions.length; i++) {
+        this.VisibleMarkers[select.selectedOptions[i].value] = true;
+      }
+      this.VisibleMarkers["no"] = true;
+      this.VisibleMarkers["___isset"] = true;
+    }
+    this._ParseAJAXLoc(this.LocationData);
   }
 }.Start();
