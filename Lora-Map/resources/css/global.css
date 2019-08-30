@@ -74,6 +74,9 @@ object {
 #menucollumn .weather.ac {
   background-image: url("icons/storm-ac.png");
 }
+#menucollumn .suche {
+  background-image: url("icons/search.png");
+}
 
 #pannels {
   position: absolute;
@@ -269,6 +272,48 @@ object {
 #pannels #pannels_filter select {
   height: 140px;
   width: 235px;
+}
+
+#pannels #pannels_suche {
+  display: none;
+  padding: 5px;
+}
+#pannels #pannels_suche .searchtitle {
+  font-weight: bold;
+  font-size: 13px;
+}
+#pannels #pannels_suche input {
+  width: 220px;
+  margin-top: 5px;
+}
+#pannels #pannels_suche #search_results {
+  border-top: 1px solid black;
+  margin-top: 10px;
+  padding-top: 10px;
+}
+#pannels #pannels_suche #search_results .result {
+  background-color: rgba(0,0,0,0.2);
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+#pannels #pannels_suche #search_results .result .text {
+  display: inline-block;
+  width: 200px;
+}
+#pannels #pannels_suche #search_results .result .text .title {
+  font-weight: bold;
+  display: block;
+}
+#pannels #pannels_suche #search_results .result .text .desc {
+  display: block;
+}
+#pannels #pannels_suche #search_results .result .box {
+  display: inline-block;
+  height: 25px;
+  width: 15px;
+  border-style: solid;
+  border-width: 2px;
+  vertical-align: top;
 }
 
 #overlays #cameracount {

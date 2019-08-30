@@ -197,5 +197,23 @@
       document.getElementById("pannels_weather").innerHTML = "<h1>Keine Gefahren</h1>";
       document.getElementById("menucol_weather_icon").className = "weather";
     }
+  },
+  SearchInGeoJson: function (searchtext) {
+    var html = "";
+    if (MapObject.GeoJson.features.length > 0) {
+      for (var i = 0; i < MapObject.GeoJson.features.length; i++) {
+        var feature = MapObject.GeoJson.features[i];
+        if (feature.properties.name.indexOf(searchtext) !== -1 && feature.geometry.type === "Polygon") {
+          if (feature.geometry.coordinates.length > 0 && feature.geometry.coordinates[0].length > 0 && feature.geometry.coordinates[0][0].length > 0) {
+            html += "<div class='result' onclick='MapObject.JumpTo(" + feature.geometry.coordinates[0][0][1] + "," + feature.geometry.coordinates[0][0][0]+");'><span class='text'>" +
+              "<span class='title'>" + feature.properties.name + "</span>" +
+              "<span class='desc'>" + (typeof feature.properties.description !== "undefined" ? feature.properties.description : "") + "</span></span>" +
+              "<span class='box' style='background-color: " + feature.properties.fill + "; border-color: " + feature.properties.stroke + "'></span>" +
+              "</div>";
+          }
+        }
+      }
+    }
+    document.getElementById("search_results").innerHTML = html;
   }
 }.Start();

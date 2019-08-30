@@ -1,5 +1,6 @@
 ﻿var MapObject = {
   Map: {},
+  GeoJson: {},
   _FightDedection: {},
   _DensityAreas: {},
   _SpecialMarkers: new Array(),
@@ -77,7 +78,7 @@
         var box = this._FightDedection[cameraid];
         var diff = FunctionsObject.TimeCalculation(fight["LastUpdate"], "diffraw");
         if (diff <= 10 && box.options.color === "black") {
-          box.setStyle({ color: 'rgb(' + fight["FightProbability"]*255+',0,0)' });
+          box.setStyle({ color: 'rgb(' + fight["FightProbability"] * 255 + ',0,0)' });
         } else if (diff <= 10 && box.options.color !== "black") {
           if (diff % 2 === 0) {
             box.setStyle({ color: 'rgb(' + fight["FightProbability"] * 255 + ',0,0)' });
@@ -120,6 +121,7 @@
   },
   _ParseAJAXGeo: function (geo) {
     if (!(Object.keys(geo).length === 0 && geo.constructor === Object)) {
+      this.GeoJson = geo;
       L.geoJSON(geo, {
         style: function (features) {
           return {
@@ -254,5 +256,8 @@
   },
   _HidePanel: function (e) {
     MenuObject.ShowHidePanel(null);
+  },
+  JumpTo: function (lat, lon) {
+    this.Map.flyTo([lat, lon], 19);
   }
 }.Start();
