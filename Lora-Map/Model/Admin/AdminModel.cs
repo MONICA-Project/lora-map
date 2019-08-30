@@ -11,6 +11,8 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model.Admin {
   class AdminModel {
     public delegate void AdminEvent(Object sender, EventArgs e);
     public event AdminEvent NamesUpdate;
+    public event AdminEvent GeoUpdate;
+    public event AdminEvent SettingsUpdate;
 
     private readonly Dictionary<Int64, AdminSession> session = new Dictionary<Int64, AdminSession>();
     private readonly Dictionary<String, String> settings;
@@ -23,78 +25,50 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model.Admin {
       }
     }
 
-    public Boolean ParseReuqest(HttpListenerContext cont) {
-      if(cont.Request.Url.PathAndQuery == "/admin/login") {
-        return this.Login(cont);
-      }
-      if(!this.CheckAuth(cont)) {
+    public Boolean ParseReuqest(HttpListenerContext cont) => 
+      cont.Request.Url.PathAndQuery == "/admin/login" ? this.Login(cont) : 
+      !this.CheckAuth(cont) ? false :
+      cont.Request.Url.PathAndQuery.StartsWith("/admin/get_json_") ? this.GetJsonFiles(cont) :
+      cont.Request.Url.PathAndQuery.StartsWith("/admin/set_json_") ? this.SetJsonFiles(cont) : 
+      Webserver.SendFileResponse(cont);
+
+    private Boolean SetJsonFiles(HttpListenerContext cont) => 
+      cont.Request.Url.PathAndQuery == "/admin/set_json_names" ? this.SetJsonFile(cont, "names.json", this.NamesUpdate) : 
+      cont.Request.Url.PathAndQuery == "/admin/set_json_geo" ? this.SetJsonFile(cont, "geo.json", this.GeoUpdate) : 
+      cont.Request.Url.PathAndQuery == "/admin/set_json_settings" ? this.SetJsonFile(cont, "settings.json", this.SettingsUpdate) : 
+      false;
+
+    private Boolean SetJsonFile(HttpListenerContext cont, String filename, AdminEvent updatenotifier) {
+      StreamReader reader = new StreamReader(cont.Request.InputStream, cont.Request.ContentEncoding);
+      String rawData = reader.ReadToEnd();
+      cont.Request.InputStream.Close();
+      reader.Close();
+      try {
+        JsonMapper.ToObject(rawData);
+      } catch (Exception) {
+        Helper.WriteError("501 - Error recieving " + filename + ", no valid json " + cont.Request.Url.PathAndQuery);
+        cont.Response.StatusCode = 501;
         return false;
       }
-      if(cont.Request.Url.PathAndQuery.StartsWith("/admin/get_json_")) {
-        return this.SendJson(cont);
-      }
-      if(cont.Request.Url.PathAndQuery.StartsWith("/admin/set_json_")) {
-        return this.GetJson(cont);
-      }
-      return Webserver.SendFileResponse(cont);
+      File.WriteAllText("json/"+ filename, rawData);
+      Console.WriteLine("200 - Post " + filename + " " + cont.Request.Url.PathAndQuery);
+      updatenotifier?.Invoke(this, new EventArgs());
+      return true;
     }
 
-    private Boolean GetJson(HttpListenerContext cont) {
-      if(cont.Request.Url.PathAndQuery == "/admin/set_json_names") {
-        StreamReader reader = new StreamReader(cont.Request.InputStream, cont.Request.ContentEncoding);
-        String rawData = reader.ReadToEnd();
-        cont.Request.InputStream.Close();
-        reader.Close();
-        try {
-          JsonMapper.ToObject(rawData);
-        } catch(Exception) {
-          Helper.WriteError("501 - Error recieving names.json " + cont.Request.Url.PathAndQuery);
-          cont.Response.StatusCode = 501;
-          return false;
-        }
-        File.WriteAllText("json/names.json", rawData);
-        Console.WriteLine("200 - Post names.json " + cont.Request.Url.PathAndQuery);
-        this.NamesUpdate?.Invoke(this, new EventArgs());
-        return true;
-      } else if(cont.Request.Url.PathAndQuery == "/admin/set_json_geo") {
-        StreamReader reader = new StreamReader(cont.Request.InputStream, cont.Request.ContentEncoding);
-        String rawData = reader.ReadToEnd();
-        cont.Request.InputStream.Close();
-        reader.Close();
-        try {
-          JsonMapper.ToObject(rawData);
-        } catch(Exception) {
-          Helper.WriteError("501 - Error recieving geo.json " + cont.Request.Url.PathAndQuery);
-          cont.Response.StatusCode = 501;
-          return false;
-        }
-        File.WriteAllText("json/geo.json", rawData);
-        Console.WriteLine("200 - Post geo.json " + cont.Request.Url.PathAndQuery);
-        this.NamesUpdate?.Invoke(this, new EventArgs());
-        return true;
-      }
-      return false;
-    }
+    private Boolean GetJsonFiles(HttpListenerContext cont) =>
+      cont.Request.Url.PathAndQuery == "/admin/get_json_names" ? this.GetJsonFile(cont, "names.json") :
+      cont.Request.Url.PathAndQuery == "/admin/get_json_geo" ? this.GetJsonFile(cont, "geo.json") :
+      cont.Request.Url.PathAndQuery == "/admin/get_json_settings" ? this.GetJsonFile(cont, "settings.json") : 
+      false;
 
-    private Boolean SendJson(HttpListenerContext cont) {
-      if(cont.Request.Url.PathAndQuery == "/admin/get_json_names") {
-        String file = File.ReadAllText("json/names.json");
-        Byte[] buf = Encoding.UTF8.GetBytes(file);
-        cont.Response.ContentLength64 = buf.Length;
-        cont.Response.OutputStream.Write(buf, 0, buf.Length);
-        Console.WriteLine("200 - Send names.json " + cont.Request.Url.PathAndQuery);
-        return true;
-      } else if(cont.Request.Url.PathAndQuery == "/admin/get_json_geo") {
-        String file = File.ReadAllText("json/geo.json");
-        Byte[] buf = Encoding.UTF8.GetBytes(file);
-        cont.Response.ContentLength64 = buf.Length;
-        cont.Response.OutputStream.Write(buf, 0, buf.Length);
-        Console.WriteLine("200 - Send geo.json " + cont.Request.Url.PathAndQuery);
-        return true;
-      }
-      Helper.WriteError("404 - Section in get_json not found " + cont.Request.Url.PathAndQuery + "!");
-      cont.Response.StatusCode = 404;
-      return false;
+    private Boolean GetJsonFile(HttpListenerContext cont, String filename) {
+      String file = File.ReadAllText("json/" + filename);
+      Byte[] buf = Encoding.UTF8.GetBytes(file);
+      cont.Response.ContentLength64 = buf.Length;
+      cont.Response.OutputStream.Write(buf, 0, buf.Length);
+      Console.WriteLine("200 - Send names.json " + cont.Request.Url.PathAndQuery);
+      return true;
     }
 
     private Boolean Login(HttpListenerContext cont) {

@@ -11,9 +11,10 @@
   <div id="header">Adminpannel Lora-Map</div>
   <div id="menu">
     <ul>
-      <li><a onclick="menu_names(); return false;" href="#">Namen und Icons</a></li>
-      <li><a onclick="menu_overlay(); return false;" href="#">Karteneditor</a></li>
-      <li><a onclick="menu_eximport(); return false;" href="#">Ex- und Import</a></li>
+      <li><a onclick="return AdminMenu.Names();" href="#">Namen und Icons</a></li>
+      <!-- <li><a onclick="return AdminMenu.Overlay();" href="#">Karteneditor</a></li> -->
+      <li><a onclick="return AdminMenu.Settings();" href="#">Einstellungen</a></li>
+      <li><a onclick="return AdminMenu.ExImport();" href="#">Ex- und Import</a></li>
     </ul>
   </div>
   <div id="content">Wilkommen im Adminbereich</div>

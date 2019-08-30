@@ -1,5 +1,23 @@
 # Changelogs
 
+## 1.2.9
+### New Features
+* Add setting model to code
+* #19 grid automatisch generieren
+* #24 Add information about weather/warning
+* #28 Fightdedection Plygon on Map
+* #27 Draw Camera-Desity bock on map
+* #16 filter nach kategorien/tracker einbauen
+* #15 suche nach ständen einbauen
+### Bugfixes
+* Add Correct Dispose Handling
+* TimeCalculation now handle negative values correct
+### Changes
+* Refactoring of all JS
+* Make only one request per second instead of four per AJAX
+* Refactoring adminpannel and add settings.json
+* New function in TimeCalculation, so you can not have negative Timespans
+
 ## 1.2.8
 ### New Features
 * Implement #12 Make icon transparent if there is no data update

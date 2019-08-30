@@ -9,22 +9,19 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
       InIReader.SetSearchPath(new List<String>() { "/etc/loramap", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\loramap" });
       if (!InIReader.ConfigExist("settings")) {
         Helper.WriteError("settings.ini not found!");
-        Console.ReadLine();
+        _ = Console.ReadLine();
         return;
       }
       if(!InIReader.ConfigExist("requests")) {
         Helper.WriteError("requests.ini not found!");
-        Console.ReadLine();
+        _ = Console.ReadLine();
         return;
       }
       InIReader ini = InIReader.GetInstance("settings");
       Dictionary<String, String> backenddata = ini.GetSection("mqtt");
-      backenddata.Add("topic", "lora/#;camera/#");
+      backenddata.Add("topic", "lora/#;camera/#;sfn/#");
       ADataBackend b = (ADataBackend)ABackend.GetInstance(backenddata, ABackend.BackendType.Data);
-      new Server(b, ini.GetSection("webserver"), InIReader.GetInstance("requests"));
-      while(true) {
-        System.Threading.Thread.Sleep(1000);
-      }
+      _ = new Server(b, ini.GetSection("webserver"), InIReader.GetInstance("requests"));
     }
   }
 }

@@ -10,14 +10,35 @@
 <body>
   <div id="bigmap"></div>
   <div id="menucollumn">
-    <span class="pos" onclick="showHidePanel('pannels_pos');"></span>
-    <span class="admin" onclick="showHidePanel('pannels_admin');"></span>
-    <span class="info" onclick="showHidePanel('pannels_version');"></span>
+    <span class="pos" onclick="MenuObject.ShowHidePanel('pannels_pos');"></span>
+    <span class="filter" onclick="MenuObject.ShowHidePanel('pannels_filter');"></span>
+    <span class="suche" onclick="MenuObject.ShowHidePanel('pannels_suche');"></span>
+    <span class="weather" onclick="MenuObject.ShowHidePanel('pannels_weather');" id="menucol_weather_icon"></span>
+    <span class="admin" onclick="MenuObject.ShowHidePanel('pannels_admin');"></span>
+    <span class="info" onclick="MenuObject.ShowHidePanel('pannels_version');"></span>
   </div>
   <div id="pannels">
     <div id="pannels_pos"></div>
     <div id="pannels_info">
       <!-- Shows infos about selected device here, this will be cleand by js -->
+    </div>
+    <div id="pannels_filter">
+      <h1>Angezeigte Gruppen</h1>
+      <select multiple onchange="MarkerObject.ChangeFilter(this);">
+        <option value="fw">Feuerwehr</option>
+        <option value="sani">Sanitäter</option>
+        <option value="pol">Polizei</option>
+        <option value="oa">Ordnungsamt</option>
+        <option value="si">Sicherheitsdienst</option>
+        <option value="thw">Technisches Hilfswerk</option>
+        <option value="crew">Veranstalter</option>
+        <option value="dev">Entwickler</option>
+      </select><br />
+      <span>(Klicken Sie mit <strong>STRG</strong> in das Formular um mehrere Gruppen auszuwählen)</span><br /><br />
+      <span>Sind keine Gruppen ausgewählt, werden alle Icons angezeigt, egal welcher Gruppe sie angehören.</span>
+    </div>
+    <div id="pannels_weather">
+      <h1>Keine Gefahren</h1>
     </div>
     <div id="pannels_admin">
       Teste Login...
@@ -34,8 +55,15 @@
           <li><a href="https://www.freepik.com/" title="Freepik">Freepik</a> licensed <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></li>
           <li><a href="http://www.famfamfam.com/about/" title="Silk Iconset">Silk Iconset</a> licensed <a href="http://creativecommons.org/licenses/by/2.5/" title="Creative Commons BY 2.5" target="_blank">CC 2.5 BY</a></li>
           <li><a href="https://www.flaticon.com/authors/those-icons" title="Those Icons">Those Icons</a> licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></li>
+          <li><a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></li>
+          <li><a href="https://www.flaticon.com/authors/dimitry-miroliubov" title="Dimitry Miroliubov">Dimitry Miroliubov</a> from <a href="https://www.flaticon.com/" title="Flaticon">flaticon.com</a></li>
         </ul>
       </div>
+    </div>
+    <div id="pannels_suche">
+      <span class="searchtitle">Standnummer:</span><br />
+      <input onkeyup="MenuObject.SearchInGeoJson(this.value);"/>
+      <div id="search_results"></div>
     </div>
   </div>
   <div id="overlays">

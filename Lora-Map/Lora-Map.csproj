@@ -45,13 +45,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Lib\WebRequests.cs" />
     <Compile Include="Model\Admin\AdminModel.cs" />
     <Compile Include="Model\Admin\AdminSession.cs" />
     <Compile Include="Model\Camera.cs" />
     <Compile Include="Model\Crowd.cs" />
+    <Compile Include="Model\Fight.cs" />
     <Compile Include="Model\Marker.cs" />
     <Compile Include="Model\AlarmItem.cs" />
+    <Compile Include="Model\Settings.cs" />
     <Compile Include="Model\UTMData.cs" />
+    <Compile Include="Model\WeatherWarnings.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="Model\PositionItem.cs" />
     <Compile Include="Program.cs" />
@@ -98,10 +102,22 @@
     <Content Include="resources\css\icons\failtile.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="resources\css\icons\filter.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="resources\css\icons\information.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="resources\css\icons\placeholder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="resources\css\icons\search.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="resources\css\icons\storm-ac.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="resources\css\icons\storm-in.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="resources\icons\akku\0-4.png">
@@ -236,8 +252,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Helper\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

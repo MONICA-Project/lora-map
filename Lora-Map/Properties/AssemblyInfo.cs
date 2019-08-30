@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Fraunhofer FIT")]
 [assembly: AssemblyProduct("Lora-Map")]
-[assembly: AssemblyCopyright("Copyright ©  2018 - 10.07.2019")]
+[assembly: AssemblyCopyright("Copyright ©  2018 - 30.08.2019")]
 [assembly: AssemblyTrademark("Fraunhofer FIT, BlubbFish")]
 [assembly: AssemblyCulture("")]
 [assembly: NeutralResourcesLanguage("de-DE")]
@@ -33,8 +33,8 @@ using System.Runtime.InteropServices;
 // Sie können alle Werte angeben oder Standardwerte für die Build- und Revisionsnummern verwenden,
 // übernehmen, indem Sie "*" eingeben:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.2.8")]
-[assembly: AssemblyFileVersion("1.2.8")]
+[assembly: AssemblyVersion("1.2.9")]
+[assembly: AssemblyFileVersion("1.2.9")]
 
 /*
 * 1.1.1 Add Debian package config
@@ -53,4 +53,5 @@ using System.Runtime.InteropServices;
 * 1.2.6 New Types of marker for person
 * 1.2.7 Reorganise a lot of things, add Support for Cameradata
 * 1.2.8 Improving the UI
+* 1.2.9 The PüMa Release
 */

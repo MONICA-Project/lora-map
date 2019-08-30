@@ -30,54 +30,42 @@
   margin-left: 210px;
   border-left: 1px solid black;
 }
-#content #nameeditor .title {
-  margin-bottom: 20px;
-  font-weight: bold;
-}
-#content #nameeditor #nametable {
+
+#content .settingstable {
   margin-left: 15px;
-  border-collapse: collapse;
+  border-collapse: separate;
 }
-#content #nameeditor #nametable thead {
+#content .settingstable thead {
   background-color: #CCCCCC;
   background-color: rgba(0,0,0,0.2);
 }
-#content #nameeditor #nametable thead th {
+#content .settingstable thead th {
   text-align: left;
 }
-#content #nameeditor #nametable thead .rowid {
-  width: 60px;
-}
-#content #nameeditor #nametable thead .rowicon {
-  width: 65px;
-}
-#content #nameeditor #nametable thead .rowedit {
-  width: 50px;
-}
-#content #nameeditor #nametable thead .rowname {
-  width: 250px;
-}
-#content #nameeditor #nametable tbody tr:nth-child(odd) {
+#content .settingstable tbody tr:nth-child(odd) {
   background-color: #f39d9d;
   background-color: rgba(20,0,250,0.1);
 }
-#content #nameeditor #nametable tbody tr:nth-child(even) {
+#content .settingstable tbody tr:nth-child(even) {
   background-color: #9c9eee;
   background-color: rgba(250,59,0,0.1);
 }
-#content #nameeditor #nametable tbody tr:hover {
+#content .settingstable tbody tr:hover {
   background-color: #e4e1e1;
   background-color: rgba(0,0,0,0.1);
 }
-#content #nameeditor #nametable tfoot {
+#content .settingstable tfoot {
   background-color: #e4e1e1;
   background-color: rgba(0,0,0,0.1);
 }
-#content #nameeditor .pointer {
+
+#content .pointer {
   cursor: pointer;
 }
-#content #nameeditor #nametable tbody .name {
-  width: 55px;
+
+#content #nameeditor .title {
+  margin-bottom: 20px;
+  font-weight: bold;
 }
 
 #iconeditor {
@@ -113,4 +101,22 @@
 #content #eximport .names textarea {
   height: 120px;
   width: 90%;
+}
+
+#content #settingseditor .title {
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+#content #settingseditor .startloc,
+#content #settingseditor .wetterwarnings,
+#content #settingseditor .savesettings,
+#content #settingseditor .gridradius {
+  margin-left: 15px;
+}
+
+#content #settingseditor .fightdedection,
+#content #settingseditor .crowddensity {
+  margin-left: 15px;
+  margin-top: 20px;
 }
