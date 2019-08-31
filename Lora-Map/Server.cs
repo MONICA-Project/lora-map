@@ -182,7 +182,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
           { "url", "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" },
           { "attribution", "&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors" },
           { "minZoom", 1 },
-          { "maxZoom", 18 }
+          { "maxZoom", 19 }
         } }
       };
       if(Directory.Exists("resources" + Path.DirectorySeparatorChar + "maps")) {
