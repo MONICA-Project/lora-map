@@ -5,6 +5,7 @@
 ### Bugfixes
 ### Changes
 * Change Online Map MaxZoom to 19
+* Searchfunction case insensitive
 
 ## 1.2.9
 ### New Features
