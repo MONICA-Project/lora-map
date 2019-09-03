@@ -6,6 +6,7 @@
 ### Changes
 * Change Online Map MaxZoom to 19
 * Searchfunction case insensitive
+* Show Numbers from a Place not with linebreaking
 
 ## 1.2.9
 ### New Features

@@ -13,6 +13,7 @@
 #bigmap .leaflet-map-pane .leaflet-marker-pane .snumber-icon {
   font-weight: bold;
   font-size: 5px;
+  white-space: nowrap;
 }
 #bigmap .leaflet-map-pane .leaflet-marker-pane .coord-icon {
   font-size: 13px;
