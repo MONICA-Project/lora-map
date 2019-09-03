@@ -58,11 +58,11 @@
   _GenerateGrid: function (grid) {
     for (var i = 0; i < grid.Major.length; i++) {
       var linemajor = grid.Major[i];
-      L.polyline([[linemajor.from[0], linemajor.from[1]], [linemajor.to[0], linemajor.to[1]]], { color: "red", weight: 1 }).addTo(this.Map);
+      L.polyline([[linemajor.from[0], linemajor.from[1]], [linemajor.to[0], linemajor.to[1]]], { color: "red", weight: 1, interactive: false }).addTo(this.Map);
     }
     for (var j = 0; j < grid.Minor.length; j++) {
       var lineminor = grid.Minor[j];
-      L.polyline([[lineminor.from[0], lineminor.from[1]], [lineminor.to[0], lineminor.to[1]]], { color: "red", weight: 0.7, opacity: 0.5 }).addTo(this.Map);
+      L.polyline([[lineminor.from[0], lineminor.from[1]], [lineminor.to[0], lineminor.to[1]]], { color: "red", weight: 0.7, opacity: 0.5, interactive: false }).addTo(this.Map);
     }
   },
   _GenerateFightBoxes: function (fightdedection) {
@@ -148,7 +148,8 @@
                 className: "snumber-icon",
                 html: geoJsonPoint.properties["name"],
                 iconSize: [8, 8]
-              })
+              }),
+              interactive: false
             });
             MapObject._SpecialMarkers.push(snumbericon);
             return snumbericon;
@@ -157,7 +158,8 @@
               icon: new L.DivIcon({
                 className: "coord-icon",
                 html: geoJsonPoint.properties["name"]
-              })
+              }),
+              interactive: false
             });
             MapObject._SpecialMarkers.push(coordicon);
             return coordicon;
