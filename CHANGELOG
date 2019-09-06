@@ -8,6 +8,9 @@
 * Searchfunction case insensitive
 * Show Numbers from a Place not with linebreaking
 * Numbers on places are not clickable, also as the grid
+* Search in Description of Polygons
+* Change Sani to Rettungsdienst
+* Display GateCounting Boxes in a line not a collumn
 
 ## 1.2.9
 ### New Features
