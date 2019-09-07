@@ -142,7 +142,7 @@
             if (feature.properties.hasOwnProperty("description")) {
               text = text + "<br>" + feature.properties.description;
             }
-            layer.bindPopup(text);
+            layer.bindPopup(text, { maxWidth: 485 });
           }
         },
         pointToLayer: function (geoJsonPoint, latlng) {
