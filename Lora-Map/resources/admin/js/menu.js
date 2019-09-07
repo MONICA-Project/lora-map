@@ -372,6 +372,9 @@ var Settings = {
     if (typeof jsonsettings.CrwodDensity === "undefined") {
       jsonsettings.CrwodDensity = [];
     }
+    if (typeof jsonsettings.Counting === "undefined") {
+      jsonsettings.Counting = [];
+    }
     var html = "<div id='settingseditor'><div class='title'>Einstellungen</div>";
     html += "<div class='startloc'>Startpunkt: <input value='" + jsonsettings.StartPos.lat + "' id='startlat'> Lat, <input value='" + jsonsettings.StartPos.lon + "' id='startlon'> Lon</div>";
     html += "<div class='wetterwarnings'>CellId's für DWD-Wetterwarnungen: <input value='" + jsonsettings.CellIds.join(";") + "' id='wetterids'> (Trennen durch \";\", <a href='https://www.dwd.de/DE/leistungen/opendata/help/warnungen/cap_warncellids_csv.html'>cap_warncellids_csv</a>)</div>";
@@ -403,7 +406,7 @@ var Settings = {
         var coord = coords[j].split(";");
         polyjson[j] = { "Lat": this._filterFloat(coord[0]), "Lon": this._filterFloat(coord[1]) };
       }
-      fightjson[id] = { "Poly": polyjson };
+      fightjson[id] = { "Poly": polyjson, "Alias": rowsf[i].children[2].innerText, "Level": this._filterFloat(rowsf[i].children[3].innerText) };
     }
     ret.FightDedection = fightjson;
 
@@ -425,7 +428,8 @@ var Settings = {
       }
       crowdjson[id] = {
         "Poly": polyjson,
-        "Count": num
+        "Count": num,
+        "Alias": rowsc[i].children[3].innerText
       };
     }
     ret.CrwodDensity = crowdjson;
@@ -442,11 +446,11 @@ var Settings = {
     };
     savesettings.open("POST", "/admin/set_json_settings", true);
     savesettings.send(JSON.stringify(ret));
-  }, 
+  },
   _renderFightDedection: function (json) {
     var ret = "";
     ret += "<table id='fighttable' class='settingstable'>";
-    ret += "<thead><tr><th width='150'>ID</th><th width='250'>Koordinaten</th><th width='50'></th></tr></thead>";
+    ret += "<thead><tr><th width='150'>ID</th><th width='250'>Koordinaten</th><th width='150'>Alias</th><th width='150'>Alertlimit</th><th width='50'></th></tr></thead>";
     ret += "<tbody>";
     for (var id in json) {
       var coords = [];
@@ -456,18 +460,20 @@ var Settings = {
       ret += "<tr>" +
         "<td>" + id + "</td>" +
         "<td>" + coords.join("<br>") + "</td>" +
+        "<td>" + json[id].Alias + "</td>" +
+        "<td>" + json[id].Level + "</td>" +
         "<td><img src='../icons/general/edit.png' onclick='Settings.EditFight(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='Settings.Delete(this.parentNode.parentNode)' class='pointer'></td>" +
         "</tr>";
     }
     ret += "</tbody>";
-    ret += "<tfoot><tr><td></td><td></td><td><img src='../icons/general/add.png' onclick='Settings.AddFight()' class='pointer'></td></tr></tfoot>";
+    ret += "<tfoot><tr><td></td><td></td><td></td><td></td><td><img src='../icons/general/add.png' onclick='Settings.AddFight()' class='pointer'></td></tr></tfoot>";
     ret += "</table>";
     return ret;
   },
   _renderCrowdDensity: function (json) {
     var ret = "";
     ret += "<table id='crowdtable' class='settingstable'>";
-    ret += "<thead><tr><th width='150'>ID</th><th width='200'>Personenanzahl</th><th width='250'>Koordinaten</th><th width='50'></th></tr></thead>";
+    ret += "<thead><tr><th width='150'>ID</th><th width='200'>Personenanzahl</th><th width='250'>Koordinaten</th><th width='150'>Alias</th><th width='50'></th></tr></thead>";
     ret += "<tbody>";
     for (var id in json) {
       var coords = [];
@@ -478,11 +484,12 @@ var Settings = {
         "<td>" + id + "</td>" +
         "<td>" + json[id].Count + "</td>" +
         "<td>" + coords.join("<br>") + "</td>" +
+        "<td>" + json[id].Alias + "</td>" +
         "<td><img src='../icons/general/edit.png' onclick='Settings.EditDensity(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='Settings.Delete(this.parentNode.parentNode)' class='pointer'></td>" +
         "</tr>";
     }
     ret += "</tbody>";
-    ret += "<tfoot><tr><td></td><td></td><td></td><td><img src='../icons/general/add.png' onclick='Settings.AddDensity()' class='pointer'></td></tr></tfoot>";
+    ret += "<tfoot><tr><td></td><td></td><td></td><td></td><td><img src='../icons/general/add.png' onclick='Settings.AddDensity()' class='pointer'></td></tr></tfoot>";
     ret += "</table>";
     return ret;
   },
@@ -490,6 +497,8 @@ var Settings = {
     var newrow = document.createElement("tr");
     newrow.innerHTML = "<td><input style='width: 145px;'/></td>";
     newrow.innerHTML += "<td><textarea style='width: 240px;height: 60px;'></textarea></td>";
+    newrow.innerHTML = "<td><input style='width: 145px;'/></td>";
+    newrow.innerHTML = "<td><input style='width: 145px;'/></td>";
     newrow.innerHTML += "<td><img src='../icons/general/save.png' onclick='Settings.SaveRowfight(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='Settings.Abort(this.parentNode.parentNode)' class='pointer'></td>";
     document.getElementById("fighttable").children[1].appendChild(newrow);
   },
@@ -498,6 +507,7 @@ var Settings = {
     newrow.innerHTML = "<td><input style='width: 145px;'/></td>";
     newrow.innerHTML += "<td><input style='width: 195px;'/></td>";
     newrow.innerHTML += "<td><textarea style='width: 240px;height: 60px;'></textarea></td>";
+    newrow.innerHTML = "<td><input style='width: 145px;'/></td>";
     newrow.innerHTML += "<td><img src='../icons/general/save.png' onclick='Settings.SaveRowdensity(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='Settings.Abort(this.parentNode.parentNode)' class='pointer'></td>";
     document.getElementById("crowdtable").children[1].appendChild(newrow);
   },
@@ -519,12 +529,18 @@ var Settings = {
         break;
       }
     }
+    if (isNaN(this._filterFloat(el.children[3].children[0].value))) {
+      alert("Die Eingabe des Alertlevel erwartet einen Float");
+      return;
+    }
     if (fail) {
       alert("Die Eingabe der Koordinaten ist nicht Korrekt!\n\nBeispiel:\n50.7;7.8\n50.6;7.9");
       return;
     }
     el.innerHTML = "<td>" + el.children[0].children[0].value + "</td>" +
       "<td>" + coords + "</td>" +
+      "<td>" + el.children[2].children[0].value + "</td>" +
+      "<td>" + this._filterFloat(el.children[3].children[0].value) + "</td>" +
       "<td><img src='../icons/general/edit.png' onclick='Settings.EditFight(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='Settings.DeleteFight(this.parentNode.parentNode)' class='pointer'></td>";
   },
   SaveRowdensity: function (el) {
@@ -553,6 +569,7 @@ var Settings = {
     el.innerHTML = "<td>" + el.children[0].children[0].value + "</td>" +
       "<td>" + el.children[1].children[0].value + "</td>" +
       "<td>" + coords + "</td>" +
+      "<td>" + el.children[3].children[0].value + "</td>" +
       "<td><img src='../icons/general/edit.png' onclick='Settings.EditDensity(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='Settings.DeleteFight(this.parentNode.parentNode)' class='pointer'></td>";
   },
   Delete: function (el) {
@@ -564,12 +581,15 @@ var Settings = {
   EditFight: function (el) {
     el.innerHTML = "<td><input style='width: 145px;' value='" + el.children[0].innerText + "'/></td>" +
       "<td><textarea style='width: 240px;height: 60px;'>" + el.children[1].innerText + "</textarea></td>" +
+      "<td><input style='width: 145px;' value='" + el.children[2].innerText + "'/></td>" +
+      "<td><input style='width: 145px;' value='" + el.children[3].innerText + "'/></td>" +
       "<td><img src='../icons/general/save.png' onclick='Settings.SaveRowfight(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='Settings.Abort(this.parentNode.parentNode)' class='pointer'></td>";
   },
   EditDensity: function (el) {
     el.innerHTML = "<td><input style='width: 145px;' value='" + el.children[0].innerText + "'/></td>" +
       "<td><input style='width: 195px;' value='" + el.children[1].innerText + "'/></td>" +
       "<td><textarea style='width: 240px;height: 60px;'>" + el.children[2].innerText + "</textarea></td>" +
+      "<td><input style='width: 145px;' value='" + el.children[3].innerText + "'/></td>" +
       "<td><img src='../icons/general/save.png' onclick='Settings.SaveRowdensity(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='Settings.Abort(this.parentNode.parentNode)' class='pointer'></td>";
   },
   _filterFloat: function (value) {
@@ -586,7 +606,6 @@ var ExImport = {
     html += "<div class='names'>names.json (Namen und Icons)<br/><textarea id='ex_names'></textarea> <img src='../icons/general/save.png' onclick='ExImport.SaveNames()' class='pointer'></div>";
     html += "<div class='names'>geo.json (Layer on the MAP) <a href='https://mapbox.github.io/togeojson/'>Kml Konverter</a><br/><textarea id='ex_geo'></textarea> <img src='../icons/general/save.png' onclick='ExImport.SaveGeo()' class='pointer'></div>";
     html += "<div class='names'>settings.json (Settings of the Map)<br/><textarea id='ex_settings'></textarea> <img src='../icons/general/save.png' onclick='ExImport.SaveSettings()' class='pointer'></div>";
-
     html += "</div>";
     document.getElementById("content").innerHTML = html;
     document.getElementById("ex_names").value = jsonnames;

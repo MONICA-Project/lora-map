@@ -67,26 +67,30 @@
   },
   _GenerateFightBoxes: function (fightdedection) {
     for (var cameraid in fightdedection) {
-      this._FightDedection[cameraid] = L.polygon(fightdedection[cameraid], { color: 'black', weight: 1 }).addTo(this.Map);
-      this._FightDedection[cameraid].bindPopup("Fightdedection für Kamera: " + cameraid);
+      this._FightDedection[cameraid] = {};
+      this._FightDedection[cameraid].Box = L.polygon(fightdedection[cameraid].Polygon, { color: 'black', weight: 1 }).addTo(this.Map);
+      this._FightDedection[cameraid].Box.bindPopup("Fightdedection " + fightdedection[cameraid].Alias);
+      this._FightDedection[cameraid].Level = fightdedection[cameraid].Level;
     }
   },
   _ParseAJAXFightDedection: function (json) {
     for (var cameraid in json) {
       if (this._FightDedection.hasOwnProperty(cameraid)) {
         var fight = json[cameraid];
-        var box = this._FightDedection[cameraid];
+        var box = this._FightDedection[cameraid].Box;
         var diff = FunctionsObject.TimeCalculation(fight["LastUpdate"], "diffraw");
-        if (diff <= 10 && box.options.color === "black") {
-          box.setStyle({ color: 'rgb(' + fight["FightProbability"] * 255 + ',0,0)' });
-        } else if (diff <= 10 && box.options.color !== "black") {
-          if (diff % 2 === 0) {
+        if (fight["FightProbability"] > this._FightDedection[cameraid].Level) {
+          if (diff <= 10 && box.options.color === "black") {
             box.setStyle({ color: 'rgb(' + fight["FightProbability"] * 255 + ',0,0)' });
-          } else {
-            box.setStyle({ color: 'green' });
+          } else if (diff <= 10 && box.options.color !== "black") {
+            if (diff % 2 === 0) {
+              box.setStyle({ color: 'rgb(' + fight["FightProbability"] * 255 + ',0,0)' });
+            } else {
+              box.setStyle({ color: 'green' });
+            }
+          } else if (diff > 10 && box.options.color !== "black") {
+            box.setStyle({ color: 'black' });
           }
-        } else if (diff > 10 && box.options.color !== "black") {
-          box.setStyle({ color: 'black' });
         }
       }
     }

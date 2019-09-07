@@ -12,7 +12,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
     public Double Startloclat { get; private set; }
     public Double Startloclon { get; private set; }
     public Dictionary<String, List<Dictionary<String, List<Double>>>> Grid { get; private set; }
-    public Dictionary<String, List<List<Double>>> FightDedection { get; private set; }
+    public Dictionary<String, Fight> FightDedection { get; private set; }
     public Dictionary<String, Density> DensityArea { get; private set; }
 
     public Settings() => this.ParseJson();
@@ -39,9 +39,11 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
         }
       }
       if(json.ContainsKey("FightDedection") && json["FightDedection"].IsObject) {
-        Dictionary<String, List<List<Double>>> fight = new Dictionary<String, List<List<Double>>>();
+        Dictionary<String, Fight> fights = new Dictionary<String, Fight>();
         foreach (KeyValuePair<String, JsonData> entry in json["FightDedection"]) {
-          List<List<Double>> poly = new List<List<Double>>();
+          Fight fight = new Fight {
+            Polygon = new List<List<Double>>()
+          };
           if(entry.Value.ContainsKey("Poly") && entry.Value["Poly"].IsArray) {
             foreach (JsonData coord in entry.Value["Poly"]) {
               List<Double> coords = new List<Double>();
@@ -49,18 +51,25 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
                 coords.Add((Double)coord["Lat"]);
                 coords.Add((Double)coord["Lon"]);
               }
-              poly.Add(coords);
+              fight.Polygon.Add(coords);
             }
           }
-          fight.Add(entry.Key, poly);
+          if (entry.Value.ContainsKey("Level") && (entry.Value["Level"].IsDouble)) {
+            fight.Level = (Double)entry.Value["Level"];
+          }
+          if (entry.Value.ContainsKey("Alias") && entry.Value["Alias"].IsString) {
+            fight.Alias = (String)entry.Value["Alias"];
+          }
+          fights.Add(entry.Key, fight);
         }
-        this.FightDedection = fight;
+        this.FightDedection = fights;
       }
       if (json.ContainsKey("CrwodDensity") && json["CrwodDensity"].IsObject) {
         Dictionary<String, Density> densitys = new Dictionary<String, Density>();
         foreach (KeyValuePair<String, JsonData> entry in json["CrwodDensity"]) {
-          Density density = new Density();
-          density.Polygon = new List<List<Double>>();
+          Density density = new Density {
+            Polygon = new List<List<Double>>()
+          };
           if (entry.Value.ContainsKey("Poly") && entry.Value["Poly"].IsArray) {
             foreach (JsonData coord in entry.Value["Poly"]) {
               List<Double> coords = new List<Double>();
@@ -74,6 +83,9 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
           if(entry.Value.ContainsKey("Count") && (entry.Value["Count"].IsInt || entry.Value["Count"].IsDouble)) {
             density.Maximum = (Int32)entry.Value["Count"];
           }
+          if(entry.Value.ContainsKey("Alias") && entry.Value["Alias"].IsString) {
+            density.Alias = (String)entry.Value["Alias"];
+          }
           densitys.Add(entry.Key, density);
         }
         this.DensityArea = densitys;
@@ -83,7 +95,11 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
     }
 
     private void GenerateGrid() {
-      if(this.Startloclat == 0 || this.Startloclon == 0 || this.gridradius == 0) {
+      this.Grid = new Dictionary<String, List<Dictionary<String, List<Double>>>> {
+        { "Major", new List<Dictionary<String, List<Double>>>() },
+        { "Minor", new List<Dictionary<String, List<Double>>>() }
+      };
+      if (this.Startloclat == 0 || this.Startloclon == 0 || this.gridradius == 0) {
         return;
       }
       MilitaryGridReferenceSystem start = new Coordinate(this.Startloclat, this.Startloclon).MGRS;
@@ -92,10 +108,6 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
       Double bottom = start.Northing - this.gridradius - (start.Northing - this.gridradius) % 100;
       Double right = start.Easting + this.gridradius + (100 - (start.Easting + this.gridradius) % 100);
       Double top = start.Northing + this.gridradius + (100 - (start.Northing + this.gridradius) % 100);
-      this.Grid = new Dictionary<String, List<Dictionary<String, List<Double>>>> {
-        { "Major", new List<Dictionary<String, List<Double>>>() },
-        { "Minor", new List<Dictionary<String, List<Double>>>() }
-      };
       for (Double i = left; i <= right; i += 50) {
         Coordinate TopLeft = MilitaryGridReferenceSystem.MGRStoLatLong(new MilitaryGridReferenceSystem(start.LatZone, start.LongZone, start.Digraph, i, top));
         Coordinate BottomLeft = MilitaryGridReferenceSystem.MGRStoLatLong(new MilitaryGridReferenceSystem(start.LatZone, start.LongZone, start.Digraph, i, bottom));
@@ -165,6 +177,13 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
     public struct Density {
       public List<List<Double>> Polygon { get; set; }
       public Int32 Maximum { get; set; }
+      public String Alias { get; set; }
+    }
+
+    public struct Fight {
+      public List<List<Double>> Polygon { get; set; }
+      public Double Level { get; set; }
+      public String Alias { get; set; }
     }
   }
 }
