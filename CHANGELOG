@@ -3,6 +3,7 @@
 ## 1.2.10
 ### New Features
 ### Bugfixes
+* Parse also all Doublevalues as Int
 ### Changes
 * Change Online Map MaxZoom to 19
 * Searchfunction case insensitive

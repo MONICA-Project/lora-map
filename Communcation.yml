@@ -1,0 +1,238 @@
+asyncapi: 2.0.0
+info:
+  title: Lora-Internal-Flow
+  version: '1.0.0'
+  description: |
+    Internal Communication for:
+    * Lora-Gateway
+    * Lora-Map
+  license:
+    name: LGPL3
+    url: http://www.gnu.org/licenses/lgpl-3.0.html
+
+servers:
+  production:
+    url: 127.0.0.1:{port}
+    protocol: mqtt
+    description: Lora-Broker
+    security:
+      - userPassword: []
+    variables:
+      port:
+        description: Secure connection (TLS) is available through port 8883.
+        default: '1883'
+        enum:
+          - '1883'
+          - '8883'
+
+defaultContentType: application/json
+
+channels:
+  lora/data/{deviceID}:
+    description: The topic on whitch the devices are shown for Tracking data.
+    parameters:
+      deviceID:
+        $ref: '#/components/parameters/deviceID'
+    subscribe:
+      summary: Send informations over a Tracker on that topic with an id
+      operationId: loradata
+      message:
+        $ref: '#/components/messages/loradata'
+
+
+  smartylighting/streetlights/1/0/action/{streetlightId}/dim:
+    parameters:
+      streetlightId:
+        $ref: '#/components/parameters/streetlightId'
+    publish:
+      operationId: dimLight
+      message:
+        $ref: '#/components/messages/dimLight'
+
+components:
+  messages:
+    loradata:
+      name: trackerData
+      title: Positionsdata
+      summary: Informs you about a Position and Status of a Tracker
+      contentType: application/json
+      payload:
+        $ref: "#/components/schemas/loradataPayload"
+    dimLight:
+      name: dimLight
+      title: Dim light
+      summary: Command a particular streetlight to dim the lights.
+      payload:
+        $ref: "#/components/schemas/dimLightPayload"
+
+  schemas:
+    loradataPayload1:
+      type: object
+      properties:
+        lumens:
+          type: integer
+          minimum: 0
+          description: Light intensity measured in lumens.
+        sentAt:
+          $ref: "#/components/schemas/sentAt"
+    loradataPayload:
+      $ref: "#/components/schemas/loradataObject"
+    dimLightPayload:
+      type: object
+      properties:
+        percentage:
+          type: integer
+          description: Percentage to which the light should be dimmed to.
+          minimum: 0
+          maximum: 100
+        sentAt:
+          $ref: "#/components/schemas/sentAt"
+    sentAt:
+      type: string
+      format: date-time
+      description: Date and time when the message was sent.
+    loradataObject:
+      type: object
+      required:
+        - BatteryLevel
+        - Gps
+        - Name
+        - Receivedtime
+        - Rssi
+        - Snr
+      properties:
+        Bandwidth:
+          type: integer
+          description: Bandwidth on witch the Signal was recieved
+          minimum: 7800
+          maximum: 500000
+        BatteryLevel:
+          type: number
+          description: Voltage of the battery from the device
+          minimum: 2.5
+          maximum: 5
+        Calculatedcrc:
+          type: integer
+          description: The calculated CRC
+        Codingrate:
+          type: integer
+          description: The Codingrate in witch the Signal was recieved
+          minimum: 5
+          maximum: 8
+        Crcstatus:
+          type: string
+          description: Shows the CRC-Status in a Field
+          enum: 
+            - Ok
+            - Bad
+            - No
+        Frequency:
+          type: integer
+          description: The Frequency on that the Message was arrived
+        Gps:
+          type: object
+          description: Gps-Data of a Message
+          required:
+            - Fix
+            - Hdop
+            - Height
+            - LastGPSPos
+            - LastLatitude
+            - LastLongitude
+            - Latitude
+            - Longitude
+          properties:
+            Fix:
+              type: boolean
+              description: Status of the Tracker, true if it has GPS-Signal
+            Hdop:
+              type: number
+              description: Dislocation from GPS-Reciever
+              minimum: 0.8
+              maximum: 25
+            Height:
+              type: number
+              description: Height of the GPS-Reciever
+            LastGPSPos:
+              type: string
+              description: Timestamp when the GPS-Reciever has its last position
+              format: dd/mm/YYYY hh:MM:ss
+              default: 01/01/2019 12:00:00
+            LastLatitude:
+              type: number
+              description: Last Latitude of the GPS-Reciever
+              default: 50.7
+            LastLongitude:
+              type: number
+              description: Last Longitude of the GPS-Reciever
+              default: 7.2
+            Latitude:
+              type: number
+              description: Latitude of the GPS-Reciever
+              default: 50.7
+            Longitude:
+              type: number
+              description: Longitude of the GPS-Reciever
+              default: 7.2
+            Time:
+              type: string
+              description: Timestamp of the GPS-Reciever, that it gets from the Satelites
+              format: dd/mm/YYYY hh:MM:ss
+              default: 01/01/2019 12:00:00
+        Host:
+          type: string
+          description: Name of the Gateway that Recieves the Data
+        Name:
+          type: string
+          description: Name of the GPS-Tracker, must be unique between every Device
+          format: "/[a-z]{2}/i"
+        PacketRssi:
+          type: number
+          description: Recieve Signal Strength Index for the whole LORA-Messgae
+        Receivedtime:
+          type: string
+          description: Timestamp of the Gateway, when it recieves the LORA-Message
+          format: dd/mm/YYYY hh:MM:ss
+          default: 01/01/2019 12:00:00
+        Recieverinterface:
+          type: integer
+          description: Internal virtual Radio of the Gateway, witch recieves the LORA-Messange
+        Recieverradio:
+          type: integer
+          description: Internal Radio of the Gateway, witch recieves the LORA-Messange
+        Rssi:
+          type: number
+          description: Recieve Signal Strength Index for the LORA-Message
+        Snr:
+          type: number
+          description: Signal to Noise Ratio of the LORA-Message
+        Snrmax:
+          type: number
+          description: Maximum Signal to Noise Ratio of the LORA-Message
+        Snrmin:
+          type: number
+          description: Minimum Signal to Noise Ratio of the LORA-Message
+        Spreadingfactor:
+          type: integer
+          description: The Spreadingfactor of the LORA-Message
+          minimum: 7
+          maximum: 12
+        Time:
+          type: integer
+          description: Internal Timecounter of the LORA-Reciever
+          
+
+  securitySchemes:
+    userPassword:
+      type: userPassword
+      description: Using Username and Password to connect to online broker
+
+  parameters:
+    streetlightId:
+      description: The ID of the streetlight.
+      schema:
+        type: string
+    deviceID:
+      description: The ID of the streetlight.
+      schema:
+        type: string
