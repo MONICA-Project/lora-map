@@ -29,25 +29,36 @@ defaultContentType: application/json
 
 channels:
   lora/data/{deviceID}:
-    description: The topic on whitch the devices are shown for Tracking data.
+    description: Topic witch contains the tracking data.
     parameters:
       deviceID:
         $ref: '#/components/parameters/deviceID'
     subscribe:
-      summary: Send informations over a Tracker on that topic with an id
       operationId: loradata
       message:
         $ref: '#/components/messages/loradata'
+  
+  
+  lora/panic/{deviceID}:
+     description: Topic witch contains the tracking data, when the panic buttons was pressed
+     parameters:
+       deviceID:
+         $ref: '#/components/parameters/deviceID'
+     subscribe:
+       operationId: lorapanic
+       message:
+         $ref: '#/components/messages/loradata'
 
 
-  smartylighting/streetlights/1/0/action/{streetlightId}/dim:
+  lora/status/{deviceID}:
+    description: Topic witch contains status of the devices
     parameters:
-      streetlightId:
-        $ref: '#/components/parameters/streetlightId'
-    publish:
-      operationId: dimLight
-      message:
-        $ref: '#/components/messages/dimLight'
+       deviceID:
+         $ref: '#/components/parameters/deviceID'
+    subscribe:
+       operationId: lorastatus
+       message:
+         $ref: '#/components/messages/lorastatus'
 
 components:
   messages:
@@ -58,39 +69,117 @@ components:
       contentType: application/json
       payload:
         $ref: "#/components/schemas/loradataPayload"
-    dimLight:
-      name: dimLight
-      title: Dim light
-      summary: Command a particular streetlight to dim the lights.
+    lorastatus:
+      name: loraStatus
+      title: Statusdata
+      summary: Informs you about a Status of a Tracker
       payload:
-        $ref: "#/components/schemas/dimLightPayload"
+        $ref: "#/components/schemas/lorastausPayload"
 
   schemas:
-    loradataPayload1:
-      type: object
-      properties:
-        lumens:
-          type: integer
-          minimum: 0
-          description: Light intensity measured in lumens.
-        sentAt:
-          $ref: "#/components/schemas/sentAt"
     loradataPayload:
       $ref: "#/components/schemas/loradataObject"
-    dimLightPayload:
+      
+    lorastausPayload:
+      $ref: "#/components/schemas/lorastatusObject"
+      
+    lorastatusObject:
       type: object
       properties:
-        percentage:
+        Bandwidth:
           type: integer
-          description: Percentage to which the light should be dimmed to.
-          minimum: 0
-          maximum: 100
-        sentAt:
-          $ref: "#/components/schemas/sentAt"
-    sentAt:
-      type: string
-      format: date-time
-      description: Date and time when the message was sent.
+          description: Bandwidth on witch the Signal was recieved
+          minimum: 7800
+          maximum: 500000
+        BatteryLevel:
+          type: number
+          description: Voltage of the battery from the device
+          minimum: 2.5
+          maximum: 5
+        Calculatedcrc:
+          type: integer
+          description: The calculated CRC
+        Codingrate:
+          type: integer
+          description: The Codingrate in witch the Signal was recieved
+          minimum: 5
+          maximum: 8
+        Crcstatus:
+          type: string
+          description: Shows the CRC-Status in a Field
+          enum: 
+            - Ok
+            - Bad
+            - No
+        DeviceStatus:
+          type: string
+          description: Shows the internal state in a Field
+          enum:
+            - Startup
+            - Powersave
+            - Shutdown
+        Frequency:
+          type: integer
+          description: The Frequency on that the Message was arrived
+        FrequencyOffset:
+          type: integer
+          description: The internal offset to the base frequency, to compensate cheap china rf modules
+        Host:
+          type: string
+          description: Name of the Gateway that Recieves the Data
+        IpAddress:
+          type: string
+          description: IP-Address of the device, for debug
+          default: "0.0.0.0"
+          format: "[0-9]\\.[0-9]\\.[0-9]\\.[0-9]"
+        Name:
+          type: string
+          description: Name of the GPS-Tracker, must be unique between every Device
+          format: "/[a-z]{2}/i"
+        PacketRssi:
+          type: number
+          description: Recieve Signal Strength Index for the whole LORA-Messgae
+        Receivedtime:
+          type: string
+          description: Timestamp of the Gateway, when it recieves the LORA-Message
+          format: dd/mm/YYYY hh:MM:ss
+          default: 01/01/2019 12:00:00
+        Recieverinterface:
+          type: integer
+          description: Internal virtual Radio of the Gateway, witch recieves the LORA-Messange
+        Recieverradio:
+          type: integer
+          description: Internal Radio of the Gateway, witch recieves the LORA-Messange
+        Rssi:
+          type: number
+          description: Recieve Signal Strength Index for the LORA-Message
+        Snr:
+          type: number
+          description: Signal to Noise Ratio of the LORA-Message
+        Snrmax:
+          type: number
+          description: Maximum Signal to Noise Ratio of the LORA-Message
+        Snrmin:
+          type: number
+          description: Minimum Signal to Noise Ratio of the LORA-Message
+        Spreadingfactor:
+          type: integer
+          description: The Spreadingfactor of the LORA-Message
+          minimum: 7
+          maximum: 12
+        Time:
+          type: integer
+          description: Internal Timecounter of the LORA-Reciever
+        Version:
+          type: integer
+          description: Software-Versionsnumber of the Device
+        WifiActive:
+          type: boolean
+          description: Status if the Device successufly connect to a wifi
+        WifiSsid:
+          type: string
+          description: SSID of the WIFI witch the device connects to.
+          
     loradataObject:
       type: object
       required:
@@ -228,10 +317,6 @@ components:
       description: Using Username and Password to connect to online broker
 
   parameters:
-    streetlightId:
-      description: The ID of the streetlight.
-      schema:
-        type: string
     deviceID:
       description: The ID of the streetlight.
       schema:
