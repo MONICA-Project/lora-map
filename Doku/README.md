@@ -1,6 +1,6 @@
 # Lora-Map
 Lora-Map ist eine Karte die GPS-Positionen von Geräten anzeigt.
-![Global mit Anmerkungen](Global.PNG)
+![Global mit Anmerkungen](Global.png)
 
 ## Bedienung
 In diesem abschnitt findet sich eine Bedienungsnleitung über alle Funktionen der Karte.
@@ -35,3 +35,5 @@ Ebenso ist der Empfang nach dem Einsachalten nicht sofort verfügbar.
 
 ##### 2.1.6 Letzer Signalempfang
 In dieser Zeile wird die Zeitspanne seit dem letzten Signalempfang über Funk vom Tracker angezeigt. Somit ist ersichtlich wie Aktuell die genannte Posiotion auf der Karte ist.
+
+#### 2.2 Tracker-Detail
