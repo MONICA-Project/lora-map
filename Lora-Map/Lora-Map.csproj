@@ -64,6 +64,7 @@
   <ItemGroup>
     <None Include="Adminrights.manifest" />
     <None Include="..\CHANGELOG" />
+	<None Include="..\README.md" />
     <None Include="config-example\settings.conf.example">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
