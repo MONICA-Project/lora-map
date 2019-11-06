@@ -21,6 +21,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mono.Posix", "..\Librarys\M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoordinateSharp", "..\Librarys\Coordinates\CoordinateSharp\CoordinateSharp.csproj", "{DA8510CE-7899-49DD-9E17-7C974382288D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "map-project", "map-project", "{09970E82-A296-45BC-A389-77CA4EFEFFED}"
+	ProjectSection(SolutionItems) = preProject
+		..\.dockerignore = ..\.dockerignore
+		..\.travis.yml = ..\.travis.yml
+		..\CONTRIBUTING.md = ..\CONTRIBUTING.md
+		..\docker-compose.yml = ..\docker-compose.yml
+		..\Dockerfile = ..\Dockerfile
+		..\LICENSE = ..\LICENSE
+		..\README.md = ..\README.md
+		..\update.sh = ..\update.sh
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
