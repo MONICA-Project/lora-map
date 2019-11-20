@@ -50,6 +50,7 @@
     <Compile Include="Model\Admin\AdminSession.cs" />
     <Compile Include="Model\Camera.cs" />
     <Compile Include="Model\Crowd.cs" />
+    <Compile Include="Model\EnviromentData.cs" />
     <Compile Include="Model\Fight.cs" />
     <Compile Include="Model\Marker.cs" />
     <Compile Include="Model\AlarmItem.cs" />
@@ -64,7 +65,7 @@
   <ItemGroup>
     <None Include="Adminrights.manifest" />
     <None Include="..\CHANGELOG.md" />
-	<None Include="..\README.md" />
+    <None Include="..\README.md" />
     <None Include="config-example\settings.conf.example">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

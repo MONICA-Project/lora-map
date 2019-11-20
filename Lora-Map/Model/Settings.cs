@@ -14,6 +14,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
     public Dictionary<String, List<Dictionary<String, List<Double>>>> Grid { get; private set; }
     public Dictionary<String, Fight> FightDedection { get; private set; }
     public Dictionary<String, Density> DensityArea { get; private set; }
+    public Dictionary<String, Sensor> Sensors { get; private set; }
 
     public Settings() => this.ParseJson();
     
@@ -21,9 +22,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
 
     private void ParseJson() {
       JsonData json = JsonMapper.ToObject(File.ReadAllText("json/settings.json"));
-      if(json.ContainsKey("StartPos") && json["StartPos"].IsObject &&
-        json["StartPos"].ContainsKey("lat") && json["StartPos"]["lat"].IsDouble &&
-        json["StartPos"].ContainsKey("lon") && json["StartPos"]["lon"].IsDouble) {
+      if(json.ContainsKey("StartPos") && json["StartPos"].IsObject && json["StartPos"].ContainsKey("lat") && json["StartPos"]["lat"].IsDouble && json["StartPos"].ContainsKey("lon") && json["StartPos"]["lon"].IsDouble) {
         this.Startloclat = (Double)json["StartPos"]["lat"];
         this.Startloclon = (Double)json["StartPos"]["lon"];
       } else {
@@ -31,7 +30,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
         this.Startloclon = 0;
       }
       this.weatherCellIDs.Clear();
-      if (json.ContainsKey("CellIds") && json["CellIds"].IsArray && json["CellIds"].Count > 0) {
+      if(json.ContainsKey("CellIds") && json["CellIds"].IsArray && json["CellIds"].Count > 0) {
         foreach (JsonData item in json["CellIds"]) {
           if(Int32.TryParse(item.ToString(), out Int32 cellid)) {
             this.weatherCellIDs.Add(cellid);
@@ -54,7 +53,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
               fight.Polygon.Add(coords);
             }
           }
-          if (entry.Value.ContainsKey("Level") && (entry.Value["Level"].IsDouble)) {
+          if (entry.Value.ContainsKey("Level") && entry.Value["Level"].IsDouble) {
             fight.Level = (Double)entry.Value["Level"];
           }
           if (entry.Value.ContainsKey("Alias") && entry.Value["Alias"].IsString) {
@@ -64,7 +63,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
         }
         this.FightDedection = fights;
       }
-      if (json.ContainsKey("CrwodDensity") && json["CrwodDensity"].IsObject) {
+      if(json.ContainsKey("CrwodDensity") && json["CrwodDensity"].IsObject) {
         Dictionary<String, Density> densitys = new Dictionary<String, Density>();
         foreach (KeyValuePair<String, JsonData> entry in json["CrwodDensity"]) {
           Density density = new Density {
@@ -89,6 +88,31 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
           densitys.Add(entry.Key, density);
         }
         this.DensityArea = densitys;
+      }
+      if(json.ContainsKey("Sensors") && json["Sensors"].IsObject) {
+        Dictionary<String, Sensor> sensors = new Dictionary<String, Sensor>();
+        foreach(KeyValuePair<String, JsonData> entry in json["Sensors"]) {
+          Sensor sensor = new Sensor {
+            Coordinates = new List<Double>()
+          };
+          if(entry.Value.ContainsKey("Poly") && entry.Value["Poly"].IsObject) {
+            JsonData coord = entry.Value["Poly"];
+            List<Double> coords = new List<Double>();
+            if(coord.ContainsKey("Lat") && coord["Lat"].IsDouble && coord.ContainsKey("Lon") && coord["Lon"].IsDouble) {
+              coords.Add((Double)coord["Lat"]);
+              coords.Add((Double)coord["Lon"]);
+            }
+            sensor.Coordinates = coords;
+            if(entry.Value.ContainsKey("Level") && (entry.Value["Level"].IsInt || entry.Value["Level"].IsDouble)) {
+              sensor.Level = entry.Value["Level"].IsInt ? (Int32)entry.Value["Level"] : (Double)entry.Value["Level"];
+            }
+            if(entry.Value.ContainsKey("Alias") && entry.Value["Alias"].IsString) {
+              sensor.Alias = (String)entry.Value["Alias"];
+            }
+            sensors.Add(entry.Key, sensor);
+          }
+        }
+        this.Sensors = sensors;
       }
       this.gridradius = json.ContainsKey("GridRadius") && json["GridRadius"].IsInt && this.Startloclat != 0 && this.Startloclon != 0 ? (Int32)json["GridRadius"] : 0;
       this.GenerateGrid();
@@ -182,6 +206,12 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
 
     public struct Fight {
       public List<List<Double>> Polygon { get; set; }
+      public Double Level { get; set; }
+      public String Alias { get; set; }
+    }
+
+    public struct Sensor {
+      public List<Double> Coordinates { get; set; }
       public Double Level { get; set; }
       public String Alias { get; set; }
     }

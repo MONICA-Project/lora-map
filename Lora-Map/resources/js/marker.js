@@ -3,6 +3,8 @@
   PanicData: {},
   LocationData: {},
   VisibleMarkers: {},
+  _Sensors: {},
+  _SensorSettings: {},
   Start: function () {
     return this;
   },
@@ -89,6 +91,36 @@
         }
       }
     }
+  },
+  _ParseAJAXSensors: function (sensorjson) {
+    for (var sensorid in sensorjson) {
+      if (sensorjson.hasOwnProperty(sensorid)) {
+        if (this._SensorSettings.hasOwnProperty(sensorid)) {
+          var sensordata = sensorjson[sensorid];
+          var sensorsettings = this._SensorSettings[sensorid];
+
+          if (!this._Sensors.hasOwnProperty(sensorid)) { //Sensor is not drawn until now
+            var sensor = null;
+            var sensorIcon = L.divIcon({
+              className: 'sensoricon',
+              iconSize: [60, 120],
+              iconAnchor: [30, 60],
+              html: '<div class="mapsensor" id="MapSensor_id_' + sensorid + '"><span class="name">' + sensorsettings.Alias + '</span>' +
+                '<span class="temp">' + sensordata.Temperature + ' °C</span>' +
+                '<span class="wind">' + sensordata.Windspeed + ' m/s</span>' +
+                '<span class="hum">' + sensordata.Humidity + ' %rl</span></div>'
+            });
+            sensor = L.marker(sensorsettings.Coordinates, { 'title': sensorsettings.Alias, 'icon': sensorIcon });
+            this._Sensors[sensorid] = sensor.addTo(MapObject.Map);
+          } else { //Sensor refresh!
+
+          }
+        }
+      }
+    }
+  },
+  _ParseAJAXSettings: function(json) {
+    this._SensorSettings = json["Sensors"];
   },
   ChangeFilter: function (select) {
     this.VisibleMarkers = {};

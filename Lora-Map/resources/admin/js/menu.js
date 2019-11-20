@@ -375,12 +375,16 @@ var Settings = {
     if (typeof jsonsettings.Counting === "undefined") {
       jsonsettings.Counting = [];
     }
+    if (typeof jsonsettings.Sensors === "undefined") {
+      jsonsettings.Sensors = [];
+    }
     var html = "<div id='settingseditor'><div class='title'>Einstellungen</div>";
     html += "<div class='startloc'>Startpunkt: <input value='" + jsonsettings.StartPos.lat + "' id='startlat'> Lat, <input value='" + jsonsettings.StartPos.lon + "' id='startlon'> Lon</div>";
     html += "<div class='wetterwarnings'>CellId's für DWD-Wetterwarnungen: <input value='" + jsonsettings.CellIds.join(";") + "' id='wetterids'> (Trennen durch \";\", <a href='https://www.dwd.de/DE/leistungen/opendata/help/warnungen/cap_warncellids_csv.html'>cap_warncellids_csv</a>)</div>";
     html += "<div class='gridradius'>Radius für das Grid um den Startpunkt: <input value='" + jsonsettings.GridRadius + "' id='gridrad'>m</div>";
     html += "<div class='fightdedection'>Fight Dedection Kameras: <br>" + this._renderFightDedection(jsonsettings.FightDedection) + "</div>";
     html += "<div class='crowddensity'>Crowd Density Kameras: <br>" + this._renderCrowdDensity(jsonsettings.CrwodDensity) + "</div>";
+    html += "<div class='sensorsettings'>Sensors: <br>" + this._renderSensorSettings(jsonsettings.Sensors) + "</div>";
     html += "<div class='savesettings'><img src='../icons/general/save.png' onclick='Settings.Save()' class='pointer'></div>";
     document.getElementById("content").innerHTML = html + "</div>";
   },
@@ -434,6 +438,26 @@ var Settings = {
     }
     ret.CrwodDensity = crowdjson;
 
+    var rowss = document.getElementById("sensortable").children[1].children;
+    var sensorjson = {};
+    for (i = 0; i < rowss.length; i++) {
+      if (rowss[i].children[0].children.length === 1) {
+        alert("Bitte zuerst alle Zeilen speichern oder Löschen!");
+        return;
+      }
+      id = rowss[i].children[0].innerText;
+      coord = rowss[i].children[2].innerHTML.split(";");
+      sensorjson[id] = {
+        "Poly": {
+          "Lat": this._filterFloat(coord[0]),
+          "Lon": this._filterFloat(coord[1])
+        },
+        "Level": this._filterFloat(rowss[i].children[3].innerText),
+        "Alias": rowss[i].children[1].innerText
+      };
+    }
+    ret.Sensors = sensorjson;
+
     var savesettings = new XMLHttpRequest();
     savesettings.onreadystatechange = function () {
       if (savesettings.readyState === 4) {
@@ -446,6 +470,27 @@ var Settings = {
     };
     savesettings.open("POST", "/admin/set_json_settings", true);
     savesettings.send(JSON.stringify(ret));
+  },
+  _renderSensorSettings: function (json) {
+    var ret = "";
+    ret += "<table id='sensortable' class='settingstable'>";
+    ret += "<thead><tr><th width='150'>ID</th><th width='150'>Alias</th><th width='250'>Koordinaten</th><th width='150'>Warn above</th><th width='50'></th></tr></thead>";
+
+    ret += "<tbody>";
+    for (var id in json) {
+      ret += "<tr>" +
+        "<td>" + id + "</td>" +
+        "<td>" + json[id].Alias + "</td>" +
+        "<td>" + json[id].Poly.Lat + ";" + json[id].Poly.Lon + "</td>" +
+        "<td>" + json[id].Level + "</td>" +
+        "<td><img src='../icons/general/edit.png' onclick='Settings.EditSensor(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='Settings.Delete(this.parentNode.parentNode)' class='pointer'></td>" +
+        "</tr>";
+    }
+    ret += "</tbody>";
+
+    ret += "<tfoot><tr><td></td><td></td><td></td><td></td><td><img src='../icons/general/add.png' onclick='Settings.AddSensor()' class='pointer'></td></tr></tfoot>";
+    ret += "</table>";
+    return ret;
   },
   _renderFightDedection: function (json) {
     var ret = "";
@@ -493,12 +538,21 @@ var Settings = {
     ret += "</table>";
     return ret;
   },
+  AddSensor: function () {
+    var newrow = document.createElement("tr");
+    newrow.innerHTML = "<td><input style='width: 145px;'/></td>";
+    newrow.innerHTML += "<td><input style='width: 145px;'/></td>";
+    newrow.innerHTML += "<td><input style='width: 250px;'/></td>";
+    newrow.innerHTML += "<td><input style='width: 145px;'/></td>";
+    newrow.innerHTML += "<td><img src='../icons/general/save.png' onclick='Settings.SaveRowSensor(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='Settings.Abort(this.parentNode.parentNode)' class='pointer'></td>";
+    document.getElementById("sensortable").children[1].appendChild(newrow);
+  },
   AddFight: function () {
     var newrow = document.createElement("tr");
     newrow.innerHTML = "<td><input style='width: 145px;'/></td>";
     newrow.innerHTML += "<td><textarea style='width: 240px;height: 60px;'></textarea></td>";
-    newrow.innerHTML = "<td><input style='width: 145px;'/></td>";
-    newrow.innerHTML = "<td><input style='width: 145px;'/></td>";
+    newrow.innerHTML += "<td><input style='width: 145px;'/></td>";
+    newrow.innerHTML += "<td><input style='width: 145px;'/></td>";
     newrow.innerHTML += "<td><img src='../icons/general/save.png' onclick='Settings.SaveRowfight(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='Settings.Abort(this.parentNode.parentNode)' class='pointer'></td>";
     document.getElementById("fighttable").children[1].appendChild(newrow);
   },
@@ -507,12 +561,35 @@ var Settings = {
     newrow.innerHTML = "<td><input style='width: 145px;'/></td>";
     newrow.innerHTML += "<td><input style='width: 195px;'/></td>";
     newrow.innerHTML += "<td><textarea style='width: 240px;height: 60px;'></textarea></td>";
-    newrow.innerHTML = "<td><input style='width: 145px;'/></td>";
+    newrow.innerHTML += "<td><input style='width: 145px;'/></td>";
     newrow.innerHTML += "<td><img src='../icons/general/save.png' onclick='Settings.SaveRowdensity(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='Settings.Abort(this.parentNode.parentNode)' class='pointer'></td>";
     document.getElementById("crowdtable").children[1].appendChild(newrow);
   },
   Abort: function (el) {
     el.parentNode.removeChild(el);
+  },
+  SaveRowSensor: function (el) {
+    var coords = el.children[2].children[0].value;
+    var coord = coords.split(";");
+    var fail = false;
+    if (coord.length !== 2) {
+      fail = true;
+    } else if (isNaN(this._filterFloat(coord[0])) || isNaN(this._filterFloat(coord[1]))) {
+      fail = true;
+    }
+    if (isNaN(this._filterFloat(el.children[3].children[0].value))) {
+      alert("Die Eingabe des Alertlevel erwartet einen Float");
+      return;
+    }
+    if (fail) {
+      alert("Die Eingabe der Koordinaten ist nicht Korrekt!\n\nBeispiel:\n50.7;7.8");
+      return;
+    }
+    el.innerHTML = "<td>" + el.children[0].children[0].value + "</td>" +
+      "<td>" + el.children[1].children[0].value + "</td>" +
+      "<td>" + coords + "</td>" +
+      "<td>" + this._filterFloat(el.children[3].children[0].value) + "</td>" +
+      "<td><img src='../icons/general/edit.png' onclick='Settings.EditSensor(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='Settings.Delete(this.parentNode.parentNode)' class='pointer'></td>";
   },
   SaveRowfight: function (el) {
     var coords = el.children[1].children[0].value.replace(/\n/gi, "<br>");
@@ -541,7 +618,7 @@ var Settings = {
       "<td>" + coords + "</td>" +
       "<td>" + el.children[2].children[0].value + "</td>" +
       "<td>" + this._filterFloat(el.children[3].children[0].value) + "</td>" +
-      "<td><img src='../icons/general/edit.png' onclick='Settings.EditFight(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='Settings.DeleteFight(this.parentNode.parentNode)' class='pointer'></td>";
+      "<td><img src='../icons/general/edit.png' onclick='Settings.EditFight(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='Settings.Delete(this.parentNode.parentNode)' class='pointer'></td>";
   },
   SaveRowdensity: function (el) {
     var coords = el.children[2].children[0].value.replace(/\n/gi, "<br>");
@@ -570,13 +647,20 @@ var Settings = {
       "<td>" + el.children[1].children[0].value + "</td>" +
       "<td>" + coords + "</td>" +
       "<td>" + el.children[3].children[0].value + "</td>" +
-      "<td><img src='../icons/general/edit.png' onclick='Settings.EditDensity(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='Settings.DeleteFight(this.parentNode.parentNode)' class='pointer'></td>";
+      "<td><img src='../icons/general/edit.png' onclick='Settings.EditDensity(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='Settings.Delete(this.parentNode.parentNode)' class='pointer'></td>";
   },
   Delete: function (el) {
     var answ = window.prompt("Wollen sie den Eintrag für \"" + el.firstChild.innerHTML + "\" wirklich löschen?", "");
     if (answ !== null) {
       el.parentNode.removeChild(el);
     }
+  },
+  EditSensor: function (el) {
+    el.innerHTML = "<td><input style='width: 145px;' value='" + el.children[0].innerText + "'/></td>" +
+      "<td><input style='width: 145px;' value='" + el.children[1].innerText + "'/></td>" +
+      "<td><input style='width: 250px;' value='" + el.children[2].innerText + "'/></td>" +
+      "<td><input style='width: 145px;' value='" + el.children[3].innerText + "'/></td>" +
+      "<td><img src='../icons/general/save.png' onclick='Settings.SaveRowSensor(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='Settings.Abort(this.parentNode.parentNode)' class='pointer'></td>";
   },
   EditFight: function (el) {
     el.innerHTML = "<td><input style='width: 145px;' value='" + el.children[0].innerText + "'/></td>" +
