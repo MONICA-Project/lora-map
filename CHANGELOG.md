@@ -2,6 +2,7 @@
 
 ## 1.2.10
 ### New Features
+* Posibility to display sensor data on map
 ### Bugfixes
 * Parse also all Doublevalues as Int
 ### Changes
@@ -14,6 +15,7 @@
 * Display GateCounting Boxes in a line not a collumn
 * Create Aliases for Camera Count
 * Filter Fight under level
+* Refactoring
 
 ## 1.2.9
 ### New Features

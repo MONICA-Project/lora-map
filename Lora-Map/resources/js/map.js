@@ -255,6 +255,7 @@
           }
         });
       }
+      MarkerObject.ScaleSensors("zoom");
     });
   },
   _SetupClickHandler: function () {

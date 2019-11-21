@@ -98,7 +98,6 @@
         if (this._SensorSettings.hasOwnProperty(sensorid)) {
           var sensordata = sensorjson[sensorid];
           var sensorsettings = this._SensorSettings[sensorid];
-
           if (!this._Sensors.hasOwnProperty(sensorid)) { //Sensor is not drawn until now
             var sensor = null;
             var sensorIcon = L.divIcon({
@@ -110,14 +109,39 @@
                 '<span class="wind">' + sensordata.Windspeed + ' m/s</span>' +
                 '<span class="hum">' + sensordata.Humidity + ' %rl</span></div>'
             });
-            sensor = L.marker(sensorsettings.Coordinates, { 'title': sensorsettings.Alias, 'icon': sensorIcon });
+            sensor = L.marker(sensorsettings.Coordinates, { 'title': sensorsettings.Alias, 'icon': sensorIcon, interactive: false });
             this._Sensors[sensorid] = sensor.addTo(MapObject.Map);
+            this.ScaleSensors(document.getElementById('MapSensor_id_' + sensorid));
           } else { //Sensor refresh!
-
+            document.getElementById('MapSensor_id_' + sensorid).innerHTML = '<span class="name">' + sensorsettings.Alias + '</span>' +
+              '<span class="temp">' + sensordata.Temperature + ' °C</span>' +
+              '<span class="wind">' + sensordata.Windspeed + ' m/s</span>' +
+              '<span class="hum">' + sensordata.Humidity + ' %rl</span>';
           }
+          document.getElementById('MapSensor_id_' + sensorid).className = "mapsensor" + (sensordata.Windspeed > sensorsettings.Level ? ' alert' : '');
         }
       }
     }
+  },
+  ScaleSensors: function (el) {
+    if (el === "zoom") {
+      for (var sensorid in this._Sensors) {
+        this.ScaleSensors(document.getElementById('MapSensor_id_' + sensorid));
+      }
+      return;
+    }
+    var currentZoom = MapObject.Map.getZoom();
+    var scale = 1;
+    if (currentZoom < 14) {
+      scale = 0;
+    } else if (currentZoom === 14) {
+      scale = 0.2;
+    } else if (currentZoom === 15) {
+      scale = 0.5;
+    } else if (currentZoom >= 16) {
+      scale = 1;
+    }
+    el.style.cssText = "transform: scale(" + scale + ");";
   },
   _ParseAJAXSettings: function(json) {
     this._SensorSettings = json["Sensors"];

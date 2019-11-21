@@ -27,6 +27,9 @@
   padding: 5px;
   border-radius: 10px;
 }
+#bigmap .leaflet-map-pane .leaflet-marker-pane .mapsensor.alert {
+  border: 2px solid red;
+}
 #bigmap .leaflet-map-pane .leaflet-marker-pane .mapsensor span {
   display: block;
   text-align: center;
@@ -36,6 +39,9 @@
 }
 #bigmap .leaflet-map-pane .leaflet-marker-pane .mapsensor .wind {
   font-size: 18px;
+}
+#bigmap .leaflet-map-pane .leaflet-marker-pane .mapsensor.alert {
+  color: red;
 }
 
 /* Optional: Makes the sample page fill the window. */
