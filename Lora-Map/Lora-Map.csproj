@@ -69,6 +69,7 @@
     <None Include="config-example\settings.conf.example">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="..\CONTRIBUTING.md" />
     <None Include="dpkg\control" />
     <None Include="dpkg\create-Builds.bat" />
     <None Include="dpkg\loramap-logrotate" />
@@ -77,6 +78,7 @@
     <None Include="dpkg\postinst" />
     <None Include="dpkg\preinst" />
     <None Include="dpkg\prerm" />
+    <None Include="..\LICENSE" />
     <None Include="resources\icons\marker\din1451m.woff">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

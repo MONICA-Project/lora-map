@@ -40,7 +40,7 @@
 #bigmap .leaflet-map-pane .leaflet-marker-pane .mapsensor .wind {
   font-size: 18px;
 }
-#bigmap .leaflet-map-pane .leaflet-marker-pane .mapsensor.alert {
+#bigmap .leaflet-map-pane .leaflet-marker-pane .mapsensor.alert .wind {
   color: red;
 }
 
