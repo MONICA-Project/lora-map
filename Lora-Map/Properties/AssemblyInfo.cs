@@ -1,4 +1,5 @@
-﻿using System.Resources;
+﻿#if !NETCOREAPP
+using System.Resources;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
@@ -35,7 +36,7 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.2.9")]
 [assembly: AssemblyFileVersion("1.2.9")]
-
+#endif
 /*
 * 1.1.1 Add Debian package config
 * 1.1.2 #2 Show versions number in Site
