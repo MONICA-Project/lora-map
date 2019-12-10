@@ -1,0 +1,106 @@
+name: Build, Test, Publish and Dockerise Lora-Map
+
+on: [push]
+
+jobs:
+  build:
+    name: Build, pack and release
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout parent project with dependencys
+      uses: actions/checkout@v1
+      with:
+        repository: MONICA-Project/map-project
+        ref: refs/heads/master
+        submodules: true
+
+    - name: Checkout last versions
+      run: git -C Lora-Map checkout --progress --force ${{ github.sha }}
+      working-directory: ../map-project
+
+    - name: Install dotnet
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.0.100
+
+    - name: Build with dotnet
+      run: dotnet build Lora-Map.sln --configuration Release
+      working-directory: ../map-project/Lora-Map
+
+    - name: Create deb files
+      if: success()
+      run: |
+        mkdir ../../../Builds 
+        chmod oug+x make-deb.sh 
+        ./make-deb.sh amd64 
+        ./make-deb.sh armhf
+      id: create_deb
+      working-directory: ../map-project/Lora-Map/Lora-Map/dpkg
+
+    - name: Create release
+      if: success()
+      id: nightly_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ steps.create_deb.outputs.builddaterelease }}
+        release_name: Nightly from master
+        body: This is a nightly release. It may be not working properly.
+        draft: false
+        prerelease: true
+        
+    - name: Upload release asset amd64
+      if: success()
+      id: upload-release-asset-amd64
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.nightly_release.outputs.upload_url }}
+        asset_path: ../map-project/Builds/amd64-${{ steps.create_deb.outputs.debuilderfile }}
+        asset_name: amd64-${{ steps.create_deb.outputs.debuilderfile }}
+        asset_content_type: application/x-deb
+        
+    - name: Upload release asset armhf
+      if: success()
+      id: upload-release-asset-armhf
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.nightly_release.outputs.upload_url }}
+        asset_path: ../map-project/Builds/armhf-${{ steps.create_deb.outputs.debuilderfile }}
+        asset_name: armhf-${{ steps.create_deb.outputs.debuilderfile }}
+        asset_content_type: application/x-deb
+
+  docker:
+    name: Build and push dockerfile
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout parent project with dependencys
+      uses: actions/checkout@v1
+      with:
+        repository: MONICA-Project/map-project
+        ref: refs/heads/master
+        submodules: true
+
+    - name: Checkout last versions
+      run: git -C Lora-Map checkout --progress --force ${{ github.sha }}
+      working-directory: ../map-project
+
+    - name: Docker build
+      id: docker_build
+      run: |
+        DOCKERTAG=$(date +%Y%m%d%H%M%S)
+        echo "##[set-output name=dockertag;]$DOCKERTAG"
+        docker build . -t monicaproject/lora-map:latest -t monicaproject/lora-map:$DOCKERTAG
+      working-directory: ../map-project
+
+    - name: Docker-compose publish
+      if: success()
+      run: |
+        echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin ${INPUT_REGISTRY}
+        docker push monicaproject/lora-map:latest
+        docker push monicaproject/lora-map:${{ steps.docker_build.outputs.dockertag }}
+      working-directory: ../map-project

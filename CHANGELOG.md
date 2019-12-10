@@ -16,6 +16,7 @@
 * Create Aliases for Camera Count
 * Filter Fight under level
 * Refactoring
+* Porting to .NET Core
 
 ## 1.2.9
 ### New Features

@@ -5,10 +5,10 @@ Description=Lora-Map
 After=network-online.target
 
 [Service]
-User=root
-Group=root
+User=loramapbot
+Group=loramapbot
 WorkingDirectory=/usr/local/bin/loramap
-ExecStart=/usr/bin/mono /usr/local/bin/loramap/Lora-Map.exe
+ExecStart=/usr/bin/dotnet /usr/local/bin/loramap/Lora-Map.dll
 KillMode=control-group
 TimeoutStopSec=5
 Restart=on-failure

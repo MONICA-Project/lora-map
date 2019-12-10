@@ -10,6 +10,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
   public class WeatherWarnings {
     private readonly Settings settings;
     private Thread bgthread;
+    private Boolean backgroundrunnerAlive;
     private readonly WebRequests webrequests = new WebRequests();
 
     public List<Warning> Warnungen { get; private set; }
@@ -21,11 +22,12 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
 
     private void StartBackgroundThread() {
       this.bgthread = new Thread(this.BackGroundRunner);
+      this.backgroundrunnerAlive = true;
       this.bgthread.Start();
     }
 
     private void BackGroundRunner() {
-      while(true) {
+      while(this.backgroundrunnerAlive) {
         List<Warning> ret = new List<Warning>();
         foreach(Int32 item in this.settings.GetWeatherCellIds()) {
           try {
@@ -40,11 +42,23 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
           } catch { }
         }
         this.Warnungen = ret;
-        Thread.Sleep(60 * 1000);
+        for (Int32 i = 0; i < 1000; i++) {
+          if (this.backgroundrunnerAlive) {
+            Thread.Sleep(60);
+          }
+        }
       }
     }
 
-    internal void Dispose() => this.bgthread.Abort();
+    internal void Dispose() {
+      try {
+        this.backgroundrunnerAlive = false;
+        while (this.bgthread.IsAlive) {
+          Thread.Sleep(10);
+        }
+        this.bgthread = null;
+      } catch { }
+    }
 
     public class Warning {
       public Warning(JsonData warning) {

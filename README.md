@@ -33,7 +33,7 @@ This projects depends on different librarys.
 ##### External
 * litjson
 * M2Mqtt
-* Mono.Posix
+* CordinateSharp
 
 ## Contributing
 Contributions are welcome. 

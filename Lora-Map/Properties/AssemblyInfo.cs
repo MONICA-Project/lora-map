@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Fraunhofer FIT")]
 [assembly: AssemblyProduct("Lora-Map")]
-[assembly: AssemblyCopyright("Copyright ©  2018 - 30.08.2019")]
+[assembly: AssemblyCopyright("Copyright © Fraunhofer FIT, BlubbFish 2018 - 30.08.2019")]
 [assembly: AssemblyTrademark("Fraunhofer FIT, BlubbFish")]
 [assembly: AssemblyCulture("")]
 [assembly: NeutralResourcesLanguage("de-DE")]
