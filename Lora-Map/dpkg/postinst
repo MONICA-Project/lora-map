@@ -1,9 +1,17 @@
 #!/bin/bash
 
-systemctl enable loramap
+DEBNAME="loramap"
+
+systemctl enable $DEBNAME
 systemctl daemon-reload
 
-if [ -f /tmp/loramap_service_runner ]; then
-    service loramap start
-    rm /tmp/loramap_service_runner
+touch /var/log/loramap.log
+chown loramapbot:loramapbot /var/log/loramap.log
+chmod 644 /var/log/loramap.log
+
+chown -R loramapbot:loramapbot /usr/local/bin/$DEBNAME
+
+if [ -f /tmp/$DEBNAME_service_runner ]; then
+    service $DEBNAME start
+    rm /tmp/$DEBNAME_service_runner
 fi

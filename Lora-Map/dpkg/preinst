@@ -1,2 +1,6 @@
 #!/bin/bash
 
+useradd -M loramapbot
+usermod -L loramapbot
+groupadd loramapbot
+usermod -G loramapbot,adm loramapbot

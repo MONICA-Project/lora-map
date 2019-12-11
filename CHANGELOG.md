@@ -1,5 +1,23 @@
 # Changelogs
 
+## 1.2.10
+### New Features
+* Posibility to display sensor data on map
+### Bugfixes
+* Parse also all Doublevalues as Int
+### Changes
+* Change Online Map MaxZoom to 19
+* Searchfunction case insensitive
+* Show Numbers from a Place not with linebreaking
+* Numbers on places are not clickable, also as the grid
+* Search in Description of Polygons
+* Change Sani to Rettungsdienst
+* Display GateCounting Boxes in a line not a collumn
+* Create Aliases for Camera Count
+* Filter Fight under level
+* Refactoring
+* Porting to .NET Core
+
 ## 1.2.9
 ### New Features
 * Add setting model to code

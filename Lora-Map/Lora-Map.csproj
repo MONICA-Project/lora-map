@@ -1,257 +1,206 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{95D6F48A-9488-42A6-A973-941B45B26DB8}</ProjectGuid>
     <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
     <RootNamespace>Fraunhofer.Fit.IoT.LoraMap</RootNamespace>
     <AssemblyName>Lora-Map</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup>
     <ApplicationManifest>Adminrights.manifest</ApplicationManifest>
+    <Product>Lora-Map</Product>
+    <Description>Displays Items with Coordinates from Mqtt on a Map</Description>
+    <Company>Fraunhofer FIT</Company>
+    <PackageId>LoraMap.IoT.Fit.Fraunhofer</PackageId>
+    <Copyright>Copyright © Fraunhofer FIT, BlubbFish 2018 - 11.12.2019</Copyright>
+    <Authors>BlubbFish</Authors>
+    <Version>1.2.10</Version>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/MONICA-Project/lora-map</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/MONICA-Project/lora-map.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <NeutralLanguage>de-DE</NeutralLanguage>
+    <PackageReleaseNotes>1.2.10 Refactoring is the thing
+1.2.9 The PüMa Release
+1.2.8 Improving the UI
+1.2.7 Reorganise a lot of things, add Support for Cameradata
+1.2.6 New Types of marker for person
+1.2.5 Set textsize for every zoomlevel
+1.2.4 Can draw Textmarkers on the Map, use MGRS (UTM) on the Map
+1.2.3 #9 display polygons and marker on the map
+1.2.2 Bugfix, if only recieve panic packet with gps data, update the marker on the map also
+1.2.1 #6 Load the map from the Device
+1.2.0 #4 Possible to Ex and Import Setting
+1.1.7 #8 Editor for Names
+1.1.6 #5 Create admin area
+1.1.5 Add support for alert button
+1.1.4 #3 Create icons for devices
+1.1.3 #1 Click on icon and show details
+1.1.2 #2 Show versions number in Site
+1.1.1 Add Debian package config</PackageReleaseNotes>
+    <PackageTags>lora mqtt map lagekarte</PackageTags>
+    <StartupObject>Fraunhofer.Fit.IoT.LoraMap.Program</StartupObject>
   </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
+    <ProjectReference Include="..\..\Librarys\Coordinates\CoordinateSharp\CoordinateSharp_Core.csproj" />
+    <ProjectReference Include="..\..\Librarys\litjson\litjson\litjson_Core.csproj" />
+    <ProjectReference Include="..\..\Librarys\mqtt\M2Mqtt\M2Mqtt_Core.csproj" />
+    <ProjectReference Include="..\..\Utils\Bot-Utils\Bot-Utils\Bot-Utils_Core.csproj" />
+    <ProjectReference Include="..\..\Utils\ConnectorDataMqtt\ConnectorDataMqtt\ConnectorDataMqtt_Core.csproj" />
+    <ProjectReference Include="..\..\Utils\Utils-IoT\Utils-IoT\Utils-IoT_Core.csproj" />
+    <ProjectReference Include="..\..\Utils\Utils\Utils\Utils_Core.csproj" />
   </ItemGroup>
+  
   <ItemGroup>
-    <Compile Include="Lib\WebRequests.cs" />
-    <Compile Include="Model\Admin\AdminModel.cs" />
-    <Compile Include="Model\Admin\AdminSession.cs" />
-    <Compile Include="Model\Camera.cs" />
-    <Compile Include="Model\Crowd.cs" />
-    <Compile Include="Model\Fight.cs" />
-    <Compile Include="Model\Marker.cs" />
-    <Compile Include="Model\AlarmItem.cs" />
-    <Compile Include="Model\Settings.cs" />
-    <Compile Include="Model\UTMData.cs" />
-    <Compile Include="Model\WeatherWarnings.cs" />
-    <Compile Include="Server.cs" />
-    <Compile Include="Model\PositionItem.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="../CHANGELOG.md" />
+	<Content Include="../CONTRIBUTING.md" />
+	<Content Include="../LICENSE" />
+	<Content Include="../README.md" />
+	<Content Include="../.github/workflows/dotnetcore.yml" />
   </ItemGroup>
+
   <ItemGroup>
-    <None Include="Adminrights.manifest" />
-    <None Include="..\CHANGELOG" />
-    <None Include="config-example\settings.conf.example">
+    <None Update="config-example\requests.conf.example">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="dpkg\control" />
-    <None Include="dpkg\create-Builds.bat" />
-    <None Include="dpkg\loramap-logrotate" />
-    <None Include="dpkg\loramap.service" />
-    <None Include="dpkg\make-deb.sh" />
-    <None Include="dpkg\postinst" />
-    <None Include="dpkg\preinst" />
-    <None Include="dpkg\prerm" />
-    <None Include="resources\icons\marker\din1451m.woff">
+    <None Update="config-example\settings.conf.example">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="resources\js\leaflet\leaflet-src.js.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="resources\admin\css\global.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\admin\index.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\admin\login.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\css\global.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\css\icons\admin-with-cogwheels.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\css\icons\cctv.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\css\icons\failtile.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\css\icons\filter.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\css\icons\information.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\css\icons\placeholder.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\css\icons\search.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\css\icons\storm-ac.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\css\icons\storm-in.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\icons\akku\0-4.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\icons\akku\1-4.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\icons\akku\2-4.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\icons\akku\3-4.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\icons\akku\4-4.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\icons\general\add.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\icons\general\bullet_add.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\icons\general\bullet_delete.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\icons\general\bullet_star.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\icons\general\edit.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\icons\general\icon_edit.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\icons\general\remove.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\icons\general\save.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\icons\marker\map-marker.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\icons\marker\Marker.svg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\icons\marker\Person.svg">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="resources\js\functions.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\js\leaflet\images\layers-2x.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\js\leaflet\images\layers.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\js\leaflet\images\marker-icon-2x.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\js\leaflet\images\marker-icon.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\js\leaflet\images\marker-shadow.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\js\leaflet\leaflet-src.js" />
-    <Content Include="resources\js\leaflet\leaflet.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\js\leaflet\leaflet.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\js\menu.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\js\map.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\js\marker.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <None Include="config-example\requests.conf.example">
+    <None Update="resources\admin\css\global.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Content Include="resources\favicon.ico">
+    <None Update="resources\admin\index.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\index.html">
+    </None>
+    <None Update="resources\admin\js\menu.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Librarys\Coordinates\CoordinateSharp\CoordinateSharp.csproj">
-      <Project>{da8510ce-7899-49dd-9e17-7c974382288d}</Project>
-      <Name>CoordinateSharp</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Librarys\litjson\litjson\litjson_4.7.1.csproj">
-      <Project>{91a14cd2-2940-4500-8193-56d37edddbaa}</Project>
-      <Name>litjson_4.7.1</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Librarys\mqtt\M2Mqtt\M2Mqtt_4.7.1.csproj">
-      <Project>{a11aef5a-b246-4fe8-8330-06db73cc8074}</Project>
-      <Name>M2Mqtt_4.7.1</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Utils\Bot-Utils\Bot-Utils\Bot-Utils.csproj">
-      <Project>{bb7bfcb5-3db0-49e1-802a-3ce3eecc59f9}</Project>
-      <Name>Bot-Utils</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Utils\ConnectorDataMqtt\ConnectorDataMqtt\ConnectorDataMqtt.csproj">
-      <Project>{ee6c8f68-ed46-4c1c-abdd-cfcdf75104f2}</Project>
-      <Name>ConnectorDataMqtt</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Utils\Utils-IoT\Utils-IoT\Utils-IoT.csproj">
-      <Project>{b870e4d5-6806-4a0b-b233-8907eedc5afc}</Project>
-      <Name>Utils-IoT</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Utils\Utils\Utils\Utils.csproj">
-      <Project>{fac8ce64-bf13-4ece-8097-aeb5dd060098}</Project>
-      <Name>Utils</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="resources\admin\js\menu.js">
+    </None>
+    <None Update="resources\admin\login.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="resources\js\overlays.js">
+    </None>
+    <None Update="resources\css\global.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </None>
+    <None Update="resources\css\icons\admin-with-cogwheels.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\css\icons\cctv.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\css\icons\failtile.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\css\icons\filter.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\css\icons\information.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\css\icons\placeholder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\css\icons\search.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\css\icons\storm-ac.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\css\icons\storm-in.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\favicon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\icons\akku\0-4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\icons\akku\1-4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\icons\akku\2-4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\icons\akku\3-4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\icons\akku\4-4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\icons\general\add.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\icons\general\bullet_add.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\icons\general\bullet_delete.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\icons\general\bullet_star.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\icons\general\edit.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\icons\general\icon_edit.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\icons\general\remove.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\icons\general\save.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\icons\marker\din1451m.woff">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\icons\marker\map-marker.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\icons\marker\Marker.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\index.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\js\functions.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\js\leaflet\images\layers-2x.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\js\leaflet\images\layers.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\js\leaflet\images\marker-icon-2x.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\js\leaflet\images\marker-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\js\leaflet\images\marker-shadow.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\js\leaflet\leaflet.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\js\leaflet\leaflet.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\js\map.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\js\marker.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\js\menu.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\js\overlays.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
 </Project>

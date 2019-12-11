@@ -18,6 +18,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
     private readonly SortedDictionary<String, Camera> counter = new SortedDictionary<String, Camera>();
     private readonly SortedDictionary<String, Crowd> density = new SortedDictionary<String, Crowd>();
     private readonly SortedDictionary<String, Fight> fights = new SortedDictionary<String, Fight>();
+    private readonly SortedDictionary<String, EnviromentData> sensors = new SortedDictionary<String, EnviromentData>();
     private JsonData marker;
     private readonly Settings settings;
     private readonly WeatherWarnings weather;
@@ -28,6 +29,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
     private readonly Object lockFight = new Object();
     private readonly Object lockCount = new Object();
     private readonly Object lockDensy = new Object();
+    private readonly Object lockSensor = new Object();
 
     public Server(ADataBackend backend, Dictionary<String, String> settings, InIReader requests) : base(backend, settings, requests) {
       this.logger.SetPath(settings["loggingpath"]);
@@ -98,18 +100,17 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
           Console.WriteLine("PANIC erhalten!");
         } else if(Camera.CheckJson(d) && ((String)mqtt.From).Contains("camera/count")) {
           String cameraid = Camera.GetId(d);
-          lock (this.lockCount) {
-            if (this.counter.ContainsKey(cameraid)) {
+          lock(this.lockCount) {
+            if(this.counter.ContainsKey(cameraid)) {
               this.counter[cameraid].Update(d);
             } else {
               this.counter.Add(cameraid, new Camera(d));
             }
           }
-        } else if(((((String)mqtt.From).Contains("sfn/crowd_density_local") || ((String)mqtt.From).Contains("camera/crowd")) && Crowd.CheckJsonCrowdDensityLocal(d)) || 
-          (((String)mqtt.From).Contains("sfn/flow") && Crowd.CheckJsonFlow(d))) {
+        } else if((((String)mqtt.From).Contains("sfn/crowd_density_local") || ((String)mqtt.From).Contains("camera/crowd")) && Crowd.CheckJsonCrowdDensityLocal(d) || ((String)mqtt.From).Contains("sfn/flow") && Crowd.CheckJsonFlow(d)) {
           String cameraid = Crowd.GetId(d);
-          lock (this.lockDensy) {
-            if (this.density.ContainsKey(cameraid)) {
+          lock(this.lockDensy) {
+            if(this.density.ContainsKey(cameraid)) {
               this.density[cameraid].Update(d);
             } else {
               this.density.Add(cameraid, new Crowd(d));
@@ -117,13 +118,23 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
           }
         } else if((((String)mqtt.From).Contains("camera/fighting_detection") || ((String)mqtt.From).Contains("sfn/fighting_detection")) && Fight.CheckJsonFightingDetection(d)) {
           String cameraid = Fight.GetId(d);
-          lock (this.lockFight) {
-            if (this.fights.ContainsKey(cameraid)) {
+          lock(this.lockFight) {
+            if(this.fights.ContainsKey(cameraid)) {
               this.fights[cameraid].Update(d);
             } else {
               this.fights.Add(cameraid, new Fight(d));
             }
           }
+        } else if(((String)mqtt.From).Contains("lora/sensor") && EnviromentData.CheckJson(d)) {
+          String sensorid = EnviromentData.GetId(d);
+          lock(this.lockSensor) {
+            if(this.sensors.ContainsKey(sensorid)) {
+              this.sensors[sensorid].Update(d);
+            } else {
+              this.sensors.Add(sensorid, new EnviromentData(d));
+            }
+          }
+          Console.WriteLine("Umweltdaten erhalten!");
         }
       } catch(Exception e) {
         Helper.WriteError("Backend_MessageIncomming(): "+e.Message + "\n\n" + e.StackTrace);
@@ -139,7 +150,8 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
             { "cameracount", this.counter },
             { "crowdcount", this.density },
             { "fightdedect", this.fights },
-            { "weatherwarnings", this.weather.Warnungen }
+            { "weatherwarnings", this.weather.Warnungen },
+            { "sensors", this.sensors }
           }, cont);
         } else if (cont.Request.Url.PathAndQuery.StartsWith("/get60000")) {
           return SendJsonResponse(new Dictionary<String, Object>() {
@@ -147,7 +159,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
           }, cont);
         } else if (cont.Request.Url.PathAndQuery.StartsWith("/getonce")) {
           return SendJsonResponse(new Dictionary<String, Object>() {
-            { "getlayer", this.FindMapLayer(cont.Request) },
+            { "getlayer", this.FindMapLayer() },
             { "getgeo", JsonMapper.ToObject(File.ReadAllText("json/geo.json")) },
             { "startup", this.settings }
           }, cont);
@@ -175,14 +187,14 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
       return SendFileResponse(cont);
     }
 
-    private Dictionary<String, Dictionary<String, Object>> FindMapLayer(HttpListenerRequest request) {
+    private Dictionary<String, Dictionary<String, Object>> FindMapLayer() {
       Dictionary<String, Dictionary<String, Object>> ret = new Dictionary<String, Dictionary<String, Object>> {
         { "online", new Dictionary<String, Object>() {
           { "title", "Online Map" },
           { "url", "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" },
           { "attribution", "&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors" },
           { "minZoom", 1 },
-          { "maxZoom", 18 }
+          { "maxZoom", 19 }
         } }
       };
       if(Directory.Exists("resources" + Path.DirectorySeparatorChar + "maps")) {

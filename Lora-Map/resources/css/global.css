@@ -13,12 +13,35 @@
 #bigmap .leaflet-map-pane .leaflet-marker-pane .snumber-icon {
   font-weight: bold;
   font-size: 5px;
+  white-space: nowrap;
 }
 #bigmap .leaflet-map-pane .leaflet-marker-pane .coord-icon {
   font-size: 13px;
   text-shadow: 3px 3px 3px #000000;
   color: #ffffff;
   font-weight: bold;
+}
+#bigmap .leaflet-map-pane .leaflet-marker-pane .mapsensor {
+  background-color: white;
+  border: 2px solid black;
+  padding: 5px;
+  border-radius: 10px;
+}
+#bigmap .leaflet-map-pane .leaflet-marker-pane .mapsensor.alert {
+  border: 2px solid red;
+}
+#bigmap .leaflet-map-pane .leaflet-marker-pane .mapsensor span {
+  display: block;
+  text-align: center;
+}
+#bigmap .leaflet-map-pane .leaflet-marker-pane .mapsensor .name {
+  font-weight: bold;
+}
+#bigmap .leaflet-map-pane .leaflet-marker-pane .mapsensor .wind {
+  font-size: 18px;
+}
+#bigmap .leaflet-map-pane .leaflet-marker-pane .mapsensor.alert .wind {
+  color: red;
 }
 
 /* Optional: Makes the sample page fill the window. */
@@ -324,12 +347,14 @@ object {
   font-size: 11px;
   font-family: "Verdana";
   padding: 3px;
+  display: inline-flex;
 }
 #overlays #cameracount .camera {
   background-color: white;
   border: rgba(0,0,0,0.3) solid 2px;
   border-radius: 5px;
   padding: 4px;
+  margin-right: 5px;
 }
 #overlays #cameracount .camera span {
   display: block;

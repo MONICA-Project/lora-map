@@ -1,7 +1,9 @@
 #!/bin/bash
 
-if [[ $(systemctl is-active loramap || true) == "active" ]]
+DEBNAME="loramap"
+
+if [[ $(systemctl is-active $DEBNAME || true) == "active" ]]
 then
-    touch /tmp/loramap_service_runner
-    service loramap stop
+    touch /tmp/$DEBNAME_service_runner
+    service $DEBNAME stop
 fi

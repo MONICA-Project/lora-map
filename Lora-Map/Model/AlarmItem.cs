@@ -23,34 +23,34 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
     public AlarmItem(JsonData json) => this.Update(json);
 
     public void Update(JsonData json) {
-      this.Rssi = (Double)json["Rssi"];
-      this.Snr = (Double)json["Snr"];
-      if(DateTime.TryParse((String)json["Receivedtime"], DateTimeFormatInfo.InvariantInfo, DateTimeStyles.AssumeUniversal, out DateTime updatetime)) {
+      this.Rssi = json["Rssi"].IsInt ? (Int32)json["Rssi"] : (Double)json["Rssi"];
+      this.Snr = json["Snr"].IsInt ? (Int32)json["Snr"] : (Double)json["Snr"];
+      if (DateTime.TryParse((String)json["Receivedtime"], DateTimeFormatInfo.InvariantInfo, DateTimeStyles.AssumeUniversal, out DateTime updatetime)) {
         this.Lorarecievedtime = updatetime.ToUniversalTime();
       }
       this.Recievedtime = DateTime.UtcNow;
-      this.Latitude = (Double)json["Gps"]["Latitude"];
-      this.Longitude = (Double)json["Gps"]["Longitude"];
+      this.Latitude = json["Gps"]["Latitude"].IsInt ? (Int32)json["Gps"]["Latitude"] : (Double)json["Gps"]["Latitude"];
+      this.Longitude = json["Gps"]["Longitude"].IsInt ? (Int32)json["Gps"]["Longitude"] : (Double)json["Gps"]["Longitude"];
       this.Fix = (Boolean)json["Gps"]["Fix"];
-      if(!this.Fix) {
-        this.Latitude = (Double)json["Gps"]["LastLatitude"];
-        this.Longitude = (Double)json["Gps"]["LastLongitude"];
+      if (!this.Fix) {
+        this.Latitude = json["Gps"]["LastLatitude"].IsInt ? (Int32)json["Gps"]["LastLatitude"] : (Double)json["Gps"]["LastLatitude"];
+        this.Longitude = json["Gps"]["LastLongitude"].IsInt ? (Int32)json["Gps"]["LastLongitude"] : (Double)json["Gps"]["LastLongitude"];
       }
       this.UTM = new UTMData(this.Latitude, this.Longitude);
-      this.Hdop = (Double)json["Gps"]["Hdop"];
-      this.Height = (Double)json["Gps"]["Height"];
+      this.Hdop = json["Gps"]["Hdop"].IsInt ? (Int32)json["Gps"]["Hdop"] : (Double)json["Gps"]["Hdop"];
+      this.Height = json["Gps"]["Height"].IsInt ? (Int32)json["Gps"]["Height"] : (Double)json["Gps"]["Height"];
       this.SetHistory(json);
     }
 
     private void SetHistory(JsonData json) {
-      String key = ((Double)json["BatteryLevel"]).ToString();
-      key += "_" + ((Int32)json["Calculatedcrc"]).ToString();
-      key += "_" + ((Double)json["Gps"]["Hdop"]).ToString();
-      key += "_" + ((Double)json["Gps"]["Height"]).ToString();
-      key += "_" + ((Boolean)json["Gps"]["Fix"]).ToString();
-      key += "_" + ((Double)json["Gps"]["LastLatitude"]).ToString();
-      key += "_" + ((Double)json["Gps"]["LastLongitude"]).ToString();
-      key += "_" + ((String)json["Gps"]["Time"]);
+      String key = json["BatteryLevel"].ToString();
+      key += "_" + json["Calculatedcrc"].ToString();
+      key += "_" + json["Gps"]["Hdop"].ToString();
+      key += "_" + json["Gps"]["Height"].ToString();
+      key += "_" + json["Gps"]["Fix"].ToString();
+      key += "_" + json["Gps"]["LastLatitude"].ToString();
+      key += "_" + json["Gps"]["LastLongitude"].ToString();
+      key += "_" + json["Gps"]["Time"].ToString();
       if(!this.buttonhistory.ContainsValue(key)) {
         this.buttonhistory.Add(DateTime.UtcNow, key);
         if(this.buttonhistory.Count > 10) {
@@ -61,21 +61,21 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
 
     public static String GetId(JsonData json) => (String)json["Name"];
 
-    public static Boolean CheckJson(JsonData json) => 
-      json.ContainsKey("Rssi") && json["Rssi"].IsDouble &&
-      json.ContainsKey("Snr") && json["Snr"].IsDouble &&
-      json.ContainsKey("Receivedtime") && json["Receivedtime"].IsString &&
-      json.ContainsKey("Gps") && json["Gps"].IsObject &&
-      json["Gps"].ContainsKey("Latitude") && json["Gps"]["Latitude"].IsDouble &&
-      json["Gps"].ContainsKey("Longitude") && json["Gps"]["Longitude"].IsDouble &&
-      json["Gps"].ContainsKey("LastLatitude") && json["Gps"]["LastLatitude"].IsDouble &&
-      json["Gps"].ContainsKey("LastLongitude") && json["Gps"]["LastLongitude"].IsDouble &&
-      json["Gps"].ContainsKey("Hdop") && json["Gps"]["Hdop"].IsDouble &&
-      json["Gps"].ContainsKey("Fix") && json["Gps"]["Fix"].IsBoolean &&
-      json["Gps"].ContainsKey("Height") && json["Gps"]["Height"].IsDouble &&
-      json["Gps"].ContainsKey("Time") && json["Gps"]["Time"].IsString &&
-      json.ContainsKey("Name") && json["Name"].IsString &&
-      json.ContainsKey("Calculatedcrc") && json["Calculatedcrc"].IsInt &&
-      json.ContainsKey("BatteryLevel") && json["BatteryLevel"].IsDouble;
+    public static Boolean CheckJson(JsonData json) =>
+      json.ContainsKey("Rssi") && (json["Rssi"].IsDouble || json["Rssi"].IsInt)
+      && json.ContainsKey("Snr") && (json["Snr"].IsDouble || json["Snr"].IsInt)
+      && json.ContainsKey("Receivedtime") && json["Receivedtime"].IsString
+      && json.ContainsKey("BatteryLevel") && (json["BatteryLevel"].IsDouble || json["BatteryLevel"].IsInt)
+      && json.ContainsKey("Gps") && json["Gps"].IsObject
+      && json["Gps"].ContainsKey("Latitude") && (json["Gps"]["Latitude"].IsDouble || json["Gps"]["Latitude"].IsInt)
+      && json["Gps"].ContainsKey("Longitude") && (json["Gps"]["Longitude"].IsDouble || json["Gps"]["Longitude"].IsInt)
+      && json["Gps"].ContainsKey("LastLatitude") && (json["Gps"]["LastLatitude"].IsDouble || json["Gps"]["LastLatitude"].IsInt)
+      && json["Gps"].ContainsKey("LastLongitude") && (json["Gps"]["LastLongitude"].IsDouble || json["Gps"]["LastLongitude"].IsInt)
+      && json["Gps"].ContainsKey("LastGPSPos") && json["Gps"]["LastGPSPos"].IsString
+      && json["Gps"].ContainsKey("Hdop") && (json["Gps"]["Hdop"].IsDouble || json["Gps"]["Hdop"].IsInt)
+      && json["Gps"].ContainsKey("Fix") && json["Gps"]["Fix"].IsBoolean
+      && json["Gps"].ContainsKey("Height") && (json["Gps"]["Height"].IsDouble || json["Gps"]["Height"].IsInt)
+      && json.ContainsKey("Name") && json["Name"].IsString &&
+      json.ContainsKey("Calculatedcrc") && json["Calculatedcrc"].IsInt;
   }
 }

@@ -5,7 +5,7 @@ using BlubbFish.Utils.IoT.Connector;
 
 namespace Fraunhofer.Fit.IoT.LoraMap {
   class Program {
-    static void Main(String[] args) {
+    static void Main(String[] _1) {
       InIReader.SetSearchPath(new List<String>() { "/etc/loramap", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\loramap" });
       if (!InIReader.ConfigExist("settings")) {
         Helper.WriteError("settings.ini not found!");

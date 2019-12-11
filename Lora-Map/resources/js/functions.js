@@ -28,6 +28,7 @@
         MarkerObject._ParseAJAXPanic(json["panic"]);
         OverlayObject._ParseAJAXCount(json["cameracount"]);
         OverlayObject._ParseAJAXDensity(json["crowdcount"]);
+        MarkerObject._ParseAJAXSensors(json["sensors"]);
         MenuObject._ParseAJAXWeatherAlerts(json["weatherwarnings"]);
         MapObject._ParseAJAXFightDedection(json["fightdedect"]);
         MapObject._ParseAJAXDensity(json["crowdcount"]);
@@ -44,6 +45,8 @@
         MapObject._ParseAJAXLayers(json["getlayer"]);
         MapObject._ParseAJAXGeo(json["getgeo"]);
         MapObject._ParseAJAXSettings(json["startup"]);
+        OverlayObject._ParseAJAXSettings(json["startup"]);
+        MarkerObject._ParseAJAXSettings(json["startup"]);
       }
     };
     getonce.open("GET", "/getonce", true);

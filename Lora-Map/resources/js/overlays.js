@@ -1,4 +1,5 @@
 ﻿var OverlayObject = {
+  _DensitySettings: {},
   Start: function () {
     return this;
   },
@@ -22,14 +23,19 @@
     var densystext = "";
     for (var densyid in cameradensy) {
       if (cameradensy.hasOwnProperty(densyid)) {
-        var densy = cameradensy[densyid];
-        var densytext = "<div class='camera'>";
-        densytext += "<span class='name'>" + densyid + "</span>";
-        densytext += "<span class='count'>" + densy["DensityCount"] + "</span>";
-        densytext += "</div>";
-        densystext += densytext;
+        if (this._DensitySettings.hasOwnProperty(densyid)) {
+          var densy = cameradensy[densyid];
+          var densytext = "<div class='camera'>";
+          densytext += "<span class='name'>" + this._DensitySettings[densyid].Alias + "</span>";
+          densytext += "<span class='count'>" + densy["DensityCount"] + "</span>";
+          densytext += "</div>";
+          densystext += densytext;
+        }
       }
     }
     document.getElementById("crwoddensy").innerHTML = densystext;
+  },
+  _ParseAJAXSettings: function (json) {
+    this._DensitySettings = json["DensityArea"];
   }
 }.Start();
