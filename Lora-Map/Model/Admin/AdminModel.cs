@@ -44,7 +44,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model.Admin {
       cont.Request.InputStream.Close();
       reader.Close();
       try {
-        JsonMapper.ToObject(rawData);
+        _ = JsonMapper.ToObject(rawData);
       } catch (Exception) {
         Helper.WriteError("501 - Error recieving " + filename + ", no valid json " + cont.Request.Url.PathAndQuery);
         cont.Response.StatusCode = 501;
@@ -74,7 +74,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model.Admin {
     private Boolean Login(HttpListenerContext cont) {
       Dictionary<String, String> POST = Webserver.GetPostParams(cont.Request);
       if(POST.ContainsKey("user") && POST["user"] == this.settings["admin_user"] && POST.ContainsKey("pass") && POST["pass"] == this.settings["admin_pass"]) {
-        Int64 sessionid = 0;
+        Int64 sessionid;
         while(true) {
           sessionid = AdminSession.GetRandomSessionid();
           if(!this.session.ContainsKey(sessionid)) {
@@ -110,22 +110,24 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model.Admin {
 
     private Boolean CheckAuth(HttpListenerContext cont) {
       #if DEBUG
+        Helper.WriteError("200 - AUTH-Bypassed!");
         return true;
-      #endif
-      if(cont.Request.Url.PathAndQuery.StartsWith("/admin/login.html")) {
-        return true;
-      } else {
-        if(cont.Request.Cookies["loramapsession"] != null) {
-          if(Int64.TryParse(cont.Request.Cookies["loramapsession"].Value, out Int64 sessionid)) {
-            if(this.session.ContainsKey(sessionid)) {
-              return this.session[sessionid].IsLoggedin;
+      #else
+        if(cont.Request.Url.PathAndQuery.StartsWith("/admin/login.html")) {
+          return true;
+        } else {
+          if(cont.Request.Cookies["loramapsession"] != null) {
+            if(Int64.TryParse(cont.Request.Cookies["loramapsession"].Value, out Int64 sessionid)) {
+              if(this.session.ContainsKey(sessionid)) {
+                return this.session[sessionid].IsLoggedin;
+              }
             }
           }
+          cont.Response.StatusCode = 403;
+          Helper.WriteError("403 - " + cont.Request.Url.PathAndQuery);
         }
-        cont.Response.StatusCode = 403;
-        Helper.WriteError("403 - " + cont.Request.Url.PathAndQuery);
-      }
-      return false;
+        return false;
+      #endif
     }
   }
 }
