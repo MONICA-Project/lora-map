@@ -3,7 +3,7 @@ using System.Globalization;
 using LitJson;
 
 namespace Fraunhofer.Fit.IoT.LoraMap.Model {
-  class PositionItem {
+  public class PositionItem {
     private Double _lastLat = 0;
     private Double _lastLon = 0;
 
@@ -30,7 +30,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
     }
 
     public void UpdateMarker(JsonData marker, String id) {
-      if(marker.ContainsKey(id)) {
+      if(marker != null && marker.ContainsKey(id)) {
         this.Name = marker[id].ContainsKey("name") && marker[id]["name"].IsString ? (String)marker[id]["name"] : id;
         this.Icon = marker[id].ContainsKey("marker.svg") && marker[id]["marker.svg"].IsObject ? Marker.ParseMarkerConfig(marker[id]["marker.svg"], this.Name) : marker[id].ContainsKey("icon") && marker[id]["icon"].IsString ? (String)marker[id]["icon"] : null;
         this.Group = marker[id].ContainsKey("Group") && marker[id]["Group"].IsString ? (String)marker[id]["Group"] : "no";
@@ -51,7 +51,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
 
     public static String GetId(JsonData json) => (String)json["Name"];
 
-    public void Update(JsonData json) {
+    public virtual void Update(JsonData json) {
       this.Rssi = json.ContainsKey("Rssi") && (json["Rssi"].IsDouble || json["Rssi"].IsInt) && Double.TryParse(json["Rssi"].ToString(), out Double rssi) ? rssi : 0;
       this.Snr = json.ContainsKey("Snr") && (json["Snr"].IsDouble || json["Snr"].IsInt) && Double.TryParse(json["Snr"].ToString(), out Double snr) ? snr : 0;
       this.Lorarecievedtime = json.ContainsKey("Receivedtime") && json["Receivedtime"].IsString && DateTime.TryParse((String)json["Receivedtime"], DateTimeFormatInfo.InvariantInfo, DateTimeStyles.AssumeUniversal, out DateTime updatetime) ? updatetime.ToUniversalTime() : DateTime.UtcNow;
