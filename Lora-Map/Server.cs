@@ -31,7 +31,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
     private readonly Object lockDensy = new Object();
     private readonly Object lockSensor = new Object();
 
-    public Server(ADataBackend backend, Dictionary<String, String> settings, InIReader requests) : base(backend, settings, requests) {
+    public Server(ADataBackend backend, Dictionary<String, String> settings) : base(backend, settings, null) {
       this.logger.SetPath(settings["loggingpath"]);
       this.CheckJsonFiles();
       this.admin = new AdminModel(settings);
