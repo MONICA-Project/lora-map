@@ -3,7 +3,10 @@ using System.Globalization;
 using LitJson;
 
 namespace Fraunhofer.Fit.IoT.LoraMap.Model {
-  class PositionItem {
+  public class PositionItem {
+    private Double _lastLat = 0;
+    private Double _lastLon = 0;
+
     public Double Rssi { get; private set; }
     public Double Snr { get; private set; }
     public DateTime Lorarecievedtime { get; private set; }
@@ -27,7 +30,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
     }
 
     public void UpdateMarker(JsonData marker, String id) {
-      if(marker.ContainsKey(id)) {
+      if(marker != null && marker.ContainsKey(id)) {
         this.Name = marker[id].ContainsKey("name") && marker[id]["name"].IsString ? (String)marker[id]["name"] : id;
         this.Icon = marker[id].ContainsKey("marker.svg") && marker[id]["marker.svg"].IsObject ? Marker.ParseMarkerConfig(marker[id]["marker.svg"], this.Name) : marker[id].ContainsKey("icon") && marker[id]["icon"].IsString ? (String)marker[id]["icon"] : null;
         this.Group = marker[id].ContainsKey("Group") && marker[id]["Group"].IsString ? (String)marker[id]["Group"] : "no";
@@ -38,45 +41,39 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
       }
     }
     public static Boolean CheckJson(JsonData json) => 
-      json.ContainsKey("Rssi") && (json["Rssi"].IsDouble || json["Rssi"].IsInt)
-      && json.ContainsKey("Snr") && (json["Snr"].IsDouble || json["Snr"].IsInt)
-      && json.ContainsKey("Receivedtime") && json["Receivedtime"].IsString
-      && json.ContainsKey("BatteryLevel") && (json["BatteryLevel"].IsDouble || json["BatteryLevel"].IsInt)
+      json.ContainsKey("BatteryLevel") && (json["BatteryLevel"].IsDouble || json["BatteryLevel"].IsInt)
       && json.ContainsKey("Gps") && json["Gps"].IsObject
       && json["Gps"].ContainsKey("Latitude") && (json["Gps"]["Latitude"].IsDouble || json["Gps"]["Latitude"].IsInt)
       && json["Gps"].ContainsKey("Longitude") && (json["Gps"]["Longitude"].IsDouble || json["Gps"]["Longitude"].IsInt)
-      && json["Gps"].ContainsKey("LastLatitude") && (json["Gps"]["LastLatitude"].IsDouble || json["Gps"]["LastLatitude"].IsInt)
-      && json["Gps"].ContainsKey("LastLongitude") && (json["Gps"]["LastLongitude"].IsDouble || json["Gps"]["LastLongitude"].IsInt)
-      && json["Gps"].ContainsKey("LastGPSPos") && json["Gps"]["LastGPSPos"].IsString
-      && json["Gps"].ContainsKey("Hdop") && (json["Gps"]["Hdop"].IsDouble || json["Gps"]["Hdop"].IsInt)
       && json["Gps"].ContainsKey("Fix") && json["Gps"]["Fix"].IsBoolean
       && json["Gps"].ContainsKey("Height") && (json["Gps"]["Height"].IsDouble || json["Gps"]["Height"].IsInt)
       && json.ContainsKey("Name") && json["Name"].IsString;
 
     public static String GetId(JsonData json) => (String)json["Name"];
 
-    public void Update(JsonData json) {
-      this.Rssi = json["Rssi"].IsInt ? (Int32)json["Rssi"] : (Double)json["Rssi"];
-      this.Snr = json["Snr"].IsInt ? (Int32)json["Snr"] : (Double)json["Snr"];
-      if(DateTime.TryParse((String)json["Receivedtime"], DateTimeFormatInfo.InvariantInfo, DateTimeStyles.AssumeUniversal, out DateTime updatetime)) {
-        this.Lorarecievedtime = updatetime.ToUniversalTime();
-      }
+    public virtual void Update(JsonData json) {
+      this.Rssi = json.ContainsKey("Rssi") && (json["Rssi"].IsDouble || json["Rssi"].IsInt) && Double.TryParse(json["Rssi"].ToString(), out Double rssi) ? rssi : 0;
+      this.Snr = json.ContainsKey("Snr") && (json["Snr"].IsDouble || json["Snr"].IsInt) && Double.TryParse(json["Snr"].ToString(), out Double snr) ? snr : 0;
+      this.Lorarecievedtime = json.ContainsKey("Receivedtime") && json["Receivedtime"].IsString && DateTime.TryParse((String)json["Receivedtime"], DateTimeFormatInfo.InvariantInfo, DateTimeStyles.AssumeUniversal, out DateTime updatetime) ? updatetime.ToUniversalTime() : DateTime.UtcNow;
       this.Recievedtime = DateTime.UtcNow;
       this.Battery = Math.Round(json["BatteryLevel"].IsInt ? (Int32)json["BatteryLevel"] : (Double)json["BatteryLevel"], 2);
       this.Batterysimple = this.Battery < 3.44 ? 0 : this.Battery < 3.53 ? 1 : this.Battery < 3.6525 ? 2 : this.Battery < 3.8825 ? 3 : 4;
+
       this.Latitude = json["Gps"]["Latitude"].IsInt ? (Int32)json["Gps"]["Latitude"] : (Double)json["Gps"]["Latitude"];
       this.Longitude = json["Gps"]["Longitude"].IsInt ? (Int32)json["Gps"]["Longitude"] : (Double)json["Gps"]["Longitude"];
       this.Fix = (Boolean)json["Gps"]["Fix"];
-      if(!this.Fix) {
-        this.Latitude = json["Gps"]["LastLatitude"].IsInt ? (Int32)json["Gps"]["LastLatitude"] : (Double)json["Gps"]["LastLatitude"];
-        this.Longitude = json["Gps"]["LastLongitude"].IsInt ? (Int32)json["Gps"]["LastLongitude"] : (Double)json["Gps"]["LastLongitude"];
-      }
-      this.UTM = new UTMData(this.Latitude, this.Longitude);
-      if(DateTime.TryParse((String)json["Gps"]["LastGPSPos"], DateTimeFormatInfo.InvariantInfo, DateTimeStyles.AssumeUniversal, out DateTime lastgpstime)) {
-        this.Lastgpspostime = lastgpstime.ToUniversalTime();
-      }
-      this.Hdop = json["Gps"]["Hdop"].IsInt ? (Int32)json["Gps"]["Hdop"] : (Double)json["Gps"]["Hdop"];
       this.Height = json["Gps"]["Height"].IsInt ? (Int32)json["Gps"]["Height"] : (Double)json["Gps"]["Height"];
+      this.Hdop = json["Gps"].ContainsKey("Hdop") && (json["Gps"]["Hdop"].IsDouble || json["Gps"]["Hdop"].IsInt) && Double.TryParse(json["Gps"]["Hdop"].ToString(), out Double hdop) ? hdop : 0;
+
+      if(!this.Fix) {
+        this.Latitude = this._lastLat;
+        this.Longitude = this._lastLon;
+      } else {
+        this._lastLat = this.Latitude;
+        this._lastLon = this.Longitude;
+        this.Lastgpspostime = DateTime.UtcNow;
+      }
+      this.UTM = new UTMData(this.Latitude, this.Longitude);      
     }
 
     

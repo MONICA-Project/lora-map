@@ -45,7 +45,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         tag_name: ${{ steps.create_deb.outputs.builddaterelease }}
-        release_name: Nightly from master
+        release_name: Nightly from ${{ steps.create_deb.outputs.builddaterelease }}
         body: This is a nightly release. It may be not working properly.
         draft: false
         prerelease: true

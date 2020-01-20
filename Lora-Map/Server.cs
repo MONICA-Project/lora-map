@@ -31,7 +31,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
     private readonly Object lockDensy = new Object();
     private readonly Object lockSensor = new Object();
 
-    public Server(ADataBackend backend, Dictionary<String, String> settings, InIReader requests) : base(backend, settings, requests) {
+    public Server(ADataBackend backend, Dictionary<String, String> settings) : base(backend, settings, null) {
       this.logger.SetPath(settings["loggingpath"]);
       this.CheckJsonFiles();
       this.admin = new AdminModel(settings);
@@ -71,7 +71,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
     protected override void Backend_MessageIncomming(Object sender, BackendEvent mqtt) {
       try {
         JsonData d = JsonMapper.ToObject(mqtt.Message);
-        if(PositionItem.CheckJson(d) && ((String)mqtt.From).Contains("lora/data")) {
+        if(((String)mqtt.From).Contains("lora/data") && PositionItem.CheckJson(d)) {
           String name = PositionItem.GetId(d);
           lock(this.lockData) {
             if(this.positions.ContainsKey(name)) {
@@ -81,8 +81,8 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
             }
           }
           Console.WriteLine("Koordinate erhalten!");
-        } else if(AlarmItem.CheckJson(d) && ((String)mqtt.From).Contains("lora/panic")) {
-          String name = AlarmItem.GetId(d);
+        } else if(((String)mqtt.From).Contains("lora/panic") && PositionItem.CheckJson(d)) {
+          String name = PositionItem.GetId(d);
           lock(this.lockPanic) {
             if(this.alarms.ContainsKey(name)) {
               this.alarms[name].Update(d);
@@ -98,7 +98,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
             }
           }
           Console.WriteLine("PANIC erhalten!");
-        } else if(Camera.CheckJson(d) && ((String)mqtt.From).Contains("camera/count")) {
+        } else if(((String)mqtt.From).Contains("camera/count") && Camera.CheckJson(d)) {
           String cameraid = Camera.GetId(d);
           lock(this.lockCount) {
             if(this.counter.ContainsKey(cameraid)) {

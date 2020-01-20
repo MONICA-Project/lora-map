@@ -1,5 +1,13 @@
 # Changelogs
 
+## 1.3.0 - New Gateway
+### New Features
+* Implement Lora-Gateway-Data 1.1.0 Format
+### Bugfixes
+### Changes
+* Refactoring
+* Make requests.conf not needed anymore.
+
 ## 1.2.10
 ### New Features
 * Posibility to display sensor data on map
