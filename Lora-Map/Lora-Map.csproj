@@ -58,6 +58,7 @@
 	<Content Include="../LICENSE" />
 	<Content Include="../README.md" />
 	<Content Include="../.github/workflows/dotnetcore.yml" />
+    <Content Include="../doc/Manual.md"  />
   </ItemGroup>
 
   <ItemGroup>
