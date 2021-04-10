@@ -2,7 +2,7 @@
 
 HOMEDIR=$HOME
 ROOT="$HOMEDIR/deb"
-OUTPUT="../bin/Release/netcoreapp3.0"
+OUTPUT="../bin/Release/netcoreapp3.1"
 
 DEBNAME="loramap"
 CSPROJFILE="Lora-Map.csproj"
