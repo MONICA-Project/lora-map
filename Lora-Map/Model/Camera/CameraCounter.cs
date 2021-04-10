@@ -2,17 +2,15 @@
 using System;
 using System.Globalization;
 
-namespace Fraunhofer.Fit.IoT.LoraMap.Model
-{
-  class Camera
-  {
+namespace Fraunhofer.Fit.IoT.LoraMap.Model.Camera {
+  public class CameraCounter {
     public DateTime Lastcameradata { get; private set; }
     public String Name { get; private set; }
     public Int32 Total { get; private set; }
     public Int32 Incoming { get; private set; }
     public Int32 Outgoing { get; private set; }
 
-    public Camera(JsonData json) => this.Update(json);
+    public CameraCounter(JsonData json) => this.Update(json);
 
     internal static String GetId(JsonData json) => (String)json["camera_id"];
 

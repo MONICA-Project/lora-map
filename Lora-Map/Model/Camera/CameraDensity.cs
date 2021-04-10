@@ -2,17 +2,15 @@
 using System;
 using System.Globalization;
 
-namespace Fraunhofer.Fit.IoT.LoraMap.Model
-{
-  public class Crowd
-  {
+namespace Fraunhofer.Fit.IoT.LoraMap.Model.Camera {
+  public class CameraDensity {
     public Int32 DensityCount { get; private set; }
     public DateTime TimeStamp { get; private set; }
     public Double AverageFlowMagnitude { get; private set; }
     public Double AverageFlowDirection { get; private set; }
     public DateTime LastUpdate { get; private set; }
 
-    public Crowd(JsonData json) => this.Update(json);
+    public CameraDensity(JsonData json) => this.Update(json);
 
     public static Boolean CheckJsonCrowdDensityLocal(JsonData json) => json.ContainsKey("camera_ids") && json["camera_ids"].IsArray && json["camera_ids"].Count == 1 &&
       json.ContainsKey("density_map") && json["density_map"].IsArray &&

@@ -1,20 +1,65 @@
 ﻿var MarkerObject = {
-  _Markers: {},
-  PanicData: {},
+  /// public variables
   LocationData: {},
+  PanicData: {},
   VisibleMarkers: {},
+  /// private variables
+  _Markers: {},
   _Sensors: {},
   _SensorSettings: {},
+  /// public functions
+  ChangeFilter: function (select) {
+    this.VisibleMarkers = {};
+    if (select.selectedOptions.length > 0) {
+      for (var i = 0; i < select.selectedOptions.length; i++) {
+        this.VisibleMarkers[select.selectedOptions[i].value] = true;
+      }
+      this.VisibleMarkers["no"] = true;
+      this.VisibleMarkers["___isset"] = true;
+    }
+    this._ParseAJAXLoc(this.LocationData);
+  },
+  ParseAJAXPositionModel: function (json) {
+    this._ParseAJAXLoc(json.Positions);
+    this._ParseAJAXPanic(json.Alarms);
+  },
+  ParseAJAXSensorModel: function (json) {
+    this._ParseAJAXSensors(json.Enviroments);
+  },
+  ParseAJAXSettings: function (json) {
+    this._SensorSettings = json["Sensors"];
+  },
+  ScaleSensors: function (el) {
+    if (el === "zoom") {
+      for (var sensorid in this._Sensors) {
+        this.ScaleSensors(document.getElementById('MapSensor_id_' + sensorid));
+      }
+      return;
+    }
+    var currentZoom = MapObject.Map.getZoom();
+    var scale = 1;
+    if (currentZoom < 14) {
+      scale = 0;
+    } else if (currentZoom === 14) {
+      scale = 0.2;
+    } else if (currentZoom === 15) {
+      scale = 0.5;
+    } else if (currentZoom >= 16) {
+      scale = 1;
+    }
+    el.style.cssText = "transform: scale(" + scale + ");";
+  },
   Start: function () {
     return this;
   },
+  /// private functions
   _ParseAJAXLoc: function (serverLocation) {
     this.LocationData = serverLocation;
     for (var key in this.LocationData) {
-      if (this.LocationData.hasOwnProperty(key)) {
+      if (Object.prototype.hasOwnProperty.call(this.LocationData, key)) {
         var positionItem = this.LocationData[key];
         if (positionItem['Latitude'] !== 0 || positionItem['Longitude'] !== 0) {
-          if (!this._Markers.hasOwnProperty(key)) {
+          if (!Object.prototype.hasOwnProperty.call(this._Markers, key)) {
             var marker = null;
             if (positionItem['Icon'] === null) {
               marker = L.marker([positionItem['Latitude'], positionItem['Longitude']], { 'title': positionItem['Name'] });
@@ -51,7 +96,7 @@
               }
             }
           }
-          if (positionItem.Group !== null && this.VisibleMarkers.hasOwnProperty("___isset") && !this.VisibleMarkers.hasOwnProperty(positionItem.Group)) {
+          if (positionItem.Group !== null && Object.prototype.hasOwnProperty.call(this.VisibleMarkers, "___isset") && !Object.prototype.hasOwnProperty.call(this.VisibleMarkers, positionItem.Group)) {
             this._Markers[key]._icon.style.opacity = 0;
           } else {
             var lasttime = FunctionsObject.TimeCalculation(positionItem['Recievedtime'], "diffraw");
@@ -76,11 +121,11 @@
   _ParseAJAXPanic: function (serverPanic) {
     this.PanicData = serverPanic;
     for (var id in this.PanicData) {
-      if (this.PanicData.hasOwnProperty(id)) {
+      if (Object.prototype.hasOwnProperty.call(this.PanicData, id)) {
         var alertItem = this.PanicData[id];
-        if (this._Markers.hasOwnProperty(id)) {
+        if (Object.prototype.hasOwnProperty.call(this._Markers, id)) {
           var marker = this._Markers[id];
-          if (!(this.LocationData[id].Group !== null && this.VisibleMarkers.hasOwnProperty("___isset") && !this.VisibleMarkers.hasOwnProperty(this.LocationData[id].Group))) {
+          if (!(this.LocationData[id].Group !== null && Object.prototype.hasOwnProperty.call(this.VisibleMarkers, "___isset") /**/ && !Object.prototype.hasOwnProperty.call(this.VisibleMarkers, this.LocationData[id].Group))) {
             if (FunctionsObject.TimeCalculation(alertItem["Recievedtime"], "diffraw") <= 10 && marker._icon.className.indexOf(" marker-alert") === -1) {
               marker._icon.className += " marker-alert";
               MenuObject.ShowMarkerInfoPerId(id);
@@ -94,11 +139,11 @@
   },
   _ParseAJAXSensors: function (sensorjson) {
     for (var sensorid in sensorjson) {
-      if (sensorjson.hasOwnProperty(sensorid)) {
-        if (this._SensorSettings.hasOwnProperty(sensorid)) {
+      if (Object.prototype.hasOwnProperty.call(sensorjson, sensorid)) {
+        if (Object.prototype.hasOwnProperty.call(this._SensorSettings, sensorid)) {
           var sensordata = sensorjson[sensorid];
           var sensorsettings = this._SensorSettings[sensorid];
-          if (!this._Sensors.hasOwnProperty(sensorid)) { //Sensor is not drawn until now
+          if (!Object.prototype.hasOwnProperty.call(this._Sensors, sensorid)) { //Sensor is not drawn until now
             var sensor = null;
             var sensorIcon = L.divIcon({
               className: 'sensoricon',
@@ -122,39 +167,5 @@
         }
       }
     }
-  },
-  ScaleSensors: function (el) {
-    if (el === "zoom") {
-      for (var sensorid in this._Sensors) {
-        this.ScaleSensors(document.getElementById('MapSensor_id_' + sensorid));
-      }
-      return;
-    }
-    var currentZoom = MapObject.Map.getZoom();
-    var scale = 1;
-    if (currentZoom < 14) {
-      scale = 0;
-    } else if (currentZoom === 14) {
-      scale = 0.2;
-    } else if (currentZoom === 15) {
-      scale = 0.5;
-    } else if (currentZoom >= 16) {
-      scale = 1;
-    }
-    el.style.cssText = "transform: scale(" + scale + ");";
-  },
-  _ParseAJAXSettings: function(json) {
-    this._SensorSettings = json["Sensors"];
-  },
-  ChangeFilter: function (select) {
-    this.VisibleMarkers = {};
-    if (select.selectedOptions.length > 0) {
-      for (var i = 0; i < select.selectedOptions.length; i++) {
-        this.VisibleMarkers[select.selectedOptions[i].value] = true;
-      }
-      this.VisibleMarkers["no"] = true;
-      this.VisibleMarkers["___isset"] = true;
-    }
-    this._ParseAJAXLoc(this.LocationData);
   }
 }.Start();

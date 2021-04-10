@@ -3,8 +3,8 @@ using System.Globalization;
 
 using LitJson;
 
-namespace Fraunhofer.Fit.IoT.LoraMap.Model {
-  class EnviromentData {
+namespace Fraunhofer.Fit.IoT.LoraMap.Model.Sensor {
+  public class SensorEnviromentData {
     public String Name { get; private set; }
     public Double Rssi { get; private set; }
     public Double Snr { get; private set; }
@@ -13,7 +13,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
     public Double Windspeed { get; private set; }
     public DateTime Lorarecievedtime { get; private set; }
 
-    public EnviromentData(JsonData json) => this.Update(json);
+    public SensorEnviromentData(JsonData json) => this.Update(json);
 
     public void Update(JsonData json) {
       this.Name = GetId(json);

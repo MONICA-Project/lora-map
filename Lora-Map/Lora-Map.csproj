@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>Fraunhofer.Fit.IoT.LoraMap</RootNamespace>
     <AssemblyName>Lora-Map</AssemblyName>
     <ApplicationManifest>Adminrights.manifest</ApplicationManifest>
@@ -10,15 +10,16 @@
     <Description>Displays Items with Coordinates from Mqtt on a Map</Description>
     <Company>Fraunhofer FIT</Company>
     <PackageId>LoraMap.IoT.Fit.Fraunhofer</PackageId>
-    <Copyright>Copyright © Fraunhofer FIT, BlubbFish 2018 - 20.01.2020</Copyright>
+    <Copyright>Copyright © Fraunhofer FIT, BlubbFish 2018 - 10.04.2021</Copyright>
     <Authors>BlubbFish</Authors>
-    <Version>1.3.0</Version>
+    <Version>1.3.1</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/MONICA-Project/lora-map</PackageProjectUrl>
     <RepositoryUrl>https://github.com/MONICA-Project/lora-map.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <NeutralLanguage>de-DE</NeutralLanguage>
     <PackageReleaseNotes>
+      1.3.1 Refactory is the king
       1.3.0 New Gateway
       1.2.10 Refactoring is the thing
       1.2.9 The PüMa Release
@@ -43,13 +44,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Librarys\Coordinates\CoordinateSharp\CoordinateSharp_Core.csproj" />
-    <ProjectReference Include="..\..\Librarys\litjson\litjson\litjson_Core.csproj" />
-    <ProjectReference Include="..\..\Librarys\mqtt\M2Mqtt\M2Mqtt_Core.csproj" />
-    <ProjectReference Include="..\..\Utils\Bot-Utils\Bot-Utils\Bot-Utils_Core.csproj" />
-    <ProjectReference Include="..\..\Utils\ConnectorDataMqtt\ConnectorDataMqtt\ConnectorDataMqtt_Core.csproj" />
-    <ProjectReference Include="..\..\Utils\Utils-IoT\Utils-IoT\Utils-IoT_Core.csproj" />
-    <ProjectReference Include="..\..\Utils\Utils\Utils\Utils_Core.csproj" />
+    <ProjectReference Include="..\..\Librarys\Coordinates\CoordinateSharp\CoordinateSharp.csproj" />
+    <ProjectReference Include="..\..\Librarys\litjson\litjson\litjson.csproj" />
+    <ProjectReference Include="..\..\Librarys\mqtt\M2Mqtt\M2Mqtt.csproj" />
+    <ProjectReference Include="..\..\Utils\Bot-Utils\Bot-Utils\Bot-Utils.csproj" />
+    <ProjectReference Include="..\..\Utils\ConnectorDataMqtt\ConnectorDataMqtt\ConnectorDataMqtt.csproj" />
+    <ProjectReference Include="..\..\Utils\Utils-IoT\Utils-IoT\Utils-IoT.csproj" />
+    <ProjectReference Include="..\..\Utils\Utils\Utils\Utils.csproj" />
   </ItemGroup>
   
   <ItemGroup>
@@ -57,8 +58,9 @@
 	<Content Include="../CONTRIBUTING.md" />
 	<Content Include="../LICENSE" />
 	<Content Include="../README.md" />
+	<Content Include="../map-swagger.yml" />
 	<Content Include="../.github/workflows/dotnetcore.yml" />
-    <Content Include="../doc/Manual.md"  />
+    <Content Include="../doc/Manual.md" />
   </ItemGroup>
 
   <ItemGroup>
@@ -71,7 +73,16 @@
     <None Update="resources\admin\index.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="resources\admin\js\menu.js">
+    <None Update="resources\admin\js\adminmenu.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\admin\js\eximport.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\admin\js\nameseditor.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\admin\js\settings.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="resources\admin\login.html">

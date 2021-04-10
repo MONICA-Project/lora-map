@@ -1,0 +1,312 @@
+openapi: "3.0.0"
+
+info:
+  version: 1.0.0
+  title: Lora-Map
+  description: Swagger-File for the API of the Lora-Map
+  contact:
+    name: Philip Schell
+    email: philip.schell@fit.fraunhofer.de
+  license:
+    name: LGPL 3
+    url: https://www.gnu.org/licenses/lgpl-3.0.html
+
+servers:
+  - url: http://localhost:8080
+
+paths:
+  /api/json/camera:
+    get:
+      description: Get related data to Cameras
+      tags:
+        - api
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              example:
+                Counter:
+                  Haupteingang:
+                    Lastcameradata: "04/08/2021 00:20:31"
+                    Name: "Camera 1"
+                    Total: 50
+                    Incoming: 35
+                    Outgoing: 15
+                Density:
+                  Hauptflaeche:
+                    DensityCount: 10
+                    TimeStamp: "04/08/2021 00:20:31"
+                    AverageFlowMagnitude: 5.2
+                    AverageFlowDirection: 175.2
+                    LastUpdate: "04/08/2021 00:20:31"
+                Fights:
+                  Kneipe:
+                    LastUpdate: "04/08/2021 00:20:31"
+                    TimeStamp: "04/08/2021 00:20:31"
+                    Situation: "fight"
+                    FightProbability: 0.7
+  
+  /api/json/position:
+    get:
+      description: Get related data to Positions
+      tags:
+        - api
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              example: 
+                Positions:
+                  AA:
+                    Rssi: 5.2
+                    Snr: 3.2
+                    Lorarecievedtime: "04/08/2021 00:20:31"
+                    Recievedtime: "04/08/2021 00:20:31"
+                    Latitude: 50.2
+                    Longitude: 7.8
+                    UTM: 
+                      MGRS: "32U MA 14357 61557"
+                      Base: "32U MA"
+                      FieldWidth: "14"
+                      FieldHeight: "61"
+                      Width: "357"
+                      Height: "557"
+                    Hdop: 1.2
+                    Lastgpspostime: "04/08/2021 00:20:31"
+                    Battery: 4.2
+                    Batterysimple: 4
+                    Fix: true
+                    Height: 60.2
+                    Name: "AA"
+                    Icon: null
+                    MenuIcon: null
+                    Group: null
+                Alarms:
+                  AA:
+                    Rssi: 5.2
+                    Snr: 3.2
+                    Lorarecievedtime: "04/08/2021 00:20:31"
+                    Recievedtime: "04/08/2021 00:20:31"
+                    Latitude: 50.2
+                    Longitude: 7.8
+                    UTM: 
+                      MGRS: "32U MA 14357 61557"
+                      Base: "32U MA"
+                      FieldWidth: "14"
+                      FieldHeight: "61"
+                      Width: "357"
+                      Height: "557"
+                    Hdop: 1.2
+                    Lastgpspostime: "04/08/2021 00:20:31"
+                    Battery: 4.2
+                    Batterysimple: 4
+                    Fix: true
+                    Height: 60.2
+                    Name: "AA"
+                    Icon: null
+                    MenuIcon: null
+                    Group: null
+                    ButtonPressed:
+                      - "04/08/2021 00:20:31"
+  
+  /api/json/sensor:
+    get:
+      description: Get related data to Sensors
+      tags:
+        - api
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              example:
+                Enviroments:
+                  Sensor1:
+                    Name: "Sensor1"
+                    Rssi: 50.2
+                    Snr: 11.2
+                    Temperature: 23.4
+                    Humidity: 43.2
+                    Windspeed: 12.5
+                    Lorarecievedtime: "04/08/2021 00:20:31"
+                Weather:
+                  Warnungen:
+                    - Body: "Es tritt leichter Frost zwischen -2 °C und -5 °C auf. Vor allem bei Aufklaren über Schnee sinken die Temperaturen auf Werte bis -9 °C."
+                      From: "2021-04-08T13:54:00Z"
+                      Headline: "Amtliche WARNUNG vor FROST"
+                      Id: "Warnungen_Gemeinden.808111000.2.49.0.1.276.0.DWD.PVW.1617890040000.b2a1b3ea-db16-4992-920b-ea9c1b1a905f.DEU"
+                      Instructions: ""
+                      Level: "minor"
+                      Location: "Stadt Stuttgart"
+                      To: "2021-04-09T07:00:00Z"
+                      Type: "frost"
+  
+  /api/json/settings:
+    get:
+      description: Get related data to Settings
+      tags:
+        - api
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              example:
+                Startloclat: 50.2
+                Startloclon: 7.2
+                Grid:
+                  Major:
+                    - from:
+                      - 50.2
+                      - 7.2
+                      to:
+                      - 50.2
+                      - 7.1
+                  Minor:
+                    - from:
+                      - 50.1
+                      - 7.2
+                    - to:
+                      - 50.1
+                      - 7.1
+                FightDedection:
+                  fight:
+                    Alias: "fightcam"
+                    Level: 0.7
+                    Polygon: 
+                      - - 50.2 
+                        - 7.2
+                      - - 50.1
+                        - 7.2
+                      - - 50.2 
+                        - 7.1
+                DensityArea:
+                  dens:
+                    Alias: "denscam"
+                    Maximum:
+                    Polygon: 
+                      - - 50.2 
+                        - 7.2
+                      - - 50.1
+                        - 7.2
+                      - - 50.2 
+                        - 7.1
+                Sensors:
+                  temp:
+                    Coordinates:
+                      - 50.2
+                      - 7.2
+                    Level: 20
+                    Alias: "Temperatur"
+                Layers:
+                  online:
+                    title: Online Map
+                    url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    minZoom: 1
+                    maxZoom: 19
+                GeoLayer: {}  
+                
+  /api/time:
+    get:
+      description: Get the current server time
+      tags:
+        - api
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              example:
+                utc: "04/09/2021 21:55:37"
+  
+  
+  /api/svg/marker.svg:
+    get:
+      description: Get a complete marker for the map
+      tags:
+        - marker
+      responses:
+        200:
+          description: ok
+  
+  /api/svg/person.svg:
+    get:
+      description: Get an person icon
+      tags:
+        - marker
+      responses:
+        200:
+          description: ok
+  
+  
+  /admin/login:
+    post:
+      description: Login into the Admin pannel, is needed for every other /admin reqeust. Returns a session cookie
+      tags:
+        - admin
+      responses:
+        307:
+          description: Redirect to /admin if login was successful and to /admin/login.html if not.
+  
+  /admin/api/json/name:
+    get:
+      description: Get the raw content of names.json
+      tags:
+        - admin
+      responses:
+        200:
+          description: Returns the raw content
+        403:
+          description: You are not logged in, see /admin/login for infos.
+    put:
+      description: Save the raw content to names.json
+      tags:
+        - admin
+      responses:
+        200:
+          description: Ok if valid json in the request
+        403:
+          description: You are not logged in, see /admin/login for infos.
+  
+  /admin/api/json/geo:
+    get:
+      description: Get the raw content of geo.json
+      tags:
+        - admin
+      responses:
+        200:
+          description: Returns the raw content
+        403:
+          description: You are not logged in, see /admin/login for infos.
+    put:
+      description: Save the raw content to geo.json
+      tags:
+        - admin
+      responses:
+        200:
+          description: Ok if valid json in the request
+        403:
+          description: You are not logged in, see /admin/login for infos.
+  
+  /admin/api/json/setting:
+    get:
+      description: Get the raw content of settings.json
+      tags:
+        - admin
+      responses:
+        200:
+          description: Returns the raw content
+        403:
+          description: You are not logged in, see /admin/login for infos.
+    put:
+      description: Save the raw content to settings.json
+      tags:
+        - admin
+      responses:
+        200:
+          description: Ok if valid json in the request
+        403:
+          description: You are not logged in, see /admin/login for infos.

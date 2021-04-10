@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Globalization;
+
+using Fraunhofer.Fit.IoT.LoraMap.Model.Svg;
+
 using LitJson;
 
-namespace Fraunhofer.Fit.IoT.LoraMap.Model {
+namespace Fraunhofer.Fit.IoT.LoraMap.Model.Position {
   public class PositionItem {
     private Double _lastLat = 0;
     private Double _lastLon = 0;
@@ -22,6 +25,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
     public Double Height { get; private set; }
     public String Name { get; private set; }
     public String Icon { get; private set; }
+    public String MenuIcon { get; private set; }
     public String Group { get; private set; }
 
     public PositionItem(JsonData json, JsonData marker) {
@@ -32,7 +36,9 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
     public void UpdateMarker(JsonData marker, String id) {
       if(marker != null && marker.ContainsKey(id)) {
         this.Name = marker[id].ContainsKey("name") && marker[id]["name"].IsString ? (String)marker[id]["name"] : id;
-        this.Icon = marker[id].ContainsKey("marker.svg") && marker[id]["marker.svg"].IsObject ? Marker.ParseMarkerConfig(marker[id]["marker.svg"], this.Name) : marker[id].ContainsKey("icon") && marker[id]["icon"].IsString ? (String)marker[id]["icon"] : null;
+        Tuple<String, String> icons = this.ParseIconConfig(marker[id]);
+        this.Icon = icons.Item1;
+        this.MenuIcon = icons.Item2;
         this.Group = marker[id].ContainsKey("Group") && marker[id]["Group"].IsString ? (String)marker[id]["Group"] : "no";
       } else {
         this.Name = id;
@@ -40,6 +46,21 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
         this.Group = null;
       }
     }
+
+    private Tuple<String, String> ParseIconConfig(JsonData marker) {
+      String icon = null;
+      String menu = null;
+      if(marker.ContainsKey("marker.svg") && marker["marker.svg"].IsObject) {
+        icon = SVGMarker.ParseConfig(marker["marker.svg"], this.Name);
+        if(marker["marker.svg"].ContainsKey("person") && marker["marker.svg"]["person"].IsObject) {
+          menu = SVGPerson.ParseConfig(marker["marker.svg"]["person"]);
+        }
+      } else if(marker.ContainsKey("icon") && marker["icon"].IsString) {
+        icon = (String)marker["icon"];
+      }
+      return new Tuple<String, String>(icon, menu);
+    }
+
     public static Boolean CheckJson(JsonData json) => 
       json.ContainsKey("BatteryLevel") && (json["BatteryLevel"].IsDouble || json["BatteryLevel"].IsInt)
       && json.ContainsKey("Gps") && json["Gps"].IsObject

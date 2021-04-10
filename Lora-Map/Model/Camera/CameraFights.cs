@@ -2,9 +2,9 @@
 using System;
 using System.Globalization;
 
-namespace Fraunhofer.Fit.IoT.LoraMap.Model {
-  public class Fight {
-    public Fight(JsonData json) => this.Update(json);
+namespace Fraunhofer.Fit.IoT.LoraMap.Model.Camera {
+  public class CameraFights {
+    public CameraFights(JsonData json) => this.Update(json);
 
     public DateTime LastUpdate { get; private set; }
     public DateTime TimeStamp { get; private set; }

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using LitJson;
 
-namespace Fraunhofer.Fit.IoT.LoraMap.Model {
-  public class AlarmItem : PositionItem {
+namespace Fraunhofer.Fit.IoT.LoraMap.Model.Position {
+  public class PositionAlarm : PositionItem {
     private readonly SortedDictionary<DateTime, String> buttonhistory = new SortedDictionary<DateTime, String>();
 
     public List<DateTime> ButtonPressed => this.buttonhistory.Keys.ToList();
 
-    public AlarmItem(JsonData json) : base(json, null) {
+    public PositionAlarm(JsonData json) : base(json, null) {
     }
 
     public override void Update(JsonData json) {

@@ -141,7 +141,7 @@ object {
 }
 #pannels #pannels_pos .item .icon img {
     height: 40px;
-    width: 40px;
+    width: 35px;
     margin-left: 3px;
   }
 #pannels #pannels_pos .item .line1 .name {

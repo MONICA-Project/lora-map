@@ -16,19 +16,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\update.sh = ..\update.sh
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bot-Utils_Core", "..\Utils\Bot-Utils\Bot-Utils\Bot-Utils_Core.csproj", "{ED37370F-AE65-498D-A425-413FEE69C0A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bot-Utils", "..\Utils\Bot-Utils\Bot-Utils\Bot-Utils.csproj", "{ED37370F-AE65-498D-A425-413FEE69C0A8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utils_Core", "..\Utils\Utils\Utils\Utils_Core.csproj", "{E8268FE5-D6F0-4805-9BDE-9DBC9CB517FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utils", "..\Utils\Utils\Utils\Utils.csproj", "{E8268FE5-D6F0-4805-9BDE-9DBC9CB517FF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utils-IoT_Core", "..\Utils\Utils-IoT\Utils-IoT\Utils-IoT_Core.csproj", "{04CF6328-3976-44D3-9959-A3B1A2C5C45A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utils-IoT", "..\Utils\Utils-IoT\Utils-IoT\Utils-IoT.csproj", "{04CF6328-3976-44D3-9959-A3B1A2C5C45A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConnectorDataMqtt_Core", "..\Utils\ConnectorDataMqtt\ConnectorDataMqtt\ConnectorDataMqtt_Core.csproj", "{E40D29CB-B499-4FA6-AEA1-18E8CEAA911B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConnectorDataMqtt", "..\Utils\ConnectorDataMqtt\ConnectorDataMqtt\ConnectorDataMqtt.csproj", "{E40D29CB-B499-4FA6-AEA1-18E8CEAA911B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "litjson_Core", "..\Librarys\litjson\litjson\litjson_Core.csproj", "{FFC66B7F-B4FB-4E42-B896-2C6772D899AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "litjson", "..\Librarys\litjson\litjson\litjson.csproj", "{FFC66B7F-B4FB-4E42-B896-2C6772D899AA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "M2Mqtt_Core", "..\Librarys\mqtt\M2Mqtt\M2Mqtt_Core.csproj", "{00C678EE-6BAA-4FCB-AAA5-7755E65C6CC5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "M2Mqtt", "..\Librarys\mqtt\M2Mqtt\M2Mqtt.csproj", "{00C678EE-6BAA-4FCB-AAA5-7755E65C6CC5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoordinateSharp_Core", "..\Librarys\Coordinates\CoordinateSharp\CoordinateSharp_Core.csproj", "{D9D4C842-5818-4E96-9BFE-7ADFB4D811BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoordinateSharp", "..\Librarys\Coordinates\CoordinateSharp\CoordinateSharp.csproj", "{D9D4C842-5818-4E96-9BFE-7ADFB4D811BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

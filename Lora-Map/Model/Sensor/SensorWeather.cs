@@ -6,21 +6,18 @@ using Fraunhofer.Fit.IoT.LoraMap.Lib;
 
 using LitJson;
 
-namespace Fraunhofer.Fit.IoT.LoraMap.Model {
-  public class WeatherWarnings {
-    private readonly Settings settings;
+namespace Fraunhofer.Fit.IoT.LoraMap.Model.Sensor {
+  public class SensorWeather {
     private Thread bgthread;
     private Boolean backgroundrunnerAlive;
     private readonly WebRequests webrequests = new WebRequests();
 
     public List<Warning> Warnungen { get; private set; }
 
-    public WeatherWarnings(Settings settings) {
-      this.settings = settings;
-      this.StartBackgroundThread();
-    }
+    public SensorWeather() => this.StartBackgroundThread();
 
     private void StartBackgroundThread() {
+      this.Warnungen = new List<Warning>();
       this.bgthread = new Thread(this.BackGroundRunner);
       this.backgroundrunnerAlive = true;
       this.bgthread.Start();
@@ -29,7 +26,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
     private void BackGroundRunner() {
       while(this.backgroundrunnerAlive) {
         List<Warning> ret = new List<Warning>();
-        foreach(Int32 item in this.settings.GetWeatherCellIds()) {
+        foreach(Int32 item in Settings.Instance.Internal.WeatherCellIDs) {
           try {
             JsonData json = this.webrequests.GetJson("https://maps.dwd.de/geoserver/wfs?SERVICE=WFS&VERSION=2.0.0&REQUEST=GetFeature&typeName=dwd:Warnungen_Gemeinden&outputFormat=application/json&cql_filter=WARNCELLID=" + item);
             if (json.ContainsKey("features") && json["features"].IsArray && json["features"].Count > 0) {
@@ -50,10 +47,10 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
       }
     }
 
-    internal void Dispose() {
+    public void Dispose() {
       try {
         this.backgroundrunnerAlive = false;
-        while (this.bgthread.IsAlive) {
+        while (this.bgthread != null && this.bgthread.IsAlive) {
           Thread.Sleep(10);
         }
         this.bgthread = null;

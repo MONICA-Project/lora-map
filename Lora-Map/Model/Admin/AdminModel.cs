@@ -2,17 +2,26 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using System.Text;
+
 using BlubbFish.Utils;
 using BlubbFish.Utils.IoT.Bots;
+
 using LitJson;
 
 namespace Fraunhofer.Fit.IoT.LoraMap.Model.Admin {
   class AdminModel {
     public delegate void AdminEvent(Object sender, EventArgs e);
+    #pragma warning disable 0067
     public event AdminEvent NamesUpdate;
     public event AdminEvent GeoUpdate;
     public event AdminEvent SettingsUpdate;
+    #pragma warning restore 0067
+
+    private readonly SortedDictionary<String, Tuple<String, String>> datastorage = new SortedDictionary<String, Tuple<String, String>>() {
+      { "name", new Tuple<String, String>("names", "NamesUpdate") },
+      { "geo", new Tuple<String, String>("geo", "GeoUpdate") },
+      { "setting", new Tuple<String, String>("settings", "SettingsUpdate") }
+    };
 
     private readonly Dictionary<Int64, AdminSession> session = new Dictionary<Int64, AdminSession>();
     private readonly Dictionary<String, String> settings;
@@ -25,20 +34,39 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model.Admin {
       }
     }
 
-    public Boolean ParseReuqest(HttpListenerContext cont) => 
-      cont.Request.Url.PathAndQuery == "/admin/login" ? this.Login(cont) : 
-      !this.CheckAuth(cont) ? false :
-      cont.Request.Url.PathAndQuery.StartsWith("/admin/get_json_") ? this.GetJsonFiles(cont) :
-      cont.Request.Url.PathAndQuery.StartsWith("/admin/set_json_") ? this.SetJsonFiles(cont) : 
-      Webserver.SendFileResponse(cont);
+    public Boolean ParseReuqest(HttpListenerContext cont) {
+      if(cont.Request.Url.PathAndQuery == "/admin/login") {
+        return this.Login(cont);
+      }
+      if(!this.CheckAuth(cont)) {
+        return false;
+      }
+      if(cont.Request.Url.PathAndQuery.StartsWith("/admin/api/json/")) {
+        if(cont.Request.HttpMethod == "GET") {
+          if(cont.Request.Url.AbsolutePath.Length > 16) {
+            String parts = cont.Request.Url.AbsolutePath[16..];
+            Dictionary<String, JsonData> ret = new Dictionary<String, JsonData>();
+            foreach(String part in parts.Split(",")) {
+              if(this.datastorage.ContainsKey(part)) {
+                ret.Add(part, JsonMapper.ToObject(File.ReadAllText("json/" + this.datastorage[part].Item1 + ".json")));
+              }
+            }
+            Console.WriteLine("200 - Send names.json " + cont.Request.Url.PathAndQuery);
+            return Webserver.SendJsonResponse(ret, cont);
+          }
+        } else if(cont.Request.HttpMethod == "PUT") {
+          if(cont.Request.Url.AbsolutePath.Length > 16) {
+            String part = cont.Request.Url.AbsolutePath[16..];
+            if(this.datastorage.ContainsKey(part)) {
+              return this.SetJsonFile(cont, "json/" + this.datastorage[part].Item1 + ".json", this.datastorage[part].Item2);
+            }
+          }
+        }
+      }
+      return Webserver.SendFileResponse(cont);
+    }
 
-    private Boolean SetJsonFiles(HttpListenerContext cont) => 
-      cont.Request.Url.PathAndQuery == "/admin/set_json_names" ? this.SetJsonFile(cont, "names.json", this.NamesUpdate) : 
-      cont.Request.Url.PathAndQuery == "/admin/set_json_geo" ? this.SetJsonFile(cont, "geo.json", this.GeoUpdate) : 
-      cont.Request.Url.PathAndQuery == "/admin/set_json_settings" ? this.SetJsonFile(cont, "settings.json", this.SettingsUpdate) : 
-      false;
-
-    private Boolean SetJsonFile(HttpListenerContext cont, String filename, AdminEvent updatenotifier) {
+    private Boolean SetJsonFile(HttpListenerContext cont, String filename, String updatenotifier) {
       StreamReader reader = new StreamReader(cont.Request.InputStream, cont.Request.ContentEncoding);
       String rawData = reader.ReadToEnd();
       cont.Request.InputStream.Close();
@@ -50,24 +78,9 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model.Admin {
         cont.Response.StatusCode = 501;
         return false;
       }
-      File.WriteAllText("json/"+ filename, rawData);
-      Console.WriteLine("200 - Post " + filename + " " + cont.Request.Url.PathAndQuery);
-      updatenotifier?.Invoke(this, new EventArgs());
-      return true;
-    }
-
-    private Boolean GetJsonFiles(HttpListenerContext cont) =>
-      cont.Request.Url.PathAndQuery == "/admin/get_json_names" ? this.GetJsonFile(cont, "names.json") :
-      cont.Request.Url.PathAndQuery == "/admin/get_json_geo" ? this.GetJsonFile(cont, "geo.json") :
-      cont.Request.Url.PathAndQuery == "/admin/get_json_settings" ? this.GetJsonFile(cont, "settings.json") : 
-      false;
-
-    private Boolean GetJsonFile(HttpListenerContext cont, String filename) {
-      String file = File.ReadAllText("json/" + filename);
-      Byte[] buf = Encoding.UTF8.GetBytes(file);
-      cont.Response.ContentLength64 = buf.Length;
-      cont.Response.OutputStream.Write(buf, 0, buf.Length);
-      Console.WriteLine("200 - Send names.json " + cont.Request.Url.PathAndQuery);
+      File.WriteAllText(filename, rawData);
+      Console.WriteLine("200 - PUT " + filename + " " + cont.Request.Url.PathAndQuery);
+      this.GetEvent<AdminEvent>(updatenotifier)?.Invoke(this, new EventArgs());
       return true;
     }
 
