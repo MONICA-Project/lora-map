@@ -1,6 +1,9 @@
 name: Build, Test, Publish and Dockerise Lora-Map
 
-on: [push]
+on:
+  push:
+    branches:
+      - master
 
 jobs:
   build:
