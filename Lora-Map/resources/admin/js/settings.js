@@ -58,34 +58,38 @@
       "<td><img src='../icons/general/save.png' onclick='Settings.SaveRowSensor(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='Settings.Abort(this.parentNode.parentNode)' class='pointer'></td>";
   },
   ParseJson: function (jsonsettings) {
-    if (typeof jsonsettings.StartPos === "undefined") {
+    if (!Object.prototype.hasOwnProperty.call(jsonsettings, "StartPos")) {
       jsonsettings.StartPos = { lat: 0, lon: 0 };
     }
-    if (typeof jsonsettings.CellIds === "undefined") {
+    if (!Object.prototype.hasOwnProperty.call(jsonsettings, "CellIds")) {
       jsonsettings.CellIds = [];
     }
-    if (typeof jsonsettings.GridRadius === "undefined") {
+    if (!Object.prototype.hasOwnProperty.call(jsonsettings, "GridRadius")) {
       jsonsettings.GridRadius = 1000;
     }
-    if (typeof jsonsettings.FightDedection === "undefined") {
+    if (!Object.prototype.hasOwnProperty.call(jsonsettings, "FightDedection")) {
       jsonsettings.FightDedection = [];
     }
-    if (typeof jsonsettings.CrwodDensity === "undefined") {
+    if (!Object.prototype.hasOwnProperty.call(jsonsettings, "CrwodDensity")) {
       jsonsettings.CrwodDensity = [];
     }
-    if (typeof jsonsettings.Counting === "undefined") {
+    if (!Object.prototype.hasOwnProperty.call(jsonsettings, "Counting")) {
       jsonsettings.Counting = [];
     }
-    if (typeof jsonsettings.Sensors === "undefined") {
+    if (!Object.prototype.hasOwnProperty.call(jsonsettings, "Sensors")) {
       jsonsettings.Sensors = [];
     }
+    if (!Object.prototype.hasOwnProperty.call(jsonsettings, "History")) {
+      jsonsettings.History = [];
+    }
     var html = "<div id='settingseditor'><div class='title'>Einstellungen</div>";
-    html += "<div class='startloc'>Startpunkt: <input value='" + jsonsettings.StartPos.lat + "' id='startlat'> Lat, <input value='" + jsonsettings.StartPos.lon + "' id='startlon'> Lon</div>";
-    html += "<div class='wetterwarnings'>CellId's für DWD-Wetterwarnungen: <input value='" + jsonsettings.CellIds.join(";") + "' id='wetterids'> (Trennen durch \";\", <a href='https://www.dwd.de/DE/leistungen/opendata/help/warnungen/cap_warncellids_csv.html'>cap_warncellids_csv</a>)</div>";
-    html += "<div class='gridradius'>Radius für das Grid um den Startpunkt: <input value='" + jsonsettings.GridRadius + "' id='gridrad'>m</div>";
-    html += "<div class='fightdedection'>Fight Dedection Kameras: <br>" + this._renderFightDedection(jsonsettings.FightDedection) + "</div>";
-    html += "<div class='crowddensity'>Crowd Density Kameras: <br>" + this._renderCrowdDensity(jsonsettings.CrwodDensity) + "</div>";
-    html += "<div class='sensorsettings'>Sensors: <br>" + this._renderSensorSettings(jsonsettings.Sensors) + "</div>";
+    html += "<div class='startloc'>Startpunkt: <input value='" + jsonsettings.StartPos.lat + "' id='startlat'> Lat, <input value='" + jsonsettings.StartPos.lon + "' id='startlon'> Lon</div><hr>";
+    html += "<div class='wetterwarnings'>CellId's für DWD-Wetterwarnungen: <input value='" + jsonsettings.CellIds.join(";") + "' id='wetterids'> (Trennen durch \";\", <a href='https://www.dwd.de/DE/leistungen/opendata/help/warnungen/cap_warncellids_csv.html'>cap_warncellids_csv</a>)</div><hr>";
+    html += "<div class='gridradius'>Radius für das Grid um den Startpunkt: <input value='" + jsonsettings.GridRadius + "' id='gridrad'>m</div><hr>";
+    html += "<div class='fightdedection'>Fight Dedection Kameras: <br>" + this._renderFightDedection(jsonsettings.FightDedection) + "</div><hr>";
+    html += "<div class='crowddensity'>Crowd Density Kameras: <br>" + this._renderCrowdDensity(jsonsettings.CrwodDensity) + "</div><hr>";
+    html += "<div class='sensorsettings'>Sensors: <br>" + this._renderSensorSettings(jsonsettings.Sensors) + "</div><hr>";
+    html += "<div class='historysettings'>History: "+this._renderHistorySettings(jsonsettings.History)+"</div><hr>";
     html += "<div class='savesettings'><img src='../icons/general/save.png' onclick='Settings.Save()' class='pointer'></div>";
     document.getElementById("content").innerHTML = html + "</div>";
   },
@@ -158,6 +162,29 @@
       };
     }
     ret.Sensors = sensorjson;
+
+    ret.History = {};
+    if (document.getElementById("hist_yes").checked && !document.getElementById("hist_no").checked) {
+      ret.History.enabled = true;
+      var time = parseInt(document.getElementById("history_time").value);
+      if (isNaN(time)) {
+        time = 0;
+      }
+      var amount = parseInt(document.getElementById("history_amount").value);
+      if (isNaN(amount)) {
+        amount = 0;
+      }
+      if (time !== 0 && amount !== 0) {
+        alert("History: Entweder Zeit oder Menge muss 0 sein.");
+        return;
+      }
+      ret.History.time = time;
+      ret.History.amount = amount;
+    } else {
+      ret.History.enabled = false;
+      ret.History.time = 0;
+      ret.History.amount = 0;
+    }
 
     var savesettings = new XMLHttpRequest();
     savesettings.onreadystatechange = function () {
@@ -306,6 +333,20 @@
     ret += "</table>";
     return ret;
   },
+  _renderHistorySettings: function (json) {
+    if (!Object.prototype.hasOwnProperty.call(json, "enabled")) {
+      json.enabled = false;
+    }
+    if (!Object.prototype.hasOwnProperty.call(json, "time")) {
+      json.time = 0;
+    }
+    if (!Object.prototype.hasOwnProperty.call(json, "amount")) {
+      json.amount = 0;
+    }
+    var html = "Aktiv: <fieldset style='border:none;'> <label for='hist_no'>Nein </label> <input onclick=\"document.getElementById('history_settings_details').style.display='none'\" type='radio' id='hist_no' name='hist_en' value='no' " + (json.enabled ? "" : "checked='checked'") + "> <label for='hist_yes'>Ja </label> <input onclick=\"document.getElementById('history_settings_details').style.display='block'\" type='radio' id='hist_yes' name='hist_en' value='yes' " + (json.enabled ? "checked='checked'" : "") + "> </fieldset>";
+    html += "<span id='history_settings_details' style='display: " + (json.enabled ? "block" : "none") + "'>Zeit: <input type='number' id='history_time' value='" + json.time + "'>s, Menge: <input type='number' id='history_amount' value='" + json.amount +"'></span>"
+    return html;
+  },
   _renderSensorSettings: function (json) {
     var ret = "";
     ret += "<table id='sensortable' class='settingstable'>";
@@ -326,5 +367,5 @@
     ret += "<tfoot><tr><td></td><td></td><td></td><td></td><td><img src='../icons/general/add.png' onclick='Settings.AddSensor()' class='pointer'></td></tr></tfoot>";
     ret += "</table>";
     return ret;
-  },
+  }
 };
