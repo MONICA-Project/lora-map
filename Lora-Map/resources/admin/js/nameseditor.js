@@ -32,21 +32,21 @@
       if (Object.prototype.hasOwnProperty.call(query, "person-text")) {
         markerobj["person"]["text"] = query["person-text"];
       }
-      if (Object.prototype.hasOwnProperty.call(query, "person-typ")) {
-        if (Array.isArray(query["person-typ"])) {
+      if (Object.prototype.hasOwnProperty.call(query, "person-typ[]")) {
+        if (Array.isArray(query["person-typ[]"])) {
           markerobj["person"]["typ"] = new Array();
-          for (var i in query["person-typ"]) {
-            markerobj["person"]["typ"].push(query["person-typ"][i]);
+          for (var i in query["person-typ[]"]) {
+            markerobj["person"]["typ"].push(query["person-typ[]"][i]);
           }
         } else {
           markerobj["person"]["typ"] = new Array();
-          markerobj["person"]["typ"].push(query["person-typ"]);
+          markerobj["person"]["typ"].push(query["person-typ[]"]);
         }
       }
     }
     return markerobj;
   },
-  ChangeLinkPreview: function (key, val) {
+  ChangeLinkPreview: function (key, val, multiple) {
     var cur = this.SplitUrlIntoParts(document.getElementById("markerprev").data);
     var query = this.SplitQueryIntoObject(cur.query);
     if (typeof val === "object") {
@@ -71,13 +71,13 @@
     var html = title !== "" ? title + ": " : "";
     var onchange = "";
     if (!(typeof noonchange !== "undefined" && noonchange === true)) {
-      var eventtext = "NamesEditor.ChangeLinkPreview(\"" + key + "\",this.selectedOptions);";
+      var eventtext = "NamesEditor.ChangeLinkPreview(\"" + key + "\", this.selectedOptions, multiple);";
       if (typeof group !== "undefined" && group !== null) {
         eventtext += " document.getElementById(\"" + group + "\"+this.value).style.display = \"block\";'";
       }
       onchange = " onchange='" + eventtext + "'";
     }
-    html += "<select" + onchange + (typeof muliple !== "undefined" && muliple !== null ? " multiple" : "") + ">";
+    html += "<select" + onchange + (typeof muliple !== "undefined" && muliple === true ? " multiple" : "") + ">";
     if (typeof muliple === "undefined" || muliple === null) {
       html += "<option>---</option>";
     }
@@ -122,7 +122,7 @@
     if (url === null) {
       el.innerHTML += "<td><img src='../icons/general/icon_edit.png' onclick='NamesEditor.IconEditor(this.parentNode)' class='pointer'> wähle Icon</td>";
     } else {
-      el.innerHTML += "<td><img src='../icons/general/icon_edit.png' onclick='NamesEditor.IconEditor(this.parentNode)' class='pointer'> <object data='" + url + "' type='image/svg+xml' style='height:50px; width:50px;'></object></td>";
+      el.innerHTML += "<td><img src='../icons/general/icon_edit.png' onclick='NamesEditor.IconEditor(this.parentNode)' class='pointer'> <object data='" + url + "' type='image/svg+xml' style='height:57px; width:50px;'></object></td>";
     }
     el.innerHTML += "<td>" + this.CreateSelectBox("", "item", { item: gfilter }, this.filterGropus, null, null, true);
     el.innerHTML += "<td><img src='../icons/general/save.png' onclick='NamesEditor.SaveRow(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='NamesEditor.Abort(this.parentNode.parentNode)' class='pointer'></td>";
@@ -137,15 +137,15 @@
     var ie = document.createElement("div");
     ie.id = "iconeditor";
     ie.innerHTML = "<div class='innerbox'>" +
-      "<div class='preview'><object id='markerprev' data='" + url + "' type='image/svg+xml' style='height:200px; width:200px;'></object></div>" +
+      "<div class='preview'><object id='markerprev' data='" + url + "' type='image/svg+xml' style='height:226px; width:200px;'></object></div>" +
       "<div class='controls'>" +
       this.CreateSelectBox("Typ", "icon", query, { "person": "Person" }, null, "iconeditor-type-") + "<br>" +
       "<div id='iconeditor-type-person' style='display: " + (Object.prototype.hasOwnProperty.call(query, "icon") && query["icon"] === "person" ? "block" : "none") + ";'>" +
       this.CreateSelectBox("Organisation", "person-org", query, { "fw": "Feuerwehr", "thw": "Technisches Hilfswerk", "hilo": "Hilfsorganisationen, Bundeswehr", "fueh": "Einrichtungen der Führung", "pol": "Polizei, Bundespolizei, Zoll", "sonst": "Sonstige Einrichtungen der Gefahrenabwehr" }) + "<br>" +
       this.CreateSelectBox("Funktion", "person-funct", query, { "sonder": "Sonder", "fueh": "Führung" }) + "<br>" +
       this.CreateSelectBox("Rang", "person-rang", query, { "trupp": "Trupp", "grupp": "Gruppe", "zug": "Zug" }) + "<br>" +
-      "Text: <input onchange='NamesEditor.ChangeLinkPreview(\"person-text\",this.value);' value='" + (Object.prototype.hasOwnProperty.call(query, "person-text") ? query["person-text"] : "") + "'><br>" +
-      this.CreateSelectBox("Typ", "person-typ", query, { "loesch": "Brandbekämpfung/Löscheinsatz", "sani": "Rettungswesen, Sanitätswesen, Gesundheitswesen", "betreu": "Betreuung" }, true) + "<br>" +
+      "Text: <input onchange='NamesEditor.ChangeLinkPreview(\"person-text\", this.value, false);' value='" + (Object.prototype.hasOwnProperty.call(query, "person-text") ? query["person-text"] : "") + "'><br>" +
+      this.CreateSelectBox("Typ", "person-typ[]", query, { "loesch": "Brandbekämpfung/Löscheinsatz", "sani": "Rettungswesen, Sanitätswesen, Gesundheitswesen", "betreu": "Betreuung" }, true) + "<br>" +
       "</div>" +
       "</div>" +
       "<div class='save'><button onclick='NamesEditor.SaveIconEditor(\"" + el.id + "\"); '>Schließen</botton></div>" +
@@ -157,10 +157,10 @@
     for (var id in queryobj) {
       if (Array.isArray(queryobj[id])) {
         for (var i in queryobj[id]) {
-          query.push(encodeURIComponent(id) + "=" + encodeURIComponent(queryobj[id][i]));
+          query.push(id + "=" + encodeURIComponent(queryobj[id][i]));
         }
       } else {
-        query.push(encodeURIComponent(id) + "=" + encodeURIComponent(queryobj[id]));
+        query.push(id + "=" + encodeURIComponent(queryobj[id]));
       }
     }
     return query.join("&");
@@ -183,11 +183,11 @@
       }
       if (Object.prototype.hasOwnProperty.call(markerobj["person"], "typ") && Array.isArray(markerobj["person"]["typ"])) {
         for (i in markerobj["person"]["typ"]) {
-          url += "&person-typ=" + markerobj["person"]["typ"][i];
+          url += "&person-typ[]=" + markerobj["person"]["typ"][i];
         }
       }
     }
-    return "<object data='" + url + "' type='image/svg+xml' style='height:50px; width:50px;'></object>";
+    return "<object data='" + url + "' type='image/svg+xml' style='height:57px; width:50px;'></object>";
   },
   ParseJson: function (namesconfig) {
     document.getElementById("content").innerHTML = "";
@@ -249,7 +249,7 @@
   },
   SaveIconEditor: function (id) {
     var cell = document.getElementById(id);
-    cell.innerHTML = "<img src='../icons/general/icon_edit.png' onclick='NamesEditor.IconEditor(this.parentNode)' class='pointer'> <object data='" + document.getElementById("markerprev").data + "' type='image/svg+xml' style='height:50px; width:50px;'></object>";
+    cell.innerHTML = "<img src='../icons/general/icon_edit.png' onclick='NamesEditor.IconEditor(this.parentNode)' class='pointer'> <object data='" + document.getElementById("markerprev").data + "' type='image/svg+xml' style='height:57px; width:50px;'></object>";
     cell.removeAttribute("id");
     document.getElementById("iconeditor").remove();
   },
@@ -269,7 +269,7 @@
     if (url === null) {
       el.innerHTML += "<td><img src='../js/leaflet/images/marker-icon.png'></td>";
     } else {
-      el.innerHTML += "<td><object data='" + url + "' type='image/svg+xml' style='height:50px; width:50px;'></object></td>";
+      el.innerHTML += "<td><object data='" + url + "' type='image/svg+xml' style='height:57px; width:50px;'></object></td>";
     }
     el.innerHTML += "<td rel='" + gfilter + "'>" + this.filterGropus[gfilter] + "</td>";
     el.innerHTML += "<td><img src='../icons/general/edit.png' onclick='NamesEditor.Edit(this.parentNode.parentNode)' class='pointer'> <img src='../icons/general/remove.png' onclick='NamesEditor.Delete(this.parentNode.parentNode)' class='pointer'></td>";

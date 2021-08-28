@@ -72,13 +72,15 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model.Svg {
       #endregion
     }
 
-    protected static String DictionaryConfigToString(Dictionary<String, String> config) {
+    protected static String DictionaryConfigToString(Dictionary<String, List<String>> config) {
       String query = "";
       if(config.Count > 0) {
         query += "?";
         List<String> queryparts = new List<String>();
-        foreach(KeyValuePair<String, String> item in config) {
-          queryparts.Add(HttpUtility.UrlEncode(item.Key) + "=" + HttpUtility.UrlEncode(item.Value));
+        foreach(KeyValuePair<String, List<String>> items in config) {
+          foreach(String item in items.Value) {
+            queryparts.Add(items.Key + "=" + HttpUtility.UrlEncode(item));
+          }
         }
         query += String.Join("&", queryparts);
       }
