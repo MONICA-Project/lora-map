@@ -126,14 +126,14 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
       }
       if(json.ContainsKey("History") && json["History"].IsObject) {
         if(json["History"].ContainsKey("enabled") && json["History"]["enabled"].IsBoolean) {
-          this.External.History.Enabled = (Boolean)json["History"]["enabled"];
+          this.Internal.History.Enabled = (Boolean)json["History"]["enabled"];
         }
-        if(this.External.History.Enabled) {
-          this.External.History.Time = json["History"].ContainsKey("time") && json["History"]["time"].IsInt ? (Int32)json["History"]["time"] : 0;
-          this.External.History.Time = json["History"].ContainsKey("amount") && json["History"]["amount"].IsInt ? (Int32)json["History"]["amount"] : 0;
+        if(this.Internal.History.Enabled) {
+          this.Internal.History.Time = json["History"].ContainsKey("time") && json["History"]["time"].IsInt ? (Int32)json["History"]["time"] : 0;
+          this.Internal.History.Amount = json["History"].ContainsKey("amount") && json["History"]["amount"].IsInt ? (Int32)json["History"]["amount"] : 0;
         } else {
-          this.External.History.Amount = 0;
-          this.External.History.Time = 0;
+          this.Internal.History.Amount = 0;
+          this.Internal.History.Time = 0;
         }
       }
       this.gridradius = json.ContainsKey("GridRadius") && json["GridRadius"].IsInt && this.External.Startloclat != 0 && this.External.Startloclon != 0 ? (Int32)json["GridRadius"] : 0;
@@ -343,13 +343,13 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
       public JsonData GeoLayer {
         get; set;
       }
-      public History History {
-        get; set;
-      } = new History();
     }
 
     public class PrivateSettings {
       public List<Int32> WeatherCellIDs { get; set; } = new List<Int32>();
+      public History History {
+        get; set;
+      } = new History();
     }
   }
 }
