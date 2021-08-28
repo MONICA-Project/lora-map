@@ -25,25 +25,27 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model.Sensor {
 
     private void BackGroundRunner() {
       while(this.backgroundrunnerAlive) {
-        List<Warning> ret = new List<Warning>();
-        foreach(Int32 item in Settings.Instance.Internal.WeatherCellIDs) {
-          try {
-            JsonData json = this.webrequests.GetJson("https://maps.dwd.de/geoserver/wfs?SERVICE=WFS&VERSION=2.0.0&REQUEST=GetFeature&typeName=dwd:Warnungen_Gemeinden&outputFormat=application/json&cql_filter=WARNCELLID=" + item);
-            if (json.ContainsKey("features") && json["features"].IsArray && json["features"].Count > 0) {
-              foreach (JsonData warning in json["features"]) {
-                try {
-                  ret.Add(new Warning(warning));
-                } catch { }
+        try {
+          List<Warning> ret = new List<Warning>();
+          foreach(Int32 item in Settings.Instance.Internal.WeatherCellIDs) {
+            try {
+              JsonData json = this.webrequests.GetJson("https://maps.dwd.de/geoserver/wfs?SERVICE=WFS&VERSION=2.0.0&REQUEST=GetFeature&typeName=dwd:Warnungen_Gemeinden&outputFormat=application/json&cql_filter=WARNCELLID=" + item);
+              if(json.ContainsKey("features") && json["features"].IsArray && json["features"].Count > 0) {
+                foreach(JsonData warning in json["features"]) {
+                  try {
+                    ret.Add(new Warning(warning));
+                  } catch { }
+                }
               }
-            }
-          } catch { }
-        }
-        this.Warnungen = ret;
-        for (Int32 i = 0; i < 1000; i++) {
-          if (this.backgroundrunnerAlive) {
-            Thread.Sleep(60);
+            } catch { }
           }
-        }
+          this.Warnungen = ret;
+          for(Int32 i = 0; i < 1000; i++) {
+            if(this.backgroundrunnerAlive) {
+              Thread.Sleep(60);
+            }
+          }
+        } catch { }
       }
     }
 
