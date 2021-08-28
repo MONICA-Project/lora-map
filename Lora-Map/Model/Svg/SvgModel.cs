@@ -8,6 +8,8 @@ using BlubbFish.Utils;
 namespace Fraunhofer.Fit.IoT.LoraMap.Model.Svg {
   public class SvgModel : OwnSingeton<SvgModel> {
     private readonly Dictionary<String, SVGFile> svgtable = new Dictionary<String, SVGFile>();
+    private readonly Object lockSVG = new Object();
+
     public Boolean ParseRequest(HttpListenerContext cont) {
       Byte[] svg = this.GetSvg(cont.Request.Url.PathAndQuery);
       if(svg.Length > 0) {
@@ -26,14 +28,16 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model.Svg {
       if(this.svgtable.ContainsKey(pathAndQuery)) {
         return Encoding.UTF8.GetBytes(this.svgtable[pathAndQuery].ToString());
       } else {
-        if(pathAndQuery.StartsWith("/api/svg/marker.svg") && pathAndQuery.Contains("?")) {
-          String query = pathAndQuery[(pathAndQuery.IndexOf('?') + 1)..];
-          this.svgtable.Add(pathAndQuery, new SVGMarker(query));
-          return Encoding.UTF8.GetBytes(this.svgtable[pathAndQuery].ToString());
-        } else if(pathAndQuery.StartsWith("/api/svg/person.svg") && pathAndQuery.Contains("?")) {
-          String query = pathAndQuery[(pathAndQuery.IndexOf('?') + 1)..];
-          this.svgtable.Add(pathAndQuery, new SVGPerson(query));
-          return Encoding.UTF8.GetBytes(this.svgtable[pathAndQuery].ToString());
+        lock(this.lockSVG) {
+          if(pathAndQuery.StartsWith("/api/svg/marker.svg") && pathAndQuery.Contains("?")) {
+            String query = pathAndQuery[(pathAndQuery.IndexOf('?') + 1)..];
+            this.svgtable.Add(pathAndQuery, new SVGMarker(query));
+            return Encoding.UTF8.GetBytes(this.svgtable[pathAndQuery].ToString());
+          } else if(pathAndQuery.StartsWith("/api/svg/person.svg") && pathAndQuery.Contains("?")) {
+            String query = pathAndQuery[(pathAndQuery.IndexOf('?') + 1)..];
+            this.svgtable.Add(pathAndQuery, new SVGPerson(query));
+            return Encoding.UTF8.GetBytes(this.svgtable[pathAndQuery].ToString());
+          }
         }
       }
       return new Byte[0];
