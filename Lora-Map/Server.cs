@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Text;
 
 using BlubbFish.Utils;
 using BlubbFish.Utils.IoT.Bots;
@@ -17,7 +18,7 @@ using Fraunhofer.Fit.IoT.LoraMap.Model.Svg;
 using LitJson;
 
 namespace Fraunhofer.Fit.IoT.LoraMap {
-  class Server : Webserver {
+  class Server : AWebserverDataBackend {
     private readonly SortedDictionary<String, Object> jsonapi = new SortedDictionary<String, Object>() {
       { "camera", CameraModel.Instance },
       { "position", PositionModel.Instance },
@@ -26,12 +27,13 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
     };
     private readonly AdminModel admin;
 
-    public Server(ADataBackend backend, Dictionary<String, String> settings) : base(backend, settings, null) {
+    public Server(ADataBackend backend, Dictionary<String, String> settings) : base(backend, settings) {
       this.logger.SetPath(settings["loggingpath"]);
       this.admin = new AdminModel(settings);
       this.admin.SettingsUpdate += Settings.Instance.ReloadSettings;
       this.admin.GeoUpdate += Settings.Instance.ReloadGeo;
       this.admin.NamesUpdate += PositionModel.Instance.ReloadNames;
+      this.StartDataBackend();
       this.StartListen();
       this.WaitForShutdown();
       this.Dispose();
@@ -59,23 +61,23 @@ namespace Fraunhofer.Fit.IoT.LoraMap {
                 ret.Add(part, this.jsonapi[part]);
               }
             }
-            return SendJsonResponse(ret, cont);
+            return cont.SendStringResponse(JsonMapper.ToJson(ret));
           }
         } else if(cont.Request.Url.AbsolutePath.StartsWith("/api/time")) {
-          return SendJsonResponse(new Dictionary<String, DateTime>() { { "utc", DateTime.UtcNow } }, cont);
+          return cont.SendStringResponse(JsonMapper.ToJson(new Dictionary<String, DateTime>() { { "utc", DateTime.UtcNow } }));
         } else if(cont.Request.Url.AbsolutePath.StartsWith("/api/svg/")) {
           return SvgModel.Instance.ParseRequest(cont);
         } else if(cont.Request.Url.PathAndQuery.StartsWith("/admin/")) {
           return this.admin.ParseReuqest(cont);
         } else if(cont.Request.Url.PathAndQuery.StartsWith("/maps/")) {
-          return SendFileResponse(cont, "resources", false);
+          return cont.SendFileResponse("resources", false);
         } 
       } catch(Exception e) {
         Helper.WriteError("SendWebserverResponse(): 500 - " + e.Message + "\n\n" + e.StackTrace);
         cont.Response.StatusCode = 500;
         return false;
       }
-      return SendFileResponse(cont);
+      return cont.SendFileResponse();
     }
 
     public override void Dispose() {
