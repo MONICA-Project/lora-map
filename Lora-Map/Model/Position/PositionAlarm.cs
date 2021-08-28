@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using LitJson;
+
+using Fraunhofer.Fit.IoT.LoraMap.Model.JsonObjects;
 
 namespace Fraunhofer.Fit.IoT.LoraMap.Model.Position {
   public class PositionAlarm : PositionItem {
@@ -9,24 +10,21 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model.Position {
 
     public List<DateTime> ButtonPressed => this.buttonhistory.Keys.ToList();
 
-    public PositionAlarm(JsonData json) : base(json, null) {
+    public PositionAlarm(LoraData data) : base(data, null) {
     }
 
-    public override void Update(JsonData json) {
-      base.Update(json);
-      this.SetHistory(json);
+    public override void Update(LoraData data) {
+      base.Update(data);
+      this.SetHistory(data);
     }
 
-    private void SetHistory(JsonData json) {
-      if(json.ContainsKey("Hash") && json["Hash"].IsString) {
-        String key = json["Hash"].ToString();
-        if(!this.buttonhistory.ContainsValue(key)) {
-          this.buttonhistory.Add(DateTime.UtcNow, key);
-          if(this.buttonhistory.Count > 10) {
-            _ = this.buttonhistory.Remove(this.buttonhistory.Keys.ToList().First());
-          }
+    private void SetHistory(LoraData data) {
+      if(!this.buttonhistory.ContainsValue(data.Hash)) {
+        this.buttonhistory.Add(DateTime.UtcNow, data.Hash);
+        if(this.buttonhistory.Count > 10) {
+          _ = this.buttonhistory.Remove(this.buttonhistory.Keys.ToList().First());
         }
-      }      
-    }
+      }
+    }      
   }
 }

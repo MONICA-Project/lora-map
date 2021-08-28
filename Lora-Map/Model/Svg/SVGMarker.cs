@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Web;
 
-using LitJson;
+using Fraunhofer.Fit.IoT.LoraMap.Model.JsonObjects;
 
 namespace Fraunhofer.Fit.IoT.LoraMap.Model.Svg {
   public class SVGMarker : SVGFile {
@@ -12,7 +12,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model.Svg {
 
     public SVGMarker(String query) : base(query, 86, 121.25, new List<Double>() { 0, 0, 86, 121.25 }) => this.css.Add("#marker-name tspan {\n  font-size: 20px;\n  font-family: DIN1451;\n}");
 
-    public static String ParseConfig(JsonData json, String name) => "api/svg/marker.svg" + DictionaryConfigToString(GenerateConfig(json, name));
+    public static String ParseConfig(NamesModelDataMarkerSvg json, String name) => "api/svg/marker.svg" + DictionaryConfigToString(GenerateConfig(json, name));
 
     protected override void ParseParams() {
       String[] parts = this.query.Split('&');
@@ -21,7 +21,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model.Svg {
         if(keyvalue.Length == 2) {
           switch(keyvalue[0].ToLower()) {
             case "name":
-              this.name = keyvalue[1];
+              this.name = HttpUtility.UrlDecode(keyvalue[1]);
               break;
             case "icon":
               this.icon = keyvalue[1].ToLower();
@@ -31,14 +31,14 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model.Svg {
       }
     }
 
-    public static Dictionary<String, String> GenerateConfig(JsonData json, String name) {
-      Dictionary<String, String> config = new Dictionary<String, String>();
+    public static Dictionary<String, List<String>> GenerateConfig(NamesModelDataMarkerSvg json, String name) {
+      Dictionary<String, List<String>> config = new Dictionary<String, List<String>>();
       if(name != "") {
-        config.Add("name", name);
+        config.Add("name", new List<String>() { name });
       }
-      if(json.ContainsKey("person") && json["person"].IsObject) {
-        config.Add("icon", "person");
-        Dictionary<String, String> personconfig = SVGPerson.GenerateConfig(json["person"]);
+      if(json.Person != null) {
+        config.Add("icon", new List<String>() { "person" });
+        Dictionary<String, List<String>> personconfig = SVGPerson.GenerateConfig(json.Person);
         personconfig.ToList().ForEach(x => config.Add(x.Key, x.Value));
       }
       return config;
@@ -52,7 +52,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model.Svg {
       svg += "</g>\n";
 
       svg += "<g inkscape:groupmode=\"layer\" id=\"marker-name\" inkscape:label=\"Name\">\n";
-      svg += $"<text><tspan x=\"5\" y=\"20\" id=\"marker-name-text\">{this.name}</tspan></text>\n";
+      svg += $"<text><tspan x=\"5\" y=\"20\" id=\"marker-name-text\">{HttpUtility.HtmlEncode(this.name)}</tspan></text>\n";
       svg += "</g>\n";
 
       if(this.icon == "person") {

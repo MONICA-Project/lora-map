@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Web;
 
-using LitJson;
+using Fraunhofer.Fit.IoT.LoraMap.Model.JsonObjects;
 
 namespace Fraunhofer.Fit.IoT.LoraMap.Model.Svg {
   public class SVGPerson : SVGFile {
@@ -11,7 +12,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model.Svg {
     private String function;
     private String rang;
     private String text;
-    private String[] typs;
+    private readonly List<String> typs = new List<String>();
 
 
 
@@ -23,7 +24,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model.Svg {
       this.css.Add("#person-layer-typ line {\n  stroke-width: 3px;\n  stroke: black;\n}");
     }
 
-    public static String ParseConfig(JsonData json) => "api/svg/person.svg" + DictionaryConfigToString(GenerateConfig(json));
+    public static String ParseConfig(NamesModelDataMarkerSvgPerson json) => "api/svg/person.svg" + DictionaryConfigToString(GenerateConfig(json));
 
     protected override void ParseParams() {
       String[] parts = this.query.Split('&');
@@ -41,38 +42,27 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model.Svg {
               this.rang = keyvalue[1].ToLower();
               break;
             case "person-text":
-              this.text = keyvalue[1];
+              this.text = HttpUtility.UrlDecode(keyvalue[1]);
               break;
-            case "person-typ":
-              this.typs = keyvalue[1].ToLower().Split(",");
+            case "person-typ[]":
+              this.typs.Add(HttpUtility.UrlDecode(keyvalue[1]).ToLower());
               break;
           }
         }
       }
     }
 
-    public static Dictionary<String, String> GenerateConfig(JsonData json) {
-      Dictionary<String, String> config = new Dictionary<String, String>();
-      if(json.ContainsKey("org") && json["org"].IsString) {
-        config.Add("person-org", json["org"].ToString());
+    public static Dictionary<String, List<String>> GenerateConfig(NamesModelDataMarkerSvgPerson json) {
+      Dictionary<String, List<String>> config = new Dictionary<String, List<String>> {
+        { "person-org", new List<String>() { json.Organisation } },
+        { "person-funct", new List<String>() { json.Funktion } },
+        { "person-rang", new List<String>() { json.Rang } }
+      };
+      if(json.Text != null) {
+        config.Add("person-text", new List<String>() { json.Text });
       }
-      if(json.ContainsKey("funct") && json["funct"].IsString) {
-        config.Add("person-funct", json["funct"].ToString());
-      }
-      if(json.ContainsKey("rang") && json["rang"].IsString) {
-        config.Add("person-rang", json["rang"].ToString());
-      }
-      if(json.ContainsKey("text") && json["text"].IsString) {
-        config.Add("person-text", json["text"].ToString());
-      }
-      if(json.ContainsKey("typ") && json["typ"].IsArray) {
-        List<String> typs = new List<String>();
-        foreach(JsonData item in json["person"]["typ"]) {
-          if(item.IsString) {
-            typs.Add(item.ToString());
-          }
-        }
-        config.Add("person-typ", String.Join(",", typs));
+      if(json.Typ.Count > 0) {
+        config.Add("person-typ[]", json.Typ);
       }
       return config;
     }
@@ -104,12 +94,11 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model.Svg {
         svg += "</g>\n";
         svg += "</g>\n";
       }
-      if(this.text != null || this.typs != null && this.typs.All(x => this.typlookup.ContainsKey(x))) {
+      if(this.text != null || this.typs.Count > 0 && this.typs.All(x => this.typlookup.ContainsKey(x))) {
         svg += "<g inkscape:groupmode=\"layer\" id=\"person-layer-typ\" inkscape:label=\"Typ\">\n";
-        if(this.text != null && this.typs == null) {
-          svg += $"<text><tspan y=\"42\" x=\"0\" id=\"person-layer-typ-text\">{this.text}</tspan></text>\n";
-        }
-        if(this.text == null && this.typs != null && this.typs.All(x => this.typlookup.ContainsKey(x))) {
+        if(this.text != null) {
+          svg += $"<text><tspan y=\"42\" x=\"0\" id=\"person-layer-typ-text\">{HttpUtility.HtmlEncode(this.text)}</tspan></text>\n";
+        } else if(this.typs.Count > 0 && this.typs.All(x => this.typlookup.ContainsKey(x))) {
           foreach(String typ in this.typs) {
             svg += $"<g id=\"person-layer-typ-{typ}\" inkscape:label=\"{this.typlookup[typ].Name}\">\n";
             foreach(Tuple<Double, Double, Double, Double> item in this.typlookup[typ].Lines) {

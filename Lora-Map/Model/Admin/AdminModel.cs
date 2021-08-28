@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Text;
 
 using BlubbFish.Utils;
 using BlubbFish.Utils.IoT.Bots;
+
+using Fraunhofer.Fit.IoT.LoraMap.Model.JsonObjects;
 
 using LitJson;
 
@@ -52,27 +55,33 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model.Admin {
               }
             }
             Console.WriteLine("200 - Send names.json " + cont.Request.Url.PathAndQuery);
-            return Webserver.SendJsonResponse(ret, cont);
+            return cont.SendStringResponse(JsonMapper.ToJson(ret));
           }
         } else if(cont.Request.HttpMethod == "PUT") {
           if(cont.Request.Url.AbsolutePath.Length > 16) {
             String part = cont.Request.Url.AbsolutePath[16..];
             if(this.datastorage.ContainsKey(part)) {
-              return this.SetJsonFile(cont, "json/" + this.datastorage[part].Item1 + ".json", this.datastorage[part].Item2);
+              return this.SetJsonFile(cont, part);
             }
           }
         }
       }
-      return Webserver.SendFileResponse(cont);
+      return cont.SendFileResponse();
     }
 
-    private Boolean SetJsonFile(HttpListenerContext cont, String filename, String updatenotifier) {
+    private Boolean SetJsonFile(HttpListenerContext cont, String part) {
       StreamReader reader = new StreamReader(cont.Request.InputStream, cont.Request.ContentEncoding);
+      String filename = "json/" + this.datastorage[part].Item1 + ".json";
       String rawData = reader.ReadToEnd();
       cont.Request.InputStream.Close();
       reader.Close();
       try {
-        _ = JsonMapper.ToObject(rawData);
+        JsonData json = JsonMapper.ToObject(rawData);
+        if(part == "name") {
+          if(!NamesModel.CheckJson(json)) {
+            throw new Exception("Check against model failed.");
+          }   
+        }
       } catch (Exception) {
         Helper.WriteError("501 - Error recieving " + filename + ", no valid json " + cont.Request.Url.PathAndQuery);
         cont.Response.StatusCode = 501;
@@ -80,12 +89,12 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model.Admin {
       }
       File.WriteAllText(filename, rawData);
       Console.WriteLine("200 - PUT " + filename + " " + cont.Request.Url.PathAndQuery);
-      this.GetEvent<AdminEvent>(updatenotifier)?.Invoke(this, new EventArgs());
+      this.GetEvent<AdminEvent>(this.datastorage[part].Item2)?.Invoke(this, new EventArgs());
       return true;
     }
 
     private Boolean Login(HttpListenerContext cont) {
-      Dictionary<String, String> POST = Webserver.GetPostParams(cont.Request);
+      Dictionary<String, String> POST = cont.Request.GetPostParams();
       if(POST.ContainsKey("user") && POST["user"] == this.settings["admin_user"] && POST.ContainsKey("pass") && POST["pass"] == this.settings["admin_pass"]) {
         Int64 sessionid;
         while(true) {

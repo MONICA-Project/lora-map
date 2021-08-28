@@ -1,14 +1,17 @@
 ﻿using System;
-using System.Globalization;
+using System.Collections.Generic;
+using System.Linq;
 
+using Fraunhofer.Fit.IoT.LoraMap.Model.JsonObjects;
 using Fraunhofer.Fit.IoT.LoraMap.Model.Svg;
-
-using LitJson;
 
 namespace Fraunhofer.Fit.IoT.LoraMap.Model.Position {
   public class PositionItem {
     private Double _lastLat = 0;
     private Double _lastLon = 0;
+    private readonly SortedDictionary<DateTime, Double[]> _history = new SortedDictionary<DateTime, Double[]>();
+    private String _lastHash = "";
+    private Boolean _isdublicate = false;
 
     public Double Rssi { get; private set; }
     public Double Snr { get; private set; }
@@ -27,19 +30,20 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model.Position {
     public String Icon { get; private set; }
     public String MenuIcon { get; private set; }
     public String Group { get; private set; }
+    public List<Double[]> History => this._history.Values.ToList();
 
-    public PositionItem(JsonData json, JsonData marker) {
-      this.Update(json);
-      this.UpdateMarker(marker, GetId(json));
+    public PositionItem(LoraData data, NamesModel marker) {
+      this.Update(data);
+      this.UpdateMarker(marker, data.Name);
     }
 
-    public void UpdateMarker(JsonData marker, String id) {
-      if(marker != null && marker.ContainsKey(id)) {
-        this.Name = marker[id].ContainsKey("name") && marker[id]["name"].IsString ? (String)marker[id]["name"] : id;
-        Tuple<String, String> icons = this.ParseIconConfig(marker[id]);
+    public void UpdateMarker(NamesModel marker, String id) {
+      if(marker.Items.ContainsKey(id)) {
+        this.Name = marker.Items[id].Name;
+        Tuple<String, String> icons = this.ParseIconConfig(marker.Items[id]);
         this.Icon = icons.Item1;
         this.MenuIcon = icons.Item2;
-        this.Group = marker[id].ContainsKey("Group") && marker[id]["Group"].IsString ? (String)marker[id]["Group"] : "no";
+        this.Group = marker.Items[id].Group;
       } else {
         this.Name = id;
         this.Icon = null;
@@ -47,44 +51,43 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model.Position {
       }
     }
 
-    private Tuple<String, String> ParseIconConfig(JsonData marker) {
+    private Tuple<String, String> ParseIconConfig(NamesModelData marker) {
       String icon = null;
       String menu = null;
-      if(marker.ContainsKey("marker.svg") && marker["marker.svg"].IsObject) {
-        icon = SVGMarker.ParseConfig(marker["marker.svg"], this.Name);
-        if(marker["marker.svg"].ContainsKey("person") && marker["marker.svg"]["person"].IsObject) {
-          menu = SVGPerson.ParseConfig(marker["marker.svg"]["person"]);
+      if(marker.MarkerSvg != null) {
+        icon = SVGMarker.ParseConfig(marker.MarkerSvg, this.Name);
+        if(marker.MarkerSvg.Person != null) {
+          menu = SVGPerson.ParseConfig(marker.MarkerSvg.Person);
         }
-      } else if(marker.ContainsKey("icon") && marker["icon"].IsString) {
-        icon = (String)marker["icon"];
+      } else if(marker.Icon != null) {
+        icon = marker.Icon;
       }
       return new Tuple<String, String>(icon, menu);
     }
 
-    public static Boolean CheckJson(JsonData json) => 
-      json.ContainsKey("BatteryLevel") && (json["BatteryLevel"].IsDouble || json["BatteryLevel"].IsInt)
-      && json.ContainsKey("Gps") && json["Gps"].IsObject
-      && json["Gps"].ContainsKey("Latitude") && (json["Gps"]["Latitude"].IsDouble || json["Gps"]["Latitude"].IsInt)
-      && json["Gps"].ContainsKey("Longitude") && (json["Gps"]["Longitude"].IsDouble || json["Gps"]["Longitude"].IsInt)
-      && json["Gps"].ContainsKey("Fix") && json["Gps"]["Fix"].IsBoolean
-      && json["Gps"].ContainsKey("Height") && (json["Gps"]["Height"].IsDouble || json["Gps"]["Height"].IsInt)
-      && json.ContainsKey("Name") && json["Name"].IsString;
-
-    public static String GetId(JsonData json) => (String)json["Name"];
-
-    public virtual void Update(JsonData json) {
-      this.Rssi = json.ContainsKey("Rssi") && (json["Rssi"].IsDouble || json["Rssi"].IsInt) && Double.TryParse(json["Rssi"].ToString(), out Double rssi) ? rssi : 0;
-      this.Snr = json.ContainsKey("Snr") && (json["Snr"].IsDouble || json["Snr"].IsInt) && Double.TryParse(json["Snr"].ToString(), out Double snr) ? snr : 0;
-      this.Lorarecievedtime = json.ContainsKey("Receivedtime") && json["Receivedtime"].IsString && DateTime.TryParse((String)json["Receivedtime"], DateTimeFormatInfo.InvariantInfo, DateTimeStyles.AssumeUniversal, out DateTime updatetime) ? updatetime.ToUniversalTime() : DateTime.UtcNow;
+    public virtual void Update(LoraData data) {
+      this._isdublicate = false;
+      if(data.Hash == this._lastHash) {
+        if(!data.CorrectInterface) {
+          Console.WriteLine("dublicate-Paket, reomove wrong reciever!");
+          return;
+        }
+        this._isdublicate = true;
+        Console.WriteLine("dublicate-Paket!");
+      }
+      this._lastHash = data.Hash;
+      this.Rssi = data.Rssi;
+      this.Snr = data.Snr;
+      this.Lorarecievedtime = data.Receivedtime;
       this.Recievedtime = DateTime.UtcNow;
-      this.Battery = Math.Round(json["BatteryLevel"].IsInt ? (Int32)json["BatteryLevel"] : (Double)json["BatteryLevel"], 2);
+      this.Battery = Math.Round(data.BatteryLevel, 2);
       this.Batterysimple = this.Battery < 3.44 ? 0 : this.Battery < 3.53 ? 1 : this.Battery < 3.6525 ? 2 : this.Battery < 3.8825 ? 3 : 4;
 
-      this.Latitude = json["Gps"]["Latitude"].IsInt ? (Int32)json["Gps"]["Latitude"] : (Double)json["Gps"]["Latitude"];
-      this.Longitude = json["Gps"]["Longitude"].IsInt ? (Int32)json["Gps"]["Longitude"] : (Double)json["Gps"]["Longitude"];
-      this.Fix = (Boolean)json["Gps"]["Fix"];
-      this.Height = json["Gps"]["Height"].IsInt ? (Int32)json["Gps"]["Height"] : (Double)json["Gps"]["Height"];
-      this.Hdop = json["Gps"].ContainsKey("Hdop") && (json["Gps"]["Hdop"].IsDouble || json["Gps"]["Hdop"].IsInt) && Double.TryParse(json["Gps"]["Hdop"].ToString(), out Double hdop) ? hdop : 0;
+      this.Latitude = data.Gps.Latitude;
+      this.Longitude = data.Gps.Longitude;
+      this.Fix = data.Gps.Fix;
+      this.Height = data.Gps.Height;
+      this.Hdop = data.Gps.Hdop;
 
       if(!this.Fix) {
         this.Latitude = this._lastLat;
@@ -93,10 +96,38 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model.Position {
         this._lastLat = this.Latitude;
         this._lastLon = this.Longitude;
         this.Lastgpspostime = DateTime.UtcNow;
+        if(!this._isdublicate) {
+          this.StoreHistory();
+        }
       }
       this.UTM = new UTMData(this.Latitude, this.Longitude);      
     }
 
-    
+    private void StoreHistory() {
+      if(Settings.Instance.Internal.History.Enabled) {
+        if(Settings.Instance.Internal.History.Amount != 0 && this._history.Count > Settings.Instance.Internal.History.Amount) {
+          _ = this._history.Remove(this._history.Keys.ToList().First());
+        }
+        if(Settings.Instance.Internal.History.Time != 0) {
+          List<DateTime> removeCandidates = new List<DateTime>();
+          DateTime now = DateTime.UtcNow;
+          foreach(KeyValuePair<DateTime, Double[]> item in this._history) {
+            if((now - item.Key).TotalSeconds > Settings.Instance.Internal.History.Time) {
+              removeCandidates.Add(item.Key);
+            }
+          }
+          if(removeCandidates.Count > 0) {
+            foreach(DateTime item in removeCandidates) {
+              _ = this._history.Remove(item);
+            }
+          }
+        }
+        if(!this._history.ContainsKey(this.Recievedtime)) {
+          this._history.Add(this.Recievedtime, new Double[] { this.Latitude, this.Longitude });
+        }
+      } else {
+        this._history.Clear();
+      }
+    }
   }
 }
