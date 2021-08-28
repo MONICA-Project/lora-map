@@ -1,5 +1,21 @@
 # Changelogs
 
+## 1.3.1 - Laufwege Visualisieren
+### New Features
+* Add posibility to make the past of a marker visible
+* Validating the input of Json, against defined models and only parse them if the match
+* Remove dublicated packets and if a correct one gets in replace the metadata of position
+### Bugfixes
+* If the settings are changed while collecting weather, ignore the exception
+* Fixing encoding problems in SVG
+* Fixing overlay with icon editor to be on the correct place at the screen
+* Coreccting the imagesize in the admin menu for SVG
+* Fixing a bug when open the nameseditor directly after start that images are not created
+### Changes
+* Refactoring
+* Change the SVG link to the correct array behavour
+* Used the new methods of AWebserverDataBackend
+
 ## 1.3.0 - New Gateway
 ### New Features
 * Implement Lora-Gateway-Data 1.1.0 Format
