@@ -1,6 +1,6 @@
 # Changelogs
 
-## 1.3.1 - Laufwege Visualisieren
+## 1.3.2 - Laufwege Visualisieren
 ### New Features
 * Add posibility to make the past of a marker visible
 * Validating the input of Json, against defined models and only parse them if the match
@@ -15,6 +15,18 @@
 * Refactoring
 * Change the SVG link to the correct array behavour
 * Used the new methods of AWebserverDataBackend
+* Run Github Actions on every commit, at least compiling the code for checking
+
+## 1.3.1 - Refactory is the king
+### New Features
+* Make a SVG Generator and not modify the SVG on the fly
+* Split the js files on the admin pannel
+* add a swagger file
+### Bugfixes
+### Changes
+* Refactoring
+* Update the Manual a bit
+* Push to netcore 3.1
 
 ## 1.3.0 - New Gateway
 ### New Features

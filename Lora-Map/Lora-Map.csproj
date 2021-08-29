@@ -55,11 +55,11 @@
   
   <ItemGroup>
     <Content Include="../CHANGELOG.md" />
-	<Content Include="../CONTRIBUTING.md" />
-	<Content Include="../LICENSE" />
-	<Content Include="../README.md" />
-	<Content Include="../map-swagger.yml" />
-	<Content Include="../.github/workflows/dotnetcore.yml" />
+    <Content Include="../CONTRIBUTING.md" />
+    <Content Include="../LICENSE" />
+    <Content Include="../README.md" />
+    <Content Include="../map-swagger.yml" />
+    <Content Include="../.github/workflows/dotnetcore.yml" />
     <Content Include="../doc/Manual.md" />
   </ItemGroup>
 
