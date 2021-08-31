@@ -69,6 +69,37 @@
     adminlogin.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     adminlogin.send("user=" + encodeURI(document.getElementById("pannels_admin_name").value) + "&pass=" + encodeURI(document.getElementById("pannels_admin_pass").value));
   },
+  UpdatePannelsInfo: function () {
+    document.getElementById("pannels_info").innerHTML = "";
+    if (Object.prototype.hasOwnProperty.call(MarkerObject.LocationData, this.statusToDevice)) {
+      var positionItem = MarkerObject.LocationData[this.statusToDevice];
+      var html = "<div class=\"name\">Name: <span class=\"bold\">" + positionItem["Name"] + "</span></div>";
+      html += "<div class=\"batt\"><span class=\"bold\">Batterie:</span> " + positionItem["Battery"] + "V <img src=\"icons/akku/" + positionItem["Batterysimple"] + "-4.png\"></div>";
+      if (positionItem["Fix"]) {
+        html += "<div class=\"gps\" style=\"color: green;\">GPS-Empfang</div>";
+      } else {
+        html += "<div class=\"gps\" style=\"color: red;\">kein GPS-Empfang</div>";
+      }
+      html += "<div class=\"coord\">" + positionItem["UTM"]["Base"] + " <span style=\"color: #b1a831;\">" + positionItem["UTM"]["FieldWidth"] + "</span><span style=\"color: #218c00;\">" + positionItem["UTM"]["Width"] + "</span> <span style=\"color: #b1a831;\">" + positionItem["UTM"]["FieldHeight"] + "</span><span style=\"color: #218c00;\">" + positionItem["UTM"]["Height"] + "</span></div>";
+      html += "<div class=\"height\"><span class=\"bold\">Höhe:</span> " + positionItem["Height"].toFixed(1) + " m</div>";
+      html += "<div class=\"hdop\"><span class=\"bold\">HDOP:</span>  " + positionItem["Hdop"].toFixed(1) + "</div>";
+      html += "<div class=\"lanlot\"><span class=\"bold\">Dezimal:</span> " + positionItem["Latitude"].toFixed(5) + ", " + positionItem["Longitude"].toFixed(5) + "</div>";
+      html += "<div class=\"lastgps\"><span class=\"bold\">Letzter Wert:</span> Vor: " + FunctionsObject.TimeCalculation(positionItem["Lastgpspostime"], "difftext") + "</div>";
+      html += "<div class=\"update\"><span class=\"bold\">Update:</span> " + FunctionsObject.TimeCalculation(positionItem["Recievedtime"], "str") + "<br><span class=\"bold\">Vor:</span> " + FunctionsObject.TimeCalculation(positionItem["Recievedtime"], "difftext") + "</div>";
+      html += "<div><span class=\"bold\">RSSI:</span> " + positionItem["Rssi"] + ", <span class=\"bold\">SNR:</span> " + positionItem["Snr"] + "</div>";
+      if (Object.prototype.hasOwnProperty.call(MarkerObject.PanicData, this.statusToDevice)) {
+        var panicData = MarkerObject.PanicData[this.statusToDevice];
+        if (panicData["ButtonPressed"].length > 0) {
+          html += "<div class='alerts'><span class=\"bold\">Alerts:</span>";
+          for (var i = 0; i < panicData["ButtonPressed"].length; i++) {
+            html += "<span class='panicitem'>" + FunctionsObject.TimeCalculation(panicData["ButtonPressed"][i], "str") + " (vor " + FunctionsObject.TimeCalculation(panicData["ButtonPressed"][i], "difftext") + ")</span>";
+          }
+          html += "</div>";
+        }
+      }
+      document.getElementById("pannels_info").innerHTML = html;
+    }
+  },
   UpdateStatus: function () {
     for (var id in MarkerObject.LocationData) {
       if (Object.prototype.hasOwnProperty.call(MarkerObject.LocationData, id)) {
@@ -88,7 +119,7 @@
         }
         this._UpdateOverviewElement(positionItem, id);
       }
-    } 
+    }
   },
   /// private functions
   _UpdateOverviewElement: function (positionItem, id) {
@@ -159,37 +190,6 @@
       document.getElementById("pannels_admin").innerHTML = "<a href='/admin/' target='_blank'>Adminpannel</a>";
     }
   },
-  _Update_pannels_info: function () {
-    document.getElementById("pannels_info").innerHTML = "";
-    if (Object.prototype.hasOwnProperty.call(MarkerObject.LocationData, this.statusToDevice)) {
-      var positionItem = MarkerObject.LocationData[this.statusToDevice];
-      var html = "<div class=\"name\">Name: <span class=\"bold\">" + positionItem["Name"] + "</span></div>";
-      html += "<div class=\"batt\"><span class=\"bold\">Batterie:</span> " + positionItem["Battery"] + "V <img src=\"icons/akku/" + positionItem["Batterysimple"] + "-4.png\"></div>";
-      if (positionItem["Fix"]) {
-        html += "<div class=\"gps\" style=\"color: green;\">GPS-Empfang</div>";
-      } else {
-        html += "<div class=\"gps\" style=\"color: red;\">kein GPS-Empfang</div>";
-      }
-      html += "<div class=\"coord\">" + positionItem["UTM"]["Base"] + " <span style=\"color: #b1a831;\">" + positionItem["UTM"]["FieldWidth"] + "</span><span style=\"color: #218c00;\">" + positionItem["UTM"]["Width"] + "</span> <span style=\"color: #b1a831;\">" + positionItem["UTM"]["FieldHeight"] + "</span><span style=\"color: #218c00;\">" + positionItem["UTM"]["Height"] + "</span></div>";
-      html += "<div class=\"height\"><span class=\"bold\">Höhe:</span> " + positionItem["Height"].toFixed(1) + " m</div>";
-      html += "<div class=\"hdop\"><span class=\"bold\">HDOP:</span>  " + positionItem["Hdop"].toFixed(1) + "</div>";
-      html += "<div class=\"lanlot\"><span class=\"bold\">Dezimal:</span> " + positionItem["Latitude"].toFixed(5) + ", " + positionItem["Longitude"].toFixed(5) + "</div>";
-      html += "<div class=\"lastgps\"><span class=\"bold\">Letzter Wert:</span> Vor: " + FunctionsObject.TimeCalculation(positionItem["Lastgpspostime"], "difftext") + "</div>";
-      html += "<div class=\"update\"><span class=\"bold\">Update:</span> " + FunctionsObject.TimeCalculation(positionItem["Recievedtime"], "str") + "<br><span class=\"bold\">Vor:</span> " + FunctionsObject.TimeCalculation(positionItem["Recievedtime"], "difftext") + "</div>";
-      html += "<div><span class=\"bold\">RSSI:</span> " + positionItem["Rssi"] + ", <span class=\"bold\">SNR:</span> " + positionItem["Snr"] + "</div>";
-      if (Object.prototype.hasOwnProperty.call(MarkerObject.PanicData, this.statusToDevice)) {
-        var panicData = MarkerObject.PanicData[this.statusToDevice];
-        if (panicData["ButtonPressed"].length > 0) {
-          html += "<div class='alerts'><span class=\"bold\">Alerts:</span>";
-          for (var i = 0; i < panicData["ButtonPressed"].length; i++) {
-            html += "<span class='panicitem'>" + FunctionsObject.TimeCalculation(panicData["ButtonPressed"][i], "str") + " (vor " + FunctionsObject.TimeCalculation(panicData["ButtonPressed"][i], "difftext") + ")</span>";
-          }
-          html += "</div>";
-        }
-      }
-      document.getElementById("pannels_info").innerHTML = html;
-    }
-  },
   _Update_pannels_admin: function () {
     var testadmin = new XMLHttpRequest();
     testadmin.onreadystatechange = function () {
@@ -207,7 +207,7 @@
       var html = "";
       for (var i = 0; i < json.length; i++) {
         var walert = json[i];
-        html += "<div class='alertitem " + walert.Level +" "+ walert.Type + "'>" +
+        html += "<div class='alertitem " + walert.Level + " " + walert.Type + "'>" +
           "<span class='head'>" + walert.Headline + "</span>" +
           "<span class='ort'>" + walert.Location + "</span>" +
           "<span class='text'>" + walert.Body + (walert.Instructions !== "" ? "<br><br>" + walert.Instructions : "") + "</span>" +
