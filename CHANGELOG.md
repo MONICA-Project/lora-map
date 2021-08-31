@@ -5,6 +5,7 @@
 * Add posibility to make the past of a marker visible
 * Validating the input of Json, against defined models and only parse them if the match
 * Remove dublicated packets and if a correct one gets in replace the metadata of position
+* Notify other Objects when Settings are changed.
 ### Bugfixes
 * If the settings are changed while collecting weather, ignore the exception
 * Fixing encoding problems in SVG
@@ -16,6 +17,7 @@
 * Change the SVG link to the correct array behavour
 * Used the new methods of AWebserverDataBackend
 * Run Github Actions on every commit, at least compiling the code for checking
+* Update leaflet to 1.7.1
 
 ## 1.3.1 - Refactory is the king
 ### New Features

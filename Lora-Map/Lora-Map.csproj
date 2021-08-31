@@ -196,6 +196,9 @@
     <None Update="resources\js\leaflet\leaflet.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="resources\js\leaflet\leaflet.js.map">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="resources\js\map.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
