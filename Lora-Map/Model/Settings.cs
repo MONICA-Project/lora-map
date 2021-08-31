@@ -8,8 +8,11 @@ using System.IO;
 
 namespace Fraunhofer.Fit.IoT.LoraMap.Model {
   public class Settings : OwnSingeton<Settings> {
-    
     private Int32 gridradius;
+
+    public delegate void SettingsEvent(Object sender, EventArgs e);
+    public event SettingsEvent SettingsUpdate;
+
 
     public PublicSettings External {
       get; set;
@@ -139,6 +142,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model {
       this.gridradius = json.ContainsKey("GridRadius") && json["GridRadius"].IsInt && this.External.Startloclat != 0 && this.External.Startloclon != 0 ? (Int32)json["GridRadius"] : 0;
       this.GenerateGrid();
       this.FindMapLayer();
+      this.SettingsUpdate?.Invoke(this, new EventArgs());
     }
 
     private void ParseGeoJson() {

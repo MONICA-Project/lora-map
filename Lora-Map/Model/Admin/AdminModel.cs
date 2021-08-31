@@ -14,7 +14,9 @@ using LitJson;
 namespace Fraunhofer.Fit.IoT.LoraMap.Model.Admin {
   class AdminModel {
     public delegate void AdminEvent(Object sender, EventArgs e);
-    #pragma warning disable 0067
+
+    //Supress never used warning (cause of reflection)
+    #pragma warning disable 0067 
     public event AdminEvent NamesUpdate;
     public event AdminEvent GeoUpdate;
     public event AdminEvent SettingsUpdate;

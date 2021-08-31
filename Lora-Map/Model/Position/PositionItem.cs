@@ -12,6 +12,8 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model.Position {
     private readonly SortedDictionary<DateTime, Double[]> _history = new SortedDictionary<DateTime, Double[]>();
     private String _lastHash = "";
     private Boolean _isdublicate = false;
+    private Double _historycounter = 0;
+    private readonly Object lockHistory = new Object();
 
     public Double Rssi { get; private set; }
     public Double Snr { get; private set; }
@@ -35,6 +37,7 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model.Position {
     public PositionItem(LoraData data, NamesModel marker) {
       this.Update(data);
       this.UpdateMarker(marker, data.Name);
+      Settings.Instance.SettingsUpdate += this.UpdateSettings;
     }
 
     public void UpdateMarker(NamesModel marker, String id) {
@@ -104,28 +107,36 @@ namespace Fraunhofer.Fit.IoT.LoraMap.Model.Position {
     }
 
     private void StoreHistory() {
-      if(Settings.Instance.Internal.History.Enabled) {
-        if(Settings.Instance.Internal.History.Amount != 0 && this._history.Count > Settings.Instance.Internal.History.Amount) {
-          _ = this._history.Remove(this._history.Keys.ToList().First());
-        }
-        if(Settings.Instance.Internal.History.Time != 0) {
-          List<DateTime> removeCandidates = new List<DateTime>();
-          DateTime now = DateTime.UtcNow;
-          foreach(KeyValuePair<DateTime, Double[]> item in this._history) {
-            if((now - item.Key).TotalSeconds > Settings.Instance.Internal.History.Time) {
-              removeCandidates.Add(item.Key);
+      lock(this.lockHistory) {
+        if(Settings.Instance.Internal.History.Enabled) {
+          if(Settings.Instance.Internal.History.Amount != 0 && this._history.Count > Settings.Instance.Internal.History.Amount) {
+            _ = this._history.Remove(this._history.Keys.ToList().First());
+          }
+          if(Settings.Instance.Internal.History.Time != 0) {
+            List<DateTime> removeCandidates = new List<DateTime>();
+            DateTime now = DateTime.UtcNow;
+            foreach(KeyValuePair<DateTime, Double[]> item in this._history) {
+              if((now - item.Key).TotalSeconds > Settings.Instance.Internal.History.Time) {
+                removeCandidates.Add(item.Key);
+              }
+            }
+            if(removeCandidates.Count > 0) {
+              foreach(DateTime item in removeCandidates) {
+                _ = this._history.Remove(item);
+              }
             }
           }
-          if(removeCandidates.Count > 0) {
-            foreach(DateTime item in removeCandidates) {
-              _ = this._history.Remove(item);
-            }
+          if(!this._history.ContainsKey(this.Recievedtime)) {
+            this._history.Add(this.Recievedtime, new Double[] { this.Latitude, this.Longitude, this._historycounter++ });
           }
+        } else {
+          this._history.Clear();
         }
-        if(!this._history.ContainsKey(this.Recievedtime)) {
-          this._history.Add(this.Recievedtime, new Double[] { this.Latitude, this.Longitude });
-        }
-      } else {
+      }
+    }
+
+    private void UpdateSettings(Object sender, EventArgs e) {
+      lock(this.lockHistory) {
         this._history.Clear();
       }
     }
